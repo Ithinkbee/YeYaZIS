@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% set active = 'admin' %}
+{% block title %}Управление индексом — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Индекс и ресурсы локальной сети</h1>
+
+{% if message %}<div class="notice">{{ message }}</div>{% endif %}
+
+<div id="task-panel" class="task-panel" {% if not task.active %}hidden{% endif %}>
+  <div class="task-title">Выполняется: <span id="task-kind">{{ task.kind }}</span></div>
+  <div class="progress"><div class="progress-bar" id="task-bar" style="width: 0%"></div></div>
+  <div class="muted small" id="task-message">{{ task.message }}</div>
+</div>
+
+<section class="grid-2">
+  <div class="card">
+    <h2>Ресурсы под наблюдением</h2>
+    {% if sources %}
+    <table class="grid">
+      <thead><tr><th>Узел</th><th>Путь</th><th>Тип</th><th>Последний обход</th><th></th></tr></thead>
+      <tbody>
+      {% for source in sources %}
+        <tr>
+          <td><span class="tag">{{ source.label }}</span></td>
+          <td><code>{{ source.root_path }}</code></td>
+          <td class="muted">{{ 'сетевой ресурс' if source.kind == 'unc' else 'каталог' }}</td>
+          <td class="muted">{{ source.last_crawl or '—' }}</td>
+          <td>
+            <form action="/admin/sources/{{ source.id }}/remove" method="post" class="inline">
+              <button type="submit" class="ghost small">Убрать</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="muted">Ресурсы не добавлены.</p>
+    {% endif %}
+
+    <form action="/admin/sources/add" method="post" class="row-form">
+      <input type="text" name="root_path" placeholder="C:\Документы или \\сервер\общая-папка" required>
+      <input type="text" name="label" placeholder="имя узла (необязательно)">
+      <button type="submit">Добавить ресурс</button>
+    </form>
+
+    <form action="/admin/sources/demo" method="post" class="inline">
+      <button type="submit" class="ghost">Добавить тестовые узлы ЛВС</button>
+      <span class="muted small">из {{ collection_dir }}</span>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Действия</h2>
+    <form action="/admin/crawl" method="post" class="inline">
+      <button type="submit">Запустить обход и индексацию</button>
+    </form>
+    <form action="/admin/reindex" method="post" class="inline">
+      <button type="submit" class="ghost">Перестроить индекс</button>
+    </form>
+    <form action="/admin/clear" method="post" class="inline"
+          onsubmit="return confirm('Удалить все документы и индекс?')">
+      <button type="submit" class="ghost danger">Очистить базу</button>
+    </form>
+
+    <h3>Статистика базы</h3>
+    <table class="kv">
+      <tr><td>Документов</td><td><b>{{ stats.documents }}</b></td></tr>
+      <tr><td>Проиндексировано</td><td><b>{{ stats.indexed }}</b></td></tr>
+      <tr><td>Терминов (словарь)</td><td><b>{{ stats.terms }}</b></td></tr>
+      <tr><td>Весов A<sub>ij</sub></td><td><b>{{ stats.postings }}</b></td></tr>
+      <tr><td>Словоформ</td><td><b>{{ stats.forms }}</b></td></tr>
+      <tr><td>Среднее число слов в документе</td><td><b>{{ stats.avg_terms }}</b></td></tr>
+      <tr><td>Суммарный объём</td><td><b>{{ (stats.total_size / 1024) | round(1) }} КиБ</b></td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="grid-2">
+  <div class="card">
+    <h2>Документы по узлам</h2>
+    <table class="grid">
+      <thead><tr><th>Узел ЛВС</th><th>Документов</th><th>Объём, КиБ</th></tr></thead>
+      <tbody>
+      {% for row in hosts %}
+        <tr><td>{{ row.host }}</td><td>{{ row.documents }}</td>
+            <td>{{ (row.size / 1024) | round(1) }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>Форматы файлов</h3>
+    <ul class="chips">
+      {% for row in formats %}<li>{{ row.ext }} — {{ row.documents }}</li>{% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Частотный словарь</h2>
+    <p class="muted small">Наиболее употребительные термины индекса (по суммарной частоте).</p>
+    <table class="grid">
+      <thead><tr><th>Термин</th><th>P<sub>i</sub> (документов)</th><th>Σ Q<sub>ij</sub></th></tr></thead>
+      <tbody>
+      {% for row in top_terms %}
+        <tr><td>{{ row.lemma }}</td><td>{{ row.df }}</td><td>{{ row.tf_total }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Журнал обходов</h2>
+  {% if crawl_log %}
+  <table class="grid">
+    <thead><tr><th>Начало</th><th>Окончание</th><th>Добавлено</th><th>Обновлено</th>
+               <th>Пропущено</th><th>Удалено</th><th>Ошибок</th></tr></thead>
+    <tbody>
+    {% for row in crawl_log %}
+      <tr>
+        <td>{{ row.started_at }}</td><td>{{ row.finished_at or '—' }}</td>
+        <td>{{ row.added }}</td><td>{{ row.updated }}</td><td>{{ row.skipped }}</td>
+        <td>{{ row.removed }}</td>
+        <td>{% if row.errors %}<span class="warn">{{ row.errors }}</span>{% else %}0{% endif %}</td>
+      </tr>
+      {% if row.details %}
+      <tr><td colspan="7"><details><summary class="muted small">подробности</summary>
+        <pre class="log">{{ row.details }}</pre></details></td></tr>
+      {% endif %}
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">Обходы ещё не выполнялись.</p>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>window.ARACHNE_WATCH_TASK = true;</script>
+{% endblock %}

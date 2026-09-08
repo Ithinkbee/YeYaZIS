@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}ИПС «{{ app_name }}»{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕷️</text></svg>">
+</head>
+<body{% if companion_enabled %} class="has-companion"{% endif %}>
+<header class="top">
+  <a class="brand" href="/">
+    <span class="brand-mark">🕸️</span>
+    <span>
+      <b>Арахна</b>
+      <small>информационно-поисковая система по документам ЛВС</small>
+    </span>
+  </a>
+  <nav>
+    <a href="/" {% if active == 'search' %}class="active"{% endif %}>Поиск</a>
+    <a href="/admin" {% if active == 'admin' %}class="active"{% endif %}>Индекс</a>
+    <a href="/metrics" {% if active == 'metrics' %}class="active"{% endif %}>Оценка качества</a>
+    <a href="/qrels" {% if active == 'qrels' %}class="active"{% endif %}>Разметка</a>
+    <a href="/achievements" {% if active == 'achievements' %}class="active"{% endif %}>Достижения</a>
+    <a href="/help" {% if active == 'help' %}class="active"{% endif %}>Справка</a>
+  </nav>
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <span>ИПС «{{ app_name }}» {{ version }} · векторная модель поиска · вариант 3</span>
+  <span>
+    языковой помощник:
+    {% if llm.enabled %}<b class="ok">{{ llm.provider }}, {{ llm.model }}</b>
+    {% else %}<span class="muted">выключен</span>{% endif %}
+  </span>
+</footer>
+
+{% if companion_enabled %}
+<div id="companion" class="companion" title="Нажмите, чтобы поговорить с пауком">
+  <div class="companion-bubble" id="companion-bubble">{{ companion_line or 'Плету паутину…' }}</div>
+  <svg class="companion-spider" viewBox="0 0 60 80" aria-hidden="true">
+    <line x1="30" y1="0" x2="30" y2="30" stroke="currentColor" stroke-width="1"/>
+    <g class="spider-body">
+      <path d="M14 40 L2 30 M14 46 L1 44 M14 52 L3 60 M14 57 L8 70" stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M46 40 L58 30 M46 46 L59 44 M46 52 L57 60 M46 57 L52 70" stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+      <ellipse cx="30" cy="52" rx="15" ry="17" fill="currentColor"/>
+      <circle cx="30" cy="36" r="10" fill="currentColor"/>
+      <circle class="eye" cx="26" cy="34" r="2.6" fill="#fff"/>
+      <circle class="eye" cx="34" cy="34" r="2.6" fill="#fff"/>
+      <circle cx="26.6" cy="34.6" r="1.2" fill="#111"/>
+      <circle cx="34.6" cy="34.6" r="1.2" fill="#111"/>
+    </g>
+  </svg>
+</div>
+{% endif %}
+
+{% if new_achievements %}
+<div class="toast-stack">
+  {% for achievement in new_achievements %}
+  <div class="toast">
+    <span class="toast-icon">{{ achievement.icon }}</span>
+    <span><b>Достижение: {{ achievement.title }}</b><br><small>{{ achievement.description }}</small></span>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<script src="/static/app.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

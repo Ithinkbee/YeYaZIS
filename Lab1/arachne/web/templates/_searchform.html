@@ -1,0 +1,29 @@
+<form class="searchbox" action="/search" method="get" autocomplete="off">
+  <div class="searchbox-main">
+    <input type="search" name="q" id="q" value="{{ query | default('') }}"
+           placeholder="например: настройка локальной сети" required
+           aria-label="Поисковый запрос">
+    <button type="submit">Искать</button>
+    <ul id="suggestions" class="suggestions" hidden></ul>
+  </div>
+
+  <details class="filters" {% if date_from or date_to or all_words %}open{% endif %}>
+    <summary>Параметры поиска</summary>
+    <div class="filters-body">
+      <label class="check">
+        <input type="checkbox" name="all_words" value="true" {% if all_words %}checked{% endif %}>
+        все слова запроса обязательны
+      </label>
+      <label class="check">
+        <input type="checkbox" name="synonyms" value="true" {% if synonyms | default(true) %}checked{% endif %}>
+        расширять запрос синонимами
+      </label>
+      <label class="check">
+        <input type="checkbox" name="use_feedback" value="true" {% if use_feedback | default(true) %}checked{% endif %}>
+        учитывать мои отметки релевантности
+      </label>
+      <label>с даты <input type="date" name="date_from" value="{{ date_from | default('') }}"></label>
+      <label>по дату <input type="date" name="date_to" value="{{ date_to | default('') }}"></label>
+    </div>
+  </details>
+</form>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% set active = 'achievements' %}
+{% block title %}Достижения — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Достижения</h1>
+<p class="lead">
+  Необязательная часть интерфейса: {{ companion_name }} отмечает, как далеко
+  зашло освоение системы. На работу поиска не влияет и отключается флагом
+  <code>ARACHNE_COMPANION=0</code>.
+</p>
+
+<section class="achievements">
+  {% for item in achievements %}
+  <div class="achievement {% if not item.opened %}locked{% endif %}">
+    <span class="achievement-icon">{{ item.icon }}</span>
+    <div>
+      <b>{{ item.title }}</b>
+      <div class="muted small">{{ item.description }}</div>
+      {% if item.opened %}
+      <div class="ok small">получено {{ item.at }}</div>
+      {% else %}
+      <div class="muted small">ещё не получено</div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+<section class="card">
+  <h2>Текущие показатели</h2>
+  <table class="kv">
+    <tr><td>Документов в индексе</td><td><b>{{ stats.indexed }}</b></td></tr>
+    <tr><td>Задано запросов</td><td><b>{{ stats.queries }}</b></td></tr>
+    <tr><td>Терминов в словаре</td><td><b>{{ stats.terms }}</b></td></tr>
+  </table>
+</section>
+{% endblock %}

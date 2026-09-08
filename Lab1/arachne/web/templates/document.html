@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% set active = 'search' %}
+{% block title %}{{ doc.title }} — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<article class="card document">
+  <h1>{{ doc.title }}</h1>
+  <div class="result-meta">
+    <span class="tag">{{ doc.host }}</span>
+    <span class="muted">добавлен {{ doc.date_added }} в {{ doc.time_added }}</span>
+    <span class="muted">{{ doc.ext }} · {{ (doc.size_bytes / 1024) | round(1) }} КиБ ·
+      {{ doc.term_count }} значимых слов</span>
+  </div>
+
+  <p class="doc-actions">
+    {% if exists %}
+    <a class="button" href="/raw/{{ doc.id }}" target="_blank">Открыть исходный файл</a>
+    {% else %}
+    <span class="warn">Файл недоступен в локальной сети (возможно, перемещён)</span>
+    {% endif %}
+    <code class="path">{{ doc.path }}</code>
+  </p>
+
+  <form action="/doc/{{ doc.id }}/delete" method="post" class="inline"
+        onsubmit="return confirm('Удалить документ из базы? Индекс будет перестроен.');">
+    <button type="submit" class="ghost small danger">Удалить из базы</button>
+    <span class="muted small">документ исчезнет из выдачи до следующего обхода сети</span>
+  </form>
+
+  {% if query %}
+  <p class="muted">Подсвечены слова запроса «{{ query }}».
+    <a href="/search?q={{ query | urlencode }}">Вернуться к выдаче</a></p>
+  {% endif %}
+
+  <div class="doc-text">{{ text_html | safe }}</div>
+</article>
+
+<section class="grid-2">
+  <div class="card">
+    <h2>Поисковый образ документа</h2>
+    <p class="muted small">
+      Ключевые слова выделены автоматически: вес термина A<sub>ij</sub> = Q<sub>ij</sub> · B<sub>i</sub>,
+      где Q<sub>ij</sub> — частота термина в документе, B<sub>i</sub> = log(N / P<sub>i</sub>).
+    </p>
+    <table class="kv">
+      {% for term, weight in keywords %}
+      <tr>
+        <td>{{ term }}</td>
+        <td><span class="bar" style="width: {{ (weight / keywords[0][1] * 100) | round(1) }}%"></span>
+          {{ '%.3f' | format(weight) }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="card" id="similar">
+    <h2>Похожие документы</h2>
+    <p class="muted small">Косинусная близость между векторами документов.</p>
+    {% if similar %}
+    <ul class="plain">
+      {% for item in similar %}
+      <li>
+        <a href="/doc/{{ item.id }}">{{ item.title }}</a>
+        <span class="muted">· {{ item.host }} · {{ '%.3f' | format(item.score) }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">Похожих документов не найдено.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

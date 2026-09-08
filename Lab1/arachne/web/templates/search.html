@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% set active = 'search' %}
+
+{% block content %}
+<section class="hero">
+  <h1>Поиск по документам локальной сети</h1>
+  <p class="lead">
+    Введите запрос обычным языком — система приведёт слова к нормальной форме,
+    построит поисковый образ запроса и упорядочит документы по косинусной мере близости.
+  </p>
+
+  {% include "_searchform.html" %}
+
+  {% if stats.indexed == 0 %}
+  <div class="notice">
+    <b>Индекс пуст.</b> Откройте раздел <a href="/admin">Индекс</a>, добавьте ресурс
+    локальной сети (каталог или путь вида <code>\\сервер\общая-папка</code>) и запустите обход.
+    {% if collection_ready %}
+    Для быстрой демонстрации есть готовая тестовая коллекция — кнопка
+    «Добавить тестовые узлы ЛВС» на той же странице.
+    {% endif %}
+  </div>
+  {% endif %}
+</section>
+
+<section class="grid-2">
+  <div class="card">
+    <h2>Состояние системы</h2>
+    <table class="kv">
+      <tr><td>Документов в базе</td><td><b>{{ stats.documents }}</b></td></tr>
+      <tr><td>Проиндексировано</td><td><b>{{ stats.indexed }}</b></td></tr>
+      <tr><td>Терминов в словаре</td><td><b>{{ stats.terms }}</b></td></tr>
+      <tr><td>Весов в индексе</td><td><b>{{ stats.postings }}</b></td></tr>
+      <tr><td>Узлов ЛВС</td><td><b>{{ stats.hosts }}</b></td></tr>
+      <tr><td>Запросов задано</td><td><b>{{ stats.queries }}</b></td></tr>
+    </table>
+    {% if sources %}
+    <h3>Ресурсы под наблюдением</h3>
+    <ul class="plain">
+      {% for source in sources %}
+      <li><span class="tag">{{ source.label or source.kind }}</span> <code>{{ source.root_path }}</code></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>Запросы</h2>
+    {% if popular %}
+    <h3>Частые</h3>
+    <ul class="chips">
+      {% for row in popular %}
+      <li><a href="/search?q={{ row.raw_query | urlencode }}">{{ row.raw_query }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if recent %}
+    <h3>Последние</h3>
+    <ul class="plain small">
+      {% for row in recent %}
+      <li>
+        <a href="/search?q={{ row.raw_query | urlencode }}">{{ row.raw_query }}</a>
+        <span class="muted">— {{ row.results_count }} док., {{ row.ts }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if not popular and not recent %}
+    <p class="muted">Запросов пока не было. Попробуйте, например,
+      <a href="/search?q=настройка+локальной+сети">настройка локальной сети</a>.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

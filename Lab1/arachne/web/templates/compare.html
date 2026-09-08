@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% set active = 'metrics' %}
+{% block title %}Сравнение конфигураций — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Сравнение конфигураций системы</h1>
+<p class="lead">
+  Один и тот же эталонный набор запросов прогоняется при разных настройках
+  обработки запроса и построения индекса. Это показывает, что именно даёт
+  морфологический анализ, расширение синонимами и строгий режим поиска.
+</p>
+<p><a class="button ghost" href="/metrics?top_k={{ top_k }}">← к метрикам</a></p>
+
+<section class="card">
+  <table class="grid">
+    <thead>
+      <tr><th>Конфигурация</th><th>MAP</th><th>P@5</th><th>P@10</th><th>R-точность</th>
+          <th>Полнота</th><th>F1</th><th>nDCG</th><th>bpref</th></tr>
+    </thead>
+    <tbody>
+      {% for item in comparison %}
+      <tr>
+        <td><b>{{ item.name }}</b><br><span class="muted small">{{ item.description }}</span></td>
+        <td>{{ '%.3f' | format(item.summary.map) }}</td>
+        <td>{{ '%.3f' | format(item.summary['p@5']) }}</td>
+        <td>{{ '%.3f' | format(item.summary['p@10']) }}</td>
+        <td>{{ '%.3f' | format(item.summary.r_precision) }}</td>
+        <td>{{ '%.3f' | format(item.summary.recall) }}</td>
+        <td>{{ '%.3f' | format(item.summary.f1) }}</td>
+        <td>{{ '%.3f' | format(item.summary.ndcg) }}</td>
+        <td>{{ '%.3f' | format(item.summary.bpref) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>Кривые «точность — полнота»</h2>
+  <svg class="chart chart-wide" viewBox="0 0 640 320" role="img"
+       aria-label="Сравнение кривых точность-полнота">
+    <line x1="60" y1="270" x2="620" y2="270" class="axis"/>
+    <line x1="60" y1="30" x2="60" y2="270" class="axis"/>
+    {% for tick in [0, 0.25, 0.5, 0.75, 1.0] %}
+    <line x1="60" y1="{{ 270 - tick * 230 }}" x2="620" y2="{{ 270 - tick * 230 }}" class="grid-line"/>
+    <text x="52" y="{{ 274 - tick * 230 }}" class="tick" text-anchor="end">{{ tick }}</text>
+    <text x="{{ 60 + tick * 560 }}" y="288" class="tick" text-anchor="middle">{{ tick }}</text>
+    {% endfor %}
+    {% for item in comparison %}
+    <polyline class="series series-{{ loop.index }}" points="
+      {%- for level, value in item.summary.curve -%}
+      {{ 60 + level * 560 }},{{ 270 - value * 230 }}{{ ' ' }}
+      {%- endfor -%}"/>
+    {% endfor %}
+    <text x="340" y="305" class="axis-label" text-anchor="middle">полнота</text>
+  </svg>
+  <ul class="legend">
+    {% for item in comparison %}
+    <li><span class="swatch swatch-{{ loop.index }}"></span>{{ item.name }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

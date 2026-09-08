@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% set active = 'search' %}
+{% set params = '&all_words=' ~ ('true' if all_words else 'false')
+                ~ '&synonyms=' ~ ('true' if synonyms else 'false')
+                ~ '&use_feedback=' ~ ('true' if use_feedback else 'false')
+                ~ '&date_from=' ~ date_from ~ '&date_to=' ~ date_to %}
+
+{% block title %}{{ query }} — поиск в ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+{% include "_searchform.html" %}
+
+<div class="results-head">
+  <div>
+    Найдено документов: <b>{{ total }}</b>
+    <span class="muted">· {{ took_ms }} мс · страница {{ page }} из {{ pages }}</span>
+    {% if rocchio_applied %}
+    <span class="tag tag-accent">выдача уточнена по вашим отметкам (Рокчио)</span>
+    {% endif %}
+  </div>
+  <div class="results-actions">
+    {% if llm.enabled %}
+    <button type="button" class="ghost" id="llm-answer-btn" data-query="{{ query }}">
+      Краткий ответ по найденному
+    </button>
+    <button type="button" class="ghost" id="llm-rephrase-btn" data-query="{{ query }}">
+      Другие формулировки
+    </button>
+    {% endif %}
+    {% if marks %}
+    <form action="/feedback/clear" method="post" class="inline">
+      <input type="hidden" name="q" value="{{ query }}">
+      <button type="submit" class="ghost">Сбросить отметки</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+
+<div id="llm-panel" class="llm-panel" hidden></div>
+
+{% if analysis.corrections %}
+<div class="notice notice-warn">
+  Возможно, вы имели в виду:
+  <a href="/search?q={{ corrected_query | urlencode }}{{ params }}"><b>{{ corrected_query }}</b></a>
+  <span class="muted">
+    (исправлено: {% for wrong, right in analysis.corrections.items() %}{{ wrong }} → {{ right }}{% if not loop.last %}, {% endif %}{% endfor %})
+  </span>
+</div>
+{% endif %}
+
+<details class="card understanding" {% if not results %}open{% endif %}>
+  <summary>Как система поняла запрос</summary>
+  <div class="understanding-body">
+    <table class="morph">
+      <thead>
+        <tr><th>Слово запроса</th><th>Нормальная форма</th><th>Часть речи</th><th>В словаре системы</th></tr>
+      </thead>
+      <tbody>
+        {% for item in analysis.morphology %}
+        <tr>
+          <td>{{ item.word }}</td>
+          <td><b>{{ item.lemma }}</b></td>
+          <td class="muted">{{ item.pos }}</td>
+          <td>{% if item.in_index %}<span class="ok">есть</span>{% else %}<span class="warn">нет</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% if analysis.stopwords %}
+    <p class="muted">Отброшены стоп-слова: {{ analysis.stopwords | join(', ') }}</p>
+    {% endif %}
+    {% if expansions %}
+    <p>
+      Поисковый образ запроса расширен (вес 0,5):
+      {% for source, extras in expansions.items() %}
+      <span class="tag">{{ source }} → {{ extras | join(', ') }}</span>
+      {% endfor %}
+    </p>
+    {% endif %}
+    <p class="muted small">
+      Вектор запроса построен по леммам: w<sub>qj</sub> = 1 для слов запроса,
+      0,5 для добавленных системой. Ранг документа — косинус угла между вектором
+      документа и вектором запроса.
+    </p>
+  </div>
+</details>
+
+{% if not results %}
+<div class="empty">
+  <h2>По запросу «{{ query }}» ничего не найдено</h2>
+  {% if empty_hints %}
+  <p>Что можно сделать:</p>
+  <ul>
+    {% for hint in empty_hints %}<li>{{ hint }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  {% if llm.enabled %}
+  <p><button type="button" class="ghost" id="llm-rephrase-empty" data-query="{{ query }}">
+    Предложить другие формулировки</button></p>
+  {% endif %}
+</div>
+{% endif %}
+
+<ol class="results" start="{{ (page - 1) * per_page + 1 }}">
+  {% for result in results %}
+  <li class="result">
+    <div class="result-head">
+      <a class="result-title" href="/doc/{{ result.document_id }}?q={{ query | urlencode }}">{{ result.title }}</a>
+      <span class="rank" title="косинусная мера близости">{{ '%.4f' | format(result.rank) }}</span>
+    </div>
+
+    <div class="result-meta">
+      <span class="tag">{{ result.host }}</span>
+      <span class="muted">{{ result.date }}</span>
+      <a class="muted path" href="/raw/{{ result.document_id }}" target="_blank"
+         title="Открыть исходный файл">{{ result.path }}</a>
+    </div>
+
+    <p class="snippet">{{ result.snippet | safe }}</p>
+
+    <div class="result-words">
+      Слова запроса в документе:
+      {% for word in result.matched_words %}<span class="chip">{{ word }}</span>{% endfor %}
+    </div>
+
+    <div class="result-tools">
+      <details class="why">
+        <summary>Почему найден</summary>
+        <table class="why-table">
+          <tr><th>Термин</th><th>Вклад в ранг</th></tr>
+          {% for term, value in result.explanation %}
+          <tr>
+            <td>{{ term }}</td>
+            <td>
+              <span class="bar" style="width: {{ (value / result.rank * 100) | round(1) if result.rank else 0 }}%"></span>
+              {{ '%.4f' | format(value) }}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+        {% if llm.enabled %}
+        <button type="button" class="ghost small llm-explain"
+                data-query="{{ query }}" data-doc="{{ result.document_id }}">
+          Объяснить словами
+        </button>
+        <div class="llm-explanation" hidden></div>
+        {% endif %}
+      </details>
+
+      <form action="/feedback" method="post" class="inline feedback">
+        <input type="hidden" name="q" value="{{ query }}">
+        <input type="hidden" name="doc_id" value="{{ result.document_id }}">
+        <input type="hidden" name="all_words" value="{{ 'true' if all_words else 'false' }}">
+        <input type="hidden" name="synonyms" value="{{ 'true' if synonyms else 'false' }}">
+        <button type="submit" name="mark" value="1"
+                class="ghost small {% if marks.get(result.document_id) == 1 %}marked-plus{% endif %}">
+          Больше таких
+        </button>
+        <button type="submit" name="mark" value="-1"
+                class="ghost small {% if marks.get(result.document_id) == -1 %}marked-minus{% endif %}">
+          Не то
+        </button>
+      </form>
+
+      <a class="ghost small" href="/doc/{{ result.document_id }}?q={{ query | urlencode }}#similar">Похожие</a>
+    </div>
+  </li>
+  {% endfor %}
+</ol>
+
+{% if pages > 1 %}
+<nav class="pager">
+  {% if page > 1 %}
+  <a href="/search?q={{ query | urlencode }}{{ params }}&page={{ page - 1 }}">← назад</a>
+  {% endif %}
+  <span class="muted">страница {{ page }} из {{ pages }}</span>
+  {% if page < pages %}
+  <a href="/search?q={{ query | urlencode }}{{ params }}&page={{ page + 1 }}">вперёд →</a>
+  {% endif %}
+</nav>
+{% endif %}
+{% endblock %}

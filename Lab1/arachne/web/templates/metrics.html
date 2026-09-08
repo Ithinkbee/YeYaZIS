@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% set active = 'metrics' %}
+{% block title %}Оценка качества — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Оценка качества работы системы</h1>
+<p class="lead">
+  Выдача системы сравнивается с эталонной разметкой релевантности по набору
+  информационных потребностей. Метрики соответствуют принятым в РОМИП:
+  точность, полнота, F-мера, точность на уровне n документов, R-точность,
+  средняя точность (MAP), nDCG и bpref.
+</p>
+
+{% if message %}<div class="notice">{{ message }}</div>{% endif %}
+
+<form class="row-form" action="/metrics" method="get">
+  <label>Глубина выдачи (top-K)
+    <input type="number" name="top_k" min="1" max="100" value="{{ top_k }}"></label>
+  <label class="check"><input type="checkbox" name="synonyms" value="true"
+    {% if synonyms %}checked{% endif %}> расширение синонимами</label>
+  <label class="check"><input type="checkbox" name="all_words" value="true"
+    {% if all_words %}checked{% endif %}> все слова обязательны</label>
+  <button type="submit">Пересчитать</button>
+  <a class="button ghost" href="/metrics/compare?top_k={{ top_k }}">Сравнить конфигурации</a>
+  <a class="button ghost" href="/metrics/export.csv?top_k={{ top_k }}&synonyms={{ 'true' if synonyms else 'false' }}">Выгрузить CSV</a>
+</form>
+
+<form class="inline" action="/metrics/plots" method="post">
+  <input type="hidden" name="top_k" value="{{ top_k }}">
+  <input type="hidden" name="synonyms" value="{{ 'true' if synonyms else 'false' }}">
+  <button type="submit" class="ghost">Сохранить графики в PNG (для отчёта)</button>
+</form>
+<form class="inline" action="/metrics/qrels/load" method="post">
+  <button type="submit" class="ghost">Загрузить эталон из data/qrels.csv</button>
+</form>
+
+{% if error %}
+<div class="notice notice-warn">
+  {{ error }}. Загрузите эталон кнопкой выше или создайте запросы в разделе
+  <a href="/qrels">Разметка</a>.
+</div>
+{% endif %}
+
+{% if summary %}
+<section class="metric-cards">
+  <div class="metric"><span class="metric-value">{{ '%.3f' | format(summary.map) }}</span>
+    <span class="metric-name">MAP</span>
+    <span class="metric-hint">средняя точность по всем запросам</span></div>
+  <div class="metric"><span class="metric-value">{{ '%.3f' | format(summary['p@5']) }}</span>
+    <span class="metric-name">P@5</span>
+    <span class="metric-hint">точность первых пяти документов</span></div>
+  <div class="metric"><span class="metric-value">{{ '%.3f' | format(summary['p@10']) }}</span>
+    <span class="metric-name">P@10</span>
+    <span class="metric-hint">точность первых десяти</span></div>
+  <div class="metric"><span class="metric-value">{{ '%.3f' | format(summary.r_precision) }}</span>
+    <span class="metric-name">R-точность</span>
+    <span class="metric-hint">точность на уровне R</span></div>
+  <div class="metric"><span class="metric-value">{{ '%.3f' | format(summary.recall) }}</span>
+    <span class="metric-name">Полнота</span>
+    <span class="metric-hint">в пределах top-{{ top_k }}</span></div>
+  <div class="metric"><span class="metric-value">{{ '%.3f' | format(summary.f1) }}</span>
+    <span class="metric-name">F-мера</span>
+    <span class="metric-hint">гармоническое среднее</span></div>
+  <div class="metric"><span class="metric-value">{{ '%.3f' | format(summary.ndcg) }}</span>
+    <span class="metric-name">nDCG</span>
+    <span class="metric-hint">учёт позиции документа</span></div>
+  <div class="metric"><span class="metric-value">{{ '%.3f' | format(summary.bpref) }}</span>
+    <span class="metric-name">bpref</span>
+    <span class="metric-hint">устойчива к неполноте разметки</span></div>
+</section>
+
+<section class="grid-2">
+  <div class="card">
+    <h2>Точность и полнота (11 точек)</h2>
+    <svg class="chart" viewBox="0 0 520 300" role="img"
+         aria-label="График зависимости точности от полноты">
+      <line x1="60" y1="260" x2="500" y2="260" class="axis"/>
+      <line x1="60" y1="30" x2="60" y2="260" class="axis"/>
+      {% for tick in [0, 0.25, 0.5, 0.75, 1.0] %}
+      <line x1="60" y1="{{ 260 - tick * 220 }}" x2="500" y2="{{ 260 - tick * 220 }}" class="grid-line"/>
+      <text x="52" y="{{ 264 - tick * 220 }}" class="tick" text-anchor="end">{{ tick }}</text>
+      <text x="{{ 60 + tick * 440 }}" y="278" class="tick" text-anchor="middle">{{ tick }}</text>
+      {% endfor %}
+      <polyline class="series" points="
+        {%- for level, value in summary.curve -%}
+        {{ 60 + level * 440 }},{{ 260 - value * 220 }}{{ ' ' }}
+        {%- endfor -%}"/>
+      {% for level, value in summary.curve %}
+      <circle cx="{{ 60 + level * 440 }}" cy="{{ 260 - value * 220 }}" r="3.5" class="point">
+        <title>полнота {{ level }} — точность {{ '%.3f' | format(value) }}</title>
+      </circle>
+      {% endfor %}
+      <text x="280" y="295" class="axis-label" text-anchor="middle">полнота</text>
+      <text x="16" y="150" class="axis-label" text-anchor="middle" transform="rotate(-90 16 150)">точность</text>
+    </svg>
+  </div>
+
+  <div class="card">
+    <h2>Средняя точность по запросам</h2>
+    <svg class="chart" viewBox="0 0 520 300" role="img"
+         aria-label="Столбчатая диаграмма средней точности по запросам">
+      <line x1="40" y1="260" x2="510" y2="260" class="axis"/>
+      <line x1="40" y1="30" x2="40" y2="260" class="axis"/>
+      {% for tick in [0.25, 0.5, 0.75, 1.0] %}
+      <line x1="40" y1="{{ 260 - tick * 220 }}" x2="510" y2="{{ 260 - tick * 220 }}" class="grid-line"/>
+      <text x="34" y="{{ 264 - tick * 220 }}" class="tick" text-anchor="end">{{ tick }}</text>
+      {% endfor %}
+      {% set count = per_query | length %}
+      {% set step = 466 / (count if count else 1) %}
+      {% for item in per_query %}
+      <rect x="{{ 42 + loop.index0 * step }}" y="{{ 260 - item.ap * 220 }}"
+            width="{{ step * 0.72 }}" height="{{ item.ap * 220 }}" class="bar-rect">
+        <title>{{ item.query }} — AP {{ '%.3f' | format(item.ap) }}</title>
+      </rect>
+      {% endfor %}
+      <line x1="40" y1="{{ 260 - summary.map * 220 }}" x2="510" y2="{{ 260 - summary.map * 220 }}"
+            class="mean-line"/>
+      <text x="505" y="{{ 254 - summary.map * 220 }}" class="tick" text-anchor="end">
+        MAP = {{ '%.3f' | format(summary.map) }}</text>
+      <text x="280" y="295" class="axis-label" text-anchor="middle">эталонные запросы</text>
+    </svg>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Метрики по каждому запросу</h2>
+  <p class="muted small">
+    Выдача ограничена {{ top_k }} документами, поэтому точность считается по top-{{ top_k }}.
+    Оценено документов: разметка хранится в разделе <a href="/qrels">Разметка</a>.
+  </p>
+  <div class="table-scroll">
+  <table class="grid metrics-table">
+    <thead>
+      <tr>
+        <th>№</th><th>Запрос</th><th>Rel</th><th>Найдено rel</th>
+        <th>P</th><th>R</th><th>F1</th><th>P@5</th><th>P@10</th>
+        <th>R-точн.</th><th>AP</th><th>nDCG</th><th>bpref</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in per_query %}
+      <tr>
+        <td>{{ item.query_id }}</td>
+        <td><a href="/search?q={{ item.query | urlencode }}">{{ item.query }}</a>
+          {% if item.note %}<br><span class="muted small">{{ item.note }}</span>{% endif %}</td>
+        <td>{{ item.relevant_total }}</td>
+        <td>{{ item.relevant_retrieved }}</td>
+        <td>{{ '%.3f' | format(item.precision) }}</td>
+        <td>{{ '%.3f' | format(item.recall) }}</td>
+        <td>{{ '%.3f' | format(item.f1) }}</td>
+        <td>{{ '%.3f' | format(item['p@5']) }}</td>
+        <td>{{ '%.3f' | format(item['p@10']) }}</td>
+        <td>{{ '%.3f' | format(item.r_precision) }}</td>
+        <td class="{{ 'good' if item.ap >= 0.7 else ('bad' if item.ap < 0.4 else '') }}">
+          {{ '%.3f' | format(item.ap) }}</td>
+        <td>{{ '%.3f' | format(item.ndcg) }}</td>
+        <td>{{ '%.3f' | format(item.bpref) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th colspan="4">Среднее по {{ summary.queries }} запросам</th>
+        <th>{{ '%.3f' | format(summary.precision) }}</th>
+        <th>{{ '%.3f' | format(summary.recall) }}</th>
+        <th>{{ '%.3f' | format(summary.f1) }}</th>
+        <th>{{ '%.3f' | format(summary['p@5']) }}</th>
+        <th>{{ '%.3f' | format(summary['p@10']) }}</th>
+        <th>{{ '%.3f' | format(summary.r_precision) }}</th>
+        <th>{{ '%.3f' | format(summary.map) }}</th>
+        <th>{{ '%.3f' | format(summary.ndcg) }}</th>
+        <th>{{ '%.3f' | format(summary.bpref) }}</th>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
