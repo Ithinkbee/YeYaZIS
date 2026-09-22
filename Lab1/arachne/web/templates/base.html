@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru" data-skin="{{ skin | default('classic') }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}ИПС «{{ app_name }}»{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  {% if not office_mode %}
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕷️</text></svg>">
+  {% endif %}
+  {% if spider %}<style>:root { --spider-scale: {{ spider.size }}; }</style>{% endif %}
+</head>
+<body{% if companion_enabled %} class="has-companion"{% endif %}>
+<header class="top">
+  <a class="brand" href="/">
+    <span class="brand-mark">{{ '🕸️' | icon }}</span>
+    <span>
+      <b>Арахна</b>
+      <small>информационно-поисковая система по документам ЛВС</small>
+    </span>
+  </a>
+  <nav>
+    <a href="/" {% if active == 'search' %}class="active"{% endif %}>Поиск</a>
+    <a href="/admin" {% if active == 'admin' %}class="active"{% endif %}>Индекс</a>
+    <a href="/metrics" {% if active == 'metrics' %}class="active"{% endif %}>Оценка качества</a>
+    <a href="/qrels" {% if active == 'qrels' %}class="active"{% endif %}>Разметка</a>
+    {% if companion_enabled %}
+    <a href="/achievements" {% if active == 'achievements' %}class="active"{% endif %}>Достижения</a>
+    {% if economy_enabled %}
+    <a href="/shop" {% if active == 'shop' %}class="active"{% endif %}>Лавка</a>
+    {% endif %}
+    <a href="/blind" {% if active == 'blind' %}class="active"{% endif %}>Слепая выдача</a>
+    <a href="/blitz" {% if active == 'blitz' %}class="active"{% endif %}>Блиц</a>
+    <a href="/spider" {% if active == 'spider' %}class="active"{% endif %}>Пасьянс</a>
+    {% else %}
+    <a href="/disclaimer" {% if active == 'disclaimer' %}class="active"{% endif %}>Заявление</a>
+    {% endif %}
+    <a href="/help" {% if active == 'help' %}class="active"{% endif %}>Справка</a>
+  </nav>
+  {% if economy_enabled and capital is defined %}
+  <a class="capital" href="/shop" title="Капитал в «словах»: сумма цен терминов в кошельке">
+    капитал: <b id="capital-value">{{ '{:,}'.format(capital).replace(',', ' ') }}</b> сл.
+  </a>
+  {% endif %}
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <span>ИПС «{{ app_name }}» {{ version }} · векторная модель поиска · вариант 3</span>
+  {% if companion_enabled and skins and skins | length > 1 %}
+  <form action="/skin" method="post" class="skin-picker">
+    <input type="hidden" name="back" value="{{ request.url.path }}">
+    <label>оформление
+      <select name="skin" onchange="this.form.submit()">
+        {% for code in skins %}
+        <option value="{{ code }}" {% if code == skin %}selected{% endif %}>{{ skin_names[code] }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <noscript><button type="submit" class="ghost small">Применить</button></noscript>
+  </form>
+  {% endif %}
+  <span>
+    языковой помощник:
+    {% if llm.enabled %}<b class="ok">{{ llm.provider }}, {{ llm.model }}</b>
+    {% else %}<span class="muted">выключен</span>{% endif %}
+  </span>
+</footer>
+
+{% if companion_enabled %}
+{% if spider and spider.gone %}
+<div id="companion" class="companion companion-gone" title="Паука нет на месте">
+  <div class="companion-note">Ушёл искать мух.<br>Вернусь, когда в индексе появится что-нибудь новое.</div>
+</div>
+{% else %}
+<div id="companion" class="companion{% if spider %} spider-{{ spider.level }}{% endif %}"
+     title="Нажмите, чтобы поговорить с пауком">
+  <div class="companion-bubble" id="companion-bubble">{{ companion_line or 'Плету паутину…' }}</div>
+  <svg class="companion-spider" viewBox="0 0 60 80" aria-hidden="true">
+    <line x1="30" y1="0" x2="30" y2="30" stroke="currentColor" stroke-width="1"/>
+    <g class="spider-body">
+      <path d="M14 40 L2 30 M14 46 L1 44 M14 52 L3 60 M14 57 L8 70" stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M46 40 L58 30 M46 46 L59 44 M46 52 L57 60 M46 57 L52 70" stroke="currentColor" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+      <ellipse cx="30" cy="52" rx="15" ry="17" fill="currentColor"/>
+      <circle cx="30" cy="36" r="10" fill="currentColor"/>
+      <circle class="eye" cx="26" cy="34" r="2.6" fill="#fff"/>
+      <circle class="eye" cx="34" cy="34" r="2.6" fill="#fff"/>
+      <circle cx="26.6" cy="34.6" r="1.2" fill="#111"/>
+      <circle cx="34.6" cy="34.6" r="1.2" fill="#111"/>
+    </g>
+  </svg>
+  {% if spider %}
+  <div class="spider-gauge" title="Сытость {{ spider.satiety }} из 100">
+    <span style="width: {{ spider.satiety }}%"></span>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+{% endif %}
+
+{% if new_achievements %}
+<div class="toast-stack">
+  {% for achievement in new_achievements %}
+  <div class="toast">
+    <span class="toast-icon">{{ achievement.icon | icon }}</span>
+    <span><b>Достижение: {{ achievement.title }}</b><br><small>{{ achievement.description }}</small></span>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<script>window.ARACHNE_UI = {{ (ui | default({})) | tojson }};</script>
+<script src="/static/app.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

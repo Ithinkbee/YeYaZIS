@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% set active = 'shop' %}
+{% block title %}Ломбард — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Ломбард {{ companion_name }}я</h1>
+<p class="lead">
+  Заложенное достижение приносит {{ share }}% его оценки сразу. Срок выкупа —
+  {{ days }} календарных дней, выкуп по полной цене. Просрочили — достижение
+  уходит в коллекцию {{ companion_name }}я, и вернуть его можно только повторным
+  выполнением условия, причём за двойную цену.
+</p>
+
+{% if message %}<div class="notice">{{ message }}</div>{% endif %}
+
+<section class="card">
+  {% if items %}
+  <table class="grid">
+    <thead>
+      <tr><th></th><th>Достижение</th><th>Оценка</th><th>Выдадут</th><th>Состояние</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr class="{% if item.pawned %}rel-0{% endif %}">
+        <td class="achievement-icon">{{ item.icon | icon }}</td>
+        <td><b>{{ item.title }}</b></td>
+        <td class="nowrap">{{ item.value }} сл.</td>
+        <td class="nowrap">{{ item.payout }} сл.</td>
+        <td class="muted small">
+          {% if item.pawned %}в залоге до {{ item.due_at }}{% else %}у вас{% endif %}
+        </td>
+        <td>
+          {% if item.pawned %}
+          <form action="/shop/pawn/redeem" method="post" class="inline">
+            <input type="hidden" name="code" value="{{ item.code }}">
+            <button type="submit" class="ghost small"
+                    {% if capital < item.value %}disabled title="Не хватает капитала"{% endif %}>
+              Выкупить за {{ item.value }}
+            </button>
+          </form>
+          {% else %}
+          <form action="/shop/pawn/take" method="post" class="inline confirm-danger"
+                data-confirm="Заложить «{{ item.title }}»? Не выкупите за {{ days }} дней — достижение уйдёт Пафнутию.">
+            <input type="hidden" name="code" value="{{ item.code }}">
+            <button type="submit" class="ghost small">Заложить</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">Закладывать пока нечего: ни одного достижения не открыто.</p>
+  {% endif %}
+  <p class="muted small"><a href="/shop">← вернуться в лавку</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% set active = 'qrels' %}
+{% set metric_names = {'precision': 'P', 'recall': 'R', 'f1': 'F1', 'ap': 'AP',
+                       'ndcg': 'nDCG', 'bpref': 'bpref'} %}
+{% block title %}Разметка релевантности — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Эталонная разметка релевантности</h1>
+<p class="lead">
+  Оценки эксперта — основа для расчёта метрик. Для каждой информационной
+  потребности документы из верхней части выдачи размечаются как релевантные
+  (2 — точно отвечает, 1 — частично) или нерелевантные (0).
+</p>
+
+{% if message %}<div class="notice">{{ message }}</div>{% endif %}
+
+<section class="grid-2">
+  <div class="card">
+    <h2>Информационные потребности</h2>
+    {% if queries %}
+    <ul class="plain">
+      {% for row in queries %}
+      <li class="{% if current and row.id == current.id %}current{% endif %}">
+        <a href="/qrels?query_id={{ row.id }}">{{ row.id }}. {{ row.text }}</a>
+        <span class="muted small">оценено {{ row.judged_count }}, релевантных {{ row.relevant_count }}</span>
+        <form action="/qrels/query/{{ row.id }}/delete" method="post" class="inline confirm-danger"
+              data-confirm="Удалить запрос вместе с его оценками?">
+          <button type="submit" class="ghost small">×</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="muted">Эталонных запросов нет.</p>
+    {% endif %}
+
+    <form action="/qrels/query/add" method="post" class="row-form">
+      <input type="text" name="text" placeholder="новая информационная потребность" required>
+      <input type="text" name="note" placeholder="примечание">
+      <button type="submit">Добавить</button>
+    </form>
+
+    <form action="/metrics/qrels/load" method="post" class="inline confirm-danger"
+          data-confirm="Загрузить эталон из CSV? Текущая разметка в базе будет заменена.">
+      <button type="submit" class="ghost">Загрузить из CSV</button>
+    </form>
+    <form action="/metrics/qrels/save" method="post" class="inline">
+      <button type="submit" class="ghost">Сохранить в CSV</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Как размечать</h2>
+    <ol class="help-list">
+      <li>Выберите слева запрос — система покажет top-{{ top_k }} своей выдачи.</li>
+      <li>Для каждого документа поставьте оценку: <b>2</b> — прямо отвечает,
+        <b>1</b> — частично полезен, <b>0</b> — не по теме.</li>
+      <li>Оценка 0 так же важна, как и положительная: без явно нерелевантных
+        документов метрика bpref вырождается.</li>
+      <li>Сохраните разметку в CSV, чтобы она пережила пересборку базы.</li>
+    </ol>
+    <p class="muted small">
+      Документы сопоставляются с оценками по имени файла, поэтому повторный обход
+      локальной сети разметку не ломает.
+    </p>
+    {% if companion_enabled and ui.invert_scroll %}
+    <p class="muted small">
+      Размечено документов: {{ ui.judged }} из 20, после которых {{ companion_name }}
+      признаёт вас экспертом и возвращает колесу мыши обычное направление.
+    </p>
+    {% endif %}
+  </div>
+</section>
+
+{% if current %}
+<section class="card quality" id="quality">
+  <h2>Качество по этому запросу</h2>
+  {% if quality and quality.rows %}
+  <p class="muted small">
+    Метрики считаются по чистой конфигурации поиска — без джокеров, отметок
+    релевантности и прочих игровых надстроек.
+  </p>
+  <div class="quality-grid" id="quality-grid">
+    {% for item in quality.rows %}
+    <div class="quality-item" data-key="{{ item.key }}">
+      <span class="quality-name">{{ metric_names.get(item.key, item.key) }}</span>
+      <span class="quality-value">
+        {% if item.delta %}<span class="quality-was">{{ '%.3f' | format(item.previous) }} →</span>{% endif %}
+        <b class="quality-now">{{ '%.3f' | format(item.value) }}</b>
+        {% if item.delta %}
+        <span class="delta {{ 'delta-up' if item.up else 'delta-down' }}">{{ item.delta }}</span>
+        {% endif %}
+      </span>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="muted small" id="quality-map">
+    Вклад в общий MAP: <b>{{ '%+.3f' | format(quality.map_share) }}</b>
+    (сейчас MAP = {{ '%.3f' | format(quality.map) }}).
+    Одна оценка двигает общее среднее на тысячные доли — поэтому рядом показано
+    то, что реально изменилось у самого запроса.
+  </p>
+  {% else %}
+  <p class="muted">Метрики появятся, как только у запроса будет хотя бы одна оценка.</p>
+  {% endif %}
+
+  {% if suspect %}
+  <div class="notice notice-warn" id="suspect-note">
+    Разметка этого запроса помечена как подозрительная: восемь и более оценок,
+    и ни одной нерелевантной. Такой набор завышает точность и вырождает bpref —
+    метрике не с чем сравнивать. Метка снимется сама, как только появится
+    хотя бы одна оценка 0.
+  </div>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>Пул документов для запроса «{{ current.text }}»</h2>
+  <p class="muted small">Оценено документов: <span id="judged-count">{{ judged }}</span>.
+    <a href="/search?q={{ current.text | urlencode }}">Посмотреть обычную выдачу</a></p>
+
+  <table class="grid qrels-table">
+    <thead>
+      <tr><th>Ранг</th><th>Документ</th><th>Узел</th><th>Оценка</th></tr>
+    </thead>
+    <tbody>
+      {% for item in pool %}
+      <tr class="rel-{{ item.rel if item.rel is not none else 'none' }}" id="doc-{{ item.doc_id }}">
+        <td class="muted">{{ '%.4f' | format(item.rank) }}</td>
+        <td>
+          <a href="/doc/{{ item.doc_id }}?q={{ current.text | urlencode }}">{{ item.title }}</a>
+          <div class="snippet small">{{ item.snippet | safe }}</div>
+        </td>
+        <td><span class="tag">{{ item.host }}</span></td>
+        <td class="judge-cell">
+          {% for value, label in [(2, '2 — точно'), (1, '1 — частично'), (0, '0 — не то')] %}
+          <form action="/qrels/judge" method="post" class="inline judge-form">
+            <input type="hidden" name="query_id" value="{{ current.id }}">
+            <input type="hidden" name="doc_id" value="{{ item.doc_id }}">
+            <input type="hidden" name="rel" value="{{ value }}">
+            <button type="submit" class="ghost small {% if item.rel == value %}judged judged-{{ value }}{% endif %}">
+              {{ label }}
+            </button>
+          </form>
+          {% endfor %}
+          <form action="/qrels/judge" method="post" class="inline judge-form"
+                {% if item.rel is none %}hidden{% endif %}>
+            <input type="hidden" name="query_id" value="{{ current.id }}">
+            <input type="hidden" name="doc_id" value="{{ item.doc_id }}">
+            <input type="hidden" name="rel" value="-1">
+            <button type="submit" class="ghost small" title="Снять оценку">×</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>window.ARACHNE_QRELS = true;</script>
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% set active = 'shop' %}
+{% block title %}Лавка — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Лавка {{ companion_name }}я</h1>
+<p class="lead">
+  Валюта системы — термины её собственного индекса. Цена термина равна его
+  информативности: price = 100 · B<sub>i</sub> = 100 · log(N / P<sub>i</sub>).
+  «Сеть» есть почти везде и стоит копейки, «коаксиальный» — в одном документе
+  и стоит состояние. Капитал — скалярное произведение вектора кошелька на
+  вектор цен.
+</p>
+
+{% if message %}<div class="notice">{{ message }}</div>{% endif %}
+{% if coupon %}
+<div class="notice">Есть купон −10% на одну покупку. {{ companion_name }} делает вид, что не при делах.</div>
+{% endif %}
+
+<section class="card">
+  <h2>Отключение издевательств</h2>
+  <p class="muted small">
+    Каждая шутка интерфейса снимается покупкой — навсегда. Цены подобраны так,
+    чтобы отключить всё разом было дороже, чем заработать за вечер.
+  </p>
+  <table class="grid">
+    <thead><tr><th>Позиция</th><th>Что отключает</th><th>Цена</th><th></th></tr></thead>
+    <tbody>
+      {% for item in reliefs %}
+      <tr>
+        <td><b>{{ item.title }}</b><br><code class="muted small">{{ item.code }}</code></td>
+        <td class="muted">{{ item.note }}</td>
+        <td class="nowrap">{{ item.price }} сл.</td>
+        <td>
+          {% if item.owned %}
+          <span class="ok">куплено</span>
+          {% else %}
+          <form action="/shop/buy" method="post" class="inline">
+            <input type="hidden" name="code" value="{{ item.code }}">
+            <input type="hidden" name="price" value="{{ item.price }}">
+            <button type="submit" class="ghost small"
+                    {% if capital < item.price %}disabled title="Не хватает капитала"{% endif %}>Купить</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="grid-2">
+  <div class="card">
+    <h2>Джокеры</h2>
+    <p class="muted small">
+      Каждый джокер меняет ровно один параметр векторной модели и действует
+      пять запросов. Первый из раздачи — бесплатно, остальные за слова.
+      Те же коды можно прогнать через
+      <a href="/metrics/compare?jokers=true">сравнение конфигураций</a> и получить
+      таблицу влияния параметров на MAP.
+    </p>
+    {% if jokers_active %}
+    <p>Активны:
+      {% for item in jokers_active %}<span class="tag tag-accent">{{ item.title }} · ещё {{ item.left }}</span>{% endfor %}
+    </p>
+    {% endif %}
+    <ul class="plain">
+      {% for item in jokers %}
+      <li class="joker-card">
+        <div>
+          <b>{{ item.title }}</b>
+          {% if item.free %}<span class="tag tag-accent">бесплатно</span>
+          {% else %}<span class="tag">{{ item.price }} сл.</span>{% endif %}
+          <div class="muted small">{{ item.effect }}</div>
+          <div class="muted small">{{ item.note }}</div>
+        </div>
+        <form action="/shop/joker" method="post" class="inline">
+          <input type="hidden" name="code" value="{{ item.code }}">
+          <input type="hidden" name="back" value="/shop">
+          <button type="submit" class="ghost small" {% if item.active %}disabled{% endif %}>
+            {{ 'Активен' if item.active else 'Взять' }}
+          </button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Чёрный рынок стоп-слов</h2>
+    <p class="muted small">
+      Купленное стоп-слово действует на <b>один запрос</b>: если оно есть в тексте
+      запроса, морфология его не выбрасывает, оно входит в ПОЗ с весом 3,0 и
+      сгорает. Наверх всплывают документы, где много служебных слов, то есть
+      просто длинные. В расчёте метрик не применяется никогда.
+    </p>
+    <ul class="plain">
+      {% for item in stopwords %}
+      <li class="joker-card">
+        <div><b>«{{ item.word }}»</b> <span class="muted small">одноразовое</span></div>
+        {% if item.owned %}
+        <span class="ok small">в кармане</span>
+        {% else %}
+        <form action="/shop/buy" method="post" class="inline">
+          <input type="hidden" name="code" value="stopword:{{ item.word }}">
+          <input type="hidden" name="price" value="{{ item.price }}">
+          <button type="submit" class="ghost small"
+                  {% if capital < item.price %}disabled{% endif %}>{{ item.price }} сл.</button>
+        </form>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="muted small">
+      <a href="/shop/pawn">Ломбард: заложить достижение →</a>
+    </p>
+  </div>
+</section>
+
+<section class="grid-2">
+  <div class="card">
+    <h2>Кошелёк</h2>
+    <p class="muted small">
+      Разреженный вектор {лемма: количество}. Колонка «твоя цена» учитывает
+      личную инфляцию: чем чаще лемма встречалась в ваших запросах, тем дешевле
+      она для вас стоит (коэффициент 0,97 за каждое вхождение, но не ниже 20%
+      базовой цены). Побочный эффект: выгодно скупать то, что вы никогда не ищете.
+    </p>
+    {% if wallet %}
+    <div class="table-scroll">
+    <table class="grid">
+      <thead><tr><th>Термин</th><th>Шт.</th><th>Цена</th><th>Твоя цена</th><th>Итого</th></tr></thead>
+      <tbody>
+        {% for item in wallet %}
+        <tr>
+          <td>{{ item.lemma }}</td>
+          <td>{{ item.amount }}</td>
+          <td class="muted">{{ item.price }}</td>
+          <td>
+            {{ item.personal }}
+            {% if item.discount > 0 %}
+            <span class="delta delta-down" title="из-за ваших запросов">↓ −{{ item.discount }}%</span>
+            {% endif %}
+          </td>
+          <td><b>{{ item.total }}</b></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    {% else %}
+    <p class="muted">Кошелёк пуст. Заработать можно кэшбэком за развёрнутые запросы,
+      разметкой релевантности (10 сл. за оценку), слепой выдачей и блицем.</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>История операций</h2>
+    <p class="muted small">Нужна, чтобы было видно, куда уходят слова.</p>
+    {% if ledger %}
+    <table class="grid">
+      <thead><tr><th>Когда</th><th>За что</th><th>Сколько</th></tr></thead>
+      <tbody>
+        {% for row in ledger %}
+        <tr>
+          <td class="muted small">{{ row.ts }}</td>
+          <td><code class="small">{{ row.reason }}</code></td>
+          <td class="{{ 'good' if row.delta > 0 else 'bad' }}">{{ '%+d' | format(row.delta) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="muted">Операций пока не было.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

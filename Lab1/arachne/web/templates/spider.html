@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set active = 'spider' %}
+{% block title %}Пасьянс «Паук» — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Пасьянс «Паук»</h1>
+<p class="lead">
+  Складывайте в столбцах убывающие последовательности одной масти от короля к
+  тузу. Готовая последовательность снимается с доски; собрать нужно восемь.
+  Игра ни на что в системе не влияет: ни кошелька, ни достижений, ни
+  статистики — только сам пасьянс.
+</p>
+
+<section class="card spider-panel">
+  <div class="spider-controls">
+    <label class="spider-field">
+      Мастей
+      <select id="spider-suits">
+        <option value="1">одна — просто</option>
+        <option value="2" selected>две — обычно</option>
+        <option value="4">четыре — как положено</option>
+      </select>
+    </label>
+
+    <button type="button" id="spider-new">Новая раздача</button>
+    <button type="button" id="spider-again" class="ghost">Эту же заново</button>
+    <button type="button" id="spider-undo" class="ghost">Отменить ход</button>
+    <button type="button" id="spider-deal">Сдать карты</button>
+  </div>
+
+  <div class="spider-counters">
+    <span>Сдач осталось: <b id="spider-stock">5</b></span>
+    <span>Собрано: <b id="spider-collected">0 из 8</b></span>
+    <span>Ходов: <b id="spider-moves">0</b></span>
+  </div>
+
+  <p class="spider-note" id="spider-note"></p>
+</section>
+
+<div class="spider-scroll">
+  <div id="spider-board" class="spider-board"></div>
+</div>
+
+<section class="card">
+  <h2>Правила</h2>
+  <ul class="spider-rules">
+    <li>Щёлкните по карте, чтобы поднять её, затем по столбцу, куда кладёте.
+      Повторный щелчок по той же карте отменяет выбор.</li>
+    <li>Поднять можно карту или идущую за ней убывающую последовательность
+      <b>одной масти</b>.</li>
+    <li>Положить можно на карту на единицу старше — <b>масть при этом не
+      важна</b>. Пустой столбец принимает любую карту.</li>
+    <li>Последовательность от короля до туза одной масти снимается с доски
+      сама.</li>
+    <li>Сдать карты из запаса можно, только когда нет пустых столбцов.
+      Запаса хватает на пять сдач.</li>
+  </ul>
+  <p class="muted small">
+    Раздача задаётся номером: кнопка «Эту же заново» повторяет её в точности,
+    так что неудачную партию можно переиграть.
+  </p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/spider.js"></script>
+{% endblock %}

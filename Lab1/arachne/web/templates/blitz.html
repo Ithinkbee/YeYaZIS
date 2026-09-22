@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% set active = 'blitz' %}
+{% block title %}Блиц — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Блиц</h1>
+<p class="lead">
+  Внизу — два предложения из середины случайного документа (не первые
+  {{ 300 }} символов, иначе фрагмент совпал бы со сниппетом выдачи). Найдите этот
+  документ обычным поиском и откройте его из выдачи за {{ seconds }} секунд.
+  Таймер съедает {{ tick }} сл. в секунду; нашли — {{ reward }} сл. и комбо ×1,2
+  за каждый следующий подряд.
+</p>
+
+{% if not state %}
+<div class="notice notice-warn">Индекс пуст — загадывать нечего.</div>
+{% else %}
+
+<section class="card blitz-card">
+  <div class="blitz-head">
+    <span class="blitz-timer" id="blitz-timer" data-elapsed="{{ elapsed }}"
+          data-limit="{{ seconds }}" data-tick="{{ tick }}">{{ seconds - elapsed }}</span>
+    <span class="muted small">секунд осталось · комбо {{ combo }}</span>
+    <a class="ghost small button" href="/blitz?restart=true">Другой документ</a>
+  </div>
+  <blockquote class="blitz-fragment">{{ state.fragment }}</blockquote>
+</section>
+
+{% include "_searchform.html" %}
+
+<p class="muted small">
+  Попадание засчитывается при открытии документа из выдачи: система сравнивает
+  его идентификатор с загаданным. Не нашли — потраченное время не возвращается.
+</p>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>window.ARACHNE_BLITZ = true;</script>
+{% endblock %}

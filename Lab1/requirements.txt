@@ -1,0 +1,24 @@
+# ИПС «Арахна» — зависимости
+# Веб-интерфейс
+fastapi>=0.115
+uvicorn>=0.30
+jinja2>=3.1
+python-multipart>=0.0.9
+
+# Морфология русского языка
+pymorphy3>=2.0
+pymorphy3-dicts-ru
+
+# Извлечение текста из документов
+beautifulsoup4>=4.12
+python-docx>=1.1
+pypdf>=4.0
+
+# Графики для отчёта
+matplotlib>=3.8
+
+# LLM-слой (Groq), опционально
+httpx>=0.27
+
+# Тесты
+pytest>=8.0
