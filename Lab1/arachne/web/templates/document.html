@@ -3,6 +3,12 @@
 {% block title %}{{ doc.title }} — ИПС «{{ app_name }}»{% endblock %}
 
 {% block content %}
+{% if lucky %}<div class="notice">{{ lucky }}</div>{% endif %}
+{% if blitz and blitz.message %}
+<div class="notice {{ '' if blitz.won else 'notice-warn' }}">{{ blitz.message }}
+  <a href="/blitz?restart=true">Ещё раунд →</a></div>
+{% endif %}
+
 <article class="card document">
   <h1>{{ doc.title }}</h1>
   <div class="result-meta">
@@ -21,8 +27,8 @@
     <code class="path">{{ doc.path }}</code>
   </p>
 
-  <form action="/doc/{{ doc.id }}/delete" method="post" class="inline"
-        onsubmit="return confirm('Удалить документ из базы? Индекс будет перестроен.');">
+  <form action="/doc/{{ doc.id }}/delete" method="post" class="inline confirm-danger"
+        data-confirm="Удалить документ из базы? Индекс будет перестроен.">
     <button type="submit" class="ghost small danger">Удалить из базы</button>
     <span class="muted small">документ исчезнет из выдачи до следующего обхода сети</span>
   </form>

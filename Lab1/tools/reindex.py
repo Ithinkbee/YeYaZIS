@@ -17,7 +17,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from arachne import config, crawler, db, indexer  # noqa: E402
+from arachne import companion, config, crawler, db, economy, indexer  # noqa: E402
 from arachne.evaluation import qrels  # noqa: E402
 
 
@@ -67,6 +67,13 @@ def main() -> None:
             f"Индекс: документов {statistics['documents']}, терминов "
             f"{statistics['terms']}, вхождений {statistics['postings']}"
         )
+
+        # то же, что делают кнопки на странице «Индекс»: покормить компаньона и
+        # выдать стартовый капитал, если индекс строится впервые
+        companion.feed(conn, "new_document" if report.added else "reindex", report.added or 1)
+        granted = economy.ensure_start_capital(conn)
+        if granted:
+            print(f"Стартовый капитал: {granted} сл.")
 
         if arguments.load_qrels:
             loaded = qrels.load_from_csv(conn)

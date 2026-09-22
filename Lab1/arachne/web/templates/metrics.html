@@ -139,9 +139,12 @@
     </thead>
     <tbody>
       {% for item in per_query %}
-      <tr>
+      <tr class="{% if item.query_id in suspects %}suspect{% endif %}">
         <td>{{ item.query_id }}</td>
         <td><a href="/search?q={{ item.query | urlencode }}">{{ item.query }}</a>
+          {% if item.query_id in suspects %}
+          <span class="tag tag-warn" title="разметка без единого нерелевантного документа">разметка под вопросом</span>
+          {% endif %}
           {% if item.note %}<br><span class="muted small">{{ item.note }}</span>{% endif %}</td>
         <td>{{ item.relevant_total }}</td>
         <td>{{ item.relevant_retrieved }}</td>
@@ -174,6 +177,15 @@
     </tfoot>
   </table>
   </div>
+  {% if suspects %}
+  <p class="notice notice-warn">
+    Запросов помечено как подозрительные: <b>{{ suspects | length }}</b>.
+    Разметка без единого нерелевантного документа завышает точность и вырождает
+    bpref: этой метрике не с чем сравнивать релевантные документы, и она
+    вырождается в единицу. Проставьте хотя бы одну оценку 0 — метка снимется
+    автоматически.
+  </p>
+  {% endif %}
 </section>
 {% endif %}
 {% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set active = 'disclaimer' %}
+{% block title %}Заявление — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Заявление об отказе от паука-компаньона</h1>
+<p class="lead">
+  Заполняется в трёх экземплярах. Режим <code>ARACHNE_COMPANION=0</code> включён:
+  поиск, ранжирование, разметка и оценка качества работают в полном объёме и
+  без единой шутки.
+</p>
+
+{% if message %}<div class="notice">{{ message }}</div>{% endif %}
+
+<form action="/disclaimer" method="post">
+  {% for copy in ['первый', 'второй', 'третий'] %}
+  <section class="card">
+    <h2>Экземпляр {{ copy }}</h2>
+    <div class="row-form">
+      <label>Фамилия, имя, отчество
+        <input type="text" name="name" placeholder="полностью, без сокращений"></label>
+    </div>
+    <div class="row-form">
+      <label>Причина отказа
+        <input type="text" name="reason" placeholder="изложить кратко"></label>
+    </div>
+    <div class="row-form">
+      <label>Подпись
+        <input type="text" name="sign" placeholder="расшифровка подписи"></label>
+    </div>
+  </section>
+  {% endfor %}
+  <button type="submit">Подать заявление</button>
+  <span class="muted small">срок рассмотрения — 30 календарных дней</span>
+</form>
+{% endblock %}

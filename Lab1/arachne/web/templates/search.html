@@ -23,6 +23,41 @@
   {% endif %}
 </section>
 
+{% if companion_enabled and jokers_offer %}
+<section class="card">
+  <h2>Колода джокеров</h2>
+  <p class="muted small">
+    Три модификатора запроса на выбор: первый бесплатно, остальные за слова.
+    Взятый джокер действует пять запросов и меняет ровно один параметр
+    векторной модели. На оценку качества не влияет.
+  </p>
+  {% if jokers_active %}
+  <p>Активны:
+    {% for item in jokers_active %}<span class="tag tag-accent">{{ item.title }} · ещё {{ item.left }}</span>{% endfor %}
+  </p>
+  {% endif %}
+  <ul class="plain">
+    {% for item in jokers_offer %}
+    <li class="joker-card">
+      <div>
+        <b>{{ item.title }}</b>
+        {% if item.free %}<span class="tag tag-accent">бесплатно</span>
+        {% else %}<span class="tag">{{ item.price }} сл.</span>{% endif %}
+        <div class="muted small">{{ item.effect }}</div>
+      </div>
+      <form action="/shop/joker" method="post" class="inline">
+        <input type="hidden" name="code" value="{{ item.code }}">
+        <input type="hidden" name="back" value="/">
+        <button type="submit" class="ghost small" {% if item.active %}disabled{% endif %}>
+          {{ 'Активен' if item.active else 'Взять' }}
+        </button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 <section class="grid-2">
   <div class="card">
     <h2>Состояние системы</h2>

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% set active = 'blind' %}
+{% block title %}Слепая выдача — ИПС «{{ app_name }}»{% endblock %}
+
+{% block content %}
+<h1>Слепая выдача</h1>
+<p class="lead">
+  Система берёт случайную информационную потребность из эталонного набора и
+  показывает четыре сниппета — без заголовков, путей и узлов. Ровно один из
+  документов размечен как точно релевантный (rel = 2). Режим целиком держится
+  на разметке: чем больше размечено в разделе
+  <a href="/qrels">Разметка</a>, тем больше здесь вопросов.
+</p>
+
+{% if message %}<div class="notice">{{ message }}</div>{% endif %}
+
+{% if not state %}
+<div class="notice notice-warn">
+  Вопросов нет: ни у одного эталонного запроса нет документа с оценкой 2.
+  Разметьте что-нибудь на странице <a href="/qrels">Разметка</a> — заодно
+  заработаете по 10 слов за оценку.
+</div>
+{% else %}
+
+<section class="card">
+  <h2>Информационная потребность</h2>
+  <p class="blind-query">«{{ state.query }}»</p>
+  <p class="muted small">Серия верных ответов: <b>{{ streak }}</b>
+    (каждый следующий ответ умножает награду на 1,2, но не выше ×3).</p>
+
+  {% if hint_text %}<div class="notice">{{ hint_text }}</div>{% endif %}
+
+  <div class="hint-row">
+    {% for kind, hint in hints.items() %}
+    <form action="/blind/hint" method="post" class="inline">
+      <input type="hidden" name="kind" value="{{ kind }}">
+      <button type="submit" class="ghost small"
+              {% if kind in used_hints %}disabled{% endif %}
+              title="{{ hint.note }}">
+        {{ hint.title }} — {{ hint.price }} сл.
+      </button>
+    </form>
+    {% endfor %}
+    <form action="/blind/skip" method="post" class="inline">
+      <button type="submit" class="ghost small">Другой вопрос</button>
+    </form>
+  </div>
+</section>
+
+<ol class="blind-options">
+  {% for option in options %}
+  <li class="card blind-option">
+    <p class="snippet">{{ option.snippet }}</p>
+    <form action="/blind/answer" method="post" class="inline">
+      <input type="hidden" name="doc_id" value="{{ option.doc_id }}">
+      <button type="submit">Это он</button>
+    </form>
+  </li>
+  {% endfor %}
+</ol>
+{% endif %}
+{% endblock %}

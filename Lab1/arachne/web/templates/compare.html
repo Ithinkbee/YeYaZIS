@@ -9,7 +9,25 @@
   обработки запроса и построения индекса. Это показывает, что именно даёт
   морфологический анализ, расширение синонимами и строгий режим поиска.
 </p>
-<p><a class="button ghost" href="/metrics?top_k={{ top_k }}">← к метрикам</a></p>
+<p>
+  <a class="button ghost" href="/metrics?top_k={{ top_k }}">← к метрикам</a>
+  {% if companion_enabled %}
+  {% if with_jokers %}
+  <a class="button ghost" href="/metrics/compare?top_k={{ top_k }}">Только базовые конфигурации</a>
+  {% else %}
+  <a class="button ghost" href="/metrics/compare?top_k={{ top_k }}&jokers=true">
+    Добавить конфигурации-джокеры</a>
+  {% endif %}
+  {% endif %}
+</p>
+{% if with_jokers %}
+<p class="muted small">
+  Строки «Джокер …» — это те же модификаторы, что предлагаются в игровой колоде:
+  каждый меняет ровно один параметр векторной модели (вес расширений, схему
+  взвешивания, учёт длины документа). В обычном расчёте метрик они не участвуют
+  и включаются только этой кнопкой.
+</p>
+{% endif %}
 
 <section class="card">
   <table class="grid">

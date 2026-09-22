@@ -72,8 +72,68 @@ def list_queries(conn: sqlite3.Connection) -> list[sqlite3.Row]:
     ).fetchall()
 
 
+# --- Контроль качества самой разметки (механика «липовый эксперт») ----------
+#
+# Перекос разметки — реальная проблема эталона, а не только шутка: набор без
+# единого нерелевантного документа завышает точность и вырождает bpref
+# (см. metrics.bpref: при N = 0 метрика превращается в индикатор). Поэтому
+# такие запросы помечаются и подсвечиваются на странице метрик.
+
+#: начиная со скольких оценок перекос считается подозрительным
+SUSPECT_MIN_JUDGEMENTS = 8
+
+
+def check_suspect(conn: sqlite3.Connection, query_id: int) -> bool:
+    """Пересматривает отметку подозрительности запроса. True — только что помечен.
+
+    Метка снимается автоматически, как только у запроса появляется хотя бы
+    одна оценка 0.
+    """
+    rels = list(rel_map(conn, query_id).values())
+    marked = is_suspect(conn, query_id)
+    suspicious = len(rels) >= SUSPECT_MIN_JUDGEMENTS and all(rel > 0 for rel in rels)
+
+    if suspicious and not marked:
+        from datetime import datetime
+
+        conn.execute(
+            "INSERT INTO qrels_suspect(query_id, marked_at) VALUES(?, ?) "
+            "ON CONFLICT(query_id) DO UPDATE SET marked_at = excluded.marked_at",
+            (query_id, datetime.now().strftime("%d.%m.%Y %H:%M:%S")),
+        )
+        conn.commit()
+        return True
+    if not suspicious and marked:
+        conn.execute("DELETE FROM qrels_suspect WHERE query_id = ?", (query_id,))
+        conn.commit()
+    return False
+
+
+def is_suspect(conn: sqlite3.Connection, query_id: int) -> bool:
+    return (
+        conn.execute(
+            "SELECT 1 FROM qrels_suspect WHERE query_id = ?", (query_id,)
+        ).fetchone()
+        is not None
+    )
+
+
+def suspect_ids(conn: sqlite3.Connection) -> set[int]:
+    return {
+        row["query_id"] for row in conn.execute("SELECT query_id FROM qrels_suspect")
+    }
+
+
 def load_from_csv(conn: sqlite3.Connection) -> dict:
     """Загружает эталонные запросы и разметку из CSV в базу.
+
+    Номера запросов берутся из CSV и становятся идентификаторами в базе.
+    Иначе при повторной загрузке AUTOINCREMENT выдаёт запросам новые номера,
+    и нумерация в таблицах и на графиках отчёта расходится с эталоном.
+
+    Эталон перезаписывается целиком: запросы, добавленные в интерфейсе и не
+    выгруженные в CSV, будут потеряны вместе со своей разметкой — перед
+    перезагрузкой эталон следует сохранить (кнопка «Сохранить разметку в CSV»).
 
     Документы сопоставляются по имени файла, поэтому разметка переживает
     повторный обход ЛВС и смену идентификаторов.
@@ -81,13 +141,21 @@ def load_from_csv(conn: sqlite3.Connection) -> dict:
     if not EVAL_QUERIES_PATH.exists() or not config.QRELS_PATH.exists():
         return {"queries": 0, "judgements": 0, "missing": ["файлы эталона не найдены"]}
 
-    mapping = slug_to_id(conn)
-    numbers: dict[str, int] = {}
-
     with EVAL_QUERIES_PATH.open(encoding="utf-8", newline="") as handle:
-        for row in csv.DictReader(handle, delimiter=";"):
-            query_id = ensure_query(conn, row["text"], row.get("note", ""))
-            numbers[row["query_id"]] = query_id
+        queries = [
+            (int(row["query_id"]), row["text"].strip(), row.get("note", "") or "")
+            for row in csv.DictReader(handle, delimiter=";")
+        ]
+
+    # разметка уйдёт каскадом вместе с запросами и будет перечитана ниже
+    conn.execute("DELETE FROM eval_queries")
+    conn.executemany("INSERT INTO eval_queries(id, text, note) VALUES(?,?,?)", queries)
+    # чтобы запрос, добавленный из интерфейса, продолжил нумерацию эталона
+    conn.execute("DELETE FROM sqlite_sequence WHERE name = 'eval_queries'")
+    conn.commit()
+
+    mapping = slug_to_id(conn)
+    numbers = {str(query_id): query_id for query_id, _, _ in queries}
 
     judgements = 0
     missing: list[str] = []

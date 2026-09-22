@@ -50,6 +50,11 @@ def _thesaurus() -> dict[str, list[str]]:
     return mapping
 
 
+def thesaurus() -> dict[str, list[str]]:
+    """Тезаурус целиком: {лемма: [синонимы]}. Кэшируется при первом обращении."""
+    return _thesaurus()
+
+
 def synonyms_for(lemmas: list[str], known: set[str]) -> dict[str, list[str]]:
     """Синонимы, которые реально присутствуют в словаре системы."""
     result: dict[str, list[str]] = {}

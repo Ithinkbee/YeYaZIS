@@ -124,6 +124,49 @@ CREATE TABLE IF NOT EXISTS settings (
     value TEXT NOT NULL
 );
 
+-- === Игровая надстройка ====================================================
+-- Таблицы ниже к поиску и к оценке качества отношения не имеют: они хранят
+-- состояние геймификации. Колонки в уже существующие таблицы не добавляются
+-- (CREATE TABLE IF NOT EXISTS не выполнит ALTER) — вместо этого заводятся
+-- отдельные таблицы-спутники, как qrels_suspect ниже.
+
+-- Кошелёк пользователя: тот же разреженный вектор, что и вектор документа,
+-- только координаты — не веса A_ij, а количество «монет» данной леммы
+CREATE TABLE IF NOT EXISTS wallet (
+    lemma  TEXT PRIMARY KEY,
+    amount INTEGER NOT NULL DEFAULT 0
+);
+
+-- История операций: нужна, чтобы отлаживать баланс экономики
+CREATE TABLE IF NOT EXISTS ledger (
+    id     INTEGER PRIMARY KEY AUTOINCREMENT,
+    ts     TEXT NOT NULL,
+    reason TEXT NOT NULL,   -- 'cashback', 'tax', 'purchase:fix-pagination', ...
+    delta  INTEGER NOT NULL -- в «словах», не в леммах
+);
+
+-- Что куплено или разблокировано в лавке
+CREATE TABLE IF NOT EXISTS purchases (
+    code      TEXT PRIMARY KEY,
+    bought_at TEXT NOT NULL,
+    meta      TEXT NOT NULL DEFAULT ''
+);
+
+-- Ломбард: заложенные достижения
+CREATE TABLE IF NOT EXISTS pawned (
+    code     TEXT PRIMARY KEY,   -- код достижения
+    taken_at TEXT NOT NULL,
+    due_at   TEXT NOT NULL,
+    price    INTEGER NOT NULL
+);
+
+-- Запросы с подозрительной разметкой: все оценки положительные.
+-- Таблица-спутник к eval_queries, чтобы не трогать её схему.
+CREATE TABLE IF NOT EXISTS qrels_suspect (
+    query_id  INTEGER PRIMARY KEY REFERENCES eval_queries(id) ON DELETE CASCADE,
+    marked_at TEXT NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_postings_term ON postings(term_id);
 CREATE INDEX IF NOT EXISTS idx_postings_doc  ON postings(doc_id);
 CREATE INDEX IF NOT EXISTS idx_terms_lemma   ON terms(lemma);

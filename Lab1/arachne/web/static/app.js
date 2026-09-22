@@ -173,11 +173,270 @@
     });
   });
 
+  // --- Разметка релевантности без перезагрузки страницы ---------------------
+  //
+  // Прогрессивное улучшение: формы остаются обычными формами и работают без
+  // JavaScript, скрипт лишь перехватывает их submit. Раньше после оценки
+  // браузер вставал в начало страницы, и казалось, что ничего не произошло.
+
+  if (window.ARACHNE_QRELS) {
+    const grid = document.getElementById("quality-grid");
+    const counter = document.getElementById("judged-count");
+    const capital = document.getElementById("capital-value");
+    const names = { precision: "P", recall: "R", f1: "F1", ap: "AP", ndcg: "nDCG", bpref: "bpref" };
+
+    const paintQuality = (values) => {
+      if (!grid) return;
+      grid.innerHTML = values
+        .map((item) => {
+          const was = item.delta
+            ? `<span class="quality-was">${item.previous.toFixed(3)} →</span>`
+            : "";
+          const delta = item.delta
+            ? `<span class="delta ${item.up ? "delta-up" : "delta-down"}">${item.delta}</span>`
+            : "";
+          return `<div class="quality-item flash" data-key="${item.key}">
+            <span class="quality-name">${names[item.key] || item.key}</span>
+            <span class="quality-value">${was}
+              <b class="quality-now">${item.value.toFixed(3)}</b> ${delta}</span>
+          </div>`;
+        })
+        .join("");
+    };
+
+    document.querySelectorAll(".judge-form").forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+        const row = form.closest("tr");
+        const rel = data.get("rel");
+
+        fetch("/api/qrels/judge", { method: "POST", body: new URLSearchParams(data) })
+          .then((response) => response.json())
+          .then((result) => {
+            row.className = "rel-" + (rel === "-1" ? "none" : rel);
+            row.querySelectorAll(".judge-form button").forEach((button) => {
+              button.classList.remove("judged", "judged-0", "judged-1", "judged-2");
+            });
+            if (rel !== "-1") {
+              form.querySelector("button").classList.add("judged", "judged-" + rel);
+            }
+            // форма снятия оценки — последняя в ячейке
+            const forms = Array.from(row.querySelectorAll(".judge-form"));
+            forms[forms.length - 1].hidden = rel === "-1";
+
+            paintQuality(result.rows || []);
+            if (counter) counter.textContent = result.judged;
+            if (capital) capital.textContent = String(result.capital).replace(
+              /\B(?=(\d{3})+(?!\d))/g, " ");
+
+            const note = document.getElementById("quality-map");
+            if (note) {
+              const share = result.map_share >= 0 ? "+" : "";
+              note.innerHTML = `Вклад в общий MAP: <b>${share}${result.map_share.toFixed(3)}</b>
+                (сейчас MAP = ${result.map.toFixed(3)}).`;
+            }
+          })
+          .catch(() => form.submit());
+      });
+    });
+  }
+
+  // --- Модалка «Вы уверены?» ------------------------------------------------
+  //
+  // Escape закрывает её всегда — иначе это не шутка, а ловушка, из которой
+  // нельзя выйти. Поведение кнопок зависит от покупки «Честные подтверждения».
+
+  const shifty = window.ARACHNE_UI && window.ARACHNE_UI.shifty_modals;
+
+  const ask = (text) =>
+    new Promise((resolve) => {
+      const overlay = document.createElement("div");
+      overlay.className = "modal-overlay";
+      overlay.innerHTML = `<div class="modal" role="dialog" aria-modal="true">
+        <p class="modal-text"></p>
+        <div class="modal-buttons"></div>
+        <p class="muted small">Escape — закрыть</p></div>`;
+      overlay.querySelector(".modal-text").textContent = text;
+
+      const yes = document.createElement("button");
+      yes.textContent = "Да";
+      yes.className = "modal-yes";
+      const no = document.createElement("button");
+      no.textContent = "Нет";
+      no.className = "ghost";
+
+      const buttons = overlay.querySelector(".modal-buttons");
+      buttons.append(yes, no);
+
+      let swapTimer = null;
+      const swap = () => {
+        buttons.append(buttons.firstElementChild);
+        swapTimer = setTimeout(swap, 800);
+      };
+
+      const close = (answer) => {
+        clearTimeout(swapTimer);
+        document.removeEventListener("keydown", onKey);
+        overlay.remove();
+        resolve(answer);
+      };
+      const onKey = (event) => { if (event.key === "Escape") close(false); };
+
+      yes.addEventListener("click", () => close(true));
+      no.addEventListener("click", () => close(false));
+      document.addEventListener("keydown", onKey);
+      overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) close(false);
+      });
+
+      if (shifty) {
+        swapTimer = setTimeout(swap, 1200);
+        let dodged = false;
+        yes.addEventListener("mouseenter", () => {
+          if (dodged) return;
+          dodged = true;
+          yes.classList.add("dodge");
+          setTimeout(() => yes.classList.remove("dodge"), 400);
+        });
+      }
+
+      document.body.appendChild(overlay);
+      no.focus();
+    });
+
+  document.querySelectorAll("form.confirm-danger").forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      if (form.dataset.confirmed === "yes") return;
+      event.preventDefault();
+      ask(form.dataset.confirm || "Вы уверены?").then((answer) => {
+        if (!answer) return;
+        form.dataset.confirmed = "yes";
+        form.submit();
+      });
+    });
+  });
+
+  // --- Инвертированный скролл на разметке -----------------------------------
+  //
+  // Отключается на тач-устройствах и при prefers-reduced-motion; клавиатурный
+  // скролл (PgUp/PgDn/пробел) не трогаем вовсе. Снимается покупкой или честно —
+  // разметкой двадцати документов.
+
+  const touch = window.matchMedia("(pointer: coarse)").matches;
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (window.ARACHNE_QRELS && window.ARACHNE_UI
+      && window.ARACHNE_UI.invert_scroll && !touch && !calm) {
+    window.addEventListener(
+      "wheel",
+      (event) => {
+        if (event.ctrlKey) return;               // масштабирование не трогаем
+        event.preventDefault();
+        window.scrollBy(0, -event.deltaY);
+      },
+      { passive: false }
+    );
+  }
+
+  // --- Паутина при бездействии ----------------------------------------------
+
+  const cobwebAllowed =
+    document.querySelector(".results") && window.ARACHNE_UI && window.ARACHNE_UI.cobweb && !calm;
+
+  if (cobwebAllowed) {
+    const NS = "http://www.w3.org/2000/svg";
+    let web = null;
+    let idle = null;
+    let grow = null;
+
+    const corner = (x, y, flipX, flipY) => {
+      const group = document.createElementNS(NS, "g");
+      for (let ring = 1; ring <= 5; ring += 1) {
+        const size = ring * 55;
+        const path = document.createElementNS(NS, "path");
+        path.setAttribute(
+          "d",
+          `M ${x + flipX * size} ${y} Q ${x + flipX * size * 0.62} ${y + flipY * size * 0.62}
+             ${x} ${y + flipY * size}`
+        );
+        group.appendChild(path);
+      }
+      for (let ray = 0; ray <= 4; ray += 1) {
+        const angle = (Math.PI / 2) * (ray / 4);
+        const line = document.createElementNS(NS, "line");
+        line.setAttribute("x1", x);
+        line.setAttribute("y1", y);
+        line.setAttribute("x2", x + flipX * Math.cos(angle) * 290);
+        line.setAttribute("y2", y + flipY * Math.sin(angle) * 290);
+        group.appendChild(line);
+      }
+      return group;
+    };
+
+    const spin = () => {
+      if (web) return;
+      web = document.createElementNS(NS, "svg");
+      web.setAttribute("class", "cobweb");
+      web.setAttribute("preserveAspectRatio", "none");
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      web.setAttribute("viewBox", `0 0 ${width} ${height}`);
+      web.append(
+        corner(0, 0, 1, 1),
+        corner(width, 0, -1, 1),
+        corner(0, height, 1, -1),
+        corner(width, height, -1, -1)
+      );
+      document.body.appendChild(web);
+
+      const started = Date.now();
+      grow = setInterval(() => {
+        const share = Math.min(1, (Date.now() - started) / 40000);
+        web.style.opacity = String(0.75 * share);
+      }, 400);
+    };
+
+    const tear = () => {
+      if (!web) return;
+      clearInterval(grow);
+      web.classList.add("torn");
+      const dying = web;
+      web = null;
+      setTimeout(() => dying.remove(), 500);
+    };
+
+    const reset = () => {
+      tear();
+      clearTimeout(idle);
+      idle = setTimeout(spin, 12000);
+    };
+
+    ["click", "scroll", "keydown", "input", "pointerdown"].forEach((event) => {
+      window.addEventListener(event, reset, { passive: true });
+    });
+    reset();
+  }
+
+  // --- Таймер блица ---------------------------------------------------------
+
+  const blitzTimer = document.getElementById("blitz-timer");
+  if (blitzTimer) {
+    const limit = Number(blitzTimer.dataset.limit);
+    let elapsed = Number(blitzTimer.dataset.elapsed);
+    setInterval(() => {
+      elapsed += 1;
+      const left = limit - elapsed;
+      blitzTimer.textContent = left > 0 ? String(left) : "0";
+      blitzTimer.classList.toggle("expired", left <= 0);
+    }, 1000);
+  }
+
   // --- Паук-компаньон -------------------------------------------------------
 
   const companion = document.getElementById("companion");
-  if (companion) {
-    const bubble = document.getElementById("companion-bubble");
+  const bubble = document.getElementById("companion-bubble");
+  if (companion && bubble) {
     let hideTimer = null;
 
     const say = (text) => {
@@ -199,5 +458,13 @@
         .then((data) => say(data.line))
         .catch(() => say("Кажется, я запутался в паутине."));
     });
+
+    // Проклятие: если пользователь не заметил подмену, паук признаётся сам
+    if (window.ARACHNE_CURSED) {
+      setTimeout(
+        () => say("Признаюсь: одно слово в запросе я подменил синонимом. Снимите проклятие."),
+        20000
+      );
+    }
   }
 })();

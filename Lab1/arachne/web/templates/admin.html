@@ -59,8 +59,8 @@
     <form action="/admin/reindex" method="post" class="inline">
       <button type="submit" class="ghost">Перестроить индекс</button>
     </form>
-    <form action="/admin/clear" method="post" class="inline"
-          onsubmit="return confirm('Удалить все документы и индекс?')">
+    <form action="/admin/clear" method="post" class="inline confirm-danger"
+          data-confirm="Удалить все документы и индекс?">
       <button type="submit" class="ghost danger">Очистить базу</button>
     </form>
 

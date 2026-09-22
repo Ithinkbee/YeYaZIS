@@ -10,6 +10,42 @@
 {% block content %}
 {% include "_searchform.html" %}
 
+{% if notice %}<div class="notice">{{ notice }}</div>{% endif %}
+
+{% if jokers_active %}
+<div class="joker-bar">
+  <span class="muted small">активные джокеры:</span>
+  {% for item in jokers_active %}
+  <span class="tag tag-accent" title="{{ item.effect }}">{{ item.title }} · ещё {{ item.left }}</span>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if reward and reward.kind == 'tax' %}
+<div class="notice notice-warn">Налог на лень: −{{ -reward.amount }} сл. {{ reward.line }}</div>
+{% elif reward and reward.kind == 'cashback' and reward.amount %}
+<div class="notice">Кэшбэк за развёрнутый запрос: +{{ reward.amount }} сл.
+  {% if reward.verb %}<span class="muted small">(в запросе есть глагол — ставка выше)</span>{% endif %}
+</div>
+{% endif %}
+
+{% if moult %}
+<div class="notice">
+  {{ moult.line }}
+  {% if moult.duplicate %}Выпала уже знакомая тема «{{ moult.title }}» — обменяна на {{ moult.amount }} сл.
+  {% else %}Выпала новая тема оформления: <b>{{ moult.title }}</b>. Выбрать её можно в подвале страницы.
+  {% endif %}
+</div>
+{% endif %}
+
+{% if offended %}
+<div class="notice notice-warn">
+  {{ companion_name }} оскорбился и молча выписал купон −10% на одну покупку в лавке.
+</div>
+{% endif %}
+
+{% if synonym_tip %}<div class="notice">{{ synonym_tip }}</div>{% endif %}
+
 <div class="results-head">
   <div>
     Найдено документов: <b>{{ total }}</b>
@@ -19,6 +55,12 @@
     {% endif %}
   </div>
   <div class="results-actions">
+    {% if companion_enabled %}
+    <form action="/lucky" method="post" class="inline">
+      <button type="submit" class="ghost" {% if not lucky_ready %}disabled
+              title="Удача перезаряжается десять минут"{% endif %}>Мне повезёт</button>
+    </form>
+    {% endif %}
     {% if llm.enabled %}
     <button type="button" class="ghost" id="llm-answer-btn" data-query="{{ query }}">
       Краткий ответ по найденному
@@ -28,8 +70,14 @@
     </button>
     {% endif %}
     {% if marks %}
-    <form action="/feedback/clear" method="post" class="inline">
+    <form action="/feedback/clear" method="post" class="inline confirm-danger"
+          data-confirm="Сбросить все отметки релевантности по этому запросу?">
       <input type="hidden" name="q" value="{{ query }}">
+      <input type="hidden" name="all_words" value="{{ 'true' if all_words else 'false' }}">
+      <input type="hidden" name="synonyms" value="{{ 'true' if synonyms else 'false' }}">
+      <input type="hidden" name="use_feedback" value="{{ 'true' if use_feedback else 'false' }}">
+      <input type="hidden" name="date_from" value="{{ date_from }}">
+      <input type="hidden" name="date_to" value="{{ date_to }}">
       <button type="submit" class="ghost">Сбросить отметки</button>
     </form>
     {% endif %}
@@ -69,9 +117,17 @@
     {% if analysis.stopwords %}
     <p class="muted">Отброшены стоп-слова: {{ analysis.stopwords | join(', ') }}</p>
     {% endif %}
+    {% if kept_stopwords %}
+    <p>
+      Стоп-слова, оставленные в ПОЗ:
+      {% for word in kept_stopwords %}
+      <span class="chip">{{ word }}{% if word in bought_stopwords %} <span class="muted small">куплено</span>{% endif %}</span>
+      {% endfor %}
+    </p>
+    {% endif %}
     {% if expansions %}
     <p>
-      Поисковый образ запроса расширен (вес 0,5):
+      Поисковый образ запроса расширен:
       {% for source, extras in expansions.items() %}
       <span class="tag">{{ source }} → {{ extras | join(', ') }}</span>
       {% endfor %}
@@ -82,8 +138,23 @@
       0,5 для добавленных системой. Ранг документа — косинус угла между вектором
       документа и вектором запроса.
     </p>
+    {% if companion_enabled and cruelty_enabled %}
+    <form action="/curse/lift" method="post" class="inline">
+      <input type="hidden" name="q" value="{{ query }}">
+      <input type="hidden" name="all_words" value="{{ 'true' if all_words else 'false' }}">
+      <input type="hidden" name="synonyms" value="{{ 'true' if synonyms else 'false' }}">
+      <button type="submit" class="ghost small"
+              title="Если запрос был подменён — поиск повторится по исходному">
+        Снять проклятие
+      </button>
+    </form>
+    {% endif %}
   </div>
 </details>
+
+{% if mood == 'sulking' %}
+<p class="mood-note">ранжирование временно ведётся по алфавиту, см. настроение {{ companion_name }}я</p>
+{% endif %}
 
 {% if not results %}
 <div class="empty">
@@ -101,9 +172,9 @@
 </div>
 {% endif %}
 
-<ol class="results" start="{{ (page - 1) * per_page + 1 }}">
+<ol class="results" start="{{ (page - 1) * per_page + 1 }}" id="results">
   {% for result in results %}
-  <li class="result">
+  <li class="result" id="doc-{{ result.document_id }}">
     <div class="result-head">
       <a class="result-title" href="/doc/{{ result.document_id }}?q={{ query | urlencode }}">{{ result.title }}</a>
       <span class="rank" title="косинусная мера близости">{{ '%.4f' | format(result.rank) }}</span>
@@ -120,8 +191,24 @@
 
     <div class="result-words">
       Слова запроса в документе:
-      {% for word in result.matched_words %}<span class="chip">{{ word }}</span>{% endfor %}
+      {% if result.matched_words %}
+        {% for word in result.matched_words %}<span class="chip">{{ word }}</span>{% endfor %}
+      {% else %}<span class="muted">— ни одного из введённых слов —</span>{% endif %}
     </div>
+
+    {% if result.feedback_words %}
+    <details class="feedback-terms">
+      <summary class="muted small">добавлено по вашим отметкам: {{ result.feedback_words | length }} терминов</summary>
+      <p class="muted small">
+        {% for word in result.feedback_words %}<span class="chip chip-muted">{{ word }}</span>{% endfor %}
+      </p>
+      <p class="muted small">
+        Это не слова запроса. Метод Рокчио сдвинул вектор запроса в сторону
+        документов, отмеченных как удачные: Q′ = αQ + β/|D<sub>r</sub>|·ΣD<sub>r</sub>
+        − γ/|D<sub>nr</sub>|·ΣD<sub>nr</sub>. Перечисленные термины пришли оттуда.
+      </p>
+    </details>
+    {% endif %}
 
     <div class="result-tools">
       <details class="why">
@@ -152,6 +239,10 @@
         <input type="hidden" name="doc_id" value="{{ result.document_id }}">
         <input type="hidden" name="all_words" value="{{ 'true' if all_words else 'false' }}">
         <input type="hidden" name="synonyms" value="{{ 'true' if synonyms else 'false' }}">
+        <input type="hidden" name="use_feedback" value="{{ 'true' if use_feedback else 'false' }}">
+        <input type="hidden" name="date_from" value="{{ date_from }}">
+        <input type="hidden" name="date_to" value="{{ date_to }}">
+        <input type="hidden" name="page" value="{{ page }}">
         <button type="submit" name="mark" value="1"
                 class="ghost small {% if marks.get(result.document_id) == 1 %}marked-plus{% endif %}">
           Больше таких
@@ -179,4 +270,13 @@
   {% endif %}
 </nav>
 {% endif %}
+
+{% if drunk %}
+<p class="mood-note">{{ streak }}-й запрос подряд без паузы. Буквы в сниппетах пляшут —
+  {{ companion_name }} советует поспать. Помогает пауза в десять минут или «Трезвый индекс» в лавке.</p>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if cursed %}<script>window.ARACHNE_CURSED = true;</script>{% endif %}
 {% endblock %}

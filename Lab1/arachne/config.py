@@ -16,6 +16,7 @@ DB_PATH = DATA_DIR / "arachne.db"
 STOPWORDS_PATH = DATA_DIR / "stopwords_ru.txt"
 SYNONYMS_PATH = DATA_DIR / "synonyms_ru.json"
 QRELS_PATH = DATA_DIR / "qrels.csv"
+RUDE_WORDS_PATH = DATA_DIR / "rude_words.txt"
 
 WEB_DIR = Path(__file__).resolve().parent / "web"
 TEMPLATES_DIR = WEB_DIR / "templates"
@@ -134,8 +135,35 @@ LLM_ENABLED = _env_bool("ARACHNE_LLM", False) and bool(LLM_API_KEY)
 
 # --- Компаньон и геймификация ----------------------------------------------
 
+#: Общий рубильник всей игровой надстройки. ARACHNE_COMPANION=0 — и система
+#: выглядит как обычная лабораторная: ни паука, ни кошелька, ни издевательств.
 COMPANION_ENABLED = _env_bool("ARACHNE_COMPANION", True)
 COMPANION_NAME = "Пафнутий"
+
+# --- Экономика слов и игровые механики --------------------------------------
+#
+# Все флаги ниже подчинены ARACHNE_COMPANION: при выключенном компаньоне
+# геймификации нет независимо от их значений. Ни одна из этих механик не
+# участвует в расчёте метрик — оценка качества всегда идёт по чистой
+# конфигурации (см. evaluation/runner.py).
+
+#: кошелёк, цены терминов и лавка
+ECONOMY_ENABLED = _env_bool("ARACHNE_ECONOMY", True)
+
+#: издевательства над интерфейсом (паутина, пагинация-предатель, инверсия скролла)
+CRUELTY_ENABLED = _env_bool("ARACHNE_CRUELTY", True)
+
+#: вероятность подмены одной леммы запроса синонимом («проклятый запрос»)
+try:
+    CURSE_CHANCE = float(os.environ.get("ARACHNE_CURSE_CHANCE", "0.07"))
+except ValueError:
+    CURSE_CHANCE = 0.07
+
+#: стартовый капитал в «словах», выдаётся один раз при первой индексации
+START_CAPITAL = 300
+
+#: сколько запросов действует взятый джокер
+JOKER_QUERIES = 5
 
 
 def ensure_dirs() -> None:

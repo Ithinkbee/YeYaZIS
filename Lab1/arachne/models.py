@@ -40,6 +40,9 @@ class SearchResult:
     date: str
     #: слова запроса, реально присутствующие в документе (требование методички)
     matched_words: list[str] = field(default_factory=list)
+    #: термины, добавленные в ПОЗ методом Рокчио по отметкам пользователя —
+    #: показываются отдельно, это не слова запроса
+    feedback_words: list[str] = field(default_factory=list)
     uri: str = ""
     path: str = ""
     host: str = ""

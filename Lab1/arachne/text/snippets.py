@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import html
+import random
 import re
 
 from .. import config
@@ -85,3 +86,35 @@ def highlight(fragment: str, lemmas: set[str]) -> str:
         last = match.end()
     out.append(html.escape(fragment[last:]))
     return "".join(out)
+
+
+def slur(snippet_html: str, chance: float, seed: int | None = None) -> str:
+    """Переставляет соседние буквы в готовом сниппете («пьяный индекс»).
+
+    Портится только то, что видит пользователь в выдаче: ни текст документа,
+    ни индекс, ни исходный файл не затрагиваются. Разметка (теги и
+    HTML-сущности) пропускается нетронутой, иначе сниппет перестал бы быть
+    корректным HTML. В расчёте метрик качества не применяется никогда.
+    """
+    if chance <= 0 or not snippet_html:
+        return snippet_html
+    rng = random.Random(seed)
+    chars = list(snippet_html)
+    index = 0
+    while index < len(chars) - 1:
+        char = chars[index]
+        if char == "<":                       # тег — перескакиваем целиком
+            closing = snippet_html.find(">", index)
+            index = len(chars) if closing < 0 else closing + 1
+            continue
+        if char == "&":                       # HTML-сущность — тоже целиком
+            closing = snippet_html.find(";", index)
+            index = index + 1 if closing < 0 or closing - index > 8 else closing + 1
+            continue
+        following = chars[index + 1]
+        if char.isalpha() and following.isalpha() and rng.random() < chance:
+            chars[index], chars[index + 1] = following, char
+            index += 2
+            continue
+        index += 1
+    return "".join(chars)

@@ -12,6 +12,7 @@
   <a href="#ai">Подсказки системы</a>
   <a href="#quality">Оценка качества</a>
   <a href="#trouble">Если что-то не так</a>
+  {% if companion_enabled %}<a href="#patch">Патчноуты</a>{% endif %}
 </nav>
 
 <section class="card" id="start">
@@ -141,4 +142,24 @@
       система перестроит вектор запроса.</li>
   </ul>
 </section>
+
+{% if companion_enabled and patch %}
+<section class="card" id="patch">
+  <h2>Патч {{ patch.version }} от {{ companion_name }}я</h2>
+  <ul class="help-list">
+    {% for change in patch.changes %}<li>{{ change }}</li>{% endfor %}
+  </ul>
+  <p class="muted small">
+    Текст собирается из реальных значений <code>config.py</code> и состояния
+    индекса, а не придумывается. Если между запусками кто-то менял настройки
+    модели, патчноут скажет об этом прямым текстом — заодно видно, что прогоны
+    метрик выполнялись при разных параметрах.
+  </p>
+  <table class="kv">
+    {% for name, value in patch.config.items() %}
+    <tr><td><code>{{ name }}</code></td><td><b>{{ value }}</b></td></tr>
+    {% endfor %}
+  </table>
+</section>
+{% endif %}
 {% endblock %}

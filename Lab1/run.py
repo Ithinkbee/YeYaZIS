@@ -11,7 +11,7 @@ import argparse
 import threading
 import webbrowser
 
-from arachne import APP_NAME, config, db
+from arachne import APP_NAME, companion, config, db
 from arachne.ai import llm
 
 
@@ -22,6 +22,7 @@ def prepare() -> None:
     try:
         db.init_db(conn)
         statistics = db.stats(conn)
+        patch = companion.patch_notes(conn, advance=True) if config.COMPANION_ENABLED else None
     finally:
         conn.close()
 
@@ -38,6 +39,10 @@ def prepare() -> None:
             else status["reason"]
         )
     )
+    if patch:
+        print(f"\n  Патч {patch['version']} от {config.COMPANION_NAME}я:")
+        for change in patch["changes"]:
+            print(f"    — {change}")
 
 
 def main() -> None:

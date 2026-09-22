@@ -168,6 +168,78 @@ def test_matched_words_are_reported(conn):
     assert results[0].explanation
 
 
+# --- Обратная связь не должна ломать отбор и объяснение выдачи ---------------
+
+@pytest.fixture()
+def wide_conn(tmp_path: Path):
+    """Коллекция с длинными документами: вектор Рокчио получается объёмным."""
+    node = tmp_path / "NODE-WIDE"
+    node.mkdir()
+    (node / "lan.txt").write_text(
+        "Локальная сеть предприятия. Коммутатор, маршрутизатор, кабель, розетка, "
+        "патч-панель, витая пара, топология звезда, коаксиальный сегмент, "
+        "домен, сервер, рабочая станция, адресация, шлюз, подсеть.",
+        encoding="utf-8",
+    )
+    (node / "lan2.txt").write_text(
+        "Локальная сеть отдела: кабель, коммутатор, адресация, шлюз, подсеть, "
+        "мониторинг трафика.",
+        encoding="utf-8",
+    )
+    (node / "other.txt").write_text("Борщ, рецепт, свёкла, капуста.", encoding="utf-8")
+
+    connection = db.connect(tmp_path / "wide.db")
+    db.init_db(connection)
+    crawler.add_source(connection, str(node), "NODE-WIDE")
+    crawler.crawl(connection)
+    indexer.build_index(connection)
+    yield connection
+    connection.close()
+
+
+def _with_feedback(connection, query: str, positive: list[int], **kwargs) -> Search:
+    engine = Search(conn=connection, search_query=query, **kwargs)
+    engine.rocchio_vector = feedback.rocchio_vector(
+        connection, engine.get_search_query_vector(), positive, []
+    )
+    return engine
+
+
+def test_feedback_does_not_empty_strict_search(wide_conn):
+    """F2: отметка релевантности не должна обнулять режим «все слова»."""
+    plain = Search(
+        conn=wide_conn, search_query="локальная сеть", all_words_together=True
+    ).get_search_result()
+    assert plain, "без отметок строгий режим что-то находит"
+
+    marked = _with_feedback(
+        wide_conn, "локальная сеть", [plain[0].document_id], all_words_together=True
+    ).get_search_result()
+    assert len(marked) >= len(plain)
+
+
+def test_feedback_terms_are_reported_separately(wide_conn):
+    """F3: чипсы «слова запроса» не превращаются в весь вектор Рокчио."""
+    plain = Search(conn=wide_conn, search_query="локальная сеть").get_search_result()
+    marked = _with_feedback(
+        wide_conn, "локальная сеть", [plain[0].document_id]
+    ).get_search_result()
+
+    top = marked[0]
+    assert set(top.matched_words) <= {"локальная", "сеть", "локальный"}
+    # термины из вектора обратной связи вынесены отдельно и не выдаются
+    # за слова запроса
+    assert "коммутатор" not in top.matched_words
+    assert "коммутатор" in top.feedback_words
+
+
+def test_user_lemmas_survive_rocchio(wide_conn):
+    engine = _with_feedback(wide_conn, "локальная сеть", [1])
+    engine.get_search_result()
+    assert engine.user_lemmas == ["локальный", "сеть"]
+    assert len(engine.query_lemmas) > len(engine.user_lemmas)
+
+
 def test_scalar_product_and_norm():
     assert Search.scalar_product({"a": 2.0, "b": 1.0}, {"a": 3.0}) == pytest.approx(6.0)
     assert Search.euclidean_norm({"a": 3.0, "b": 4.0}) == pytest.approx(5.0)

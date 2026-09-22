@@ -12,13 +12,28 @@
 
 <section class="achievements">
   {% for item in achievements %}
-  <div class="achievement {% if not item.opened %}locked{% endif %}">
-    <span class="achievement-icon">{{ item.icon }}</span>
+  <div class="achievement {% if not item.opened and not item.lost_at %}locked{% endif %}
+              {% if item.lost_at %}lost{% endif %}">
+    <span class="achievement-icon">{{ item.icon | icon }}</span>
     <div>
       <b>{{ item.title }}</b>
       <div class="muted small">{{ item.description }}</div>
-      {% if item.opened %}
+      {% if item.lost_at %}
+      <div class="bad small">
+        у {{ companion_name }}я, выкуплено им за долги {{ item.lost_at }}
+      </div>
+      <div class="muted small">
+        вернуть можно только повторным выполнением условия, и то за
+        {{ pawn_prices[item.code] }} сл.
+      </div>
+      {% elif item.pawned %}
+      <div class="warn small">в залоге до {{ item.due_at }}</div>
+      <div class="muted small"><a href="/shop/pawn">выкупить за {{ item.value }} сл.</a></div>
+      {% elif item.opened %}
       <div class="ok small">получено {{ item.at }}</div>
+      {% if economy_enabled %}
+      <div class="muted small">оценка в ломбарде — {{ item.value }} сл.</div>
+      {% endif %}
       {% else %}
       <div class="muted small">ещё не получено</div>
       {% endif %}
@@ -26,6 +41,10 @@
   </div>
   {% endfor %}
 </section>
+
+{% if economy_enabled %}
+<p class="muted small"><a href="/shop/pawn">Ломбард {{ companion_name }}я →</a></p>
+{% endif %}
 
 <section class="card">
   <h2>Текущие показатели</h2>

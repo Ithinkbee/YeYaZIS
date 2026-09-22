@@ -10,7 +10,8 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from arachne.evaluation import metrics  # noqa: E402
+from arachne import config, db  # noqa: E402
+from arachne.evaluation import metrics, qrels  # noqa: E402
 
 # выдача: релевантны документы 1, 2 и 5; документы 3, 4 оценены как нерелевантные
 RANKED = [1, 3, 2, 4, 5]
@@ -86,3 +87,54 @@ def test_macro_average_computes_map():
     assert summary["map"] == pytest.approx((first["ap"] + second["ap"]) / 2)
     assert summary["queries"] == 2
     assert len(summary["curve"]) == 11
+
+
+# --- Эталонная разметка -----------------------------------------------------
+
+def test_qrels_load_keeps_numbering_from_csv(tmp_path: Path, monkeypatch):
+    """Номера эталонных запросов в базе должны совпадать с номерами в CSV.
+
+    Иначе при повторной загрузке эталона нумерация в таблицах и на графиках
+    отчёта уезжает относительно data/eval_queries.csv.
+    """
+    queries_csv = tmp_path / "eval_queries.csv"
+    judgements_csv = tmp_path / "qrels.csv"
+    queries_csv.write_text(
+        "query_id;text;note\n7;локальная сеть;первый\n9;резервное копирование;второй\n",
+        encoding="utf-8",
+    )
+    judgements_csv.write_text(
+        "query_id;doc_slug;rel\n7;lan;2\n9;backup;1\n", encoding="utf-8"
+    )
+    monkeypatch.setattr(qrels, "EVAL_QUERIES_PATH", queries_csv)
+    monkeypatch.setattr(config, "QRELS_PATH", judgements_csv)
+
+    conn = db.connect(tmp_path / "test.db")
+    db.init_db(conn)
+    try:
+        for slug in ("lan", "backup"):
+            conn.execute(
+                """INSERT INTO documents(path, uri, host, title, text, ext,
+                                         date_added, time_added)
+                   VALUES(?,?,?,?,?,?,?,?)""",
+                (f"C:\\\\node\\\\{slug}.txt", "file:///", "NODE", slug, "текст",
+                 ".txt", "01.01.2026", "00:00:00"),
+            )
+        conn.commit()
+
+        # запрос, добавленный из интерфейса: сдвигает счётчик AUTOINCREMENT
+        qrels.ensure_query(conn, "посторонний запрос")
+
+        first = qrels.load_from_csv(conn)
+        assert first["judgements"] == 2
+        assert [row["id"] for row in qrels.list_queries(conn)] == [7, 9]
+
+        # повторная загрузка не должна менять номера
+        qrels.load_from_csv(conn)
+        assert [row["id"] for row in qrels.list_queries(conn)] == [7, 9]
+        assert qrels.rel_map(conn, 7) and qrels.rel_map(conn, 9)
+
+        # следующий запрос из интерфейса продолжает нумерацию эталона
+        assert qrels.ensure_query(conn, "ещё один запрос") == 10
+    finally:
+        conn.close()
