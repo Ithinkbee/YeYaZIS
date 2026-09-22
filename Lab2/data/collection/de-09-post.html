@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Post, Leitzahlen und die Logistik der Sendungen</title>
+<style>code{background:#f4f4f4;padding:0 .3em;font-family:Consolas,monospace}</style>
+</head>
+<body>
+<h1>Post, Leitzahlen und die Logistik der Sendungen</h1>
+
+<p>Die Post war das erste Netz, das ein ganzes Land erfasste, und viele der für sie erdachten Lösungen sind später in den Netzen der Datenübertragung wieder aufgetaucht. Die Anschrift auf dem Umschlag ist ein hierarchischer Schlüssel: Land, Region, Ort, Straße, Hausnummer, Empfänger. Die Bearbeitung verläuft von oben nach unten, und an jedem Knoten wird genau so viel gelesen, wie für den nächsten Schritt nötig ist.</p>
+
+<p>Die Postleitzahl entstand eben deshalb, damit eine Maschine die Arbeit des Menschen übernehmen konnte. Eine handschriftliche Anschrift wird schlecht erkannt, fünf Ziffern in vorgegebenen Feldern dagegen gut. Andere Länder haben es anders gelöst: Das britische Format der Art <code>SW1A 1AA</code> verschlüsselt bis hin zur Straßenseite, und das amerikanische <code>ZIP+4</code> fügt den fünf Ziffern weitere vier hinzu und kann damit ein einzelnes Gebäude bezeichnen.</p>
+
+<p>Die Strichkodierung der Sendungen stützt sich auf Vorgaben des Weltpostvereins. Die Kennung einer Auslandssendung hat die Gestalt <code>RA123456789DE</code>: zwei Buchstaben für die Versandart, neun Ziffern der laufenden Nummer, zwei Buchstaben des Einlieferungslandes. Das dreizehnte Zeichen ist keine beliebige Ziffer, sondern eine Prüfziffer, die nach einem Gewichtungsverfahren berechnet wird; sie erlaubt es, einen Lesefehler zu erkennen, ohne eine Datenbank zu befragen. Der Datenaustausch zwischen den Postverwaltungen erfolgt mit Nachrichten des Formats <code>ITMATT</code>, und die Zollanmeldung wird vorab übermittelt, damit das Paket an der Grenze nicht auf die Abfertigung warten muss.</p>
+
+<p>Ein Verteilzentrum ist als verzweigtes Fließband aufgebaut. Die Sendung durchläuft die Prüfung von Gewicht und Maßen, danach einen Leser, der die Kennung einem Laufweg zuordnet, worauf ein Schieber sie in das richtige Fach lenkt. Die Leistung einer heutigen Anlage misst sich in Zehntausenden Sendungen je Stunde, und der Engpass liegt nicht in der Mechanik, sondern in der Güte der Ausgangsdaten: Eine falsch angegebene Leitzahl schickt ein Paket auf einem Umweg über eine andere Region.</p>
+
+<p>Eine eigene Schwierigkeit bereiten Länder ohne durchgehende Hausnummern. In manchen Städten wird eine Anschrift durch Wegmarken beschrieben, und eine maschinelle Bearbeitung ist dort grundsätzlich unmöglich. Für solche Fälle gibt es Verfahren wie <code>what3words</code>, die einen Geländeabschnitt durch drei Wörter verschlüsseln; die Postdienste nehmen sie allerdings nur zögerlich an, denn jeder Ersatz der Anschrift setzt das Einverständnis aller Beteiligten in der Kette voraus.</p>
+
+<p>Die Laufzeit hängt nicht von der Geschwindigkeit der Fahrzeuge ab, sondern von der Zahl der Umladungen. Jede Umladung fügt eine Wartezeit auf die nächste Verbindung hinzu, und deshalb braucht ein Paket über zwei Drehkreuze länger als eines, das auf der Straße die doppelte Entfernung unmittelbar zurücklegt. Es ist dasselbe Prinzip, nach dem in Datennetzen nicht die Länge des Kabels die Verzögerung verursacht, sondern die Anzahl der Zwischenstellen.</p>
+
+<p>Der Brief auf Papier ist unterdessen nicht verschwunden, obwohl der Schriftwechsel längst andere Wege geht. Erhalten haben sich jene Sendungen, bei denen es auf die körperliche Zustellung selbst ankommt: unterschriebene Urkunden, Bescheide mit rechtlicher Wirkung, Warensendungen. Die Post hat sich vom Mittel der Nachrichtenübermittlung zum Zustelldienst für Gegenstände gewandelt, und dieser Teil wächst, während die Zahl der Briefe seit dem dritten Jahrzehnt zurückgeht.</p>
+</body>
+</html>

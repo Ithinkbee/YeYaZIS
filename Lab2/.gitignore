@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# выгрузки со штампом времени, которые делает интерфейс по кнопке «сохранить»
+report/tolmach-*.csv
+report/tolmach-*.json
+report/tolmach-*.txt

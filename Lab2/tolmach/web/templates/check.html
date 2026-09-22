@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block title %}Свой текст — «{{ app_name }}»{% endblock %}
+
+{% block content %}
+
+<h1>Проверить свой текст</h1>
+<p class="lead">
+  Вставьте текст или загрузите HTML-файл. Разметка будет удалена так же, как и
+  для документов коллекции, после чего текст разберут все три метода.
+</p>
+
+{% if message %}<div class="banner">{{ message }}</div>{% endif %}
+
+<form action="/check" method="post" enctype="multipart/form-data" class="check-form" id="check-form">
+  <label for="text">Текст или HTML</label>
+  <textarea id="text" name="text" rows="10"
+            placeholder="Вставьте сюда текст на русском или немецком языке…">{{ source }}</textarea>
+
+  <div class="row">
+    <label class="file">
+      Или файл: <input type="file" name="upload" accept=".html,.htm,.txt">
+    </label>
+    <button type="submit">Определить язык</button>
+    {% if companion_enabled %}
+    <span class="note guard-note">{{ companion_name }} сторожит форму: нужно решить задачу.</span>
+    {% endif %}
+  </div>
+</form>
+
+{% if companion_enabled %}
+<div class="modal" id="gate" hidden>
+  <div class="modal-box">
+    <header class="modal-head">
+      <h2>{{ companion_name }} преграждает путь</h2>
+      <p id="gate-task" class="lead">Поставьте мат чёрному королю за 2 хода.</p>
+    </header>
+
+    <div class="gate-body">
+      <div id="gate-board" class="board small"></div>
+      <div class="gate-side">
+        <p id="gate-line" class="spider-says">Стоять. Сначала мат в два хода.</p>
+        <p id="gate-message" class="note"></p>
+        <p id="gate-hint" class="note hint" hidden></p>
+        <p class="note">
+          Белые ходят снизу вверх. Щёлкните по своей фигуре, затем по полю,
+          куда она идёт. Засчитывается ход, после которого мат неизбежен при
+          любом ответе чёрных.
+        </p>
+        <div class="row">
+          <button type="button" id="gate-another">Другая задача</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if verdict %}
+<section class="verdict-head">
+  <div class="verdict-main">
+    <span class="muted">Язык текста</span>
+    <strong class="big tag-{{ verdict.language }}">{{ verdict.language_name }}</strong>
+    <span class="muted">согласие методов: {{ '%.0f'|format(verdict.agreement * 100) }}%</span>
+  </div>
+  <div class="verdict-side">
+    <p class="muted">
+      {{ document.letters }} букв · {{ document.words }} слов ·
+      {{ '%.2f'|format(verdict.elapsed_ms) }} мс
+    </p>
+    {% if document.letters < 40 %}
+    <p class="warn">Текст очень короткий — решение может быть неустойчивым.</p>
+    {% endif %}
+  </div>
+</section>
+
+<table class="grid">
+  <thead>
+    <tr>
+      <th>метод</th>
+      {% for code in language_codes %}<th>расстояние до «{{ language_name(code) }}»</th>{% endfor %}
+      <th>решение</th><th>уверенность</th><th>время</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for code in method_codes %}
+  {% set result = verdict.results[code] %}
+    <tr>
+      <td><b>{{ method_titles[code] }}</b></td>
+      {% for lang in language_codes %}
+      <td class="num {{ 'row-best' if lang == result.language else '' }}">
+        {{ '%.4f'|format(result.distances[lang]) }}
+      </td>
+      {% endfor %}
+      <td><span class="tag tag-{{ result.language }}">{{ result.language_name }}</span></td>
+      <td class="num">{{ '%.0f'|format(result.confidence * 100) }}%</td>
+      <td class="num">{{ '%.2f'|format(result.elapsed_ms) }} мс</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<p class="note">
+  Решением каждого метода является язык с наименьшим расстоянием. Итоговый
+  ответ выбирается большинством голосов; при равенстве голосов побеждает метод
+  с наибольшим отрывом от второго варианта.
+</p>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+{% if companion_enabled %}
+<script src="/static/chess.js"></script>
+<script>
+(function () {
+  /* Калитка: форма отправляется только после решённой задачи.
+     Проверка решения живёт на сервере — в разметке страницы решения нет. */
+  var form = document.getElementById('check-form');
+  var gate = document.getElementById('gate');
+  var taskBox = document.getElementById('gate-task');
+  var lineBox = document.getElementById('gate-line');
+  var messageBox = document.getElementById('gate-message');
+  var hintBox = document.getElementById('gate-hint');
+  var solved = false;
+  var puzzle = null;
+  var attempts = 0;
+
+  var board = new Tolmach.Board(document.getElementById('gate-board'), {
+    interactive: true,
+    onMove: attempt
+  });
+
+  function load(index) {
+    return Tolmach.get('/api/chess/puzzle' + (index === undefined ? '' : '?index=' + index))
+      .then(function (data) {
+        puzzle = data;
+        attempts = 0;
+        hintBox.hidden = true;
+        messageBox.textContent = '';
+        taskBox.textContent = data.task;
+        lineBox.textContent = data.line;
+        board.setPosition(data.fen, []);
+      });
+  }
+
+  function attempt(from, to, done) {
+    if (!puzzle) { done(); return; }
+    Tolmach.post('/api/chess/puzzle', {
+      index: puzzle.index, frm: from, to: to, attempts: attempts
+    }).then(function (result) {
+      if (result.error) { messageBox.textContent = result.error; done(); return; }
+
+      if (result.solved) {
+        solved = true;
+        messageBox.textContent = result.message;
+        lineBox.textContent = result.line;
+        board.setPosition(result.fen, [from, to]);
+        board.lock(true);
+        setTimeout(function () { gate.hidden = true; form.submit(); }, 1200);
+        return;
+      }
+
+      attempts += 1;
+      messageBox.textContent = result.message;
+      lineBox.textContent = result.line;
+      if (result.hint) { hintBox.textContent = result.hint; hintBox.hidden = false; }
+      if (result.fen) {
+        /* показываем последствие неверного хода и возвращаем исходную позицию */
+        board.setPosition(result.fen, [from, to]);
+        setTimeout(function () { board.setPosition(puzzle.fen, []); done(); }, 900);
+        return;
+      }
+      done();
+    }).catch(function () { messageBox.textContent = 'Сервер не ответил.'; done(); });
+  }
+
+  form.addEventListener('submit', function (event) {
+    if (solved) { return; }
+    event.preventDefault();
+    gate.hidden = false;
+    if (!puzzle) { load(); }
+  });
+
+  document.getElementById('gate-another').addEventListener('click', function () {
+    board.lock(false);
+    load(Math.floor(Math.random() * 1000));
+  });
+})();
+</script>
+{% endif %}
+{% endblock %}

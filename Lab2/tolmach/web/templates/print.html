@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Протокол распознавания — «{{ app_name }}»</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="print-page">
+
+<div class="print-actions no-print">
+  <button onclick="window.print()">Печать</button>
+  <a href="/">← вернуться в систему</a>
+</div>
+
+<article class="paper">
+
+<header class="paper-head">
+  <h1>Протокол распознавания языка текста</h1>
+  <p>
+    Система «{{ app_name }}» {{ version }} · лабораторная работа № 2, вариант {{ variant }}<br>
+    Языки: русский, немецкий · формат документов: HTML<br>
+    Методы: N-грамм, алфавитный, нейросетевой
+  </p>
+  <p class="muted">Напечатано {{ printed_at }}{% if report %} · прогон от {{ report.created_at.replace('T', ' ') }}{% endif %}</p>
+</header>
+
+<h2>1. Обучающий корпус</h2>
+<table class="grid">
+  <thead><tr><th>язык</th><th>файлов</th><th>объём</th><th>букв</th><th>слов</th><th>норма</th></tr></thead>
+  <tbody>
+  {% for code, stats in corpus_stats.items() %}
+    <tr>
+      <td>{{ language_name(code) }}</td>
+      <td class="num">{{ stats.files }}</td>
+      <td class="num">{{ '%.1f'|format(stats.kilobytes) }} Кб</td>
+      <td class="num">{{ stats.letters }}</td>
+      <td class="num">{{ stats.words }}</td>
+      <td>{{ stats.verdict }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% if report %}
+<h2>2. Тестовая коллекция</h2>
+<p>
+  Документов: {{ report.size }}, из них размечено {{ report.labelled }}.
+  Отнесено к языкам:
+  {% for code, count in report.by_language().items() %}{{ language_name(code) }} — {{ count }}{% if not loop.last %}, {% endif %}{% endfor %}.
+</p>
+
+<h2>3. Результат по документам</h2>
+<table class="grid">
+  <thead>
+    <tr>
+      <th>документ</th><th>букв</th><th>эталон</th>
+      {% for code in method_codes %}<th>{{ method_titles[code] }}</th>{% endfor %}
+      <th>итог</th><th>верно</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for verdict in report.verdicts %}
+    <tr>
+      <td class="mono small">{{ verdict.document.doc_id }}</td>
+      <td class="num">{{ verdict.document.letters }}</td>
+      <td>{{ verdict.document.gold or '—' }}</td>
+      {% for code in method_codes %}
+      <td>{{ verdict.results[code].language }}</td>
+      {% endfor %}
+      <td><b>{{ verdict.language }}</b></td>
+      <td>{% if verdict.correct is none %}—{% elif verdict.correct %}✓{% else %}✗{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>4. Точность и быстродействие</h2>
+<table class="grid">
+  <thead>
+    <tr><th>метод</th><th>точность</th><th>верно</th><th>ошибок</th><th>мс/док</th><th>док./с</th></tr>
+  </thead>
+  <tbody>
+  {% for row in speed %}
+    <tr>
+      <td>{{ method_titles[row.method] }}</td>
+      <td class="num">{{ '%.1f'|format(row.accuracy * 100) }}%</td>
+      <td class="num">{{ row.correct }} / {{ row.total }}</td>
+      <td class="num">{{ row.errors }}</td>
+      <td class="num">{{ '%.2f'|format(row.mean_ms) }}</td>
+      <td class="num">{{ '%.0f'|format(row.per_second) }}</td>
+    </tr>
+  {% endfor %}
+    <tr class="sum">
+      <td>{{ consensus_title }}</td>
+      <td class="num">{{ '%.1f'|format(report.consensus.accuracy * 100) }}%</td>
+      <td class="num">{{ report.consensus.correct }} / {{ report.consensus.total }}</td>
+      <td class="num">{{ report.consensus.errors }}</td>
+      <td class="num">{{ '%.2f'|format(report.consensus.mean_ms) }}</td>
+      <td class="num">{{ '%.0f'|format(report.consensus.per_second) }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>5. Матрицы ошибок</h2>
+{% for code in method_codes %}
+{% set score = report.scores[code] %}
+<p><b>{{ method_titles[code] }}</b></p>
+<table class="grid narrow">
+  <thead><tr><th>эталон ↓ ответ →</th>{% for p in language_codes %}<th>{{ p }}</th>{% endfor %}</tr></thead>
+  <tbody>
+  {% for gold in language_codes %}
+    <tr>
+      <th>{{ gold }}</th>
+      {% for predicted in language_codes %}
+      <td class="num">{{ score.confusion.get(gold, {}).get(predicted, 0) }}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+
+<h2>6. Разногласия методов</h2>
+{% set disagreements = report.disagreements() %}
+{% if disagreements %}
+<ul>
+  {% for verdict in disagreements %}
+  <li>{{ verdict.document.doc_id }}:
+    {% for code in method_codes %}{{ code }} → {{ verdict.results[code].language }}{% if not loop.last %}, {% endif %}{% endfor %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Разногласий нет: все методы дали одинаковые ответы по всем документам.</p>
+{% endif %}
+{% else %}
+<p>Результатов нет: система не обучена или коллекция пуста.</p>
+{% endif %}
+
+<footer class="paper-foot">
+  <p class="muted">Система «{{ app_name }}» {{ version }}, вариант {{ variant }}.</p>
+</footer>
+
+</article>
+</body>
+</html>

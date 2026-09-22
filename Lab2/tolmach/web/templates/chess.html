@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block title %}Партия с {{ companion_instrumental }} — «{{ app_name }}»{% endblock %}
+
+{% block content %}
+
+<h1>Партия с {{ companion_instrumental }}</h1>
+<p class="lead">
+  Вы играете белыми. Правила обычные, но одно добавлено: чтобы взять фигуру
+  паука, нужно определить язык слова, записанного латиницей. Ошиблись —
+  {{ companion_name }} съедает вашу фигуру и забирает ход.
+</p>
+
+<div class="chess-layout">
+
+  <div class="chess-main">
+    <div id="board" class="board"></div>
+
+    <div class="chess-bar">
+      <button type="button" id="new-game">Новая партия</button>
+      <span id="status" class="chess-status">Ваш ход.</span>
+    </div>
+  </div>
+
+  <aside class="chess-side">
+    <div class="card">
+      <h3>{{ companion_name }} говорит</h3>
+      <p id="spider-line" class="spider-says">Доска расставлена. Не тяни.</p>
+      <p class="note">Глубина перебора: {{ depth }} полухода.</p>
+    </div>
+
+    <div id="quiz" class="card quiz" hidden></div>
+
+    <div class="card">
+      <h3>Правило взятия</h3>
+      <ol class="plain small">
+        <li>Вы идёте на поле с фигурой паука.</li>
+        <li>Появляется слово латиницей: <span class="mono">rabota</span>, <span class="mono">waerme</span>.</li>
+        <li>Угадали язык — фигура ваша.</li>
+        <li>Ошиблись — {{ companion_name }} съедает вашу фигуру, ход переходит к нему.</li>
+      </ol>
+      <p class="note">
+        Короля паук не трогает: при ошибке вы потеряете только ход. Так же он
+        поступит с фигурой, которая прикрывает короля, — иначе на доске
+        возникла бы невозможная позиция.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Зачем латиница</h3>
+      <p class="note">
+        Русское слово записывается латиницей, а у немецкого сворачиваются
+        умлауты. Оба языка оказываются в одном алфавите, и узнать язык можно
+        только по строению слова — ровно так работает метод N-грамм.
+        Занятно, что профили системы, обученные на кириллице, на такой записи
+        ошибаются, и человек оказывается точнее машины.
+      </p>
+    </div>
+  </aside>
+</div>
+
+<h2>Журнал партии</h2>
+<ol id="moves" class="move-log"></ol>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/chess.js"></script>
+<script>
+(function () {
+  var START = {{ start_fen | tojson }};
+  var board = new Tolmach.Board(document.getElementById('board'), { interactive: true, onMove: onMove });
+  var quizHost = document.getElementById('quiz');
+  var statusBox = document.getElementById('status');
+  var spiderLine = document.getElementById('spider-line');
+  var log = document.getElementById('moves');
+  var fen = START;
+  var over = false;
+
+  function reset() {
+    fen = START;
+    over = false;
+    log.innerHTML = '';
+    quizHost.hidden = true;
+    statusBox.textContent = 'Ваш ход.';
+    spiderLine.textContent = 'Доска расставлена. Не тяни.';
+    board.setPosition(fen, []);
+  }
+
+  function note(text) {
+    if (!text) { return; }
+    var item = document.createElement('li');
+    item.textContent = text;
+    log.appendChild(item);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function applyOutcome(result) {
+    fen = result.fen;
+    board.setPosition(fen, result.highlight || []);
+    if (result.reply_line) { spiderLine.textContent = result.reply_line; }
+
+    var parts = [];
+    if (result.kind === 'penalty') { parts.push(result.message); }
+    else if (result.message) { parts.push(result.message); }
+    if (result.reply) { parts.push('Ответ: ' + result.reply); }
+    note(parts.join(' '));
+
+    if (result.status === 'checkmate' || result.status === 'stalemate' || result.status === 'draw') {
+      over = true;
+      statusBox.textContent = result.message || 'Партия окончена.';
+    } else {
+      statusBox.textContent = result.status === 'check' ? 'Вам шах.' : 'Ваш ход.';
+    }
+  }
+
+  function send(from, to, passed, done) {
+    Tolmach.post('/api/chess/move', { fen: fen, frm: from, to: to, quiz_passed: passed })
+      .then(function (result) {
+        if (result.error) { statusBox.textContent = result.error; done(); return; }
+        if (!result.ok && result.kind === 'illegal') {
+          statusBox.textContent = result.message;
+          done();
+          return;
+        }
+        applyOutcome(result);
+        done();
+      })
+      .catch(function () { statusBox.textContent = 'Сервер не ответил.'; done(); });
+  }
+
+  function onMove(from, to, done) {
+    if (over) { done(); return; }
+
+    /* Сначала спрашиваем сервер, не взятие ли это: правила живут там. */
+    Tolmach.post('/api/chess/move', { fen: fen, frm: from, to: to, quiz_passed: null })
+      .then(function (probe) {
+        if (probe.error) { statusBox.textContent = probe.error; done(); return; }
+
+        if (!probe.ok && probe.kind === 'quiz') {
+          statusBox.textContent = 'Взятие: определите язык слова.';
+          Tolmach.askQuiz(quizHost).then(function (verdict) {
+            if (!verdict) { send(from, to, true, done); return; }
+            quizHost.hidden = true;
+            send(from, to, verdict.correct, done);
+          });
+          return;
+        }
+
+        if (!probe.ok) { statusBox.textContent = probe.message; done(); return; }
+        applyOutcome(probe);
+        done();
+      })
+      .catch(function () { statusBox.textContent = 'Сервер не ответил.'; done(); });
+  }
+
+  document.getElementById('new-game').addEventListener('click', reset);
+  reset();
+})();
+</script>
+{% endblock %}
