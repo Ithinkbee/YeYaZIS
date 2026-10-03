@@ -1,0 +1,1417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="https://cyberleninka.ru/article/n/antipatterny-v-proektirovanii-baz-dannyh" />
+
+    <title>Антипаттерны в проектировании баз данных – тема научной статьи по компьютерным и информационным наукам читайте бесплатно текст научно-исследовательской работы в электронной библиотеке КиберЛенинка</title>
+    <meta name="keywords" content="научная статья бесплатно на тему Антипаттерны в проектировании баз данных текст научной работы по компьютерным и информационным наукам из научного журнала Открытое образование. база данных, СУБД, SQL, проектирование, антипаттерн, учебный процесс, database, DBMS, SQL, design, antipattern, learning process" />
+    <meta name="description" content="Цель работы является адаптация метода антипаттернов для повышения эффективности обучения студентов направлений «Прикладная информатика», «Информационные системы и технологии», «Программная инженерия» принципам и техникам проектирования реляционных баз данных в рамках соответствующих дисциплин и практик. Обучение проектированию баз данных является важной составляющей формирования специалиста-разработчика программного обеспечения. Совокупность принимаемых при проектировании решений должна опираться на общепринятые правила, принципы и рекомендации, а также на имеющийся опыт создания и эксплуатации информационных систем, трудновоспроизводимый в условия аудитории вуза. Материалы и методы. Повысить эффективность обучения студентов проектированию баз данных позволит подход, ориентированный на концепцию антипаттернов – неудачных распространенных проектных решений. Понятие антипаттерна получило широкое распространение вслед за широким использованием понятия паттерна, то есть распространенного типового решения, вписанного в контекст решаемой проблемы. Как понятие паттерна, так и понятие антипаттерна первоначально были ориентированы на объектно-ориентированное программное обеспечение, но в дальнейшем получили признание во всех областях информационных технологий. В работе предложена схема описания антипаттерна, включающая название, краткую характеристику, возможные причины появления, список недостатков применения при построении реляционных баз данных, концептуальная модель в виде ER-диаграммы (диаграмма сущность-связь), пример соответствующей структуры базы данных, способы ухода от антипаттерна, а также возможные исключения, когда применение именно такого проектного решения при создании базы данных может быть оправдано. Результаты исследования. На основании учебной, научной и технической литературы и периодики, а также на основе анализа имеющейся практики проектирования информационных систем составлен и описан каталог распространенных антипаттернов проектирования реляционных баз данных. Примеры антипаттернов: ««Винегрет» имен», «Таблицы-дубли», «Ложная абстракция», «Неатомарные реквизиты», «Столбцы-дубли», «Изменение данных в рабочем порядке (временные поля)», «Параллельные связи», ««Божественная» таблица», «Спекулятивное изменение метаданных» и др. При этом часть паттернов позволила проиллюстрировать общие принципы проектирования реляционных баз данных, например, такой как «Никакое изощренное программирование не способно исправить фатальные недостатки архитектуры». Показано, что имеющиеся неудачные решения зачастую обусловлены определенными предпосылками, например, необходимостью выполнить hotfix, то есть «временное» решение, или преждевременной попыткой повысить производительность системы, либо желанием получить некоторый отчет одним запросом, избежав лишних соединений и т.д. Помимо технических аспектов показана актуальность корректной и единообразной системы наименований, отсутствие которой затрудняет сопровождение и развитие системы и ведет к лишним затратам. Предложенный подход был апробирован при обучении студентов дисциплинам «Базы данных», «Проектирование баз данных», «Архитектура информационных систем». Прошедшие обучение студенты улучшили понимание принципов и практик проектирования структуры баз данных. Заключение. Применение предложенного каталога антпаттернов в учебном процессе вуза позволяет ускорить обучение молодых специалистов приемам проектирования структуры реляционных баз данных, избежать распространенных ошибок при создании информационных систем, а также повысить общую культуру проектирования." />
+
+    <link rel="stylesheet" media="all" href="/app.css?2824926673" />
+    <link rel="preload" href="/fonts/ProximaNovaBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaExtraCondensedLight.woff2" as="font" type="font/woff2" crossorigin>
+    
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <meta name="robots" content="NOODP" />
+  <meta name="robots" content="noyaca" />
+
+  <meta property="og:url" content="https://cyberleninka.ru/article/n/antipatterny-v-proektirovanii-baz-dannyh" />
+  <meta property="og:site_name" content="КиберЛенинка" />
+  <meta property="og:title" content="Антипаттерны в проектировании баз данных" />
+  <meta property="og:description" content="Цель работы является адаптация метода антипаттернов для повышения эффективности обучения студентов направлений «Прикладная информатика», «Информационные системы и технологии», «Программная инженерия» принципам и техникам проектирования реляционных баз данных в рамках соответствующих дисциплин и практик. Обучение проектированию баз данных является важной составляющей формирования специалиста-разработчика программного обеспечения. Совокупность принимаемых при проектировании решений должна опираться на общепринятые правила, принципы и рекомендации, а также на имеющийся опыт создания и эксплуатации информационных систем, трудновоспроизводимый в условия аудитории вуза. Материалы и методы. Повысить эффективность обучения студентов проектированию баз данных позволит подход, ориентированный на концепцию антипаттернов – неудачных распространенных проектных решений. Понятие антипаттерна получило широкое распространение вслед за широким использованием понятия паттерна, то есть распространенного типового решения, вписанного в контекст решаемой проблемы. Как понятие паттерна, так и понятие антипаттерна первоначально были ориентированы на объектно-ориентированное программное обеспечение, но в дальнейшем получили признание во всех областях информационных технологий. В работе предложена схема описания антипаттерна, включающая название, краткую характеристику, возможные причины появления, список недостатков применения при построении реляционных баз данных, концептуальная модель в виде ER-диаграммы (диаграмма сущность-связь), пример соответствующей структуры базы данных, способы ухода от антипаттерна, а также возможные исключения, когда применение именно такого проектного решения при создании базы данных может быть оправдано. Результаты исследования. На основании учебной, научной и технической литературы и периодики, а также на основе анализа имеющейся практики проектирования информационных систем составлен и описан каталог распространенных антипаттернов проектирования реляционных баз данных. Примеры антипаттернов: ««Винегрет» имен», «Таблицы-дубли», «Ложная абстракция», «Неатомарные реквизиты», «Столбцы-дубли», «Изменение данных в рабочем порядке (временные поля)», «Параллельные связи», ««Божественная» таблица», «Спекулятивное изменение метаданных» и др. При этом часть паттернов позволила проиллюстрировать общие принципы проектирования реляционных баз данных, например, такой как «Никакое изощренное программирование не способно исправить фатальные недостатки архитектуры». Показано, что имеющиеся неудачные решения зачастую обусловлены определенными предпосылками, например, необходимостью выполнить hotfix, то есть «временное» решение, или преждевременной попыткой повысить производительность системы, либо желанием получить некоторый отчет одним запросом, избежав лишних соединений и т.д. Помимо технических аспектов показана актуальность корректной и единообразной системы наименований, отсутствие которой затрудняет сопровождение и развитие системы и ведет к лишним затратам. Предложенный подход был апробирован при обучении студентов дисциплинам «Базы данных», «Проектирование баз данных», «Архитектура информационных систем». Прошедшие обучение студенты улучшили понимание принципов и практик проектирования структуры баз данных. Заключение. Применение предложенного каталога антпаттернов в учебном процессе вуза позволяет ускорить обучение молодых специалистов приемам проектирования структуры реляционных баз данных, избежать распространенных ошибок при создании информационных систем, а также повысить общую культуру проектирования." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://cyberleninka.ru/article/n/antipatterny-v-proektirovanii-baz-dannyh/og" />
+  <meta property="og:image:width" content="1074" />
+  <meta property="og:image:height" content="480" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@CyberLeninka" />
+
+    
+
+<link rel="preconnect" href="https://yastatic.net">
+<link rel="preconnect" href="https://securepubads.g.doubleclick.net">
+<link rel="preconnect" href="https://exchange.buzzoola.com">
+<link rel="preconnect" href="https://pb.adriver.ru">
+<link rel="preconnect" href="https://ad.mail.ru">
+<link rel="preconnect" href="https://ads.betweendigital.com">
+<script src="https://yandex.ru/ads/system/header-bidding.js" async></script>
+<script>window.yaContextCb = window.yaContextCb || []</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+<script src="https://content.adriver.ru/AdRiverFPS.js" async></script>
+<script src="https://cdn.skcrtxr.com/roxot-wrapper/js/roxot-manager.js?pid=1f462bba-63b2-4d05-8a2c-12cb7f02b607" async></script>
+
+<script>
+const adfoxBiddersMap = {
+  "myTarget": "763128",
+  "betweenDigital": "793538",
+  "adriver": "776589",
+  "otm": "1460822",
+  "buzzoola": "769160",
+  "sape": "1697231",
+  "mediasniper": "2297743",
+  "mediatoday": "2365797",
+  "roxot": "2723510",
+  "gnezdo":"2930570",
+  "hybrid":"2994840",
+  "smi2":"3125554",
+  "link": "3389346",
+  "adfox_yandex_adplay-adv":"3294122",
+  "ohmybid": "3434190",
+  "videonow": "2930576"
+};
+
+var biddersCpmAdjustmentMap = {
+  'myTarget': 0.46,
+  'betweenDigital': 0.84,
+  'adriver': 0.79,
+  'otm': 0.87,
+  'buzzoola': 0.77,
+  'sape': 0.79,
+  'mediasniper': 0.79,
+  'mediatoday': 0.68,
+  'gnezdo': 0.92,
+  'hybrid': 0.92,
+  'smi2': 0.9
+};
+
+if (window.innerWidth >= 768) {
+
+  
+
+
+  adUnits = [
+    {
+      "code": "adfox_head",
+      "sizes": [[970,250],[300,250],[300,300],[970,90],[728,90]],
+      "bids": [
+        {"bidder": "myTarget", "params": {"placementId": 320990}},
+        {"bidder": "betweenDigital", "params": {"placementId": 2674177}},
+        {"bidder": "adriver", "params": {
+          "placementId": "20:cyberleninka_970x250",
+          "additional": {"ext": {"query": "custom=10=20&cid=" + localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm", "params": {"placementId": "911"}},
+        {"bidder": "buzzoola", "params": {"placementId": 1221042}},
+        {"bidder": "sape", "params": {"placementId": 821135}},
+        {"bidder": "mediasniper", "params": {"placementId": 360005}},
+        {"bidder": "roxot", "params": {"placementId": "51768c0a-c428-4776-a4ba-1025d94c29ad", "sendTargetRef": true}},
+        {"bidder": "gnezdo", "params": {"placementId": 353101}},
+        {"bidder": "hybrid", "params": {"placementId": "661fc2a34d506e1118632ce8"}},
+        {"bidder": "smi2", "params": {"placementId": "103126"}},
+        {"bidder": "link", "params": {"placementId": "cdf306abf7023052d3eb67588de05431"}},
+        {"bidder":"videonow","params":{"placementId":"16232754"}},
+        {"bidder": "ohmybid", "params": {"placementId": "HOdayBV9B8Q9L3FV"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side1",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320974}},
+        {"bidder":"betweenDigital","params":{"placementId":2673847}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm","params":{"placementId":"912"}},
+        {"bidder": "buzzoola","params":{"placementId":1221043}},
+        {"bidder": "sape","params":{"placementId":821136}},
+        {"bidder": "mediasniper","params":{"placementId":360006}},
+        {"bidder": "mediatoday","params":{"placementId":9682}},
+        {"bidder": "roxot","params":{"placementId":"d82943a0-d3d0-41b5-9ce9-ecf5c59a1c2e","sendTargetRef":true}},
+        {"bidder": "hybrid","params":{"placementId":"661fc2c67bc72ff858bdcfb4"}},
+        {"bidder": "smi2","params":{"placementId":"103131"}},
+        {"bidder": "adfox_yandex_adplay-adv","params":{"p1":"dgped","p2":"jdhb"}},
+        {"bidder":"link","params":{"placementId":"b98512a98211345da7923634e913ca47"}},
+        {"bidder":"videonow","params":{"placementId":"16233892"}},
+        {"bidder":"ohmybid","params":{"placementId":"zySZorOzKZhXjdDj"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side2",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320975}},
+        {"bidder":"betweenDigital","params":{"placementId":2673848}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"913"}},
+        {"bidder":"buzzoola","params":{"placementId":1221044}},
+        {"bidder":"sape","params":{"placementId":821138}},
+        {"bidder":"mediasniper","params":{"placementId":360007}},
+        {"bidder":"mediatoday","params":{"placementId":9682}},
+        {"bidder":"roxot","params":{"placementId":"80dadf4c-5c8d-4bc3-b0e0-1328270a7d94","sendTargetRef":true}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2f54d506e1118632cea"}},
+        {"bidder":"smi2","params":{"placementId":"103132"}},
+        {"bidder":"link","params":{"placementId":"8232acc3e5e0ffb434bce7b63999dcca"}},
+        {"bidder":"videonow","params":{"placementId":"16234941"}},
+        {"bidder":"ohmybid","params":{"placementId":"NcqadnIaACfH7uWm"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320978}},
+        {"bidder":"betweenDigital","params":{"placementId":2673849}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"914"}},
+        {"bidder":"buzzoola","params":{"placementId":1221045}},
+        {"bidder":"sape","params":{"placementId":821140}},
+        {"bidder":"mediasniper","params":{"placementId":360008}},
+        {"bidder":"mediatoday","params":{"placementId":9675}},
+        {"bidder":"roxot","params":{"placementId":"a4d837bd-166d-4cb9-8210-34688740a4ef","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353095}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3157bc72ff858bdcfb6"}},
+        {"bidder":"smi2","params":{"placementId":"103133"}},
+        {"bidder":"adfox_yandex_adplay-adv","params":{"p1":"dgpec","p2":"jbzl"}},
+        {"bidder":"link","params":{"placementId":"0b21aa98d95dcb9bf6258692583009c0"}},
+        {"bidder":"ohmybid","params":{"placementId":"9bXBoQSn0JqFIuA8"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320979}},
+        {"bidder":"betweenDigital","params":{"placementId":2673850}},
+        {"bidder":"otm","params":{"placementId":"915"}},
+        {"bidder":"buzzoola","params":{"placementId":1221046}},
+        {"bidder":"sape","params":{"placementId":821142}},
+        {"bidder":"mediasniper","params":{"placementId":360009}},
+        {"bidder":"mediatoday","params":{"placementId":9676}},
+        {"bidder":"roxot","params":{"placementId":"8cc4e575-2379-4c53-9d3b-457a4abeabbc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353096}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3334d506e1118632cec"}},
+        {"bidder":"smi2","params":{"placementId":"103134"}},
+        {"bidder":"link","params":{"placementId":"aa4cde959439c223735f8c5d1272d9d6"}},
+        {"bidder":"videonow","params":{"placementId":"16235894"}},
+        {"bidder":"ohmybid","params":{"placementId":"Mniw5psCV5bYbDPP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320982}},
+        {"bidder":"betweenDigital","params":{"placementId":2673851}},
+        {"bidder":"otm","params":{"placementId":"916"}},
+        {"bidder":"buzzoola","params":{"placementId":1221047}},
+        {"bidder":"sape","params":{"placementId":821143}},
+        {"bidder":"mediasniper","params":{"placementId":360010}},
+        {"bidder":"mediatoday","params":{"placementId":9677}},
+        {"bidder":"roxot","params":{"placementId":"def97489-bf90-4dc2-b25d-6e98089bdbea","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353097}},
+        {"bidder":"hybrid","params":{"placementId":"661fc34d4d506e1118632cf6"}},
+        {"bidder":"smi2","params":{"placementId":"103135"}},
+        {"bidder":"link","params":{"placementId":"cc58da3f5040ed3f081281d234642f1b"}},
+        {"bidder":"videonow","params":{"placementId":"16617416"}},
+        {"bidder":"ohmybid","params":{"placementId":"hvP3ncZ9Z3IcN7kP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320983}},
+        {"bidder":"betweenDigital","params":{"placementId":2673852}},
+        {"bidder":"otm","params":{"placementId":"917"}},
+        {"bidder":"buzzoola","params":{"placementId":1221048}},
+        {"bidder":"sape","params":{"placementId":821144}},
+        {"bidder":"mediasniper","params":{"placementId":360011}},
+        {"bidder":"mediatoday","params":{"placementId":9678}},
+        {"bidder":"roxot","params":{"placementId":"1253e1f2-f966-4c30-bb31-d73d70170b5e","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353098}},
+        {"bidder":"hybrid","params":{"placementId":"661fc59c4d506e1118632d08"}},
+        {"bidder":"smi2","params":{"placementId":"103136"}},
+        {"bidder":"link","params":{"placementId":"03db8f736f856b5a7989654cb20fb4b4"}},
+        {"bidder":"videonow","params":{"placementId":"16237809"}},
+        {"bidder":"ohmybid","params":{"placementId":"epg8ArJA41baCf0f"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320985}},
+        {"bidder":"betweenDigital","params":{"placementId":2673854}},
+        {"bidder":"otm","params":{"placementId":"918"}},
+        {"bidder":"buzzoola","params":{"placementId":1221049}},
+        {"bidder":"sape","params":{"placementId":821145}},
+        {"bidder":"mediasniper","params":{"placementId":360012}},
+        {"bidder":"mediatoday","params":{"placementId":9679}},
+        {"bidder":"roxot","params":{"placementId":"57ea14a5-a9dc-421d-8f05-7dbcf17e3619","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353099}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3817bc72ff858bdcfbe"}},
+        {"bidder":"smi2","params":{"placementId":"103137"}},
+        {"bidder":"link","params":{"placementId":"746ae63162e72a09439269ffb366a9f5"}},
+        {"bidder":"ohmybid","params":{"placementId":"Ybi2I2NcSMHFHAUL"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320988}},
+        {"bidder":"betweenDigital","params":{"placementId":2673853}},
+        {"bidder":"otm","params":{"placementId":"919"}},
+        {"bidder":"buzzoola","params":{"placementId":1221050}},
+        {"bidder":"sape","params":{"placementId":821146}},
+        {"bidder":"mediasniper","params":{"placementId":360013}},
+        {"bidder":"mediatoday","params":{"placementId":9680}},
+        {"bidder":"roxot","params":{"placementId":"10b6c096-8ccd-4d62-9e78-d7500399003d","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353100}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3a24d506e1118632cf8"}},
+        {"bidder":"smi2","params":{"placementId":"103138"}},
+        {"bidder":"link","params":{"placementId":"412c7b3a30c7a86a40df78707a0effed"}},
+        {"bidder":"videonow","params":{"placementId":"16236896"}},
+        {"bidder":"ohmybid","params":{"placementId":"tf3WAI4nf1jZxl3p"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1200;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+
+
+
+
+
+} else {
+
+  adUnits = [
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320966}},
+        {"bidder":"betweenDigital","params":{"placementId":2673855}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"907"}},
+        {"bidder":"buzzoola","params":{"placementId":1221037}},
+        {"bidder":"sape","params":{"placementId":821190}},
+        {"bidder":"mediasniper","params":{"placementId":360001}},
+        {"bidder":"mediatoday","params":{"placementId":9671}},
+        {"bidder":"roxot","params":{"placementId":"2735e182-e1c2-422b-b7d3-b1ee1ecbb439","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353090}},
+        {"bidder":"hybrid","params":{"placementId":"661fc22c7bc72ff858bdcfb2"}},
+        {"bidder":"smi2","params":{"placementId":"103127"}},
+        {"bidder":"link","params":{"placementId":"317a18769d3b042bcd12d87c18153cdc"}},
+        {"bidder":"videonow","params":{"placementId":"3393503"}},
+        {"bidder":"ohmybid","params":{"placementId":"oqv6s4quummeiGOn"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320968}},
+        {"bidder":"betweenDigital","params":{"placementId":2673856}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"908"}},
+        {"bidder":"buzzoola","params":{"placementId":1221039}},
+        {"bidder":"sape","params":{"placementId":821191}},
+        {"bidder":"mediasniper","params":{"placementId":360002}},
+        {"bidder":"mediatoday","params":{"placementId":9672}},
+        {"bidder":"roxot","params":{"placementId":"6e1adc14-1564-4bfb-9789-1f4b4caf9bb7","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353091}},
+        {"bidder":"hybrid","params":{"placementId":"661fc24e4d506e1118632ce2"}},
+        {"bidder":"smi2","params":{"placementId":"103128"}},
+        {"bidder":"link","params":{"placementId":"d194b3f2f2b4a8b0c899fbc4b2e475d0"}},
+        {
+          "bidder": "adfox_yandex_adplay-adv",
+          "params": {
+            "p1": "dkyya",
+            "p2": "jopb"
+          }
+        },
+        {"bidder":"videonow","params":{"placementId":"16229115"}},
+        {"bidder":"ohmybid","params":{"placementId":"YHowFqVl0va3sLxs"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320969}},
+        {"bidder":"betweenDigital","params":{"placementId":2673857}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_3",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"909"}},
+        {"bidder":"buzzoola","params":{"placementId":1221040}},
+        {"bidder":"sape","params":{"placementId":821192}},
+        {"bidder":"mediasniper","params":{"placementId":360003}},
+        {"bidder":"mediatoday","params":{"placementId":9673}},
+        {"bidder":"roxot","params":{"placementId":"3a70251b-7720-4736-b3a6-ea209d5feedc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353092}},
+        {"bidder":"hybrid","params":{"placementId":"661fc26d4d506e1118632ce4"}},
+        {"bidder":"smi2","params":{"placementId":"103129"}},
+        {"bidder":"link","params":{"placementId":"1565397ffd8f126ff093e1e81b9ad40f"}},
+        {"bidder":"videonow","params":{"placementId":"16230384"}},
+        {"bidder":"ohmybid","params":{"placementId":"BUVNSDdXEDKvWKcK"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot3",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320971}},
+        {"bidder":"betweenDigital","params":{"placementId":2673858}},
+        {"bidder":"otm","params":{"placementId":"910"}},
+        {"bidder":"buzzoola","params":{"placementId":1221041}},
+        {"bidder":"sape","params":{"placementId":821193}},
+        {"bidder":"mediasniper","params":{"placementId":360004}},
+        {"bidder":"mediatoday","params":{"placementId":9674}},
+        {"bidder":"roxot","params":{"placementId":"6ddc5b2a-3e9c-4917-b29e-a5a381a58063","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353093}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2844d506e1118632ce6"}},
+        {"bidder":"smi2","params":{"placementId":"103130"}},
+        {"bidder":"link","params":{"placementId":"959a5bd2b2b6eb23343b893e24d8093f"}},
+        {"bidder":"videonow","params":{"placementId":"16231837"}},
+        {"bidder":"ohmybid","params":{"placementId":"RUR2bXlUyFsYdcHx"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1300;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+}
+</script>
+
+
+
+  <meta name="citation_title" content="Антипаттерны в проектировании баз данных" />
+  
+    <meta name="citation_author" content="Сергей Михайлович Щербаков" />
+  
+    <meta name="citation_author" content="Каринэ Хачересовна Калугян" />
+  
+    <meta name="citation_author" content="Анна Вадимовна Абрамова" />
+  
+    <meta name="citation_author" content="Вера Юрьевна Гречкина" />
+  
+
+	
+  
+	
+
+  <meta name="citation_publication_date" content="2024" />
+  <meta name="citation_journal_title" content="Открытое образование" />
+  <meta name="citation_fulltext_html_url" content="https://cyberleninka.ru/article/n/antipatterny-v-proektirovanii-baz-dannyh" />
+  <meta name="citation_abstract_html_url" content="https://cyberleninka.ru/article/n/antipatterny-v-proektirovanii-baz-dannyh" />
+  <meta name="citation_pdf_url" content="https://cyberleninka.ru/article/n/antipatterny-v-proektirovanii-baz-dannyh/pdf" />
+  <meta name="citation_publisher" content="Федеральное государственное бюджетное образовательное учреждение высшего образования «Российский экономический университет имени Г. В. Плеханова»" />
+  <meta name="citation_issue" content="6" />
+  <meta name="citation_volume" content="28" />
+  <meta name="citation_issn" content="1818-4243" />
+  
+    <meta name="citation_eissn" content="2079-5939" />
+  
+  <meta name="citation_keywords" content="база данных, СУБД, SQL, проектирование, антипаттерн, учебный процесс, database, DBMS, SQL, design, antipattern, learning process" />
+  
+    <meta name="eprints.creators_name" content="Сергей Михайлович Щербаков" />
+  
+    <meta name="eprints.creators_name" content="Каринэ Хачересовна Калугян" />
+  
+    <meta name="eprints.creators_name" content="Анна Вадимовна Абрамова" />
+  
+    <meta name="eprints.creators_name" content="Вера Юрьевна Гречкина" />
+  
+  <meta name="eprints.metadata_visibility" content="show" />
+  <meta name="eprints.ispublished" content="pub" />
+  <meta name="eprints.full_text_status" content="public" />
+  <meta name="eprints.type" content="article" />
+  <meta name="eprints.title" content="Антипаттерны в проектировании баз данных" />
+  <meta name="eprints.date" content="2024" />
+  <meta name="eprints.date_type" content="published" />
+  <meta name="eprints.document_url" content="https://cyberleninka.ru/article/n/antipatterny-v-proektirovanii-baz-dannyh" />
+  <meta name="eprints.publication" content="Открытое образование" />
+  <meta name="eprints.publisher" content="Федеральное государственное бюджетное образовательное учреждение высшего образования «Российский экономический университет имени Г. В. Плеханова»" />
+  <meta name="eprints.refereed" content="TRUE" />
+  <meta name="eprints.citation" content="Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова, Вера Юрьевна Гречкина Антипаттерны в проектировании баз данных // Открытое образование. 2024. Выпуск номер 6 том 28, С.67-77" />
+  <meta name="eprints.place_of_pub" content="Россия, Москва" />
+  <meta name="eprints.number" content="6" />
+  <meta name="eprints.volume" content="28" />
+  <meta name="eprints.pagerange" content="67-77" />
+  <meta name="eprints.issn" content="1818-4243" />
+  <meta name="eprints.abstract" content="The purpose of the study is to adapt the antipattern method to improve the effectiveness of teaching students in the fields of “Applied Informatics”, “Information Systems and Technologies”, “Software Engineering” to the principles and techniques of relational database design within the framework of relevant disciplines and practices. Training in database design is an important component of the formation of a specialist software developer. The totality of decisions taken in the design process should be based on generally accepted rules, principles and recommendations, as well as on the existing experience in creating and operating information systems, which is difficult to reproduce in the conditions of the university audience. Materials and methods. An approach focused on the concept of antipatterns – unsuccessful common design solutions will allow increasing the effectiveness of students’ training in database design. The antipattern concept has become widespread following the widespread use of the concept of a pattern, that is, a common standard solution inscribed in the context of the problem being solved. Both the concept of a pattern and the concept of an antipattern were initially focused on object-oriented software, but later gained recognition in all areas of information technology. The paper proposes a scheme for describing the antipattern, including the name, a brief description, possible causes of occurrence, a list of disadvantages of application in the construction of relational databases, a conceptual model in the form of an ER-diagram (entityrelationship diagram), an example of the appropriate database structure, ways to avoid antipatterns, as well as possible exceptions when using just such a design decision when creating a database may be justified. Research results. Based on educational, scientific and technical literature and periodicals, as well as on the basis of an analysis of the existing practice of designing information systems, a catalog of common antipatterns for designing relational databases has been compiled and described. Examples of antipatterns: “Jumble of names”, “Duplicate tables”, “False abstraction”, “Non-atomic attributes”, “Duplicate columns”, “Changing data in due course (temporary fields)”, “Parallel connections”, ““Divine” table”, “Speculative metadata modification”, etc. At the same time, some of the patterns made it possible to illustrate the general principles of relational database design, for example, such as “No sophisticated programming is capable of correcting fatal architectural flaws”. It is shown that the existing unsuccessful solutions are often due to certain prerequisites, for example, the need to perform a hotfix that is, a “temporary” solution, or a premature attempt to improve system performance, or the desire to get some report with one request, avoiding unnecessary connections, etc. In addition to the technical aspects, the relevance of a correct and uniform naming system is shown, the absence of which makes it difficult to maintain and develop the system and leads to unnecessary costs. The proposed approach was tested when teaching students the disciplines “Databases”, “Database design”, “Architecture of information systems”. The students who completed the training improved their understanding of the principles and practices of database structure design. Conclusion. The use of the proposed catalog of antipatterns in the educational process of the university makes it possible to accelerate the training of young specialists in the techniques of designing the structure of relational databases, avoid common mistakes when creating information systems, and improve the overall design culture." />
+  
+    <meta name="eprints.eissn" content="2079-5939" />
+  
+  <meta name="eprints.keywords" content="база данных, СУБД, SQL, проектирование, антипаттерн, учебный процесс, database, DBMS, SQL, design, antipattern, learning process" />
+  
+  <meta name="eprints.abstract" content="Цель работы является адаптация метода антипаттернов для повышения эффективности обучения студентов направлений «Прикладная информатика», «Информационные системы и технологии», «Программная инженерия» принципам и техникам проектирования реляционных баз данных в рамках соответствующих дисциплин и практик. Обучение проектированию баз данных является важной составляющей формирования специалиста-разработчика программного обеспечения. Совокупность принимаемых при проектировании решений должна опираться на общепринятые правила, принципы и рекомендации, а также на имеющийся опыт создания и эксплуатации информационных систем, трудновоспроизводимый в условия аудитории вуза. Материалы и методы. Повысить эффективность обучения студентов проектированию баз данных позволит подход, ориентированный на концепцию антипаттернов – неудачных распространенных проектных решений. Понятие антипаттерна получило широкое распространение вслед за широким использованием понятия паттерна, то есть распространенного типового решения, вписанного в контекст решаемой проблемы. Как понятие паттерна, так и понятие антипаттерна первоначально были ориентированы на объектно-ориентированное программное обеспечение, но в дальнейшем получили признание во всех областях информационных технологий. В работе предложена схема описания антипаттерна, включающая название, краткую характеристику, возможные причины появления, список недостатков применения при построении реляционных баз данных, концептуальная модель в виде ER-диаграммы (диаграмма сущность-связь), пример соответствующей структуры базы данных, способы ухода от антипаттерна, а также возможные исключения, когда применение именно такого проектного решения при создании базы данных может быть оправдано. Результаты исследования. На основании учебной, научной и технической литературы и периодики, а также на основе анализа имеющейся практики проектирования информационных систем составлен и описан каталог распространенных антипаттернов проектирования реляционных баз данных. Примеры антипаттернов: ««Винегрет» имен», «Таблицы-дубли», «Ложная абстракция», «Неатомарные реквизиты», «Столбцы-дубли», «Изменение данных в рабочем порядке (временные поля)», «Параллельные связи», ««Божественная» таблица», «Спекулятивное изменение метаданных» и др. При этом часть паттернов позволила проиллюстрировать общие принципы проектирования реляционных баз данных, например, такой как «Никакое изощренное программирование не способно исправить фатальные недостатки архитектуры». Показано, что имеющиеся неудачные решения зачастую обусловлены определенными предпосылками, например, необходимостью выполнить hotfix, то есть «временное» решение, или преждевременной попыткой повысить производительность системы, либо желанием получить некоторый отчет одним запросом, избежав лишних соединений и т.д. Помимо технических аспектов показана актуальность корректной и единообразной системы наименований, отсутствие которой затрудняет сопровождение и развитие системы и ведет к лишним затратам. Предложенный подход был апробирован при обучении студентов дисциплинам «Базы данных», «Проектирование баз данных», «Архитектура информационных систем». Прошедшие обучение студенты улучшили понимание принципов и практик проектирования структуры баз данных. Заключение. Применение предложенного каталога антпаттернов в учебном процессе вуза позволяет ускорить обучение молодых специалистов приемам проектирования структуры реляционных баз данных, избежать распространенных ошибок при создании информационных систем, а также повысить общую культуру проектирования." />
+  
+
+
+  </head>
+
+  <body id="body">
+    <div id="vk_api_transport"></div>
+    <div id="menu" style="height: 55px;"></div>
+
+    <div class="content" style="overflow: visible;">
+      <div class="main">
+        
+
+<span itemscope="itemscope" itemtype="http://schema.org/ScholarlyArticle">
+<div class="cover mobhide">
+  <a href="/article/n/antipatterny-v-proektirovanii-baz-dannyh/viewer"><img src="/article/n/antipatterny-v-proektirovanii-baz-dannyh/cover" alt="Научная статья на тему 'Антипаттерны в проектировании баз данных'" itemprop="image" /><img class="cover-overlay" src ="/images/tsvg/view.svg" /></a>
+</div>
+<div>
+  <h1><i itemprop="headline">Антипаттерны в проектировании баз данных</i> <span>Текст научной статьи по специальности &laquo;<i itemprop="articleSection">Компьютерные и информационные науки</i>&raquo;</span></h1>
+  <div class="infoblock authors visible">
+    <div id="article-authors" style="min-height: 35px;"></div>
+    <div class="top-cc" style="min-height: 20px;">
+    
+      <div class="statitem label-cc" title="Лицензия Creative Commons"><img src="/images/tsvg/cc-label.svg" />CC BY</div>
+    
+    
+      <div class="statitem label-doi" title="Статье выдан DOI: 10.21686/1818-4243-2024-6-67-21"><img src="/images/tsvg/doi-logo.svg" /></div>
+    
+      <div class="statitem views" title="Просмотры"><img src ="/images/tsvg/view.svg" />259</div><div class="statitem downloads" title="Загрузки"><img src ="/images/tsvg/download.svg" />34</div>
+    </div>
+  </div>
+
+  <div class="infoblock">
+    
+    <div id="article-controls" style="min-height: 118px;"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_top1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_top2"></div>
+        </div>
+        <div id="crt-4f158b60" style="width:720px;height:250px;" class="mobhide"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'top');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=top"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  <div class="infoblock">
+    <div class="half">
+			
+      <div class="title">Журнал<a href="https://scholar.google.com/citations?view_op=list_hcore&amp;venue=9TIRzH7RGkUJ.2019&amp;hl=ru" class="scholar" target="_blank"><img src="/images/scholar.svg" /></a></div>
+      <span><a href="/journal/n/otkrytoe-obrazovanie">Открытое образование</a></span>
+      <div class="labels">
+	      <div class="label year"><time itemprop="datePublished" datetime="2024">2024</time></div>
+        
+  <div class="label vak">ВАК</div>
+
+      </div>
+    </div>
+    <div class="half-right">
+      <div class="title">Область наук</div>
+      <ul>
+        <li><a href="/article/c/computer-and-information-sciences">Компьютерные и информационные науки</a></li>
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="infoblock visible">
+    <div class="full keywords">
+      <div class="title" >Ключевые слова</div>
+      <i itemprop="keywords">
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">база данных</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">СУБД</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">SQL</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">проектирование</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">антипаттерн</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">учебный процесс</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">database</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">DBMS</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">SQL</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">design</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">antipattern</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">learning process</span>
+        
+      </i>
+    </div>
+  </div>
+  
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>Аннотация <span>научной статьи по компьютерным и информационным наукам, автор научной работы — Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова, Вера Юрьевна Гречкина</span></h2>
+      <p itemprop="description">Цель работы является адаптация метода <span class="hl to-search">антипаттернов</span> для повышения эффективности обучения студентов направлений «Прикладная информатика», «Информационные системы и технологии», «Программная инженерия» принципам и техникам проектирования реляционных баз данных в рамках соответствующих дисциплин и практик. Обучение <span class="hl to-search">проектированию</span> <span class="hl to-search">баз данных</span> является важной составляющей формирования специалиста-разработчика программного обеспечения. Совокупность принимаемых при <span class="hl to-search">проектировании</span> решений должна опираться на общепринятые правила, принципы и рекомендации, а также на имеющийся опыт создания и эксплуатации информационных систем, трудновоспроизводимый в условия аудитории вуза. Материалы и методы. Повысить эффективность обучения студентов <span class="hl to-search">проектированию</span> <span class="hl to-search">баз данных</span> позволит подход, ориентированный на концепцию <span class="hl to-search">антипаттернов</span> – неудачных распространенных проектных решений. Понятие <span class="hl to-search">антипаттерна</span> получило широкое распространение вслед за широким использованием понятия паттерна, то есть распространенного типового решения, вписанного в контекст решаемой проблемы. Как понятие паттерна, так и понятие <span class="hl to-search">антипаттерна</span> первоначально были ориентированы на объектно-ориентированное программное обеспечение, но в дальнейшем получили признание во всех областях информационных технологий. В работе предложена схема описания <span class="hl to-search">антипаттерна</span>, включающая название, краткую характеристику, возможные причины появления, список недостатков применения при построении реляционных <span class="hl to-search">баз данных</span>, концептуальная модель в виде ER-диаграммы (диаграмма сущность-связь), пример соответствующей структуры <span class="hl to-search">базы данных</span>, способы ухода от <span class="hl to-search">антипаттерна</span>, а также возможные исключения, когда применение именно такого проектного решения при создании <span class="hl to-search">базы данных</span> может быть оправдано. Результаты исследования. На основании учебной, научной и технической литературы и периодики, а также на основе анализа имеющейся практики <span class="hl to-search">проектирования</span> информационных систем составлен и описан каталог распространенных <span class="hl to-search">антипаттернов</span> <span class="hl to-search">проектирования</span> реляционных <span class="hl to-search">баз данных</span>. Примеры <span class="hl to-search">антипаттернов</span>: ««Винегрет» имен», «Таблицы-дубли», «Ложная абстракция», «Неатомарные реквизиты», «Столбцы-дубли», «Изменение данных в рабочем порядке (временные поля)», «Параллельные связи», ««Божественная» таблица», «Спекулятивное изменение метаданных» и др. При этом часть паттернов позволила проиллюстрировать общие принципы <span class="hl to-search">проектирования</span> реляционных <span class="hl to-search">баз данных</span>, например, такой как «Никакое изощренное программирование не способно исправить фатальные недостатки архитектуры». Показано, что имеющиеся неудачные решения зачастую обусловлены определенными предпосылками, например, необходимостью выполнить hotfix, то есть «временное» решение, или преждевременной попыткой повысить производительность системы, либо желанием получить некоторый отчет одним запросом, избежав лишних соединений и т.д. Помимо технических аспектов показана актуальность корректной и единообразной системы наименований, отсутствие которой затрудняет сопровождение и развитие системы и ведет к лишним затратам. Предложенный подход был апробирован при обучении студентов дисциплинам «<span class="hl to-search">Базы данных</span>», «<span class="hl to-search">Проектирование</span> <span class="hl to-search">баз данных</span>», «Архитектура информационных систем». Прошедшие обучение студенты улучшили понимание принципов и практик <span class="hl to-search">проектирования</span> структуры <span class="hl to-search">баз данных</span>. Заключение. Применение предложенного каталога антпаттернов в учебном процессе вуза позволяет ускорить обучение молодых специалистов приемам <span class="hl to-search">проектирования</span> структуры реляционных <span class="hl to-search">баз данных</span>, избежать распространенных ошибок при создании информационных систем, а также повысить общую культуру <span class="hl to-search">проектирования</span>.</p>
+    </div>
+  </div>
+  
+
+	
+	<div class="infoblock">
+		<div class="full">
+			<div style="font-size: 0; text-align: center; height: 350px;">
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+					<div id="adfox_mid1"></div>
+				</div>
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+					<div id="adfox_mid2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'mid');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=mid"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+	<div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Похожие темы <span>научных работ по компьютерным и информационным наукам , автор научной работы — Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова, Вера Юрьевна Гречкина</span></h2>
+      <ul class="list">
+        
+        <li>
+          <a class="similar" href="/article/n/tipichnye-oshibki-antipatterny-uchebno-metodicheskoy-deyatelnosti-v-vuze">
+            <div class="title">ТИПИЧНЫЕ ОШИБКИ (АНТИПАТТЕРНЫ) УЧЕБНО-МЕТОДИЧЕСКОЙ ДЕЯТЕЛЬНОСТИ В ВУЗЕ</div>
+            <span>2021 / Аручиди Н. А., Калугян К. Х., Щербаков С. М.</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/bezopasnoe-proektirovanie-bazy-dannyh-pri-ispolzovanii-orm">
+            <div class="title">Безопасное проектирование базы данных при использовании ORM</div>
+            <span>2019 / Наумова Александра Вячеславовна, Чукова Дарья Ильинична</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/obzor-obektno-orientirovannoy-paradigmy-v-prilozhenii-k-razrabotke-baz-dannyh">
+            <div class="title">Обзор объектно-ориентированной парадигмы в приложении к разработке баз данных</div>
+            <span>2019 / Яценко Елена Александровна</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/strategii-obektno-relyatsionnogo-otobrazheniya-sistematizatsiya-i-analiz-na-osnove-patternov">
+            <div class="title">Стратегии объектно-реляционного отображения: систематизация и анализ на основе паттернов</div>
+            <span>2004 / Семенов В. А., Морозов С. В., Порох С. А.</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/metodika-povysheniya-proizvoditelnosti-krupnyh-informatsionnyh-sistem-za-schet-restrukturizatsii-dannyh-na-osnove-klasternogo-analiza">
+            <div class="title">Методика повышения производительности крупных информационных систем за счет реструктуризации данных на основе кластерного анализа статистики запросов</div>
+            <span>2018 / Бельченко И. В.</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=similar">подбора литературы</a>.</span></div>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div id="viewer-inline"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>Antipatterns in Database Design</h2>
+      <p itemprop="description">The purpose of the study is to adapt the <span class="hl to-search">antipattern</span> method to improve the effectiveness of teaching students in the fields of “Applied Informatics”, “Information Systems and Technologies”, “Software Engineering” to the principles and techniques of relational <span class="hl to-search">database</span> <span class="hl to-search">design</span> within the framework of relevant disciplines and practices. Training in <span class="hl to-search">database</span> <span class="hl to-search">design</span> is an important component of the formation of a specialist software developer. The totality of decisions taken in the <span class="hl to-search">design</span> process should be based on generally accepted rules, principles and recommendations, as well as on the existing experience in creating and operating information systems, which is difficult to reproduce in the conditions of the university audience. Materials and methods. An approach focused on the concept of antipatterns – unsuccessful common <span class="hl to-search">design</span> solutions will allow increasing the effectiveness of students’ training in <span class="hl to-search">database</span> <span class="hl to-search">design</span>. The <span class="hl to-search">antipattern</span> concept has become widespread following the widespread use of the concept of a pattern, that is, a common standard solution inscribed in the context of the problem being solved. Both the concept of a pattern and the concept of an <span class="hl to-search">antipattern</span> were initially focused on object-oriented software, but later gained recognition in all areas of information technology. The paper proposes a scheme for describing the <span class="hl to-search">antipattern</span>, including the name, a brief description, possible causes of occurrence, a list of disadvantages of application in the construction of relational databases, a conceptual model in the form of an ER-diagram (entityrelationship diagram), an example of the appropriate <span class="hl to-search">database</span> structure, ways to avoid antipatterns, as well as possible exceptions when using just such a <span class="hl to-search">design</span> decision when creating a <span class="hl to-search">database</span> may be justified. Research results. Based on educational, scientific and technical literature and periodicals, as well as on the basis of an analysis of the existing practice of designing information systems, a catalog of common antipatterns for designing relational databases has been compiled and described. Examples of antipatterns: “Jumble of names”, “Duplicate tables”, “False abstraction”, “Non-atomic attributes”, “Duplicate columns”, “Changing data in due course (temporary fields)”, “Parallel connections”, ““Divine” table”, “Speculative metadata modification”, etc. At the same time, some of the patterns made it possible to illustrate the general principles of relational <span class="hl to-search">database</span> <span class="hl to-search">design</span>, for example, such as “No sophisticated programming is capable of correcting fatal architectural flaws”. It is shown that the existing unsuccessful solutions are often due to certain prerequisites, for example, the need to perform a hotfix that is, a “temporary” solution, or a premature attempt to improve system performance, or the desire to get some report with one request, avoiding unnecessary connections, etc. In addition to the technical aspects, the relevance of a correct and uniform naming system is shown, the absence of which makes it difficult to maintain and develop the system and leads to unnecessary costs. The proposed approach was tested when teaching students the disciplines “Databases”, “<span class="hl to-search">Database</span> <span class="hl to-search">design</span>”, “Architecture of information systems”. The students who completed the training improved their understanding of the principles and practices of <span class="hl to-search">database</span> structure <span class="hl to-search">design</span>. Conclusion. The use of the proposed catalog of antipatterns in the educational process of the university makes it possible to accelerate the training of young specialists in the techniques of designing the structure of relational databases, avoid common mistakes when creating information systems, and improve the overall <span class="hl to-search">design</span> culture.</p>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Текст научной работы <span>на тему «Антипаттерны в проектировании баз данных»</span></h2>
+      <div class="ocr" itemprop="articleBody">
+        <div class="ocr-banner">
+          <div id="ad-sidebar" class="ad-adaptive"></div>
+        </div>
+				
+        <p>﻿С.М. Щербаков, К.Х. Калугян, А.В. Абрамова,</p>
+        <p>В.Ю. Гречкина</p>
+        <p>Ростовский государственный экономический университет (РИНХ),</p>
+        <p>г. Ростов-на-Дону, Россия</p>
+        <p>i BY 4.0</p>
+        <p>УДК 004.65</p>
+        <p>DOI: http://dx.doi.org/10.21686/1818-4243-2024-6-67-21</p>
+        <p>Антипаттерны в проектировании баз данных</p>
+        <p>Цель работы является адаптация метода антипаттернов для повышения эффективности обучения студентов направлений «Прикладная информатика», «Информационные системы и технологии», «Программная инженерия» принципам и техникам проектирования реляционных баз данных в рамках соответствующих дисциплин и практик.</p>
+        <p>Обучение проектированию баз данных является важной составляющей формирования специалиста-разработчика программного обеспечения. Совокупность принимаемых при проектировании решений должна опираться на общепринятые правила, принципы и рекомендации, а также на имеющийся опыт создания и эксплуатации информационных систем, трудновоспроизводимый в условия аудитории вуза.</p>
+        <p>Материалы и методы. Повысить эффективность обучения студентов проектированию баз данных позволит подход, ориентированный на концепцию антипаттернов — неудачных распространенных проектных решений. Понятие антипаттерна получило широкое распространение вслед за широким использованием понятия паттерна, то есть распространенного типового решения, вписанного в контекст решаемой проблемы. Как понятие паттерна, так и понятие антипаттерна первоначально были ориентированы на объектно-ориентированное программное обеспечение, но в дальнейшем получили признание во всех областях информационных технологий. В работе предложена схема описания антипаттерна, включающая название, краткую характеристику, возможные причины появления, список недостатков применения при построении реляционных баз данных, концептуальная модель в виде ЕК-диа-граммы (диаграмма сущность-связь), пример соответствующей структуры базы данных, способы ухода от антипаттерна, а также возможные исключения, когда применение именно такого проектного решения при создании базы данных может быть оправдано.</p>
+        <p>Результаты исследования. На основании учебной, научной и технической литературы и периодики, а также на основе</p>
+        <p>анализа имеющейся практики проектирования информационных систем составлен и описан каталог распространенных антипаттернов проектирования реляционных баз данных. Примеры антипаттернов: ««Винегрет» имен», «Таблицы-дубли», «Ложная абстракция», «Неатомарные реквизиты», «Столбцы-дубли», «Изменение данных в рабочем порядке (временные поля)», «Параллельные связи», ««Божественная» таблица», «Спекулятивное изменение метаданных» и др. При этом часть паттернов позволила проиллюстрировать общие принципы проектирования реляционных баз данных, например, такой как «Никакое изощренное программирование не способно исправить фатальные недостатки архитектуры». Показано, что имеющиеся неудачные решения зачастую обусловлены определенными предпосылками, например, необходимостью выполнить hotfix, то есть «временное» решение, или преждевременной попыткой повысить производительность системы, либо желанием получить некоторый отчет одним запросом, избежав лишних соединений и т.д. Помимо технических аспектов показана актуальность корректной и единообразной системы наименований, отсутствие которой затрудняет сопровождение и развитие системы и ведет к лишним затратам. Предложенный подход был апробирован при обучении студентов дисциплинам «Базы данных», «Проектирование баз данных», «Архитектура информационных систем». Прошедшие обучение студенты улучшили понимание принципов и практик проектирования структуры баз данных.</p>
+        <p>Заключение. Применение предложенного каталога антпат-тернов в учебном процессе вуза позволяет ускорить обучение молодых специалистов приемам проектирования структуры реляционных баз данных, избежать распространенных ошибок при создании информационных систем, а также повысить общую культуру проектирования.</p>
+        <p>Ключевые слова: база данных, СУБД, SQL, проектирование, антипаттерн, учебный процесс.</p>
+        <p>Sergey M. Shcherbakov, Karine K. Kalugyan, Anna V. Abramova, Vera Y. Grechkina</p>
+        <p>Rostov State University of Economics (RINH), Rostov-on-Don, Russiа</p>
+        <p>Antipatterns in Database Design</p>
+        <p>The purpose of the study is to adapt the antipattern method to improve the effectiveness of teaching students in the fields of &#34;Applied Informatics&#34;, &#34;Information Systems and Technologies&#34;, &#34;Software Engineering&#34; to the principles and techniques of relational database design within the framework of relevant disciplines and practices. Training in database design is an important component of the formation of a specialist software developer. The totality of decisions taken in the design process should be based on generally accepted rules, principles and recommendations, as well as on the existing experience in creating and operating information systems, which is difficult to reproduce in the conditions of the university audience. Materials and methods. An approach focused on the concept of antipatterns — unsuccessful common design solutions - will allow increasing the effectiveness of students&#39; training in database design. The antipattern concept has become widespread following the widespread use of the concept of a pattern, that is, a common standard solution inscribed in the context of the problem being solved. Both the</p>
+        <p>concept of a pattern and the concept of an antipattern were initially focused on object-oriented software, but later gained recognition in all areas of information technology.</p>
+        <p>The paper proposes a scheme for describing the antipattern, including the name, a brief description, possible causes of occurrence, a list of disadvantages of application in the construction of relational databases, a conceptual model in the form of an ER-diagram (entity-relationship diagram), an example of the appropriate database structure, ways to avoid antipatterns, as well as possible exceptions when using just such a design decision when creating a database may be justified.</p>
+        <p>Research results. Based on educational, scientific and technical literature and periodicals, as well as on the basis of an analysis of the existing practice of designing information systems, a catalog of common antipatterns for designing relational databases has been compiled and described. Examples of antipatterns: &#34;Jumble of names&#34;, &#34;Duplicate tables&#34;, &#34;False abstraction&#34;, &#34;Non-atomic attributes&#34;, &#34;Duplicate columns&#34;, &#34;Changing data in due course (temporary</p>
+        <p>fields)&#34;, &#34;Parallel connections&#34;, &#34;&#34;Divine&#34; table&#34;, &#34;Speculative metadata modification&#34;, etc.</p>
+        <p>At the same time, some of the patterns made it possible to illustrate the general principles of relational database design, for example, such as &#34;No sophisticated programming is capable of correcting fatal architecturalflaws&#34;. It is shown that the existing unsuccessful solutions are often due to certain prerequisites, for example, the need to perform a hotfix that is, a &#34;temporary&#34; solution, or a premature attempt to improve system performance, or the desire to get some report with one request, avoiding unnecessary connections, etc. In addition to the technical aspects, the relevance of a correct and uniform naming system is shown, the absence of which makes it difficult to maintain and develop the system and leads to unnecessary costs.</p>
+        <p>The proposed approach was tested when teaching students the disciplines &#34;Databases&#34;, &#34;Database design&#34;, &#34;Architecture of information systems&#34;. The students who completed the training improved their understanding of the principles and practices of database structure design.</p>
+        <p>Conclusion. The use of the proposed catalog of antipatterns in the educational process of the university makes it possible to accelerate the training of young specialists in the techniques of designing the structure of relational databases, avoid common mistakes when creating information systems, and improve the overall design culture.</p>
+        <p>Keywords: database, DBMS, SQL, design, antipattern, learning process.</p>
+        <p>Введение</p>
+        <p>База данных является ядром любой информационной системы. В настоящее время, несмотря на прогресс NoSQL баз данных, таких как MongoDB или Cassandra, реляционные базы данных по-прежнему доминируют в задачах создания информационных систем. Развитие ORM-фреймворков создает дополнительный слой объектов программного обеспечения, но никак не отменяет необходимости проектирования структуры базы данных, которую эти объекты представляют.</p>
+        <p>Задача проектирования базы данных не является простой и предполагает комбинирование теоретических знаний, практических навыков и профессионального опыта [1]. При этом ошибки проектирования, будучи совершаемыми на ранних этапах построения информационной системы, могут вести к значительным техническим сложностям и расходам в дальнейшем.</p>
+        <p>В отечественной [2-3] и зарубежной [4] литературе значительное внимание уделяется проблемам обучения проектированию баз данных. При этом выделяется необходимость комбинировать теоретическое обучение и практические задания, разбор примеров, выполнение самостоятельных заданий, применение приближенных к практике кейсов. Одним из важных элементов учебного процесса (наряду с теорией и</p>
+        <p>самостоятельным «набиванием шишек») является и ознакомление с зафиксированным опытом индустрии.</p>
+        <p>В сфере информационных технологий широко распространены концепции паттерна и антипаттерна. Идея паттерна (типового проверенного решения, вписанного в контекст решаемой проблемы) была выдвинута в сфере архитектуры и дизайна [5]. Далее усилиями «Банды четырех» [6] концепция паттернов была перенесена в сферу информационных технологий, точнее в область проектирования объектно-ориентированного программного обеспечения.</p>
+        <p>Антипаттерн — это также распространенное решение, но решение неудачное, влекущее некоторый негативный эффект [7]. Не стоит путать антипаттерн с ошибкой, разработанная с применением антипаттерна система будет работать, но будет иметь проблемы с обслуживанием, развитием, масштабированием.</p>
+        <p>Хорошим примером антипаттерна может служить выключатель, расположенный позади открывающегося дверного полотна. В конечном счете при должной сноровке можно добраться до выключателя и включить свет.</p>
+        <p>В дальнейшем успех концепций паттерна и антипаттерна обусловил их перенос и на смежные области, включая управление проектами, дизайн интерфейсов и т.д. [8-10].</p>
+        <p>Материалы и методы</p>
+        <p>Антипаттерны проектирования в базах данных (БД) -проблемные шаблоны, которые могут возникать в процессе разработки БД и приводить к негативным последствиям для их функциональности, производительности и обслуживания. В отличие от паттернов проектирования, которые представляют собой устоявшиеся решения для типичных проблем при проектировании, антипаттерны выступают как распространенные неудачные решения, которые могут возникнуть в процессе разработки БД.</p>
+        <p>Суть антипаттернов в проектировании состоит в возможности их определения и предотвращения, а также в улучшении понимания проблем, которые могут возникнуть в процессе создания БД. Осознание и применение таких проблемных шаблонов позволяет разработчикам и администраторам избежать типичных ошибок, повысить производительность и обеспечить более надежное функционирование БД.</p>
+        <p>Обратим внимание, что цель составления каталога антипаттернов не заключается исключительно в недопущении применения неудачных практик, но также в внедрении в учебный процесс и общих принципов проектирования архитектуры, а также формирования культуры проектирования.</p>
+        <p>В работе мы проведем обзор известных антипаттернов в проектировании баз данных, а также рассмотрим предложе-</p>
+        <p>ния по их предотвращению и устранению. Источниками антипаттернов выступали [11-14]: техническая литература (отметим прежде всего книги Б. Карвина [15] и М. Блаха [16]), научная и профессиональная периодика, профессиональные форумы, а также личный опыт авторов в участии в проектах разработки баз данных, их экспертизы и оценивания.</p>
+        <p>Еще один аспект, над которым молодому инженеру стоит задуматься — распространенность антипаттернов. Если их часто применяют в реальных проектах, значит есть некоторая причина, толкающая разработчиков к этим решениям. Это может быть кажущаяся простота реализации или желание получить быстрое решение, которое в дальнейшем возможно будет улучшено. Иногда антипаттерны выступают в качестве временного ^1-фикса, позволяющего сохранить работоспособность системы. В ряде случаев имеется стремление обеспечить выполнение какого-то распространенного запроса, а иногда — желание «сэкономить» число таблиц и т.д. Также возможна еще одна причина — устоявшиеся неудачная культура проектирования в той или иной фирме или подразделении.</p>
+        <p>При описании антипаттернов будем использовать следующую структуру (некоторые компоненты могу отсутствовать):</p>
+        <p>•	названия антипаттерна (если антипаттерн ранее был описан в литературе, сохраняется оригинальное название);</p>
+        <p>•	общая схема;</p>
+        <p>•	пример антипаттерна;</p>
+        <p>•	возможная причина появления;</p>
+        <p>•	негативные последствия;</p>
+        <p>•	способы решения, ухода от антипаттерна;</p>
+        <p>•	возможные исключения, когда применение антипаттерна оправдано.</p>
+        <p>Обратим внимание, что описанные нами и другими ав-</p>
+        <p>торами антипаттерны не стоит воспринимать догматично. Так, Б. Карвин относит решение ЕМйу-АИпЬ^е-Уа^е к антипаттернам [15], в то время как М. Блаха — к паттернам [16]. Конечное слово остается за инженером, осуществляющим проектирование.</p>
+        <p>Результаты исследования</p>
+        <p>1. Антипаттерны, связанные с недостатками структуры БД и проектирования таблиц</p>
+        <p>1.1. Неатомарные реквизиты.</p>
+        <p>Когда реквизит одной сущности разбит на несколько отдельных значений, это затрудняет выполнение запросов, обновление и поддержание целостности данных (рис. 1). Представим себе, что нам потребуется выбрать сотрудников, владеющих английским языком. Во-первых, мы получим неэффективный sql-запрос с полнотекстовым поиском, во-вторых, при заполнении таблиц мы не можем проконтролировать однообразие написания названий.</p>
+        <p>В этой ситуации следует пересмотреть структуру данных и объединить такие атрибуты в одно поле для обеспечения атомарности (рис. 3).</p>
+        <p>В целом, антипаттерн подводит нас к важному принципу: все, что помещается в поле таблицы выводится из-под действия механизмов реляционной СУБД, что и лишает преимуществ ее использования.</p>
+        <p>1.2. Столбцы-дубли.</p>
+        <p>Дублирование данных в разных столбцах приводит к избыточности и риску противоречий, затрудняет выполнение сложных запросов (рис. 2). SQL-запрос будет изобиловать связками OR. Также мы не сможем помешать пользователю внести два одинаковых значения в одну запись. Наконец, вполне вероятно появление необходимости очередного значения, которое не поместится в существующие столбцы таблицы.</p>
+        <p>Часто такое решение возникает как ответ на необходимость создать срочную «заплатку», &lt;^о1йх», которые, как</p>
+        <p>person	languages</p>
+        <p>Иванов И.И.	Англ., испанский, немецкий</p>
+        <p>Петров П.П.	Английский</p>
+        <p>Рис. 1. Антипаттерн «Неатомарные реквизиты» Fig. 1. &#34;Non-atomic attributes&#34; antipattern</p>
+        <p>person	language	language2</p>
+        <p>Иванов И.И.	испанский	английский</p>
+        <p>Петров П.П.	английский</p>
+        <p>Рис. 2. Антипаттерн «Столбцы-дубли» Fig. 2. &#34;Duplicate columns&#34; antipattern</p>
+        <p>Рис. 3. Решение антипаттернов «Неатомарные реквизиты» и «Столбцы-дубли»</p>
+        <p>Fig. 3. Solution of the antipatterns &#34;Non-atomic attributes&#34; and &#34;Duplicate columns&#34;</p>
+        <p>город</p>
+        <p>товар</p>
+        <p>цена</p>
+        <p>количество</p>
+        <p>Иванов И.И.</p>
+        <p>Ростов</p>
+        <p>Стол</p>
+        <p>1000</p>
+        <p>12</p>
+        <p>Петров П.П.</p>
+        <p>Азов</p>
+        <p>Стол</p>
+        <p>1000</p>
+        <p>Петров П.П.</p>
+        <p>Азов</p>
+        <p>Стул</p>
+        <p>600</p>
+        <p>Рис. 4. Антипаттерн «Нарушение нормализации» Fig. 4. &#34;Violation of normalization&#34; antipattern</p>
+        <p>Рис. 5. Решение антипаттерна «Нарушение нормализации» Fig. 5. Solution of the antipattern &#34;Violation of normalization&#34;</p>
+        <p>клиент</p>
+        <p>1</p>
+        <p>6</p>
+        <p>предполагаются, когда-нибудь в дальнейшем будут исправлены на более адекватное решение.</p>
+        <p>В таких случаях лучше пересмотреть структуру данных и создать связи между таблицами (рис. 3).</p>
+        <p>1.3.Нарушение	нормализации.</p>
+        <p>Может привести к избыточности и потере целостности данных, трудностям при поддержке и изменении структуры таблиц [17] (рис. 4). Необходимо проанализировать структуру данных и привести ее к нормализованным формам (например, до третьей нормальной формы или нормальной форме Бойса - Кодда) (рис. 5).</p>
+        <p>Исключением	являет-</p>
+        <p>ся осознанная денормализа-ция для задач OLAP (Online Analytical Processing). Необходимость многократного объединения таблиц может сделать запросы OLAP сложными и медленными. Осознанная денормализация позволяет хранить суммарные данные, предварительно вычисленные доли и другие агрегированные значения в одной таблице или структуре [18].</p>
+        <p>1.4.	Таблицы-дубли [17].</p><div class="bibloid_serp bibloid_serp_ocr"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=ocr">подбора литературы</a>.</span></div>
+        <p>Появление в базе данных</p>
+        <p>нескольких таблиц с одинаковой структурой — это как лабиринт запутанных коридоров,</p>
+        <p>где данные блуждают, теряются и дублируются без конца. Избыточность данных — это бомбы замедленного действия, которые рано или поздно разрушат целостность и согласованность базы данных (рис. 6).</p>
+        <p>0rders_2021 0rders_2022 0rders_2023</p>
+        <p>Рис. 6. Антипаттерн «Таблицы-дубли» Fig. 6. &#34;Duplicate tables&#34; antipattern</p>
+        <p>Представим возможные последствия:</p>
+        <p>сложность ответа на вопрос, сколько заказов, например, поступило за последние 3 года;</p>
+        <p>возможные изменения структуры, которые потребуется дублировать и в старых таблицах;</p>
+        <p>сложность обработки граничных ситуаций, например, мы получили заказ в конце декабря, а выполнили в начале января.</p>
+        <p>В некоторых случаях создание таблиц-дублей используется как средство повышения производительности. В иных случаях целью может стать желание начинать каждый год «с чистого листа».</p>
+        <p>Чтобы избежать появления таблиц-дублей и связанных с ними проблем следует правильно определить сущности и</p>
+        <p>атрибуты, соблюдать принципы проектирования и при необходимости применять встроенные средства повышения производительности.</p>
+        <p>Современные СУБД позволяют решать проблему производительности путем настройки, не затрагивая логический уровень. Можно настроить партиции (области физического хранения данных) так, чтобы старые данных располагались на отдельном жестком диске или на отдельном сервере. При этом прикладной программист будет видеть единую таблицу базы данных. Также для разных временных периодов может быть выбран разный способ хранения, часто более старые данные предпочитают хранить в колоночном виде (такую опцию предлагают отдельные современные СУБД, например, GreenPlum).</p>
+        <p>В целом, антипаттерн подводит нас к важнейшему принципу проектированию - к ориентации на правило Па-рето 80 / 20. Согласно этому принципу необходимо избегать преждевременной оптимизации производительности и не пытаться ускорить выполнение всех запросов, а сначала выявить с помощью профилирования системы «узкие места» (которые и дают львиную долю задержек), и лишь потом сосредоточить усилия по оптимизации этих критических запросов.</p>
+        <p>Также применение принципа Парето в контексте баз данных позволит:</p>
+        <p>•	сосредоточить усилия на оптимизации тех запросов, которые формируют 80 % нагрузки на базу данных или выполняются 80 % времени, что поможет сделать работу с БД более эффективной;</p>
+        <p>•	сконцентрироваться на индексировании тех столбцов, которые приводят к ускорению выполнения 80 % наиболее часто выполняемых запросов;</p>
+        <p>•	сконцентрировать внимание на тех частях системы, которые являются «узким ме-</p>
+        <p>стом» и оказывают значительное влияние на общую производительность;</p>
+        <p>• кэшировать 20 % наиболее часто используемых данных, что может привести к улучшению производительности в 80 % случаев.</p>
+        <p>1.5. Бессодержательные имена.</p>
+        <p>Такое решение затрудняет понимание структуры и смысла таблиц и столбцов в них, создает сложности при сопровождении БД (рис. 7). Пример взят из реально существовавшего проекта.</p>
+        <p>table0045</p>
+        <p>fleld005	fleld006</p>
+        <p>Иванов И.И.	Ростов</p>
+        <p>Петров П.П.	Азов</p>
+        <p>Рис. 7. Антипаттерн</p>
+        <p>«Бессодержательные имена»</p>
+        <p>Fig. 7. &#34;Meaningless names&#34; antipattern</p>
+        <p>Более информативные имена улучшают читаемость, понимание и поддержку кода, поэтому следует уделить этому аспекту достаточное внимание при создании программного обеспечения — разработать систему имен и придерживаться её.</p>
+        <p>При этом сама система может быть любой, но ее важно строго придерживаться.</p>
+        <p>1.6. «Винегрет» имен.</p>
+        <p>Смешанные или несогласованные способы именования элементов базы данных (рис. 8). Так же, как и антипаттерн «бессодержательные имена», может привести к путанице, увеличению сложно -сти понимания кода и затруднению его сопровождения, что может подорвать продуктивность всей команды разработчиков. Если в базе уже существуют подобные нарушения, необходимо организовать ре-факторинг.</p>
+        <p>Перечисленные нами два антипаттерна приводят к следующему принципу: разработка является, в том числе, социально-экономической де-</p>
+        <p>ятельностью. А значит корректный выбор описательных имен, которые раскрывают истинный смысл таблиц и столбцов столь же важен, как и правильная структура базы данных. Необходимо внимание к затратам труда и понимание сложностей взаимодействия участников разработки [19].</p>
+        <p>clients</p>
+        <p>Client name	idclient</p>
+        <p>Иванов И.И.	1</p>
+        <p>Петров П.П.	2</p>
+        <p>Spr_tovar</p>
+        <p>Goodname	Kod tov</p>
+        <p>Стол	1</p>
+        <p>Стул	2</p>
+        <p>Рис.8. Антипаттерн «&#34;Винегрет&#34; имен» Fig. 8. &#34;Jumble of names&#34; antipattern</p>
+        <p>2. Антипаттерны, связанные с жесткими и неподдающимися изменениям структурами данных.</p>
+        <p>2.1. ENUM hardcoding (жестко закодированные справочные значения).</p>
+        <p>Жесткое кодирование значений переменных (ENUM) делает программный код менее гибким и поддерживаемым при необходимости изменений [16] (рис. 9).</p>
+        <p>Недостатки данного антипаттерна включают в себя:</p>
+        <p>•	сложность поддержки: жёстко закодированные перечисления усложняют сопровождение кода, поскольку любые изменения в перечислении потребуют обновления кода вручную;</p>
+        <p>•	неочевидность: использование зашитых перечислений скрывает информацию о различных значениях, что делает код менее читаемым и понятным для других разработчиков;</p>
+        <p>•	ограниченность возможностей: жесткое кодирование перечислений затрудняет добавление новых значений или модификацию существующих.</p>
+        <p>клиент	статус</p>
+        <p>Иванов И.И.	4	1	- новый 2	- потенциальный</p>
+        <p>Петров П.П.	1</p>
+        <p>Елизаров Е.Е.	4</p>
+        <p>Рис. 9. Антипаттерн «ENUM</p>
+        <p>hardcoding» Fig. 9. &#34;ENUM hardcoding&#34; antipattern</p>
+        <p>Если перечисления могут изменяться динамически, их значения можно хранить в базе данных в справочнике, обеспечивая гибкость и удобство в обновлении (рис. 10).</p>
+        <p>Рис. 10. Решение антипаттерна</p>
+        <p>«ENUM hardcoding» Fig. 10. Solution of the antipattern &#34;ENUM hardcoding&#34;</p>
+        <p>2.2. Ложная абстракция</p>
+        <p>Ситуация, когда в одной таблице размещены строки, относящиеся к двум или более различным понятиям, произвольно объединенных в одно целое (рис. 11). Как видим из рисунка, общего между «Категорией водителя» и «Категорией товара» лишь слово «Категория». А значит мы не сможем проконтролировать, чтобы в путевом листе вместо категории водителя не оказалась категория груза и наоборот. Либо такой контроль потребует лишних усилий программиста.</p>
+        <p>Код	Категория</p>
+        <p>1	Категория водителя А</p>
+        <p>2	Категория водителя Б</p>
+        <p>3	Категория водителя В</p>
+        <p>4	Категория груза 1</p>
+        <p>5	Категория груза 2</p>
+        <p>Рис. 11. Антипаттерн «Ложная абстракция» Fig. 11. &#34;False abstraction&#34; antipattern</p>
+        <p>товар	категория	Подкатегория 1	Подкатегория 2</p>
+        <p>сумочка	аксессуары</p>
+        <p>брюки	одежда	мужская	летняя</p>
+        <p>майка	одежда	женская</p>
+        <p>Рис. 12. Антипаттерн «Level Hardcoding» Fig. 12. &#34;Level Hardcoding&#34; antipattern</p>
+        <p>Рис. 13. Решение антипаттерна «Level Hardcoding» Fig. 13. Solution of the antipattern &#34;Level Hardcoding&#34;</p>
+        <p>Рис. 14. Антипаттерн «Полиморфная ассоциация» [17] Fig. 14. &#34;Polymorphic association&#34; antipattern</p>
+        <p>id	№ счета	Сумма счета	№ платежа	Сумма платежа</p>
+        <p>1	1	1000	12	600</p>
+        <p>2	1		1	400</p>
+        <p>3	2	500	6	500</p>
+        <p>Рис. 15. Антипаттерн «&#34;Божественная&#34; таблица» Fig. 15. &#34; &#39;Divine&#39; table&#34; antipattern</p>
+        <p>Вместо стабильной и надежной базы данных, ложная абстракция создает иллюзию устойчивости, которая может легко рухнуть под натиском изменений. Это может привести к катастрофическим сбоям и наводнениям данных, угрожая даже самому существованию системы.</p>
+        <p>Разнородные понятия следует разделять на отдельные таблицы-справочники, каждая из которых будет описывать конкретный тип данных.</p>
+        <p>2.3.	Level Hardcoding [16] (жесткое кодирование уровней иерархии в таблице).</p>
+        <p>Жесткое привязывание логики или данных к определенному уровню или слою делает систему менее гибкой и расширяемой (рис. 12). Целесообразно разделение разнородных типов данных по разным таблицам в соответствии с их природой, чтобы каждая таблица содержала данные только определенного уровня или типа (рис. 13).</p>
+        <p>При использовании этого антипаттерна, база данных становится фрагментированной, как разбитое зеркало - каждый кусочек отражает что-то, но ни один не дает полной картины. Эта фрагментация приводит к потере целостности и недоступности полного контекста.</p>
+        <p>Обратим внимание, решение, представленное на рисунке 13 — это не единственный способ представления иерархий. Например, У. Карвин [15] критикует такой подход вводя для него антипаттерн «Наивная иерархия» и предлагает ряд альтернативных решений.</p>
+        <p>2.4.	Полиморфная ассоциация.</p>
+        <p>Ситуация, когда одно поле</p>
+        <p>внешнего ключа используется для ссылок на разные таблицы [15], это усложняет структуру БД и создает проблемы при запросах и поддержке данных (рис. 14). Главный недостаток — невозможность обеспечения ссылочной целостности данных [20].</p>
+        <p>Можно применить следую -щие способы, чтобы избежать использования полиморфных ассоциаций при создании базы данных:</p>
+        <p>•	создание отдельных полей внешних ключей для каждой ассоциации, чтобы явно указать, к какой таблице относится ссылка (два ключа и LEFT JOIN):</p>
+        <p>SELECT * FROM Comments c LEFT JOIN Bugs b USING (bug_id)</p>
+        <p>LEFT JOIN Features f USING (feature_id);</p>
+        <p>•	применение паттерна «наследование в базе данных» (Table Inheritance): разделение общих и специфических атрибутов в несколько таблиц.</p>
+        <p>2.5. «Божественная» таблица (или Монолитная таблица).</p>
+        <p>Одна большая таблица, в которой сосредоточены данные из разных сфер или смыслов, снижает читаемость и поддер-живаемость кода (рис. 15).</p>
+        <p>Причина применения антипаттерна — в легкости (кажущейся!) проведения, например, подсчета стоимости и задолженности одним запросом. Однако такое преимущество не стоит потери контроля целостности данных, аномалий удаления и сложностей с поддержкой операций модификации.</p>
+        <p>Избежать избыточности и улучшить структуру базы данных позволит разделение</p>
+        <p>монолитной таблицы на отдельные таблицы, каждая из которых будет содержать данные только для конкретной сущности (рис. 16).</p><div class="bibloid_serp bibloid_serp_ocr"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=ocr">подбора литературы</a>.</span></div>
+        <p>Рис. 16. Решение антипаттерна «&#34;Божественная&#34; таблица»</p>
+        <p>Fig. 16. Solution of the antipattern &#34; &#39;Divine&#39; table&#34;</p>
+        <p>2.6. Параллельные атрибуты и их группы [16].</p>
+        <p>Использование различных групп атрибутов для одной и той же сущности указывает на возможное отсутствие отдельной таблицы для этой сущности, что приводит к дублированию кода и снижению гибкости (рис. 17).</p>
+        <p>client</p>
+        <p>id</p>
+        <p>work adress</p>
+        <p>work phone</p>
+        <p>home adress</p>
+        <p>home phone</p>
+        <p>Рис. 17. Антипаттерн «Параллельные атрибуты и их группы»</p>
+        <p>Fig. 17. &#34;Parallel attributes and their groups&#34; antipattern</p>
+        <p>contact id</p>
+        <p>client		adress		Contact_type</p>
+        <p>id		phone		id</p>
+        <p>Id_type		name</p>
+        <p>Id_client</p>
+        <p>Рис. 18. Решение антипаттерна «Параллельные атрибуты и их группы» Fig. 18. Solution of the antipattern &#34;Parallel attributes and their groups&#34;</p>
+        <p>Персона	автор ^	Статья</p>
+        <p>&gt; 4 ^ рецензент ^</p>
+        <p>^ N редактор</p>
+        <p>Рис. 19. Антипаттерн «Параллельные связи» Fig. 19. &#34;Parallel connections&#34; antipattern</p>
+        <p>Рис. 20. Решение антипаттерна «Параллельные связи» [14, 20] Fig. 20. Solution of the antipattern &#34;Parallel connections&#34;</p>
+        <p>Рис. 21. Антипаттерн «Мозаичное наследование» Fig. 21. &#34;Mosaic inheritance&#34; antipattern</p>
+        <p>Аудит структуры данных поможет выявить повторяющиеся группы атрибутов и пропущенные сущности, которые требуют выделения в отдельные таблицы (рис. 18).</p>
+        <p>2.7. Параллельные связи.</p>
+        <p>Установление нескольких независимых отношений между одними и теми же таблицами усложняет обработку запросов и поддержку базы данных (рис. 19).</p>
+        <p>Если мы обратим внимание на приведенный пример, то увидим, что для его реализации потребуется 5 отдельных таблиц — включая 3 промежуточных. А ведь список вариан-</p>
+        <p>тов связей может быть расширен, например, у статьи может быть еще переводчик, иллюстратор и т.д.</p>
+        <p>Пересмотр структуры данных и возможное выделение дополнительных сущностей или атрибутов поможет упростить связи между данными и сделать структуру более понятной (рис. 20). В качестве решения применяется паттерн, также предложенный в книге М. Блаха [16].</p>
+        <p>2.8. Мозаичное наследование [15].</p>
+        <p>Использование фрагменти-рованных или разрозненных методов наследования среди</p>
+        <p>сущностей затрудняет анализ и поддержку кода. Также использование наследования по двум и более признакам усложняет написание запросов и накладывает дополнительные условия для выборки нужных данных (рис. 21).</p>
+        <p>Избежать мозаичного наследования и улучшить структуру данных можно с помощью разделения общих и специфических атрибутов в несколько таблиц, использование внешних ключей для связи между таблицами и явное объявление связей между родительскими и дочерними сущностями (рис. 22).</p>
+        <p>Рис. 22. Решение антипаттерна «Мозаичное наследование» Fig. 22. Solution of the antipattern &#34;Mosaic inheritance&#34;</p>
+        <p>3. Антипаттерны, связанные с обходом стандартных возможностей баз данных и оптимизацией.</p>
+        <p>3.1. Изменение данных в рабочем порядке.</p>
+        <p>Внесение изменений в данные для реализации сложных запросов с целью хранения промежуточных результатов или пометки обработанных строк. Непредсказуемые изменения данных или состояния объектов приводят к лишней нагрузке, нестабильности и ошибкам в системе, в том числе при выполнении таких запросов параллельно (рис. 23).</p>
+        <p>клиент	статус	tmp</p>
+        <p>Иванов И.И.	4	1244</p>
+        <p>Петров П.П.	1	156</p>
+        <p>Елизаров Е.Е.	4	356</p>
+        <p>Рис. 23. Антипаттерн «Изменение</p>
+        <p>данных в рабочем порядке»</p>
+        <p>Fig. 23. &#34;Changing data in due course&#34; antipattern</p>
+        <p>Использовать подобное решение — все равно что разобрать стену для того, чтобы наклеить обои.</p>
+        <p>Здесь необходимо вспомнить очередной принцип: именно база данных является ядром информационной системы.</p>
+        <p>Для сохранения промежуточных результатов и обеспечения целостности данных можно использовать временные таблицы, которые автоматически удаляются после завершения сессии.</p>
+        <p>3.2. Спекулятивное изменение метаданных.</p>
+        <p>Изменение метаданных (структуры или поведения) программы во время испол-</p>
+        <p>нения. Использование такого антипаттерна может привести к сложностям при отладке и поддержке (рис. 24).</p>
+        <p>Добавляем для</p>
+        <p>экзаменационной</p>
+        <p>сессии</p>
+        <p>студент	subjl	subj2	subj3</p>
+        <p>Иванов И.И.	4	5	3</p>
+        <p>Петров П.П.	2	4	5</p>
+        <p>Елизаров Е.Е.	3	4	3</p>
+        <p>Рис. 24. Антипаттерн «Спекулятивное изменение метаданных»</p>
+        <p>Fig. 24. &#34;Spéculative metadata modification&#34; antipattern</p>
+        <p>Важно спроектировать адекватную структуру базы и изменять метаданные лишь при изменении задач. Любые изменения метаданных должны проходить через процесс тестирования для оценки влияния на существующие данные и приложения.</p>
+        <p>Отметим здесь еще один принцип проектирования: никакое изощренное программирование не исправит фатальных недостатков архитектуры.</p>
+        <p>3.3 Отказ от SQL в пользу программного обхода.</p>
+        <p>Использование альтернативных методов доступа к данным вместо SQL часто приводит к увеличению сложности и загрязнению кода (рис. 25).</p>
+        <p>Отказ от SQL означает, что вы отказываетесь от всех преимуществ, которые предлагают современные системы управления базами данных, таких как транзакционная целостность, репликация данных и механизмы восстановления после сбоев. Вместо</p>
+        <p>этого вам придется реализо-вывать все эти функции самостоятельно, что грозит увеличением ошибок и уязви-мостей.</p>
+        <p>Clients.first;</p>
+        <p>While not clients.eof</p>
+        <p>clients.next;</p>
+        <p>Рис. 25. Антипаттерн «Отказ от SQL в пользу программного</p>
+        <p>обхода»</p>
+        <p>Fig. 25. &#34;Abandoning SQL in favor of software bypass&#34; antipattern</p>
+        <p>Каждая часть системы должна выполнять только ту задачу, за которую она отвечает, и операции над данными должны выполняться только в том слое, где они находятся. Применение ORM-фреймвор-ков позволит представить данные из базы в виде объектов и работать с ними, не покидая среду языка программирования. Использование хранимых процедур для выполнения сложных операций над данными может упростить логику приложения и повысить производительность.</p>
+        <p>Исключением может служить использование курсоров при сложных запросах. Например, если требуется выполнить итерацию по набору данных с выполнением определенных действий для каждой строки, то использование курсоров в рамках программного кода может оказаться более удобным и эффективным, чем написание сложного и запутанного SQL-запроса.</p>
+        <p>3.4. Злоупотребление индексами и их некорректное использование.</p>
+        <p>Неправильное использование индексов, например, создание избыточных или ненужных индексов может снижать производительность базы данных (рис. 26). Так запросы в левой части рисунка не будут задействовать существующие</p>
+        <p>SELECT * FROM clients</p>
+        <p>WHERE description LIKE &#39;%yflaHHbiii%&#39;</p>
+        <p>SELECT » FROM clients</p>
+        <p>WHERE YEAR(birth_date)=2000</p>
+        <p>SELECT * FROM clients</p>
+        <p>ORDER BY first_name, last_name</p>
+        <p>SELECT * FROM clients</p>
+        <p>WHERE first_name=&#39;MEsaH&#39; OR last name=&#39;MBaHOB&#39;</p>
+        <p>Индексы не отработают</p>
+        <p>Плохой индекс</p>
+        <p>CREATE INDEX idx_gender</p>
+        <p>ON clients (gender)</p>
+        <p>Лишние индексы CREATE INDEX CREATE INDEX CREATE INDEX CREATE INDEX CREATE INDEX</p>
+        <p>Рис. 26. Антипаттерн «Злоупотребление индексами и их некорректное</p>
+        <p>использование» Fig. 26. &#34;Abuse of indexes and their incorrect use&#34; antipattern</p>
+        <p>индексы. Индекс по полю с ограниченным набором значений обладает низкой селективностью и бесполезен. Лишние индексы замедляют операции обновления данных.</p>
+        <p>В таких случаях необходимо провести анализ производительности базы данных и запросов для определения неиспользуемых или избыточных индексов и для идентификации отсутствующих индексов, которые могут улучшить производительность запросов. Использование специализированных инструментов для мониторинга производительно-</p>
+        <p>сти базы данных может помочь выявить проблемные запросы и индексы.</p>
+        <p>Результаты</p>
+        <p>В результате проведенного анализа были рассмотрены разнообразные антипаттерны в проектировании баз данных и их негативное влияние на производительность, безопасность и масштабируемость системы. Был проведен обзор существующих антипаттернов, проанализированы их возможные последствия, предложены методы и стратегии по предот-</p>
+        <p>вращению и устранению антипаттернов в базах данных.</p>
+        <p>Важные направления для дальнейших исследований в данной области:</p>
+        <p>•	более глубокий анализ конкретных случаев применения антипаттернов в реальных проектах;</p>
+        <p>•	разработка инструментов и методик для автоматического выявления и устранения антипаттернов;</p><div class="bibloid_serp bibloid_serp_ocr"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=ocr">подбора литературы</a>.</span></div>
+        <p>•	исследование влияния антипаттернов на общую архитектуру информационных систем.</p>
+        <p>Для того, чтобы избежать подобных ошибок специалистам в области проектирования баз данных необходимо:</p>
+        <p>•	систематически анализировать используемые шаблоны и методы при проектировании баз данных;</p>
+        <p>•	уделять внимание современным требованиям к проектированию и администрированию баз данных;</p>
+        <p>•	развивать навыки в области устранения антипаттернов для обеспечения качества и эффективности баз данных.</p>
+        <p>Литература</p>
+        <p>1.	Харрингтон Джен Л. Проектирование реляционных баз данных. М.: Лори, 2006. 230 с.</p>
+        <p>2.	Титовская Н.В., Титовский С.Н. Методика обучения будущих IT-специалистов проектированию и разработке баз данных на основе интерактивного подхода // Вестник Красноярского государственного педагогического университета им. В.П. Астафьева. 2019. № 4(50). С. 75-87. DOI: 10.25146/1995-0861-2019-50-4-164.</p>
+        <p>3.	Яхина З.Т., Осипова А.Л., Ризаев И.С. Методология проектирования баз данных в процессе обучения // Образовательные технологии и общество. 2012. № 15(1). С. 525-536.</p>
+        <p>4.	Ahmad R., Chyi W. A., Sarlan A., Kasbon R. Guiding novice database developers in database schema creation // IEEE Conference on e-Learning, e-Management and e-Services. 2015. № (9). С. 708-715. DOI: 10.1109IC3e.2014.7081243.</p>
+        <p>5.	Александер К. Язык шаблонов. Города. Здания. Строительство. Пер. с англ. М.: Студия Артемия Лебедева, 2014. 1096 с.</p>
+        <p>6.	Гамма Э., Хелм Р., Джонсон Р., Влисси-дес Дж. Паттерны объектно-ориентированного проектирования. Пер. с англ. А. Слинкин. СПб.: Питер, 202. 448 с.</p>
+        <p>7.	Аллен Э. Типичные ошибки проектирования. СПб.: Питер, 2003. 224 с.</p>
+        <p>8.	Аручиди Н.А., Калугян К.Х., Щербаков С.М. Типичные ошибки (антипаттерны) учебно-методической деятельности в вузе // Международный научно-исследовательский журнал. 2021. № 2(104). С. 13-18. DOI: 10.23670/ IRJ.2021.103.2.033.</p>
+        <p>9.	Калугян К. Х., Щербаков С. М. Типичные ошибки представления результатов выпускных квалификационных работ по направлению «Прикладная информатика» // Информатика и образование. 2016. № 5(274). С. 20-28.</p>
+        <p>10.	William J. Brown, Hays W. «Skip» McCormick, Scott W. Thomas. AntiPatterns in Project Management. Wiley, 2000.</p>
+        <p>11.	Кучерова К.Н. Анализ масштабируемости баз данных и их приложений на этапе проектирования. Системный анализ в проектировании и управлении // Сборник научных трудов XXI Международной научно-практической конференции: в 2-х томах (Санкт-Петербург, 29-30 июня 2017 г.). СПб.: Санкт-Петербургский политехнический университет Петра Великого, 2017. С. 287-292.</p>
+        <p>12.	Ржавин В.В., Обломов И.А., Фадеева К.Н. Использование шаблонов проектирова-</p>
+        <p>ния реляционных баз данных в практике высшей школы // Современные наукоемкие технологии. 2022. № 10-1. С. 84-88. DOI: 10.17513snt.39351.</p>
+        <p>13.	Davidson L. Ten common database design mistakes. RedGate Hub, 2007.</p>
+        <p>14.	Vitacolonna N. Conceptual Design Patterns for Relational Databases. 17 th International Conference on Information and Software Technologies (IT 2011), 2011.</p>
+        <p>15.	Karwin B. SQL Antipatterns: Avoiding the Pitfalls of Database. Pragmatic Bookshelf, 2010. 333 с.</p>
+        <p>16.	Blaha M. Patterns of Data Modeling. CRC Press, 2010. 266 с.</p>
+        <p>17.	Кириллов В., Громов Г. Введение в реляционные базы данных. СПб.: БХВ-Петербург, 2012. 464 с.</p>
+        <p>18.	Kimball R., Ross M. The Data Warehouse Toolkit The Complete Guide to Dimensional Modeling. 2nd Edition, John Wiley &amp; Sons, New York, 2002. 464 с.</p>
+        <p>19.	Брукс Ф. Мифический человеко-месяц, или как создаются программные системы. СПб.: Питер, 2021. 368 с.</p>
+        <p>20.	Blaha M. Referential Integrity Is Important For Databases. Modelsoft Consulting Corp, 2005.</p>
+        <p>References</p>
+        <p>1.	Kharrington Dzhen L. Proyektirovaniye relyatsionnykh baz dannykh = Designing Relational Databases. Moscow: Laurie; 2006. 230 p. (In Russ.)</p>
+        <p>2.	Titovskaya N.V., Titovskiy S.N. Methodology for teaching future IT specialists database design and development based on an interactive approach. Vestnik Krasnoyarskogo gosudarstvennogo pedagogicheskogo universiteta im. V.P. Astafyeva = Bulletin of the Krasnoyarsk State Pedagogical University named after V. P. Astafiev. 2019; 4(50): 75-87. DOI: 10.25146/1995-0861-2019-50-4-164. (In Russ.)</p>
+        <p>3.	Yakhina Z.T., Osipova A.L., Rizayev I.S. Methodology for designing databases in the learning process. Obrazovatel&#39;nyye tekhnologii i obshchestvo = Educational technologies and society. 2012; 15(1): 525-536. (In Russ.)</p>
+        <p>4.	Ahmad R., Chyi W.A., Sarlan A., Kasbon R. Guiding novice database developers in database schema creation. IEEE Conference on e-Learning, e-Management and e-Services. 2015; (9): 708-715. DOI: 10.1109IC3e.2014.7081243.</p>
+        <p>5.	Aleksander K. Yazyk shablonov. Goroda. Zdaniya. Stroitel&#39;stvo. Per. s angl = Pattern Language. Cities. Buildings. Construction. Tr. from Eng. Moscow: Art. Lebedev Studio; 2014. 1096 p. (In Russ.)</p>
+        <p>6.	Gamma E., Khelm R., Dzhonson R., Vlissides Dzh. Patterny ob»yektno-oriyentirovannogo proyektirovaniya. Per. s angl. A. Slinkin = Patterns of Object-Oriented Design. Tr. from Eng. A. Slinkin. Saint Petersburg: Piter; 202. 448 p. (In Russ.)</p>
+        <p>7.	Allen E. Tipichnyye oshibki proyektirovaniya = Typical Design Mistakes. Saint Petersburg: Piter; 2003. 224 p. (In Russ.)</p>
+        <p>8.	Aruchidi N.A., Kalugyan K.Kh., Shcher-bakov S.M. Typical mistakes (antipatterns) of educational and methodological activities at the university. Mezhdunarodnyy nauchno-issledovatel&#39;skiy zhurnal = International Research Journal. 2021; 2(104): 13-18. DOI: 10.23670/ IRJ.2021.103.2.033. (In Russ.)</p>
+        <p>9.	Kalugyan K.Kh., Shcherbakov S.M. Typical mistakes in presenting the results of final qualification works in the direction of «Applied Informatics».</p>
+        <p>Informatika i obrazovaniye = Informatics and Education. 2016; 5(274): 20-28. (In Russ.)</p>
+        <p>10.	William J. Brown, Hays W. «Skip» McCormick, Scott W. Thomas. AntiPatterns in Project Management. Wiley; 2000.</p>
+        <p>11.	Kucherova K.N Analysis of scalability of databases and their applications at the design stage. Systems analysis in design and management. Sbornik nauchnykh trudov XXI Mezhdunarodnoy nauchno-prakticheskoy konferentsii: v 2-kh tomakh = Collection of scientific papers of the XXI International scientific and practical conference: in 2 volumes (St. Petersburg, June 29-30, 2017). Saint Petersburg: Peter the Great St. Petersburg Polytechnic University; 2017: 287-292. (In Russ.)</p>
+        <p>12.	Rzhavin V.V., Oblomov I.A., Fadeyeva K.N. Using relational database design patterns in higher education practice. Sovremennyye naukoyemkiye tekhnologii=Modern science-intensive technologies. 2022; 10-1: 84-88. DOI: 10.17513snt.39351. (In Russ.)</p>
+        <p>13.	Davidson L. Ten common database design mistakes. RedGate Hub; 2007.</p>
+        <p>14.	Vitacolonna N. Conceptual Design Patterns for Relational Databases. 17th International Conference on Information and Software Technologies (IT 2011); 2011.</p>
+        <p>15.	Karwin B. SQL Antipatterns: Avoiding the Pitfalls of Database. Pragmatic Bookshelf; 2010. 333 p.</p>
+        <p>16.	Blaha M. Patterns of Data Modeling. CRC Press; 2010. 266 p.</p>
+        <p>17.	Kirillov V., Gromov G. Vvedeniye v relyatsionnyye bazy dannykh = Introduction to relational databases. Saint Petersburg: BHV-Petersburg; 2012. 464 p. (In Russ.)</p>
+        <p>18.	Kimball R., Ross M. The Data Warehouse Toolkit The Complete Guide to Dimensional Modeling. 2nd Edition, John Wiley &amp; Sons, New York; 2002. 464 p.</p>
+        <p>19.	Bruks F. Mificheskiy cheloveko-mesyats, ili kak sozdayutsya programmnyye sistemy = The Mythical Man-Month, or How Software Systems Are Created. Saint Petersburg: Piter; 2021. 368 p. (In Russ.)</p>
+        <p>20.	Blaha M. Referential Integrity Is Important For Databases. Modelsoft Consulting Corp; 2005.</p>
+        <p>Сведения об авторах</p>
+        <p>Сергей Михайлович Щербаков</p>
+        <p>Ростовский государственный экономический университет (РИНХ), Ростов-на-Дону, Россия Эл. почта: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1b2a4b3a6b6aeaea581aca0a8adefb3b4">[email&#160;protected]</a></p>
+        <p>Каринэ Хачересовна Калугян</p>
+        <p>Ростовский государственный экономический университет (РИНХ), Ростов-на-Дону, Россия Эл. почта: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e58e848990829c848ba59c848b81809dcb9790">[email&#160;protected]</a></p>
+        <p>Анна Вадимовна Абрамова</p>
+        <p>Ростовский государственный экономический университет (РИНХ), Ростов-на-Дону, Россия Эл. почта: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="65040248040b0b04485c57251c040b01001d4b1710">[email&#160;protected]</a></p>
+        <p>Вера Юрьевна Гречкина</p>
+        <p>Ростовский государственный экономический университет (РИНХ), Ростов-на-Дону, Россия Эл. почта: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1a6a6a6b4a3b091bdb8a2a5ffa3a4">[email&#160;protected]</a></p>
+        <p>Information about the authors</p>
+        <p>Sergey M. Shcherbakov</p>
+        <p>Rostov State University of Economics (RINH), Rostov-on-Don, Russia E-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3142544356465e5e55715c50585d1f4344">[email&#160;protected]</a></p>
+        <p>Karine K. Kalugyan</p>
+        <p>Rostov State University of Economics (RINH), Rostov-on-Don, Russia E-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="583339342d3f213936182139363c3d20762a2d">[email&#160;protected]</a></p>
+        <p>Anna V. Abramova</p>
+        <p>Rostov State University of Economics (RINH), Rostov-on-Don, Russia E-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89e8eea4e8e7e7e8a4b0bbc9f0e8e7edecf1a7fbfc">[email&#160;protected]</a></p>
+        <p>Vera Y. Grechkina</p>
+        <p>Rostov State University of Economics (RINH), Rostov-on-Don, Russia E-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dcabababb9aebd9cb0b5afa8f2aea9">[email&#160;protected]</a></p></div>
+    </div>
+  </div>
+
+	
+  <div class="infoblock visible">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot3"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot2');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot2"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+</div>
+</span>
+
+
+<div class="left-banner" style="width: 300px; margin-left: -320px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-left" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side1"></div>
+    <div id="crt-4f158390" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+<div class="right-banner" style="margin-left: 740px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-right" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side2"></div>
+    <div id="crt-4f158390-1" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+
+
+
+        <div class="footer">
+          <hr />
+          <div class="half">
+            <a href="/terms.html" target="_blank">Пользовательское соглашение</a>
+            <a href="/policy.html" target="_blank">Политика конфиденциальности</a>
+          </div>
+          <div class="half-right">
+            <a style="margin-top: 5px;" class="openscience" href="http://open-science.ru/" target="_blank"><img src="/images/openscience.svg" alt="Открытая наука" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="/app.js?2862416399" defer></script>
+    
+    <script type="text/javascript">
+      
+
+      window.__cl = function (f) {
+        if (!window.__cl_callbacks) {
+          window.__cl_callbacks = [];
+        }
+        window.__cl_callbacks.push(f);
+      };
+
+      window.__cl(function(app) {
+        var app = app.element(app.elm.Menu, 'menu', { user: window.__cl_user, id: "", path: "/article/n/antipatterny-v-proektirovanii-baz-dannyh" });
+        if (app == null) { return; }
+        window.notify.login = function() {
+          app.ports.showLoginSub.send();
+        }
+      });
+      window.__cl(function(app) {
+        app.element(app.elm.Notification.Persist, 'notification-persist', {
+          cookie: document.cookie
+        });
+      })
+    </script>
+
+    
+  
+  <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = 'https://vk.com/rtrg?p=VK-RTRG-113217-3vhqF';</script>
+  <script type="text/javascript">
+    (window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=pBktsqObaAtvToEtTxQbb/cxSGdswTMQ5wcdtediEFrGEy1Rbzr/IMae3Notd2g/GdggCzMzIdcwjWAsDf7M*I1hGYLGK2Uho4KO3yct6a3PDEHu/PU3m87/qEKB5u005s5BZOxtV0KGfmxRfV5X4n3kmNOYtnudE89WXjBuKsQ-';
+  </script>
+  
+
+
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(15765706, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/15765706" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+  
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-33095299-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+
+    
+
+<script>
+  var adfox = function(id, params) {
+        window.yaContextCb.push(()=>{
+            Ya.adfoxCode.create({
+              ownerId: 254948,
+              containerId: id,
+              params: params
+            });
+          });
+  }
+
+  adfox('adfox_bot3', {
+    pp: 'nol',
+    ps: 'czgi',
+    p2: 'ganf',
+    puid1: ''
+  });
+  if (window.innerWidth >= 768) {
+    adfox('adfox_top1', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_top2', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid1', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot1', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid2', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot2', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot4', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+  } else {
+      adfox('adfox_top1', {
+          pp: 'noj',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_mid1', {
+          pp: 'nok',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_bot1', {
+          pp: 'nol',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+  }
+  if (window.innerWidth >= 1360) {
+    adfox('adfox_side1',{
+      pp: 'noj',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+    adfox('adfox_side2', {
+      pp: 'nok',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+  }
+</script>
+
+
+<script type="text/javascript">
+window.__cl(function(app) {
+  app.element(app.elm.Viewer.Inline, "viewer-inline", {
+    id:  20197883 ,
+    pages:  11 ,
+    link: "antipatterny-v-proektirovanii-baz-dannyh",
+    doi: "10.21686\/1818-4243-2024-6-67-21"
+  })
+  var authors = app.element(app.elm.Article.Authors, "article-authors", {
+    is_author:  false ,
+    authors: [{"id":27783545,"name":"Сергей Михайлович Щербаков","link":"","status":""},{"id":27783546,"name":"Каринэ Хачересовна Калугян","link":"","status":""},{"id":27783547,"name":"Анна Вадимовна Абрамова","link":"","status":""},{"id":27783548,"name":"Вера Юрьевна Гречкина","link":"","status":""}] || [],
+    user: window.__cl_user
+  });
+  var controls = app.element(app.elm.Article.Controls, "article-controls", {
+    quotes: {
+      gost_electronic: "Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова, Вера Юрьевна Гречкина Антипаттерны в проектировании баз данных \/\/ Открытое образование. 2024. №6. URL: https:\/\/cyberleninka.ru\/article\/n\/antipatterny-v-proektirovanii-baz-dannyh (дата обращения: 28.09.2026).",
+      gost_print: "Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова, Вера Юрьевна Гречкина Антипаттерны в проектировании баз данных \/\/ Открытое образование. 2024. №6. С.67-77",
+      wiki: "{{статья|автор=Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова, Вера Юрьевна Гречкина|заглавие=Антипаттерны в проектировании баз данных|издание=Открытое образование|год=2024|ссылка=https:\/\/cyberleninka.ru\/article\/n\/antipatterny-v-proektirovanii-baz-dannyh|doi=10.21686\/1818-4243-2024-6-67-21|номер=6}}",
+      apa: "Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова, \u0026 Вера Юрьевна Гречкина (2024). Антипаттерны в проектировании баз данных. Открытое образование, 28 (6), 67-77. doi: 10.21686\/1818-4243-2024-6-67-21",
+      ama: "Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова, Вера Юрьевна Гречкина. Антипаттерны в проектировании баз данных. Открытое образование.  2024;28(6):67-77. doi:10.21686\/1818-4243-2024-6-67-21",
+      mla: "Сергей Михайлович Щербаков, Каринэ Хачересовна Калугян, Анна Вадимовна Абрамова,  and Вера Юрьевна Гречкина. \u0022Антипаттерны в проектировании баз данных\u0022 Открытое образование, vol. 28, no. 6, 2024, pp. 67-77. doi:10.21686\/1818-4243-2024-6-67-21"
+    },
+    pages:  11 ,
+    id:  20197883 ,
+    link: "antipatterny-v-proektirovanii-baz-dannyh",
+    doi: "10.21686\/1818-4243-2024-6-67-21",
+    authors: [{"id":27783545,"name":"Сергей Михайлович Щербаков","link":"","status":""},{"id":27783546,"name":"Каринэ Хачересовна Калугян","link":"","status":""},{"id":27783547,"name":"Анна Вадимовна Абрамова","link":"","status":""},{"id":27783548,"name":"Вера Юрьевна Гречкина","link":"","status":""}] || [],
+    likes: {"likes":"0","dislikes":"0","user":0},
+    user: window.__cl_user
+  });
+
+  var claim = document.getElementById('claim')
+  if (claim) {
+    claim.onclick = function(e) {
+      e.preventDefault();
+      controls.ports.claim.send(true);
+    }
+  }
+
+  var searchFromSelector = function(sel) {
+    var els = document.querySelectorAll(sel);
+    els.forEach(function(el) {
+      var t = el.innerText;
+      el.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = "/search?q=" + encodeURIComponent(t);
+      }
+    });
+  }
+  searchFromSelector(".to-search");
+});
+</script>
+
+
+    <div id="notification-flash"></div>
+    <div class="info"><div id="notification-persist"></div></div>
+  </body>
+</html>

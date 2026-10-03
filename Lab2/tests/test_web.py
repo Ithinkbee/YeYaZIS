@@ -280,6 +280,46 @@ def test_chess_move_is_played(client):
     assert result["ok"] and result["reply"]
 
 
+def test_static_files_are_never_served_stale(client):
+    """Правка скрипта или стилей должна доходить до браузера сразу.
+
+    Старый chess.js из кэша при новой странице запирал доску после первого
+    хода: страница вызывала функции, которых в старом скрипте нет.
+    """
+    import re
+
+    for path, name in (("/chess", "chess.js"), ("/check", "chess.js"), ("/", "style.css")):
+        text = client.get(path).text
+        assert re.search(rf'/static/{re.escape(name)}\?v=[0-9a-f]+"', text), (path, name)
+    response = client.get("/static/chess.js")
+    assert response.headers["cache-control"] == "no-cache"
+    assert response.headers.get("etag")
+
+
+def test_chess_move_can_come_without_the_reply(client):
+    """Ход игрока отдаётся отдельно от ответа паука — доска не ждёт перебора."""
+    from tolmach.chess import START_FEN
+
+    half = client.post(
+        "/api/chess/move",
+        json={"fen": START_FEN, "frm": "e2", "to": "e4", "reply": False, "said": []},
+    ).json()
+    assert half["ok"] and not half["reply"] and half["line"]
+    assert " b " in half["fen"]
+
+    reply = client.post("/api/chess/reply", json={"fen": half["fen"], "said": [half["line"]]}).json()
+    assert reply["ok"] and reply["reply"] and reply["reply_line"]
+    assert " w " in reply["fen"] and reply["legal"]
+
+
+def test_chess_page_passes_legal_moves_and_has_no_speech_card(client):
+    """Ходы для мгновенного показа — в странице; реплики — у самого паука."""
+    text = client.get("/chess").text
+    assert "START_LEGAL" in text and "e2e4" in text
+    assert 'id="spider-line"' not in text
+    assert "Tolmach.say" in text
+
+
 def test_chess_capture_asks_for_the_quiz(client):
     result = client.post(
         "/api/chess/move",

@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from tolmach.chess import Position, START_FEN, engine, puzzles  # noqa: E402
 from tolmach.chess.board import Move, square_index, square_name  # noqa: E402
+from tolmach import pafnuty  # noqa: E402
 from tolmach.web import game  # noqa: E402
 
 
@@ -272,3 +273,58 @@ def test_game_ends_on_checkmate():
     outcome = game.play("6k1/5ppp/8/8/8/8/8/R5K1 w - - 0 1", "a1", "a8", rng=random.Random(1))
     assert outcome.status == "checkmate"
     assert "Пафнутий разгромлен" in outcome.message
+
+
+# --- ход в две половины: сначала игрок, затем Пафнутий --------------------------
+
+
+def test_player_move_does_not_wait_for_the_spider():
+    """Первая половина хода не запускает перебор: очередь остаётся за чёрными."""
+    outcome = game.player_move(START_FEN, "e2", "e4", rng=random.Random(2))
+    assert outcome.ok and not outcome.reply
+    after = Position.from_fen(outcome.fen)
+    assert after.turn == "b" and after.piece_at(square_index("e4")) == "P"
+    assert outcome.line  # паук комментирует ход игрока
+    assert outcome.highlight == ("e2", "e4")
+
+
+def test_spider_move_answers_and_lists_legal_replies():
+    half = game.player_move(START_FEN, "e2", "e4", rng=random.Random(2))
+    outcome = game.spider_move(half.fen, rng=random.Random(3))
+    assert outcome.ok and outcome.reply and outcome.reply_line
+    after = Position.from_fen(outcome.fen)
+    assert after.turn == "w"
+    assert set(outcome.legal) == {move.uci() for move in after.generate_moves()}
+
+
+def test_spider_move_refuses_out_of_turn():
+    assert game.spider_move(START_FEN).kind == "illegal"
+
+
+def test_two_halves_equal_the_whole_move():
+    whole = game.play(START_FEN, "g1", "f3", rng=random.Random(5))
+    half = game.player_move(START_FEN, "g1", "f3", rng=random.Random(5))
+    second = game.spider_move(half.fen, rng=random.Random(5))
+    assert whole.ok and second.ok
+    assert Position.from_fen(whole.fen).turn == Position.from_fen(second.fen).turn == "w"
+
+
+def test_remarks_name_the_piece_in_the_right_case():
+    """Реплика о взятии называет фигуру в винительном падеже: «забрал ладью»."""
+    for seed in range(20):
+        outcome = game.player_move(CAPTURE_FEN, "e4", "d5", quiz_passed=True, rng=random.Random(seed))
+        assert "{" not in outcome.line
+        assert "пешка" not in outcome.line.lower().replace("пешку", "")
+
+
+def test_castling_gets_its_own_remark():
+    fen = "r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 10"
+    outcome = game.player_move(fen, "e1", "g1", rng=random.Random(1))
+    assert outcome.line in pafnuty.LINES["player_castle"]
+
+
+def test_spider_does_not_repeat_itself_when_it_can_help_it():
+    seen = list(pafnuty.LINES["move"][:-1])
+    assert pafnuty.line("move", random.Random(0), avoid=seen) == pafnuty.LINES["move"][-1]
+    # всё уже сказано — повтор лучше молчания
+    assert pafnuty.line("move", random.Random(0), avoid=pafnuty.LINES["move"])

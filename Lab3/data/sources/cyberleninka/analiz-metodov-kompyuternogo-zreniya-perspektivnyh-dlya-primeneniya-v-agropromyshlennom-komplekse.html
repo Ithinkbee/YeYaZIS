@@ -1,0 +1,1199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="https://cyberleninka.ru/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse" />
+
+    <title>АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ – тема научной статьи по компьютерным и информационным наукам читайте бесплатно текст научно-исследовательской работы в электронной библиотеке КиберЛенинка</title>
+    <meta name="keywords" content="научная статья бесплатно на тему АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ текст научной работы по компьютерным и информационным наукам из научного журнала Прикаспийский журнал: управление и высокие технологии. РОБОТИЗИРОВАННЫЙ МАНИПУЛЯТОР, КОМПЬЮТЕРНОЕ ЗРЕНИЕ, АГРОМЕХАТРОНИКА, РАСПОЗНАВАНИЕ ИЗОБРАЖЕНИЙ, СЕЛЬСКОХОЗЯЙСТВЕННЫЕ РОБОТЫ, АВТОМАТИЗИРОВАННЫЙ СБОР УРОЖАЯ, УПРАВЛЕНИЕ РОБОТАМИ, robotic manipulator, computer vision, agromechatronics, image recognition, agricultural robots, automated harvesting, robot control" />
+    <meta name="description" content="В статье проанализированы возможности применения компьютерного зрения для задач сельского хозяйства. Детально рассмотрены такие направления внедрения, как управление сельскохозяйственными машинами, посев семян, выращивание рассады, уход за посевами и сбор урожая, переработка, транспортировка и хранение плодов. Приводятся результаты применения методов обработки изображений, полученных с видеокамер, установленных на различных позициях: в кабине сельскохозяйственной техники, над ящиками с рассадой, на сельскохозяйственных роботах. Для реализации данных методов использованы программы, написанные на языке Python с использованием библиотеки OpenCV." />
+
+    <link rel="stylesheet" media="all" href="/app.css?2824926673" />
+    <link rel="preload" href="/fonts/ProximaNovaBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaExtraCondensedLight.woff2" as="font" type="font/woff2" crossorigin>
+    
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <meta name="robots" content="NOODP" />
+  <meta name="robots" content="noyaca" />
+
+  <meta property="og:url" content="https://cyberleninka.ru/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse" />
+  <meta property="og:site_name" content="КиберЛенинка" />
+  <meta property="og:title" content="АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ" />
+  <meta property="og:description" content="В статье проанализированы возможности применения компьютерного зрения для задач сельского хозяйства. Детально рассмотрены такие направления внедрения, как управление сельскохозяйственными машинами, посев семян, выращивание рассады, уход за посевами и сбор урожая, переработка, транспортировка и хранение плодов. Приводятся результаты применения методов обработки изображений, полученных с видеокамер, установленных на различных позициях: в кабине сельскохозяйственной техники, над ящиками с рассадой, на сельскохозяйственных роботах. Для реализации данных методов использованы программы, написанные на языке Python с использованием библиотеки OpenCV." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://cyberleninka.ru/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse/og" />
+  <meta property="og:image:width" content="1074" />
+  <meta property="og:image:height" content="480" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@CyberLeninka" />
+
+    
+
+<link rel="preconnect" href="https://yastatic.net">
+<link rel="preconnect" href="https://securepubads.g.doubleclick.net">
+<link rel="preconnect" href="https://exchange.buzzoola.com">
+<link rel="preconnect" href="https://pb.adriver.ru">
+<link rel="preconnect" href="https://ad.mail.ru">
+<link rel="preconnect" href="https://ads.betweendigital.com">
+<script src="https://yandex.ru/ads/system/header-bidding.js" async></script>
+<script>window.yaContextCb = window.yaContextCb || []</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+<script src="https://content.adriver.ru/AdRiverFPS.js" async></script>
+<script src="https://cdn.skcrtxr.com/roxot-wrapper/js/roxot-manager.js?pid=1f462bba-63b2-4d05-8a2c-12cb7f02b607" async></script>
+
+<script>
+const adfoxBiddersMap = {
+  "myTarget": "763128",
+  "betweenDigital": "793538",
+  "adriver": "776589",
+  "otm": "1460822",
+  "buzzoola": "769160",
+  "sape": "1697231",
+  "mediasniper": "2297743",
+  "mediatoday": "2365797",
+  "roxot": "2723510",
+  "gnezdo":"2930570",
+  "hybrid":"2994840",
+  "smi2":"3125554",
+  "link": "3389346",
+  "adfox_yandex_adplay-adv":"3294122",
+  "ohmybid": "3434190",
+  "videonow": "2930576"
+};
+
+var biddersCpmAdjustmentMap = {
+  'myTarget': 0.46,
+  'betweenDigital': 0.84,
+  'adriver': 0.79,
+  'otm': 0.87,
+  'buzzoola': 0.77,
+  'sape': 0.79,
+  'mediasniper': 0.79,
+  'mediatoday': 0.68,
+  'gnezdo': 0.92,
+  'hybrid': 0.92,
+  'smi2': 0.9
+};
+
+if (window.innerWidth >= 768) {
+
+  
+
+
+  adUnits = [
+    {
+      "code": "adfox_head",
+      "sizes": [[970,250],[300,250],[300,300],[970,90],[728,90]],
+      "bids": [
+        {"bidder": "myTarget", "params": {"placementId": 320990}},
+        {"bidder": "betweenDigital", "params": {"placementId": 2674177}},
+        {"bidder": "adriver", "params": {
+          "placementId": "20:cyberleninka_970x250",
+          "additional": {"ext": {"query": "custom=10=20&cid=" + localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm", "params": {"placementId": "911"}},
+        {"bidder": "buzzoola", "params": {"placementId": 1221042}},
+        {"bidder": "sape", "params": {"placementId": 821135}},
+        {"bidder": "mediasniper", "params": {"placementId": 360005}},
+        {"bidder": "roxot", "params": {"placementId": "51768c0a-c428-4776-a4ba-1025d94c29ad", "sendTargetRef": true}},
+        {"bidder": "gnezdo", "params": {"placementId": 353101}},
+        {"bidder": "hybrid", "params": {"placementId": "661fc2a34d506e1118632ce8"}},
+        {"bidder": "smi2", "params": {"placementId": "103126"}},
+        {"bidder": "link", "params": {"placementId": "cdf306abf7023052d3eb67588de05431"}},
+        {"bidder":"videonow","params":{"placementId":"16232754"}},
+        {"bidder": "ohmybid", "params": {"placementId": "HOdayBV9B8Q9L3FV"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side1",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320974}},
+        {"bidder":"betweenDigital","params":{"placementId":2673847}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm","params":{"placementId":"912"}},
+        {"bidder": "buzzoola","params":{"placementId":1221043}},
+        {"bidder": "sape","params":{"placementId":821136}},
+        {"bidder": "mediasniper","params":{"placementId":360006}},
+        {"bidder": "mediatoday","params":{"placementId":9682}},
+        {"bidder": "roxot","params":{"placementId":"d82943a0-d3d0-41b5-9ce9-ecf5c59a1c2e","sendTargetRef":true}},
+        {"bidder": "hybrid","params":{"placementId":"661fc2c67bc72ff858bdcfb4"}},
+        {"bidder": "smi2","params":{"placementId":"103131"}},
+        {"bidder": "adfox_yandex_adplay-adv","params":{"p1":"dgped","p2":"jdhb"}},
+        {"bidder":"link","params":{"placementId":"b98512a98211345da7923634e913ca47"}},
+        {"bidder":"videonow","params":{"placementId":"16233892"}},
+        {"bidder":"ohmybid","params":{"placementId":"zySZorOzKZhXjdDj"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side2",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320975}},
+        {"bidder":"betweenDigital","params":{"placementId":2673848}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"913"}},
+        {"bidder":"buzzoola","params":{"placementId":1221044}},
+        {"bidder":"sape","params":{"placementId":821138}},
+        {"bidder":"mediasniper","params":{"placementId":360007}},
+        {"bidder":"mediatoday","params":{"placementId":9682}},
+        {"bidder":"roxot","params":{"placementId":"80dadf4c-5c8d-4bc3-b0e0-1328270a7d94","sendTargetRef":true}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2f54d506e1118632cea"}},
+        {"bidder":"smi2","params":{"placementId":"103132"}},
+        {"bidder":"link","params":{"placementId":"8232acc3e5e0ffb434bce7b63999dcca"}},
+        {"bidder":"videonow","params":{"placementId":"16234941"}},
+        {"bidder":"ohmybid","params":{"placementId":"NcqadnIaACfH7uWm"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320978}},
+        {"bidder":"betweenDigital","params":{"placementId":2673849}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"914"}},
+        {"bidder":"buzzoola","params":{"placementId":1221045}},
+        {"bidder":"sape","params":{"placementId":821140}},
+        {"bidder":"mediasniper","params":{"placementId":360008}},
+        {"bidder":"mediatoday","params":{"placementId":9675}},
+        {"bidder":"roxot","params":{"placementId":"a4d837bd-166d-4cb9-8210-34688740a4ef","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353095}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3157bc72ff858bdcfb6"}},
+        {"bidder":"smi2","params":{"placementId":"103133"}},
+        {"bidder":"adfox_yandex_adplay-adv","params":{"p1":"dgpec","p2":"jbzl"}},
+        {"bidder":"link","params":{"placementId":"0b21aa98d95dcb9bf6258692583009c0"}},
+        {"bidder":"ohmybid","params":{"placementId":"9bXBoQSn0JqFIuA8"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320979}},
+        {"bidder":"betweenDigital","params":{"placementId":2673850}},
+        {"bidder":"otm","params":{"placementId":"915"}},
+        {"bidder":"buzzoola","params":{"placementId":1221046}},
+        {"bidder":"sape","params":{"placementId":821142}},
+        {"bidder":"mediasniper","params":{"placementId":360009}},
+        {"bidder":"mediatoday","params":{"placementId":9676}},
+        {"bidder":"roxot","params":{"placementId":"8cc4e575-2379-4c53-9d3b-457a4abeabbc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353096}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3334d506e1118632cec"}},
+        {"bidder":"smi2","params":{"placementId":"103134"}},
+        {"bidder":"link","params":{"placementId":"aa4cde959439c223735f8c5d1272d9d6"}},
+        {"bidder":"videonow","params":{"placementId":"16235894"}},
+        {"bidder":"ohmybid","params":{"placementId":"Mniw5psCV5bYbDPP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320982}},
+        {"bidder":"betweenDigital","params":{"placementId":2673851}},
+        {"bidder":"otm","params":{"placementId":"916"}},
+        {"bidder":"buzzoola","params":{"placementId":1221047}},
+        {"bidder":"sape","params":{"placementId":821143}},
+        {"bidder":"mediasniper","params":{"placementId":360010}},
+        {"bidder":"mediatoday","params":{"placementId":9677}},
+        {"bidder":"roxot","params":{"placementId":"def97489-bf90-4dc2-b25d-6e98089bdbea","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353097}},
+        {"bidder":"hybrid","params":{"placementId":"661fc34d4d506e1118632cf6"}},
+        {"bidder":"smi2","params":{"placementId":"103135"}},
+        {"bidder":"link","params":{"placementId":"cc58da3f5040ed3f081281d234642f1b"}},
+        {"bidder":"videonow","params":{"placementId":"16617416"}},
+        {"bidder":"ohmybid","params":{"placementId":"hvP3ncZ9Z3IcN7kP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320983}},
+        {"bidder":"betweenDigital","params":{"placementId":2673852}},
+        {"bidder":"otm","params":{"placementId":"917"}},
+        {"bidder":"buzzoola","params":{"placementId":1221048}},
+        {"bidder":"sape","params":{"placementId":821144}},
+        {"bidder":"mediasniper","params":{"placementId":360011}},
+        {"bidder":"mediatoday","params":{"placementId":9678}},
+        {"bidder":"roxot","params":{"placementId":"1253e1f2-f966-4c30-bb31-d73d70170b5e","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353098}},
+        {"bidder":"hybrid","params":{"placementId":"661fc59c4d506e1118632d08"}},
+        {"bidder":"smi2","params":{"placementId":"103136"}},
+        {"bidder":"link","params":{"placementId":"03db8f736f856b5a7989654cb20fb4b4"}},
+        {"bidder":"videonow","params":{"placementId":"16237809"}},
+        {"bidder":"ohmybid","params":{"placementId":"epg8ArJA41baCf0f"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320985}},
+        {"bidder":"betweenDigital","params":{"placementId":2673854}},
+        {"bidder":"otm","params":{"placementId":"918"}},
+        {"bidder":"buzzoola","params":{"placementId":1221049}},
+        {"bidder":"sape","params":{"placementId":821145}},
+        {"bidder":"mediasniper","params":{"placementId":360012}},
+        {"bidder":"mediatoday","params":{"placementId":9679}},
+        {"bidder":"roxot","params":{"placementId":"57ea14a5-a9dc-421d-8f05-7dbcf17e3619","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353099}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3817bc72ff858bdcfbe"}},
+        {"bidder":"smi2","params":{"placementId":"103137"}},
+        {"bidder":"link","params":{"placementId":"746ae63162e72a09439269ffb366a9f5"}},
+        {"bidder":"ohmybid","params":{"placementId":"Ybi2I2NcSMHFHAUL"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320988}},
+        {"bidder":"betweenDigital","params":{"placementId":2673853}},
+        {"bidder":"otm","params":{"placementId":"919"}},
+        {"bidder":"buzzoola","params":{"placementId":1221050}},
+        {"bidder":"sape","params":{"placementId":821146}},
+        {"bidder":"mediasniper","params":{"placementId":360013}},
+        {"bidder":"mediatoday","params":{"placementId":9680}},
+        {"bidder":"roxot","params":{"placementId":"10b6c096-8ccd-4d62-9e78-d7500399003d","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353100}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3a24d506e1118632cf8"}},
+        {"bidder":"smi2","params":{"placementId":"103138"}},
+        {"bidder":"link","params":{"placementId":"412c7b3a30c7a86a40df78707a0effed"}},
+        {"bidder":"videonow","params":{"placementId":"16236896"}},
+        {"bidder":"ohmybid","params":{"placementId":"tf3WAI4nf1jZxl3p"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1200;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+
+
+
+
+
+} else {
+
+  adUnits = [
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320966}},
+        {"bidder":"betweenDigital","params":{"placementId":2673855}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"907"}},
+        {"bidder":"buzzoola","params":{"placementId":1221037}},
+        {"bidder":"sape","params":{"placementId":821190}},
+        {"bidder":"mediasniper","params":{"placementId":360001}},
+        {"bidder":"mediatoday","params":{"placementId":9671}},
+        {"bidder":"roxot","params":{"placementId":"2735e182-e1c2-422b-b7d3-b1ee1ecbb439","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353090}},
+        {"bidder":"hybrid","params":{"placementId":"661fc22c7bc72ff858bdcfb2"}},
+        {"bidder":"smi2","params":{"placementId":"103127"}},
+        {"bidder":"link","params":{"placementId":"317a18769d3b042bcd12d87c18153cdc"}},
+        {"bidder":"videonow","params":{"placementId":"3393503"}},
+        {"bidder":"ohmybid","params":{"placementId":"oqv6s4quummeiGOn"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320968}},
+        {"bidder":"betweenDigital","params":{"placementId":2673856}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"908"}},
+        {"bidder":"buzzoola","params":{"placementId":1221039}},
+        {"bidder":"sape","params":{"placementId":821191}},
+        {"bidder":"mediasniper","params":{"placementId":360002}},
+        {"bidder":"mediatoday","params":{"placementId":9672}},
+        {"bidder":"roxot","params":{"placementId":"6e1adc14-1564-4bfb-9789-1f4b4caf9bb7","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353091}},
+        {"bidder":"hybrid","params":{"placementId":"661fc24e4d506e1118632ce2"}},
+        {"bidder":"smi2","params":{"placementId":"103128"}},
+        {"bidder":"link","params":{"placementId":"d194b3f2f2b4a8b0c899fbc4b2e475d0"}},
+        {
+          "bidder": "adfox_yandex_adplay-adv",
+          "params": {
+            "p1": "dkyya",
+            "p2": "jopb"
+          }
+        },
+        {"bidder":"videonow","params":{"placementId":"16229115"}},
+        {"bidder":"ohmybid","params":{"placementId":"YHowFqVl0va3sLxs"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320969}},
+        {"bidder":"betweenDigital","params":{"placementId":2673857}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_3",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"909"}},
+        {"bidder":"buzzoola","params":{"placementId":1221040}},
+        {"bidder":"sape","params":{"placementId":821192}},
+        {"bidder":"mediasniper","params":{"placementId":360003}},
+        {"bidder":"mediatoday","params":{"placementId":9673}},
+        {"bidder":"roxot","params":{"placementId":"3a70251b-7720-4736-b3a6-ea209d5feedc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353092}},
+        {"bidder":"hybrid","params":{"placementId":"661fc26d4d506e1118632ce4"}},
+        {"bidder":"smi2","params":{"placementId":"103129"}},
+        {"bidder":"link","params":{"placementId":"1565397ffd8f126ff093e1e81b9ad40f"}},
+        {"bidder":"videonow","params":{"placementId":"16230384"}},
+        {"bidder":"ohmybid","params":{"placementId":"BUVNSDdXEDKvWKcK"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot3",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320971}},
+        {"bidder":"betweenDigital","params":{"placementId":2673858}},
+        {"bidder":"otm","params":{"placementId":"910"}},
+        {"bidder":"buzzoola","params":{"placementId":1221041}},
+        {"bidder":"sape","params":{"placementId":821193}},
+        {"bidder":"mediasniper","params":{"placementId":360004}},
+        {"bidder":"mediatoday","params":{"placementId":9674}},
+        {"bidder":"roxot","params":{"placementId":"6ddc5b2a-3e9c-4917-b29e-a5a381a58063","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353093}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2844d506e1118632ce6"}},
+        {"bidder":"smi2","params":{"placementId":"103130"}},
+        {"bidder":"link","params":{"placementId":"959a5bd2b2b6eb23343b893e24d8093f"}},
+        {"bidder":"videonow","params":{"placementId":"16231837"}},
+        {"bidder":"ohmybid","params":{"placementId":"RUR2bXlUyFsYdcHx"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1300;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+}
+</script>
+
+
+
+  <meta name="citation_title" content="АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ" />
+  
+    <meta name="citation_author" content="Рыбаков Алексей Владимирович" />
+  
+    <meta name="citation_author" content="Выборнов Николай Анатольевич" />
+  
+    <meta name="citation_author" content="Рыбаков Илья Александрович" />
+  
+
+	
+  
+	
+
+  <meta name="citation_publication_date" content="2022" />
+  <meta name="citation_journal_title" content="Прикаспийский журнал: управление и высокие технологии" />
+  <meta name="citation_fulltext_html_url" content="https://cyberleninka.ru/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse" />
+  <meta name="citation_abstract_html_url" content="https://cyberleninka.ru/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse" />
+  <meta name="citation_pdf_url" content="https://cyberleninka.ru/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse/pdf" />
+  <meta name="citation_publisher" content="Федеральное государственное бюджетное образовательное учреждение высшего образования «Астраханский государственный университет им. В. Н. Татищева»" />
+  <meta name="citation_issue" content="1 (57)" />
+  <meta name="citation_volume" content="" />
+  <meta name="citation_issn" content="2074-1707" />
+  
+  <meta name="citation_keywords" content="РОБОТИЗИРОВАННЫЙ МАНИПУЛЯТОР, КОМПЬЮТЕРНОЕ ЗРЕНИЕ, АГРОМЕХАТРОНИКА, РАСПОЗНАВАНИЕ ИЗОБРАЖЕНИЙ, СЕЛЬСКОХОЗЯЙСТВЕННЫЕ РОБОТЫ, АВТОМАТИЗИРОВАННЫЙ СБОР УРОЖАЯ, УПРАВЛЕНИЕ РОБОТАМИ, robotic manipulator, computer vision, agromechatronics, image recognition, agricultural robots, automated harvesting, robot control" />
+  
+    <meta name="eprints.creators_name" content="Рыбаков Алексей Владимирович" />
+  
+    <meta name="eprints.creators_name" content="Выборнов Николай Анатольевич" />
+  
+    <meta name="eprints.creators_name" content="Рыбаков Илья Александрович" />
+  
+  <meta name="eprints.metadata_visibility" content="show" />
+  <meta name="eprints.ispublished" content="pub" />
+  <meta name="eprints.full_text_status" content="public" />
+  <meta name="eprints.type" content="article" />
+  <meta name="eprints.title" content="АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ" />
+  <meta name="eprints.date" content="2022" />
+  <meta name="eprints.date_type" content="published" />
+  <meta name="eprints.document_url" content="https://cyberleninka.ru/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse" />
+  <meta name="eprints.publication" content="Прикаспийский журнал: управление и высокие технологии" />
+  <meta name="eprints.publisher" content="Федеральное государственное бюджетное образовательное учреждение высшего образования «Астраханский государственный университет им. В. Н. Татищева»" />
+  <meta name="eprints.refereed" content="TRUE" />
+  <meta name="eprints.citation" content="Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич, Рыбаков Илья Александрович АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ // Прикаспийский журнал: управление и высокие технологии. 2022. Выпуск номер 1 (57), С.128-138" />
+  <meta name="eprints.place_of_pub" content="Россия, Астрахань" />
+  <meta name="eprints.number" content="1 (57)" />
+  <meta name="eprints.volume" content="" />
+  <meta name="eprints.pagerange" content="128-138" />
+  <meta name="eprints.issn" content="2074-1707" />
+  <meta name="eprints.abstract" content="The article analyzes the possibilities of using computer vision for agricultural tasks. Such areas of implementation as agricultural machinery management, seed sowing, seedling cultivation, crop care and harvesting, processing, transportation and storage of fruits are considered in detail. The results of the application of image processing methods obtained from video cameras installed in various positions are presented: in the cabin of agricultural machinery, above boxes with seedlings, on agricultural robots. To implement these methods, programs written in Python using the OpenCV library were used." />
+  
+  <meta name="eprints.keywords" content="РОБОТИЗИРОВАННЫЙ МАНИПУЛЯТОР, КОМПЬЮТЕРНОЕ ЗРЕНИЕ, АГРОМЕХАТРОНИКА, РАСПОЗНАВАНИЕ ИЗОБРАЖЕНИЙ, СЕЛЬСКОХОЗЯЙСТВЕННЫЕ РОБОТЫ, АВТОМАТИЗИРОВАННЫЙ СБОР УРОЖАЯ, УПРАВЛЕНИЕ РОБОТАМИ, robotic manipulator, computer vision, agromechatronics, image recognition, agricultural robots, automated harvesting, robot control" />
+  
+  <meta name="eprints.abstract" content="В статье проанализированы возможности применения компьютерного зрения для задач сельского хозяйства. Детально рассмотрены такие направления внедрения, как управление сельскохозяйственными машинами, посев семян, выращивание рассады, уход за посевами и сбор урожая, переработка, транспортировка и хранение плодов. Приводятся результаты применения методов обработки изображений, полученных с видеокамер, установленных на различных позициях: в кабине сельскохозяйственной техники, над ящиками с рассадой, на сельскохозяйственных роботах. Для реализации данных методов использованы программы, написанные на языке Python с использованием библиотеки OpenCV." />
+  
+
+
+  </head>
+
+  <body id="body">
+    <div id="vk_api_transport"></div>
+    <div id="menu" style="height: 55px;"></div>
+
+    <div class="content" style="overflow: visible;">
+      <div class="main">
+        
+
+<span itemscope="itemscope" itemtype="http://schema.org/ScholarlyArticle">
+<div class="cover mobhide">
+  <a href="/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse/viewer"><img src="/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse/cover" alt="Научная статья на тему 'АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ'" itemprop="image" /><img class="cover-overlay" src ="/images/tsvg/view.svg" /></a>
+</div>
+<div>
+  <h1><i itemprop="headline">АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ</i> <span>Текст научной статьи по специальности &laquo;<i itemprop="articleSection">Компьютерные и информационные науки</i>&raquo;</span></h1>
+  <div class="infoblock authors visible">
+    <div id="article-authors" style="min-height: 35px;"></div>
+    <div class="top-cc" style="min-height: 20px;">
+    
+      <div class="statitem label-cc" title="Лицензия Creative Commons"><img src="/images/tsvg/cc-label.svg" />CC BY</div>
+    
+    
+      <div class="statitem views" title="Просмотры"><img src ="/images/tsvg/view.svg" />1210</div><div class="statitem downloads" title="Загрузки"><img src ="/images/tsvg/download.svg" />230</div>
+    </div>
+  </div>
+
+  <div class="infoblock">
+    
+    <div id="article-controls" style="min-height: 118px;"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_top1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_top2"></div>
+        </div>
+        <div id="crt-4f158b60" style="width:720px;height:250px;" class="mobhide"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'top');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=top"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  <div class="infoblock">
+    <div class="half">
+			
+      <div class="title">Журнал</div>
+      <span><a href="/journal/n/prikaspiyskiy-zhurnal-upravlenie-i-vysokie-tehnologii">Прикаспийский журнал: управление и высокие технологии</a></span>
+      <div class="labels">
+	      <div class="label year"><time itemprop="datePublished" datetime="2022">2022</time></div>
+        
+  <div class="label vak">ВАК</div>
+
+      </div>
+    </div>
+    <div class="half-right">
+      <div class="title">Область наук</div>
+      <ul>
+        <li><a href="/article/c/computer-and-information-sciences">Компьютерные и информационные науки</a></li>
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="infoblock visible">
+    <div class="full keywords">
+      <div class="title" >Ключевые слова</div>
+      <i itemprop="keywords">
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">РОБОТИЗИРОВАННЫЙ МАНИПУЛЯТОР</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">КОМПЬЮТЕРНОЕ ЗРЕНИЕ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">АГРОМЕХАТРОНИКА</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">РАСПОЗНАВАНИЕ ИЗОБРАЖЕНИЙ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">СЕЛЬСКОХОЗЯЙСТВЕННЫЕ РОБОТЫ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">АВТОМАТИЗИРОВАННЫЙ СБОР УРОЖАЯ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">УПРАВЛЕНИЕ РОБОТАМИ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">robotic manipulator</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">computer vision</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">agromechatronics</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">image recognition</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">agricultural robots</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">automated harvesting</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">robot control</span>
+        
+      </i>
+    </div>
+  </div>
+  
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>Аннотация <span>научной статьи по компьютерным и информационным наукам, автор научной работы — Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич, Рыбаков Илья Александрович</span></h2>
+      <p itemprop="description">В статье проанализированы возможности применения <span class="hl to-search">компьютерного зрения</span> для задач сельского хозяйства. Детально рассмотрены такие направления внедрения, как управление сельскохозяйственными машинами, посев семян, выращивание рассады, уход за посевами и сбор урожая, переработка, транспортировка и хранение плодов. Приводятся результаты применения методов обработки изображений, полученных с видеокамер, установленных на различных позициях: в кабине сельскохозяйственной техники, над ящиками с рассадой, на сельскохозяйственных роботах. Для реализации данных методов использованы программы, написанные на языке Python с использованием библиотеки OpenCV.</p>
+    </div>
+  </div>
+  
+
+	
+	<div class="infoblock">
+		<div class="full">
+			<div style="font-size: 0; text-align: center; height: 350px;">
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+					<div id="adfox_mid1"></div>
+				</div>
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+					<div id="adfox_mid2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'mid');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=mid"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+	<div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Похожие темы <span>научных работ по компьютерным и информационным наукам , автор научной работы — Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич, Рыбаков Илья Александрович</span></h2>
+      <ul class="list">
+        
+        <li>
+          <a class="similar" href="/article/n/kontseptsiya-robotizirovannogo-teplichnogo-kompleksa-dlya-vyraschivaniya-tomatov-s-odnim-operatorom">
+            <div class="title">КОНЦЕПЦИЯ РОБОТИЗИРОВАННОГО ТЕПЛИЧНОГО КОМПЛЕКСА ДЛЯ ВЫРАЩИВАНИЯ ТОМАТОВ С ОДНИМ ОПЕРАТОРОМ</div>
+            <span>2021 / Рыбаков Алексей Владимирович, Степанович Екатерина Юрьевна, Михайлов Иван Викторович, Дусалиев Амит Бекторганович, Астахов Федор Алексеевич</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/proektirovanie-robototehnicheskih-manipulyatorov-s-sistemoy-kompyuternogo-zreniya-dlya-sbora-tomatov">
+            <div class="title">ПРОЕКТИРОВАНИЕ РОБОТОТЕХНИЧЕСКИХ МАНИПУЛЯТОРОВ С СИСТЕМОЙ КОМПЬЮТЕРНОГО ЗРЕНИЯ ДЛЯ СБОРА ТОМАТОВ</div>
+            <span>2020 / Рыбаков Алексей Владимирович, Лихтер Анатолий Михайлович, Погожева Алёна Багдасаровна, Михайлова Анастасия Васильевна, Дусалиев Амит Бекторганович</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/primenenie-determinirovannyh-metodov-i-klassicheskih-algoritmov-mashinnogo-obucheniya-dlya-obnaruzheniya-plodov-robotami-dlya-sbora">
+            <div class="title">Применение детерминированных методов и классических алгоритмов машинного обучения для обнаружения плодов роботами для сбора урожая</div>
+            <span>2020 / Кузнецова Анна Анатольевна, Малева Татьяна Вячеславовна, Соловьев Владимир Игоревич</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/raspoznavanie-obektov-v-sisteme-tehnicheskogo-zreniya-mobilnogo-robota-ispolzovanie-biblioteki-flann-i-algoritma-surf">
+            <div class="title">РАСПОЗНАВАНИЕ ОБЪЕКТОВ В СИСТЕМЕ ТЕХНИЧЕСКОГО ЗРЕНИЯ МОБИЛЬНОГО РОБОТА: ИСПОЛЬЗОВАНИЕ БИБЛИОТЕКИ FLANN И АЛГОРИТМА SURF</div>
+            <span>2014 / Нгуен Туан Зунг, Щербатов Иван Анатольевич</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/povyshenie-effektivnosti-sbora-lesnyh-semyan-s-primeneniem-avtomatizirovannyh-ustroystv">
+            <div class="title">ПОВЫШЕНИЕ ЭФФЕКТИВНОСТИ СБОРА ЛЕСНЫХ СЕМЯН С ПРИМЕНЕНИЕМ АВТОМАТИЗИРОВАННЫХ УСТРОЙСТВ</div>
+            <span>2021 / Дручинин Денис Юрьевич, Гнусов Максим Александрович</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=similar">подбора литературы</a>.</span></div>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div id="viewer-inline"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>ANALYSIS OF COMPUTER VISION METHODS PROMISING FOR USE IN THE AGRO-INDUSTRIAL COMPLEX</h2>
+      <p itemprop="description">The article analyzes the possibilities of using <span class="hl to-search">computer vision</span> for agricultural tasks. Such areas of implementation as agricultural machinery management, seed sowing, seedling cultivation, crop care and harvesting, processing, transportation and storage of fruits are considered in detail. The results of the application of image processing methods obtained from video cameras installed in various positions are presented: in the cabin of agricultural machinery, above boxes with seedlings, on <span class="hl to-search">agricultural robots</span>. To implement these methods, programs written in Python using the OpenCV library were used.</p>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Текст научной работы <span>на тему «АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ»</span></h2>
+      <div class="ocr" itemprop="articleBody">
+        <div class="ocr-banner">
+          <div id="ad-sidebar" class="ad-adaptive"></div>
+        </div>
+				
+        <p>﻿ПРИБОРОСТРОЕНИЕ, МЕТРОЛОГИЯ И ИНФОРМАЦИОННО-ИЗМЕРИТЕЛЬНЫЕ ПРИБОРЫ И СИСТЕМЫ</p>
+        <p>ИНФОРМАЦИОННО-ИЗМЕРИТЕЛЬНЫЕ И УПРАВЛЯЮЩИЕ СИСТЕМЫ</p>
+        <p>УДК 004.001</p>
+        <p>АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ</p>
+        <p>Статья поступила в редакцию 30.01.2022, в окончательном варианте — 20.02.2022.</p>
+        <p>Рыбаков Алексей Владимирович, Астраханский государственный университет, 414056, Российская Федерация, г. Астрахань, ул. Татищева, 20а,</p>
+        <p>кандидат физико-математических наук, директор физико-математического института, ORCID: 0000-0003-1192-0913, e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c3e352e2d27233a132d2029340c212d2520623e39">[email&#160;protected]</a></p>
+        <p>Выборнов Николай Анатольевич, Астраханский государственный университет, 414056, Российская Федерация, г. Астрахань, ул. Татищева, 20а,</p>
+        <p>кандидат физико-математических наук, доцент, доцент кафедры электротехники, электроники и автоматики, ORCID: 0000-0003-1588-2993, e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e38d8a888cbc8d8a888c8f829aa38e828a8fcd9196">[email&#160;protected]</a></p>
+        <p>Рыбаков Илья Александрович, Астраханский государственный университет, 414056, Российская Федерация, г. Астрахань, ул. Татищева, 20а,</p>
+        <p>магистрант, ORCID: 0000-0002-4223-6391, e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="056c697c645a777c67646e6a735a3c3c4568646c692b7770">[email&#160;protected]</a></p>
+        <p>В статье проанализированы возможности применения компьютерного зрения для задач сельского хозяйства. Детально рассмотрены такие направления внедрения, как управление сельскохозяйственными машинами, посев семян, выращивание рассады, уход за посевами и сбор урожая, переработка, транспортировка и хранение плодов. Приводятся результаты применения методов обработки изображений, полученных с видеокамер, установленных на различных позициях: в кабине сельскохозяйственной техники, над ящиками с рассадой, на сельскохозяйственных роботах. Для реализации данных методов использованы программы, написанные на языке Python с использованием библиотеки OpenCV.</p>
+        <p>Ключевые слова: роботизированный манипулятор, компьютерное зрение, агромехатроника, распознавание изображений, сельскохозяйственные роботы, автоматизированный сбор урожая, управление роботами</p>
+        <p>ANALYSIS OF COMPUTER VISION METHODS PROMISING FOR USE IN THE AGRO-INDUSTRIAL COMPLEX</p>
+        <p>The article was submitted to the editorial office 30.01.2022, in the final version - 20.02.2022.</p>
+        <p>Rybakov Alexey V., Astrakhan State University, 20a Tatishchev St., Astrakhan, 414056, Russian Federation,</p>
+        <p>Cand. Sci. (Physics and Mathematics), Director of the Institute of Physics and Mathematics, ORCID: 0000-0003-1192-0913, e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e4c475c5f555148615f525b467e535f5752104c4b">[email&#160;protected]</a></p>
+        <p>Vybornov Nikolay A., Astrakhan State University, 20a Tatishchev St., Astrakhan, 414056, Russian Federation,</p>
+        <p>Cand. Sci. (Physics and Mathematics), Associate Professor, Associate Professor of the Department of Electrical Engineering, Electronics and Automation, ORCID: 0000-0003-1588-2993, e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="026c6b696d5d6c6b696d6e637b426f636b6e2c7077">[email&#160;protected]</a></p>
+        <p>Rybakov Ilya A., Astrakhan State University, 20a Tatishchev St., Astrakhan, 414056, Russian Federation,</p>
+        <p>undergraduate student, e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="432a2f3a221c313a2122282c351c7a7a032e222a2f6d3136">[email&#160;protected]</a></p>
+        <p>The article analyzes the possibilities of using computer vision for agricultural tasks. Such areas of implementation as agricultural machinery management, seed sowing, seedling cultivation, crop care and harvesting, processing, transportation and storage of fruits are considered in detail. The results of the application of image processing methods obtained from video cameras installed in various positions are presented: in the cabin of agricultural machinery, above boxes with seedlings, on agricultural robots. To implement these methods, programs written in Python using the OpenCV library were used.</p>
+        <p>Keywords: robotic manipulator, computer vision, agromechatronics, image recognition, agricultural robots, automated harvesting, robot control</p>
+        <p>Graphical annotation (Графическая аннотация)</p>
+        <p>Введение. По мере роста численности населения урбанизация приведет к постепенному сокращению площади обрабатываемых земель, а давление на сельскохозяйственную систему будет продолжать возрастать [1, 2]. Растет спрос на эффективные и безопасные методы производства сельскохозяйственных продуктов питания. В последние несколько десятилетий системы контроля компьютерного зрения стали важными инструментами в сельскохозяйственных операциях, и их использование значительно возросло [3]. Экспертные и интеллектуальные системы, основанные на алгоритмах компьютерного зрения, становятся обычной частью управления сельскохозяйственным производством, а технологии автоматизации сельского хозяйства на основе компьютерного зрения все чаще используются в сельском хозяйстве для повышения производительности и эффективности [4, 5]. Таким образом, технология компьютерного зрения будет все шире использоваться в области автоматизации сельского хозяйства и будет неуклонно способствовать его развитию. Перспективы применения компьютерного зрения на различных этапах производства приведены ниже.</p>
+        <p>Обширный обзор публикаций в области использования методов компьютерного зрения для задач сельского хозяйства приведен в [6]. В частности, сообщается об исследованиях Родриго Пе-рез-Завала и др. [7], которые использовали камеру видимого спектра для распознавания ягод винограда и обнаружения виноградных гроздей на основе информации о форме, текстуре и сегментации областей пикселей. Ф. Фахми и др. [8] выполнили ортофотообработку на плантациях пальмового масла на основе алгоритма обработки изображений MATLAB с применением беспилотного летательного аппарата. Они использовали метод GLCM (матрица совпадений в оттенках серого) для классификации плодородных, стерильных и мертвых растений пальмового масла и разработали параметры, основанные на четырех направлениях под определенным углом наклона камеры 0°, 45°, 90° и 135°. Юаньюань Сунь и др. [9] проанализировали морфологию листьев риса с использованием машинного зрения для диагностики уровня азота и извлечения информации об их качественных характеристиках. Чжу и др. [10] использовали систему компьютерного зрения для наблюдения за посевами пшеницы. В этой статье описывается новая автоматическая система наблюдения за стадией колошения пшеницы. Изображения, соответствующие статистическим требованиям, делаются в естественных условиях, когда освещение часто меняется. Для этой цели масштабно-инвариантное преобразование признаков (SIFT) использовалось в качестве визуального дескриптора низкого уровня, затем для генерации представления среднего уровня используется кодирование вектора Фишера (FV). Основываясь на данных семи последовательностей изображений за три года подряд, проводилась серия экспериментов, чтобы продемонстрировать эффективность и надежность нашего предложения. Экспериментальные результаты показывают, что предлагаемый метод значительно превосходит другие существующие методы со средним значением абсолютной погрешности 1,14 дня на тестовом наборе данных. Садеги Тегеран П. и др. [11] провели дальнейшие исследования и разработали автоматизированный метод мониторинга как колоса пшеницы, так и цветения. Этот метод обладает большей точностью обнаружения, чем другие методы, и он достаточно надежен для использования при сложных изменениях окружающей среды, таких как освещение и окклюзия. Юань Тин и др. [12] изучили методы распознавания и сбора признаков для изображений плодов огурца в ближнем инфракрасном диапазоне, и посредством анализа и сравнения каждой спектральной полосы были отмечены и зафиксированы характеристики спектрального отражения плодов огурца, стеблей и листьев. Согласно процедуре проверки алгоритма, показатель успешности извлечения области захвата составил 83,3 %. Чжан Циронг [13] разработал метод идентификации для системы роботизированного зрения. Метод использует</p>
+        <p>предварительную обработку медианного фильтра, пороговую сегментацию Отцу, устранение шума с порогом области и реализацию преобразования Хафа. Показатель успешности идентификации вишни составил более 96 %. Этот метод значительно снижает сложность и стоимость комплектации и повышает эффективность. Кристофер Маккул и др. [14] предложили новую систему обнаружения сладкого перца (чили) на основе зрения и новый метод сегментации урожая с использованием метода локального бинарного шаблона (LBP). Средняя точность обнаружения человека, просматривающего одно и то же цветное изображение, составила 66,8 %, и 65,2 % посаженных в поле сладких перцев были обнаружены в трех местах с использованием подхода LBP.</p>
+        <p>Применение технологии гиперспектральной визуализации для обнаружения внутренних повреждений в кожуре киви было представлено Лю и др. [15]. В их исследовании для сбора данных гиперспектральных изображений использовались изображения в видимой ближней инфракрасной области со спектральными длинами волн от 408 до 1117 нм. Кроме того, для выделения эффективных полос был использован анализ основных компонентов (PCA). Результаты эксперимента показали, что частота обнаружения повреждений составила 85,5 %. Кроме того, с помощью PCA и машины опорных векторов (SVM) для построения классификационной модели степени повреждения яблок в литературе [16] исследовались оптические свойства яблок, поврежденных в разной степени в диапазоне длин волн 400~1050 нм. Точность классификации достигла 92,5 %. Однако этот метод основывался на отборе образцов яблочных ломтиков для обнаружения, что приводило к нарушению целостности яблок. В статье [17] разработан неразрушающий метод с использованием рентгеновских компьютерных изображений. Пороговые значения уровня серого для яблок были рассчитаны с помощью многоуровневого порогового метода Otsu. Объем повреждений в экваториальной области яблока был автоматически обнаружен и определен количественно с помощью этого метода. Однако этот метод не только обеспечивает длительный период обнаружения и испускает рентгеновское излучение. Кроме того, технология предъявляет чрезвычайно строгие требования к безопасности и не подходит для широкого применения. В статье [18] изучались яблоки, которые были повреждены в течение последних двух часов. Исследователи применили алгоритм фильтрации частиц к изображению после обработки и построили модель PLS-DA на основе пикселей, улучшив спектральное отношение сигнал/шум. Уровень распознавания повреждений apple составил 96 %. Более того, в [19] применялась технология активной инфракрасной тепловизион-ной визуализации, основанная на гипотезе о том, что внутреннее повреждение и физиологический дисбаланс яблока привели к изменениям тепловых свойств тканей. Авторам удалось выявить ранние повреждения на разных глубинах в последовательностях тепловизионных изображений. К сожалению, разрешение и контрастность изображения были низкими. В статье [20] был представлен новый автоматический метод обнаружения дефектных яблок, сочетающий систему компьютерного зрения с автоматической коррекцией освещенности, количеством кандидатов на дефекты (включая истинные дефекты, дефекты стебля и дефекты чашечки), подсчетом областей и классификатором взвешенных векторов релевантности (RVM).</p>
+        <p>В статье Мазилли и др. [21] представлены результаты применения компьютерного зрения и машинного обучения на основе нейронной сети EfficientDet D2 для разработки автономной системы выявления заболевания, вызываемого Xylella Fastidiosa на беспилотном летательном аппарате (БПЛА). Как только дрон достигает кроны дерева, он запрашивает планирование геликоидальной траектории, чтобы обойти его. Рабочая станция получает данные одометрии для определения начальной точки траектории, количества фотографий, которые необходимо сделать, и радиуса дерева. Рассчитанные путевые точки, образующие спираль вокруг дерева, определяются вектором из семи элементов (три элемента для положения, четыре элемента для ориентации дрона по кватерниону). По достижении путевых точек беспилотник отправляет код на рабочую станцию, которая считывает изображение камеры и сохраняет его для анализа состояния листьев с использованием нейронной сети.</p>
+        <p>Постановка задачи. В растениеводстве можно выделить несколько задач, в которых применение методов компьютерного зрения, на наш взгляд, может быть обосновано (табл.).</p>
+        <p>Управление сельскохозяйственными машинами. Для подруливающих систем предлагается использовать монокулярную или стереокамеру в сочетании с навигационными данными, приходящими от спутниковых систем навигации и инерциальных бортовых систем. Необходимость использования компьютерного зрения может быть связана с возможностью нахождения на поле перед трактором или комбайном посторонних объектов, другого транспорта, людей. Системы компьютерного зрения позволят уточнить, например, границы зоны вспашки для тракторов, границы области сбора для комбайнов или иной уборочной техники. Возможные методы компьютерного зрения - определение границ областей вспашки при помощи детектора границ Кэнни (рис. 1), цветовых масок, определение объектов перед сельскохозяйственной машиной с использованием масочных нейронных сетей MaskRCNN. На рисунке 1 представлен результат работы программы, использующей фильтр Кэнни и обрабатывающей кадр видео, снятого нами непосредственно из кабины трактора, производящего работы по вспашке.</p>
+        <p>Таблица - Классификация направлений внедрения компьютерного зрения в растениеводстве</p>
+        <p>Производственная задача	Направления внедрения компьютерного зрения	Объект установки видеокамер	Результаты внедрения</p>
+        <p>Управление сельскохозяйственными машинами (трактора, комбайны)	Вспомогательная технология для подруливающих систем Беспилотное управление движением сельхозтехники на основе компьютерного зрения Автоматическое управление БПЛА для выполнения опрыскивания	Кабина сельскохозяйственной машины, подвес БПЛА	Улучшение качества вспашки и посева: более эффективное использование площадей, оптимизация обработки посевов с использованием БПЛА</p>
+        <p>Посев семян	Анализ качества посева с помощью методов распознавания семян	Навесное оборудование для посева, автоматизированные посевные линии	Повышение равномерности всходов</p>
+        <p>Выращивание рассады	Анализ всхожести рассады Анализ состояния рассады	Конструкции потолка теплицы, специализированные стойки над ящиками с рассадой, рельсовые опоры в теплице под потолком или на полу	Оптимизация управления поливом, освещением, подачей тепла, внесением удобрений на основе данных о состоянии рассады</p>
+        <p>Уход за посевами	Анализ формы, размеров и структуры куста Анализ состояния сформировавшихся растений Определение сорняков Определение болезней растений	БПЛА, навесное оборудование для прополки, специализированные стойки в поле, сельскохозяйственные мобильные роботы	Своевременность выполнения работ по формированию куста Своевременное внесение удобрений и средств защиты растений Возможность автоматизации операций по формированию куста, прополке, повышение качества их выполнения</p>
+        <p>Сбор урожая	Определение координат плодов для роботизированного сбора Определение количества плодов	Комбайны и иные устройства для сбора, мобильные роботы для сбора плодов	Автоматизация сбора урожая, своевременность сбора урожая, улучшение качества собираемых плодов</p>
+        <p>Переработка, транспортировка, хранение	Анализ качественных характеристик плодов (форма, цвет) для сортировки или выбраковки Определение координат плодов на конвейере Определение качества переработанной продукции	Крепления над конвейерами, ящиками, лотками	Автоматизированная сортировка и выбраковка, улучшение качества переработанной продукции</p>
+        <p>1</p>
+        <p>и</p>
+        <p>Рисунок 1</p>
+        <p>- Определение границ областей вспашки при помощи детектора границ Кэнни</p>
+        <p>В приведенном ниже примере, реализованном нами с помощью обработки кадров видео в программе, написанной на языке Python с использованием библиотеки OpenCV, показаны результаты работы различных пороговых фильтров. Можно отметить, что в данном случае границы вспаханной области лучше видны при использовании фильтров Yen Threshold [22] и Niblack Threshold [23].</p>
+        <p>Original	Global Threshold</p>
+        <p>Рисунок 2 - Варианты использования различных пороговых фильтров</p>
+        <p>Посев семян. При посеве семян целесообразно выполнять их детектирование в ямках и бороздках с использованием цветовых фильтров и таких детекторов формы, как, например, детектор Хафа [24]. На рисунке 3 представлен результат применения программы, написанной на языке Python, для обработки кадра видео посадки семян болгарского перца. В реальном процессе посадки может происходить отслеживание объекта на последовательности кадров, поступающих от установленной на посевном устройстве видеокамеры, подсчет количества посеянных семян и контроль дистанции между ними.</p>
+        <p>Рисунок 3 - Распознавание контуров семян и их подсчет с применением детектора Хафа</p>
+        <p>Выращивание рассады. Первоначально необходимость в использовании системы компьютерного зрения возникает в момент прорастания семян. Настроив цветовой фильтр на цвет рассады и определяя границы семядольных листочков, можно получить данные о количестве кустов и всхожести семян. Программа анализа всхожести рассады определяет границы листка по цвету, обводит его контур, вписывает контур листка в прямоугольник и считает количество прямоугольников в ящике с рассадой, также система распознает номер ящика и привязывает полученные данные по количеству всходов к этому номеру. Данные могут обновляться с некоторой периодичностью, сопоставляться с данными о количестве посаженных семян и выдавать результат по их всхожести [25].</p>
+        <p>Рисунок 4 - Анализ качества рассады с использованием цветовых фильтров и подсчета площади [25]</p>
+        <p>Уход за посевами. В процессе ухода за посевами возможно применение компьютерного зрения сразу по нескольким направлениям: анализ формы, размеров и структуры куста, состояния сформировавшихся растений, определение сорняков, определение болезней растений.</p>
+        <p>Для анализа размеров и структуры куста возможно также задействовать пороговые фильтры, детектировать края и подсчитывать площадь каждого листа в абсолютных единицах, зная расстояние до него. Для определения расстояния до объекта можно использовать ультразвуковые сенсоры или бинокулярные видеокамеры. В последнем случае метод определения координат заключается в построении карты глубины [26]. Для каждой точки выполняется поиск парной точки при помощи двух изображений. Определить координаты их прообраза в трехмерном пространстве можно по паре нужных точек. Имея трехмерные координаты прообраза, глубина вычисляется как расстояние до плоскости камеры. Парную точку нужно искать на эпиполярной линии. Таким образом, для упрощения поиска изображения выравнивают так, чтобы все эпиполярные линии были параллельны сторонам изображения (горизонтально). Изображения выравнивают так, чтобы для точки с координатами (x0, y0) соответствующая ей эпиполярная линия задавалась уравнением x = x0. Тогда для каждой точки соответствующую ей парную точку следует искать в той же строчке на изображении со второй камеры (ректификация). Как правило, ректификацию совершают путем ремеппинга изображения. Ее совмещают с избавлением от дисторсий. После того как изображения ректифицированы, выполняют поиск соответствующих пар точек. Самый легкий способ состоит в следующем. Для каждого пикселя картинки слева с координатами (x0, y0) выполняется поиск пикселя на картинке справа. При этом подразумевается, что пиксель на правой картинке должен иметь координаты (x0 - d, y0), где d - величина, называемая несоответствие/смещение. Поиск нужного пикселя выполняется путем вычисления максимума функции отклика, в качестве которой может выступать корреляция окрестностей пикселей. В результате чего следует карта смещений и карта глубины [26].</p>
+        <p>Определение болезней растений и определение сорняков возможно проводить с применением методов распознавания, основанных на алгоритмах сверточных нейронных сетей. В этом случае необходимо набрать датасеты, состоящие из изображений зараженных растений или сорняков, изображений здоровых растений и тестовый датасет, содержащий их все вместе. Реализацию возможно выполнить на базе библиотек Keras и TensorFlow. Предварительно изображения растений можно обработать, выровняв, например, их гистограммы с использованием метода CLAHE (Contrast-limited Adaptive Histogram Equalization) [11]. При такой обработке изображений сорняки становятся более заметны, как и качество листьев культурных растений и различия во влажности почвы на отдельных участках грядки (рис. 5).</p>
+        <p>Рисунок 5 - Цветное изображение культурных растений и сорняков [12] (слева) и его обработка методом CLAHE (справа)</p>
+        <p>Сбор урожая. На стадии сбора урожая возможно применение компьютерного зрения для распознавания плодов, расположенных на кустах и частично перекрытых листьями. В общем случае в этих целях могут быть использованы алгоритмы, основанные на применении цветовых фильтров (Рисунок 6). В приведенном на рисунке примере используется метод выделения объекта по цвету. Исходное RGB-изображение трансформируется в изображение в цветовом пространстве HSV. Затем выполняется бинаризация по пороговым значениям. Выделенные объекты обводятся эллипсом, определяется его центр, являющийся центром плода или группы плодов. К этому центру двигается, например, мобильный робот, совмещая каждый раз с ним центр своей оптической системы (объектив камеры). При приближении на заданное расстояние, попадающее в рабочую зону бортового манипулятора, происходит сближение захватного устройства с центром плода. При этом работает уже другая камера, расположенная возле схвата и позволяющая точнее идентифицировать границы захватываемых объектов. Данный метод чувствителен к освещению и поэтому требует дополнительной корректировки значений для цветовых масок, например, с использованием эталонного элемента заданного цвета. Возможно применение дополнительных прожекторов на уборочной технике.</p>
+        <p>Рисунок 6 - Распознавание плодов с использованием цветового фильтра</p>
+        <p>Переработка, транспортировка, хранение. В процессе переработки продукции возможно применение компьютерного зрения для анализа качества плодов, текстуры и цвета переработанного продукта, поиска инородных включений. Алгоритмы обработки изображений в этом случае не отличаются от приведенных выше: цветовые маски, пороговая фильтрация, детекторы границ, сверточные нейронные сети.</p>
+        <p>Для задач транспортировки и хранения продукции возможно применение роботизированных платформ на всенаправленных колесах, оснащенных компьютерным зрением для навигации [13]. Подобная система позволит оборудовать любое помещение с ровной поверхностью под нужды транспортировки и сортировки. Пример конвейерной линии из роботов представлен на рисунке 7.</p>
+        <p>Рисунок 7 - Вариант согласованной работы нескольких транспортных роботов [13]</p>
+        <p>Для локальной системы позиционирования могут быть использованы QR-метки, SLAM (одновременная локализация и картографирование) и линии, нанесенные на пол или потолок склада готовой продукции или теплицы. За счет считывания информации с метки робот определяет текущую позицию. От скорости мобильной платформы зависит скорость обработки данных. Чем скорость больше, тем чаще необходимо обновлять данные о разметке дороги.</p>
+        <p>Основной алгоритм перемещения платформы по линии:</p>
+        <p>1.	Получить размер изображения.</p>
+        <p>2.	Установить частоту кадров видео.</p>
+        <p>3.	Обрабатывать каждый кадр.</p>
+        <p>4.	Сначала преобразовать кадр в оттенки серого, размыть его, чтобы удалить шум.</p>
+        <p>5.	Установить порог с помощью OpenCV так, чтобы обнаруживались только белый и черный цвета, и удалить все шумы.</p>
+        <p>6.	Инвертировать значение пикселя обрабатываемого изображения и найти контуры.</p>
+        <p>7.	Чтобы удалить ненужный контур, необходимо найти его область и выбрать диапазон площади, который будет обрабатываться.</p>
+        <p>8.	Найти момент контура и, используя момент, найти его центроид.</p>
+        <p>9.	Устанавить диапазон центроида для прямой.</p>
+        <p>Изображение с видеокамеры обычно имеет ряд недостатков, такие как зашумленность и плохой контраст. Поэтому перед анализом изображения необходимо провести предобработку с целью повышения качества. На рисунке 8 представлен результат обработки изображения с применением данного алгоритма.</p>
+        <p>Рисунок 8 - Распознавание контуров разметки, нанесенной на пол теплицы [30]</p>
+        <p>Алгоритм обнаружения рЯ-кода может быть реализован при помощи библиотек pyzabr и ОрепСУ. Алгоритм распознавания в этом случае следующий:</p>
+        <p>1.	Получение изображений с видеокамеры (покадровое считывание).</p>
+        <p>2.	Перевод изображения из цветного в оттенки серого.</p>
+        <p>3.	Бинаризация изображения.</p>
+        <p>4.	Разметка на обособленные области (блобы).</p>
+        <p>5.	Обработка получившихся областей (вычисление числовых и геометрических характеристик).</p>
+        <p>6.	Фильтрация областей.</p>
+        <p>7.	Поиск областей, которые по характеристикам с большей вероятностью похожи на обязательные метки позиционирования на рЯ-коде. Мишень - область рЯ-кода, образованная тремя вложенными квадратами с отношением сторон 7:5:3.</p>
+        <p>8.	Выбор трех наиболее вероятных областей.</p>
+        <p>9.	Анализ расположения QR-кода на изображении.</p>
+        <p>10.	Выделение QR-кода из всего изображения для последующей обработки.</p>
+        <p>11.	Определение необходимых преобразований.</p>
+        <p>12.	Применение необходимых преобразований к QR-коду.</p>
+        <p>13.	Декодирование рЯ-кода с помощью алгоритма, описанного в спецификации ШО/ГБС 18004 «Информационная технология - Автоматическая идентификация и сбор данных - Символика штрихового кода - рЯ-код».</p>
+        <p>14.	При удачном завершении этапа декодирования вывод на экран закодированной информации. На рисунке 9 приведено описание полей рЯ-кода, на которые необходимо ориентироваться</p>
+        <p>при коррекции полученных изображений.</p>
+        <p>.ГкмсзавЛ;</p>
+        <p>. ВголиншихщЙ!</p>
+        <p>I анфсм^щ«</p>
+        <p>Рисунок 9 - Описание полей QR-кода [30]</p>
+        <p>Заключение. В настоящее время идёт тенденция вытеснения ручного труда, причём сельскохозяйственная область нуждается в этом не менее чем иные промышленные предприятия, автоматизация которых идёт уже давно и достигла впечатляющих результатов, чего не сказать о сельскохозяйственном секторе. Поэтому создание робототехнических систем с применением технического зрения для сельского хозяйства - задача нетривиальная и требует повышенного внимания.</p>
+        <p>Библиографический список</p>
+        <p>1.	Всемирная организация здравоохранения. - Режим доступа: http:// www.who.int/ru/, свободный. -Заглавие с экрана. - Яз. рус.</p>
+        <p>2.	Рыбаков, А. В. Перспективы использования мобильных роботов с системами технического зрения в сельском хозяйстве / А. В. Рыбаков, З. М. Ходарова // Симметрии: теоретический и методический аспекты : сборник научных трудов VII Международной научно-практической конференции. - 2018. - С. 39-46.</p>
+        <p>3.	How Dogtooth Technologies&#39; intelligent robots are mastering strawberry-picking. - Режим доступа: https://www.cambridgeindependent.co.uk/business/how-dogtooth-technologies-intelligent-robots-aremastering-straw berry-picking-9050467/, свободный. - Заглавие с экрана. - Яз. англ.</p>
+        <p>4.	Выращивание рассады томатов в домашних условиях. - Режим доступа: https://chudoclumba.ru/vyrasivanie-rassady-tomatov-v-domasnih-usloviah/, свободный. - Заглавие с экрана. -Яз. рус. (дата обращения: 22.12.2020).</p>
+        <p>5.	Рыбаков, А. В. Проектирование робототехнических манипуляторов с системой компьютерного зрения для сбора томатов / А. В. Рыбаков, А. М. Лихтер, А. Б. Погожева, А. В. Михайлова, А. Б. Дусалиев // Прикаспийский журнал: управление и высокие технологии. - 2020. - № 3 (51). - С. 135-147.</p>
+        <p>6.	Hongkun, Tian. Computer vision technology in agricultural automation / Hongkun, Tian, Tianhai Wang, Yadong Liu, Xi Qiao, Yanzhou Li // Information Processing in Agriculture. - 2020. - Vol. 7, iss. 1. - P. 1-19. -https://doi.org/10.1016/j. inpa.2019.09.006.</p>
+        <p>7.	Perrez-Zavala, R. A pattern recognition strategy for visual grape bunch detection in vineyards / R. Perrez-Zavala, M. Torres-Torriti, F. A. Cheein, et al. // Comput. Electron. Agric. - 2018. - Vol. 151. - P. 136-149.</p><div class="bibloid_serp bibloid_serp_ocr"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=ocr">подбора литературы</a>.</span></div>
+        <p>8.	Fahmi F. Image processing analysis of geospatial uav orthophotos for palm oil plantation monitoring / F. Fahmi, D. Trianda, U. Andayani, et al. // J. Phys. Conf. Ser. - 2018. - Vol. 978. - P. 012064.</p>
+        <p>9.	Sun, Y. Utilization of machine vision tomonitor the dynamic responses of rice leaf morphology and colour to nitrogen, phosphorus, and potassium deficiencies / Y. Sun, J. Gao, K. Wang, et al. // J. Spectroscopy. - 2018. - P. 1-13.</p>
+        <p>10.	Zhu, Y. In-field automatic observation of wheat heading stage using computer vision / Y. Zhu, Z. Cao, H. Lu, et al. // Biosyst. Eng. - 2016. - Vol. 143. - P. 28-41.</p>
+        <p>11.	Sadeghi-Tehran, P. Automated method to determine two critical growth stages of wheat: heading and flowering / P. Sadeghi-Tehran, K. Sabermanesh, N. Virlet, et al. // Front. Plant. Sci. - 2017. - № 8. - P. 252.</p>
+        <p>12.	Yuan Ting, X. C. Information acquisition of cucumber fruit in greenhouse environment based on nearing infrared image / X. C. Yuan Ting // Spectrosc. Spect. Anal. - 2009. - Vol. 29 (8). - P. 2054-2058.</p>
+        <p>13.	Zhang, Q. Cherry recognition in natural environment based on the vision of picking robot / Q. Zhang, S. Yu. T. Chen, et al. // IOP Conf. Ser.: Earth Environ Sci. - 2017. - Vol. 61. - Art. 012021.</p>
+        <p>14.	Christopher, McCool IS. Visual detection of occluded crop: for automated harvesting / Christopher McCool IS, Feras Dayoub, Christopher Lehnert, Tristan Perez, and Ben Upcroft // International Conference on Robotics and Automation (ICRA). - 2016. - P. 2506-2512.</p>
+        <p>15.	Lu, Q. Detection of hidden bruise on kiwi fruit using hyperspectral imaging and parallelepiped classification / Q. Lu and M. J. Tang // Procedia Environ. Sci. - Jan. 2012. - Vol. 12. - P. 1172-1179. - DOI: 10.1016/j.proenv.2012.01.404.</p>
+        <p>16.	Zhang, S. An effective method to inspect and classify the bruising degree of apples based on the optical properties / S. Zhang, X. Wu, S. Zhang, Q. Cheng, and Z. Tan // Postharvest Biol. Technol. - May 2017. - Vol. 127. -P. 44-52. - DOI: 10.1016/j.postharvbio.2016.12.008.</p>
+        <p>17.	Elien, D. Assessment of bruise volumes in apples using X-ray computed tomography / D. Elien, V. D. Mat-tias, and K. Janos // Postharvest Biol. Technol. - Jun. 2017. - Vol. 128. - P. 24-32. - DOI: 10.1016/j.postharvbio.2017.01.013.</p>
+        <p>18.	Keresztes, J. C. Real-time pixel based early apple bruise detection using short wave infrared hyperspectral imaging in combination with calibration and glare correction techniques / J. C. Keresztes, M. Goodarzi, and W. Saeys // Food Control. - Aug. 2016. - Vol. 66, no. 1. - P. 215-226. - DOI: 10.1016/j.foodcont.2016.02.007.</p>
+        <p>19.	Mochida, K. Computer vision-based phenotyping for improvement of plant productivity: a machine learning perspective / K. Mochida, S. Koda, K. Inoue, et al. // GigaScience. - 2019. - № 8. - P. 1-53.</p>
+        <p>20.	Vazquez-Arellano, M. 3-D imaging systems for agricultural applications / M. Vazquez-Arellano, H. W. Griepen-trog, D. Reiser, et al. // A review Sensors. - 2016. - Vol. 16. - P. 1-24.</p>
+        <p>21.	Mazzilli. UAV Inspection of Olive Trees for the Detection of Xylella Fastidiosa Disease Using Neural Networks,&#34; / Mazzilli et al. // 17th International Workshop on Cellular Nanoscale Networks and their Applications (CNNA). - 2021. - P. 1-4. - DOI: 10.1109/CNNA49188.2021.9610752.</p>
+        <p>22.	Jui-Cheng, Yen. A new criterion for automatic multilevel thresholding / Jui-Cheng Yen, Fu-Juay Chang, &amp; Shyang Chang // IEEE Transactions on Image Processing. - 1995. - Vol. 4 (3). - P. 370-378. - DOI: 10.1109/83.366472.</p>
+        <p>23.	Niblack, W. An Introduction to Digital Image Processing / W. Niblack. - Prentice Hall, 1986. - P. 115-116.</p>
+        <p>24.	Hough, P. V. C. Method and means for recognizing complex patterns : U.S. Patent / P. V. C. Hough. -1962, Dec. 18. - № 3, 069, 654.</p>
+        <p>25.	Рыбаков, А. В. Анализ использования систем компьютерного зрения для контроля состояния рассады / А. В. Рыбаков, И. В. Михайлов, Р. К. Арыкбаев // Прикаспийский международный молодёжный научный форум агропромтехнологий и продовольственной безопасности - 2019 : cборник научных статей. - Астрахань, 23-24 апреля 2019 г. - Астрахань : Издательский дом «Астраханский университет», 2019. - С. 57-60.</p>
+        <p>26.	Андреев, С. В. Построение стереоанимационных представлений на современных стереоустановках активного и пассивного типов / С. В. Андреев, А. Е. Бондарев, Т. Н. Михайлова, И. Г. Рыжова // Новые информационные технологии в автоматизированных системах. - 2018. - № 21. - С. 4-10.</p>
+        <p>27.	Zuiderveld, K. Contrast Limited Adaptive Histogram Equalization / K. Zuiderveld // Graphics Gems IV. -Academic Press, 1994. - Режим доступа: http://www.docin.com/p-119164091.html, свободный. - Заглавие с экрана. - Яз. англ.</p>
+        <p>28.	Нейросеть заинтересовалась сорняками. - Режим доступа: https://agronomius.livejournal. com/22747.html, свободный. - Заглавие с экрана. - Яз. рус.</p>
+        <p>29.	Рыбаков, А. В. Концепция роботизированного тепличного комплекса для выращивания томатов с одним оператором / А. В. Рыбаков, Е. Ю. Степанович, И. В. Михайлов [и др.] // Прикаспийский журнал: управление и высокие технологии. - 2021. - № 1 (53). - С. 116-126.</p>
+        <p>30.	Матричный код (QR-код). - Режим доступа: http://www.russika.ru/ef.php?s=5337, свободный. - Заглавие с экрана. - Яз. рус.</p>
+        <p>References</p>
+        <p>1.	Vsemirnaya organizatsiya zdravookhraneniya [World Health Organization]. Available at: http:// www.who.int/ru/.</p>
+        <p>2.	Rybakov, A. V., Khodarova, Z. M. Perspektivy ispolzovaniya mobilnykh robotov s sistemami tekhnich-eskogo zreniya v selskom hozyaystve [Prospects for the use of mobile robots with technical vision systems in agriculture]. Simmetrii: teoreticheskiy i metodicheskiy aspekty : sbornik nauchnykh trudov VII Mezhdunarodnoy nauchno-prakticheskoy konferentsii [Symmetries: theoretical and methodological aspects : collection of scientific papers of the VII International Scientific and Practical Conference], 2018, pp. 39-46.</p>
+        <p>3.	How Dogtooth Technologies&#39; intelligent robots are mastering strawberry-picking. Available at: https://www.cambridgeindependent.co.uk/business/how-dogtooth-technologies-intelligent-robots-aremastering-straw berry-picking-9050467/.</p>
+        <p>4.	Vyrashchivanie rassady tomatov v domashnikh usloviyakh [Growing tomato seedlings at home]. Available at: https://chudoclumba.ru/vyrasivanie-rassady-tomatov-v-domasnih-usloviah/ (accessed 22.12.2020).</p>
+        <p>5.	Rybakov, A. V. Likhter, A. M., Pogozheva, A. B., Mikhaylova, A. V., Dusaliev, A. B. Proektirovanie ro-bototekhnicheskikh manipulyatorov s sistemoy kompyuternogo zreniya dlya sbora tomatov [Design of robotic</p>
+        <p>manipulators with a computer vision system for picking tomatoes]. Prikaspiyskiy zhurnal: upravlenie i vysokie tekhnologii [Caspian Journal: Control and High Technologies], 2020, no. 3 (51), pp. 135-147.</p>
+        <p>6.	Hongkun, Tian, Tianhai, Wang, Yadong, Liu, Xi, Qiao, Yanzhou, Li. Computer vision technology in agricultural automation. Information Processing in Agriculture, 2020, vol. 7, iss. 1, pp. 1-19. https://doi.org/10.1016/j. inpa.2019.09.006.</p>
+        <p>7.	Perrez-Zavala, R., Torres-Torriti, M., Cheein, F. A., et al. A pattern recognition strategy for visual grape bunch detection in vineyards. Comput. Electron. Agric., 2018, vol. 151, pp. 136-49.</p>
+        <p>8.	Fahmi, F., Trianda, D., Andayani, U., et al. Image processing analysis of geospatial uav orthophotos for palm oil plantation monitoring. J. Phys. Conf. Ser., 2018, vol. 978, p. 012064.</p>
+        <p>9.	Sun, Y., Gao, J., Wang, K., et al. Utilization of machine vision tomonitor the dynamic responses of rice leaf morphology and colour to nitrogen, phosphorus, and potassium deficiencies. J. Spectroscopy, 2018, pp. 1-13.</p>
+        <p>10.	Zhu, Y, Cao, Z, Lu, H., et al. In-field automatic observation of wheat heading stage using computer vision. Biosyst. Eng., 2016, vol. 143, pp. 28-41.</p>
+        <p>11.	Sadeghi-Tehran, P., Sabermanesh, K., Virlet, N., et al. Automated method to determine two critical growth stages of wheat: heading and flowering. Front. Plant. Sci., 2017, no. 8, p. 252.</p>
+        <p>12.	Yuan Ting, X. C. Information acquisition of cucumber fruit in greenhouse environment based on nearing infrared image. Spectrosc. Spect. Anal., 2009, no. 29 (8), pp. 2054-2058.</p>
+        <p>13.	Zhang, Q., Chen, S. Yu. T., et al. Cherry recognition in natural environment based on the vision of picking robot. IOP Conf. Ser: Earth Environ. Sci., 2017, vol. 61, art. 012021.</p>
+        <p>14.	Christopher, McCool IS, Feras, Dayoub, Christopher, Lehnert, Tristan, Perez, and Ben, Upcroft. Visual detection of occluded crop: for automated harvesting. International Conference on Robotics and Automation (ICRA), 2016, pp. 2506-2512.</p>
+        <p>15.	Lu, Q. and Tang, M. J. Detection of hidden bruise on kiwi fruit using hyperspectral imaging and parallelepiped classification. ProcediaEnviron. Sci., Jan. 2012, vol. 12, pp. 1172-1179. DOI: 10.1016/j.proenv.2012.01.404.</p>
+        <p>16.	Zhang, S., Wu, X., Zhang, S., Cheng, Q., and Tan, Z. An effective method to inspect and classify the bruising degree of apples based on the optical properties. Postharvest Biol. Technol., May 2017, vol. 127, pp. 44-52. DOI: 10.1016/j.postharvbio.2016.12.008.</p>
+        <p>17.	Elien, D., Mattias, V. D., and Janos, K. Assessment of bruise volumes in apples using X-ray computed tomography. Postharvest Biol. Technol., Jun. 2017, vol. 128, pp. 24-32. DOI: 10.1016/j.postharvbio.2017.01.013.</p>
+        <p>18.	Keresztes, J. C., Goodarzi, M., and Saeys, W. Real-time pixel based early apple bruise detection using short wave infrared hyperspectral imaging in combination with calibration and glare correction techniques. Food Control, Aug. 2016, vol. 66, no. 1, pp. 215-226. DOI: 10.1016/j.foodcont.2016.02.007.</p>
+        <p>19.	Mochida, K., Koda, S., Inoue, K., et al. Computer vision-based phenotyping for improvement of plant productivity: a machine learning perspective. GigaScience, 2019, no. 8, pp. 1-53.</p>
+        <p>20.	Vazquez-Arellano, M., Griepentrog, H. W., Reiser, D., et al. 3-D imaging systems for agricultural applications. A Review Sensors, 2016, vol. 16, pp. 1-24.</p>
+        <p>21.	Mazzilli et al. UAV Inspection of Olive Trees for the Detection of Xylella Fastidiosa Disease Using Neural Networks. 17th International Workshop on Cellular Nanoscale Networks and their Applications (CNNA), 2021, pp. 1-4. DOI: 10.1109/CNNA49188.2021.9610752.</p>
+        <p>22.	Jui-Cheng, Yen, Fu-Juay, Chang, &amp; Shyang, Chang. A new criterion for automatic multilevel thresholding. IEEE Transactions on Image Processing, 1995, vol. 4 (3), pp. 370-378. DOI:10.1109/83.366472.</p>
+        <p>23.	Niblack, W. An Introduction to Digital Image Processing. Prentice Hall, 1986, pp. 115-116.</p>
+        <p>24.	Hough, P. V. C. Method and means for recognizing complex patterns : U.S. Patent. 1962, Dec. 18, no. 3, 069, 654.</p>
+        <p>25.	Rybakov, A. V., Mikhaylov I. V., Arykbaev R. K. Analiz ispolzovaniya sistem kompyuternogo zreniya dlya kontrolya sostoyaniya rassady [Analysis of the use of computer vision systems for monitoring the state of seedlings]. Prikaspiyskiy mezhdunarodnyy molodyozhnyy nauchnyy forum agropromtekhnologiy i prodovolstvennoy bezopasnos-ti - 2019 : sbornik nauchnykh statey, Astrahan, 23-24 aprelya 2019 goda [Caspian International Youth Scientific Forum of Agro-Industrial Technologies and Food Security - 2019 : collection of scientific articles. Astrakhan, April 23-24]. Astrahan, Publishing House &#34;Astrakhan University&#34;, 2019, pp. 57-60.</p>
+        <p>26.	Andreev, S. V., Bondarev, A. E., Mikhailova, T. N., Ryzhova, I. G. Postroenie stereoanimatsionnykh pred-stavleniy na sovremennykh stereoustanovkakh aktivnogo I passivnogo tipov [Construction of stereoanimation representations on modern stereo installations of active and passive types]. Novye informatsionnye tekhnologii v avtomati-zorovannykh sistemakh [New Information Technologies in Automated Systems Founders: Moscow Institute of Electronics and Mathematics of the Higher School of Economics], 2018, no. 21, pp. 4-10.</p>
+        <p>27.	Zuiderveld, K. Contrast Limited Adaptive Histogram Equalization. Graphics Gems IV. Academic Press, 1994. Available at: http://www.docin.com/p-119164091.html.</p>
+        <p>28.	Neyroset zainteresovalas sornyakami [The neural network is interested in weeds]. Available at: https://agronomius.livejournal.com/22747.html.</p>
+        <p>29.	Rybakov A. V., Stepanovich E. Yu., Mikhailov I. V. et al. Kontseptsiya robotizirovannogo teplichnogo kompleksa dlya vyrashchivaniya tomatov s odnim operatorom [The concept of a robotic greenhouse complex for growing tomatoes with one operator]. Prikaspiyskiy zhurnal: upravlenie i vysokie tekhnologii [Caspian Journal: Control and High Technologies], 2021, no. 1 (53), pp. 116-126.</p>
+        <p>30.	Matrichnyy kod (QR-kod) [Matrix code (QR code)]. Available at: http://www.russika.ru/ef.php?s=5337.</p></div>
+    </div>
+  </div>
+
+	
+  <div class="infoblock visible">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot3"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot2');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot2"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+</div>
+</span>
+
+
+<div class="left-banner" style="width: 300px; margin-left: -320px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-left" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side1"></div>
+    <div id="crt-4f158390" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+<div class="right-banner" style="margin-left: 740px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-right" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side2"></div>
+    <div id="crt-4f158390-1" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+
+
+
+        <div class="footer">
+          <hr />
+          <div class="half">
+            <a href="/terms.html" target="_blank">Пользовательское соглашение</a>
+            <a href="/policy.html" target="_blank">Политика конфиденциальности</a>
+          </div>
+          <div class="half-right">
+            <a style="margin-top: 5px;" class="openscience" href="http://open-science.ru/" target="_blank"><img src="/images/openscience.svg" alt="Открытая наука" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="/app.js?2862416399" defer></script>
+    
+    <script type="text/javascript">
+      
+
+      window.__cl = function (f) {
+        if (!window.__cl_callbacks) {
+          window.__cl_callbacks = [];
+        }
+        window.__cl_callbacks.push(f);
+      };
+
+      window.__cl(function(app) {
+        var app = app.element(app.elm.Menu, 'menu', { user: window.__cl_user, id: "", path: "/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse" });
+        if (app == null) { return; }
+        window.notify.login = function() {
+          app.ports.showLoginSub.send();
+        }
+      });
+      window.__cl(function(app) {
+        app.element(app.elm.Notification.Persist, 'notification-persist', {
+          cookie: document.cookie
+        });
+      })
+    </script>
+
+    
+  
+  <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = 'https://vk.com/rtrg?p=VK-RTRG-113217-3vhqF';</script>
+  <script type="text/javascript">
+    (window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=pBktsqObaAtvToEtTxQbb/cxSGdswTMQ5wcdtediEFrGEy1Rbzr/IMae3Notd2g/GdggCzMzIdcwjWAsDf7M*I1hGYLGK2Uho4KO3yct6a3PDEHu/PU3m87/qEKB5u005s5BZOxtV0KGfmxRfV5X4n3kmNOYtnudE89WXjBuKsQ-';
+  </script>
+  
+
+
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(15765706, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/15765706" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+  
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-33095299-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+
+    
+
+<script>
+  var adfox = function(id, params) {
+        window.yaContextCb.push(()=>{
+            Ya.adfoxCode.create({
+              ownerId: 254948,
+              containerId: id,
+              params: params
+            });
+          });
+  }
+
+  adfox('adfox_bot3', {
+    pp: 'nol',
+    ps: 'czgi',
+    p2: 'ganf',
+    puid1: ''
+  });
+  if (window.innerWidth >= 768) {
+    adfox('adfox_top1', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_top2', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid1', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot1', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid2', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot2', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot4', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+  } else {
+      adfox('adfox_top1', {
+          pp: 'noj',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_mid1', {
+          pp: 'nok',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_bot1', {
+          pp: 'nol',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+  }
+  if (window.innerWidth >= 1360) {
+    adfox('adfox_side1',{
+      pp: 'noj',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+    adfox('adfox_side2', {
+      pp: 'nok',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+  }
+</script>
+
+
+<script type="text/javascript">
+window.__cl(function(app) {
+  app.element(app.elm.Viewer.Inline, "viewer-inline", {
+    id:  19274106 ,
+    pages:  11 ,
+    link: "analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse",
+    doi: ""
+  })
+  var authors = app.element(app.elm.Article.Authors, "article-authors", {
+    is_author:  false ,
+    authors: [{"id":25744169,"name":"Рыбаков Алексей Владимирович","link":"","status":""},{"id":25744170,"name":"Выборнов Николай Анатольевич","link":"","status":""},{"id":25744171,"name":"Рыбаков Илья Александрович","link":"","status":""}] || [],
+    user: window.__cl_user
+  });
+  var controls = app.element(app.elm.Article.Controls, "article-controls", {
+    quotes: {
+      gost_electronic: "Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич, Рыбаков Илья Александрович АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ \/\/ Прикаспийский журнал: управление и высокие технологии. 2022. №1 (57). URL: https:\/\/cyberleninka.ru\/article\/n\/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse (дата обращения: 28.09.2026).",
+      gost_print: "Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич, Рыбаков Илья Александрович АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ \/\/ Прикаспийский журнал: управление и высокие технологии. 2022. №1 (57). С.128-138",
+      wiki: "{{статья|автор=Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич, Рыбаков Илья Александрович|заглавие=АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ|издание=Прикаспийский журнал: управление и высокие технологии|год=2022|ссылка=https:\/\/cyberleninka.ru\/article\/n\/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse|номер=1 (57)}}",
+      apa: "Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич, \u0026 Рыбаков Илья Александрович (2022). АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ. Прикаспийский журнал: управление и высокие технологии,  (1 (57)), 128-138.",
+      ama: "Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич, Рыбаков Илья Александрович. АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ. Прикаспийский журнал: управление и высокие технологии.  2022;(1 (57)):128-138.",
+      mla: "Рыбаков Алексей Владимирович, Выборнов Николай Анатольевич,  and Рыбаков Илья Александрович. \u0022АНАЛИЗ МЕТОДОВ КОМПЬЮТЕРНОГО ЗРЕНИЯ, ПЕРСПЕКТИВНЫХ ДЛЯ ПРИМЕНЕНИЯ В АГРОПРОМЫШЛЕННОМ КОМПЛЕКСЕ\u0022 Прикаспийский журнал: управление и высокие технологии, no. 1 (57), 2022, pp. 128-138."
+    },
+    pages:  11 ,
+    id:  19274106 ,
+    link: "analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse",
+    doi: "",
+    authors: [{"id":25744169,"name":"Рыбаков Алексей Владимирович","link":"","status":""},{"id":25744170,"name":"Выборнов Николай Анатольевич","link":"","status":""},{"id":25744171,"name":"Рыбаков Илья Александрович","link":"","status":""}] || [],
+    likes: {"likes":"0","dislikes":"0","user":0},
+    user: window.__cl_user
+  });
+
+  var claim = document.getElementById('claim')
+  if (claim) {
+    claim.onclick = function(e) {
+      e.preventDefault();
+      controls.ports.claim.send(true);
+    }
+  }
+
+  var searchFromSelector = function(sel) {
+    var els = document.querySelectorAll(sel);
+    els.forEach(function(el) {
+      var t = el.innerText;
+      el.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = "/search?q=" + encodeURIComponent(t);
+      }
+    });
+  }
+  searchFromSelector(".to-search");
+});
+</script>
+
+
+    <div id="notification-flash"></div>
+    <div class="info"><div id="notification-persist"></div></div>
+  </body>
+</html>

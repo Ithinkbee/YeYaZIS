@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block content %}
+<h1>Тестовая коллекция</h1>
+<p class="lead">
+  {{ total }} документов на русском и немецком языках: научные статьи по computer science и
+  литературоведческие тексты. Каждый документ — около {{ config.DOC_TARGET_PAGES }} страниц
+  машинописного текста ({{ config.DOC_TARGET_CHARS|num }} знаков, допуск ±{{ (config.DOC_SIZE_TOLERANCE * 100)|int }} %).
+  Выберите документ — система построит его реферат.
+</p>
+
+<div class="cards">
+  <div class="card">
+    <h3>Документы</h3>
+    <span class="big">{{ total }}</span>
+    <p class="note">по 5 в каждой группе «язык × предметная область»</p>
+  </div>
+  <div class="card">
+    <h3>Объём документа</h3>
+    {% if sizes %}
+    <span class="big">{{ sizes|min|num }}–{{ sizes|max|num }}</span>
+    <p class="note">знаков; {{ (sizes|min / config.PAGE_CHARS)|num(1) }}–{{ (sizes|max / config.PAGE_CHARS)|num(1) }} страницы по {{ config.PAGE_CHARS }} знаков</p>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h3>OSTIS</h3>
+    <span class="big state-{{ ostis_state }}">{{ ostis_text }}</span>
+    <p class="note">
+      {% if ostis_available %}рефераты строит sc-агент в базе знаний{% else %}рефераты строятся локально;
+      <a href="/ostis">подробнее</a>{% endif %}
+    </p>
+  </div>
+</div>
+
+{% for group in groups %}
+<h2>{{ m.lang_tag(group.language) }} {{ domain_name(group.domain) }}</h2>
+<table class="grid">
+  <thead>
+    <tr>
+      <th>№</th><th>Документ</th><th class="num">Объём, знаков</th><th class="num">Страниц</th>
+      <th>Источник</th><th class="no-print">Действия</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for entry in group.entries %}
+    <tr>
+      <td class="muted">{{ loop.index }}</td>
+      <td><a href="/doc/{{ entry.id }}">{{ entry.title }}</a>
+        {% if entry.source.authors %}<div class="small muted">{{ entry.source.authors|join(', ') }}{% if entry.source.year %}, {{ entry.source.year }}{% endif %}</div>{% endif %}
+      </td>
+      <td class="num">{{ entry.chars|num }}</td>
+      <td class="num">{{ entry.pages|num(1) }}</td>
+      <td class="small"><a href="{{ entry.source_url }}" target="_blank" rel="noopener">{{ entry.source.site }}</a>
+        <div class="muted">{{ entry.source.license }}</div></td>
+      <td class="actions no-print">
+        <a class="button small-button" href="/doc/{{ entry.id }}">Реферат</a>
+        <a href="/doc/{{ entry.id }}/source">исходный документ</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+
+{% if user_docs %}
+<h2>Свои документы этого сеанса</h2>
+<ul class="plain">
+  {% for doc in user_docs %}
+  <li>{{ m.lang_tag(doc.language) }} <a href="/mine/{{ doc.uid }}">{{ doc.title }}</a>
+    <span class="muted small">— {{ doc.text|length|num }} знаков, загружен в {{ doc.created }}</span></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<p class="note">Эталонные рефераты для оценки точности (аннотации авторов и вводные разделы статей Википедии)
+  из текстов документов удалены — см. раздел <a href="/evaluation">«Оценка»</a>.</p>
+{% endblock %}

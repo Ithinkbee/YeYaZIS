@@ -15,7 +15,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from arachne import companion, crawler, db, economy, indexer, jokers, mischief  # noqa: E402
+from arachne import companion, crawler, db, economy, indexer, jokers, mischief, modes  # noqa: E402
 from arachne import search as search_module  # noqa: E402
 from arachne.evaluation import qrels, runner  # noqa: E402
 from arachne.search import Search  # noqa: E402
@@ -293,6 +293,61 @@ def test_pawn_pays_share_and_redeem_costs_full(conn):
 def test_pawn_refuses_unopened_achievement(conn):
     ok, message = companion.pawn(conn, "sniper")
     assert ok is False and "не открыто" in message
+
+
+# --- Блиц -------------------------------------------------------------------
+
+def _later(monkeypatch, seconds: int) -> None:
+    """Сдвигает часы режимов на `seconds` вперёд от настоящего момента."""
+    from datetime import datetime, timedelta
+
+    moment = datetime.now() + timedelta(seconds=seconds)
+    monkeypatch.setattr(modes, "_now", lambda: moment)
+
+
+def test_blitz_wrong_document_keeps_round(conn):
+    state = modes.blitz_round(conn, restart=True)
+    other = conn.execute(
+        "SELECT id FROM documents WHERE id != ?", (state["doc_id"],)
+    ).fetchone()["id"]
+
+    missed = modes.blitz_check(conn, other)
+    assert missed["miss"] is True and "не загаданный" in missed["message"]
+    assert modes.blitz_status(conn)["active"] is True
+
+    found = modes.blitz_check(conn, state["doc_id"])
+    assert found["won"] is True
+    assert modes.blitz_status(conn) == {}
+
+
+def test_blitz_expired_round_keeps_its_result(conn, monkeypatch):
+    """Истёкший раунд не подменяется новым молча: сначала виден итог."""
+    economy.ensure_start_capital(conn)
+    state = modes.blitz_round(conn, restart=True)
+    _later(monkeypatch, 45)
+
+    shown = modes.blitz_round(conn)
+    assert shown["doc_id"] == state["doc_id"]
+    assert shown["result"]["won"] is False and "Время вышло" in shown["result"]["message"]
+    assert modes.blitz_combo(conn) == 0
+
+    # при следующем заходе — тот же итог, пока игрок сам не начнёт новый раунд
+    assert modes.blitz_round(conn)["result"] == shown["result"]
+    assert "result" not in modes.blitz_round(conn, restart=True)
+
+
+def test_blitz_timer_stops_at_limit(conn, monkeypatch):
+    """Документ, открытый через пять минут, стоит столько же, сколько через 30 с."""
+    economy.ensure_start_capital(conn)
+    state = modes.blitz_round(conn, restart=True)
+    _later(monkeypatch, 300)
+
+    result = modes.blitz_check(conn, state["doc_id"])
+    assert result["won"] is False
+    spent = conn.execute(
+        "SELECT SUM(delta) AS total FROM ledger WHERE reason = 'blitz:timer'"
+    ).fetchone()["total"]
+    assert spent == -modes.BLITZ_SECONDS * modes.BLITZ_TICK_COST
 
 
 # --- Контроль качества разметки ---------------------------------------------

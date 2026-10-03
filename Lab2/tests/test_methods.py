@@ -206,7 +206,7 @@ def test_extract_features_includes_word_boundaries():
 
 def test_multiscale_fragments_cover_several_lengths():
     text = "а" * 2000
-    pieces = multiscale_fragments(text, sizes=(150, 600), overlap=0.5)
+    pieces = multiscale_fragments(text, sizes=(150, 600), step_share=0.5)
     lengths = {len(piece) for piece in pieces}
     assert 150 in lengths and 600 in lengths
 

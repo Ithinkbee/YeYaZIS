@@ -322,11 +322,13 @@ form.inline { display: inline-block; margin: 0 8px 8px 0; }
 
 /* --- Пафнутий ------------------------------------------------------------ */
 
+/* Паук стоит выше затемнения калитки (z-index 60): задачу «мат в два хода»
+   он комментирует так же, как партию. */
 .companion {
   position: fixed;
   top: 0;
   right: clamp(1rem, 5vw, 4rem);
-  z-index: 40;
+  z-index: 70;
   color: var(--accent);
   cursor: default;
 }
@@ -341,10 +343,12 @@ body.has-companion header.top { padding-right: calc(clamp(1rem, 5vw, 4rem) + 86p
   50%      { transform: rotate(4deg); }
 }
 
+/* Облачко висит под пауком, а не рядом: реплики в партии появляются сами, и
+   сбоку они закрывали бы меню в шапке. */
 .companion-bubble {
   position: absolute;
-  top: 26px;
-  right: 72px;
+  top: 90px;
+  right: 0;
   width: max-content;
   max-width: 250px;
   padding: 7px 12px;
@@ -353,12 +357,17 @@ body.has-companion header.top { padding-right: calc(clamp(1rem, 5vw, 4rem) + 86p
   border-radius: 10px;
   font-size: 13px;
   color: var(--ink);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
   opacity: 0;
-  transform: translateX(8px);
+  transform: translateY(-6px);
   transition: opacity .2s, transform .2s;
   pointer-events: none;
 }
-.companion:hover .companion-bubble { opacity: 1; transform: translateX(0); }
+.companion:hover .companion-bubble,
+.companion.speaking .companion-bubble { opacity: 1; transform: translateY(0); }
+.companion.speaking .spider-body { animation-duration: 1.2s; }
+.companion-bubble p { margin: 0; }
+.companion-bubble p + p { margin-top: 5px; padding-top: 5px; border-top: 1px dashed var(--line); }
 
 .spider-says {
   font-size: 14px;
@@ -369,9 +378,13 @@ body.has-companion header.top { padding-right: calc(clamp(1rem, 5vw, 4rem) + 86p
 
 /* --- шахматная доска ------------------------------------------------------ */
 
+/* Строки и столбцы заданы явно и с нулевым минимумом: иначе сетка подгоняла
+   высоту строки под содержимое, и ряды без фигур сжимались вдвое против рядов
+   с фигурами. Клетки — кнопки, поэтому скругление общего стиля кнопок снято. */
 .board {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
   width: min(460px, 92vw);
   aspect-ratio: 1;
   border: 2px solid var(--accent);
@@ -383,8 +396,14 @@ body.has-companion header.top { padding-right: calc(clamp(1rem, 5vw, 4rem) + 86p
 
 .board .cell {
   border: 0;
+  border-radius: 0;
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   font-size: clamp(20px, 5.2vw, 38px);
   line-height: 1;
   display: flex;

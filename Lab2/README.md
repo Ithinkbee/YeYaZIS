@@ -393,7 +393,7 @@ Lab2/
 │   ├── train.py                построение и сохранение профилей
 │   ├── make_report.py          прогон, выгрузки и графики
 │   └── make_diagrams.py        схемы структуры и алгоритма
-└── tests/                      219 проверок
+└── tests/                      228 проверок
 ```
 
 Шахматы и викторина не связаны с распознаванием языка ни в одну сторону:
@@ -424,7 +424,7 @@ python tools/make_report.py          # прогон, выгрузки и гра�
 python tools/make_report.py --quick  # без опытов по длине и смеси
 python tools/make_diagrams.py        # схемы структуры и алгоритма
 python tools/find_puzzles.py         # найти новые задачи «мат в два хода»
-python -m pytest tests/ -q           # тесты (219 проверок)
+python -m pytest tests/ -q           # тесты (228 проверок)
 ```
 
 ---

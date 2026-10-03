@@ -269,11 +269,21 @@ def _middle_sentences(text: str, count: int = 2) -> str:
 
 
 def blitz_round(conn: sqlite3.Connection, restart: bool = False) -> dict:
-    """Текущий или новый раунд блица."""
-    state = _read(conn, "blitz:round", {})
-    if state and not restart and not blitz_expired(state):
-        return state
+    """Текущий раунд блица; новый — только если раунда нет или просят другой.
 
+    Закончившийся раунд (нашли или вышло время) хранится вместе с итогом в
+    поле `result`, пока игрок сам не начнёт следующий. Раньше истёкший раунд
+    молча подменялся новым при следующем заходе, и итог игрок не видел вовсе.
+    """
+    state = _read(conn, "blitz:round", {})
+    if restart or not state.get("doc_id"):
+        return _new_blitz_round(conn)
+    if not state.get("result") and blitz_expired(state):
+        _finish_blitz(conn, state, found=False)
+    return state
+
+
+def _new_blitz_round(conn: sqlite3.Connection) -> dict:
     row = conn.execute(
         "SELECT id, text FROM documents WHERE vector_norm > 0 ORDER BY RANDOM() LIMIT 1"
     ).fetchone()
@@ -287,6 +297,46 @@ def blitz_round(conn: sqlite3.Connection, restart: bool = False) -> dict:
     }
     _write(conn, "blitz:round", state)
     return state
+
+
+def _finish_blitz(conn: sqlite3.Connection, state: dict, found: bool) -> dict:
+    """Подводит итог раунда и сохраняет его в состоянии (изменяет `state`).
+
+    Таймер останавливается на пределе: документ, открытый через пять минут,
+    стоит те же BLITZ_SECONDS · BLITZ_TICK_COST слов, что и через тридцать секунд.
+    """
+    elapsed = blitz_elapsed(state)
+    ticking = min(elapsed, BLITZ_SECONDS)
+    economy.spend(conn, ticking * BLITZ_TICK_COST, "blitz:timer")
+    row = conn.execute(
+        "SELECT title FROM documents WHERE id = ?", (state["doc_id"],)
+    ).fetchone()
+    title = row["title"] if row else "документ удалён из базы"
+
+    if found and elapsed <= BLITZ_SECONDS:
+        combo = blitz_combo(conn) + 1
+        factor = min(BLITZ_COMBO_STEP ** (combo - 1), 3.0)
+        earned = economy.earn(conn, int(round(BLITZ_REWARD * factor)), "blitz:win")
+        db.set_setting(conn, "blitz:combo", str(combo))
+        result = {
+            "won": True,
+            "message": f"Есть! {elapsed} с, комбо {combo}, начислено {earned} сл. "
+                       f"(таймер съел {ticking * BLITZ_TICK_COST} сл.)",
+        }
+    else:
+        db.set_setting(conn, "blitz:combo", "0")
+        result = {
+            "won": False,
+            "message": (
+                f"Документ тот самый, но {elapsed} с — время вышло."
+                if found
+                else f"Время вышло: {BLITZ_SECONDS} с прошли, загаданный документ не открыт."
+            ) + f" Таймер съел {ticking * BLITZ_TICK_COST} сл., комбо сброшено.",
+        }
+    result.update(elapsed=elapsed, doc_id=state["doc_id"], title=title)
+    state["result"] = result
+    _write(conn, "blitz:round", state)
+    return result
 
 
 def blitz_elapsed(state: dict) -> int:
@@ -307,34 +357,54 @@ def blitz_combo(conn: sqlite3.Connection) -> int:
     return int(db.get_setting(conn, "blitz:combo", "0") or 0)
 
 
-def blitz_check(conn: sqlite3.Connection, doc_id: int) -> dict:
-    """Вызывается при открытии документа: тот ли документ нашёл игрок."""
-    state = _read(conn, "blitz:round", {})
-    if not enabled() or not state or state.get("doc_id") != doc_id:
+def _running_blitz(conn: sqlite3.Connection) -> dict:
+    """Идущий (не завершённый) раунд или пустой словарь."""
+    if not enabled():
         return {}
+    state = _read(conn, "blitz:round", {})
+    if not state.get("doc_id") or state.get("result"):
+        return {}
+    return state
 
-    elapsed = blitz_elapsed(state)
-    economy.spend(conn, elapsed * BLITZ_TICK_COST, "blitz:timer")
-    _write(conn, "blitz:round", {})
 
-    if elapsed > BLITZ_SECONDS:
-        db.set_setting(conn, "blitz:combo", "0")
-        return {
-            "won": False,
-            "elapsed": elapsed,
-            "message": f"Документ тот самый, но {elapsed} с — время вышло. "
-                       f"Потрачено {elapsed * BLITZ_TICK_COST} сл.",
-        }
+def blitz_check(conn: sqlite3.Connection, doc_id: int) -> dict:
+    """Вызывается при открытии документа: тот ли документ нашёл игрок.
 
-    combo = blitz_combo(conn) + 1
-    factor = min(BLITZ_COMBO_STEP ** (combo - 1), 3.0)
-    earned = economy.earn(conn, int(round(BLITZ_REWARD * factor)), "blitz:win")
-    db.set_setting(conn, "blitz:combo", str(combo))
+    Не тот документ раунд не заканчивает — игрок узнаёт, что промахнулся, и
+    ищет дальше, пока идёт время.
+    """
+    state = _running_blitz(conn)
+    if not state:
+        return {}
+    if state["doc_id"] == doc_id:
+        return _finish_blitz(conn, state, found=True)
+    if blitz_expired(state):
+        return _finish_blitz(conn, state, found=False)
+    left = BLITZ_SECONDS - blitz_elapsed(state)
     return {
-        "won": True,
+        "won": False,
+        "miss": True,
+        "message": f"Блиц: это не загаданный документ. Осталось {left} с — ищите дальше.",
+    }
+
+
+def blitz_status(conn: sqlite3.Connection) -> dict:
+    """Состояние раунда для плашки на странице выдачи.
+
+    Поиск уводит со страницы блица на выдачу, и без плашки игрок терял и
+    фрагмент, и таймер. Раунд, время которого вышло, здесь же и завершается.
+    """
+    state = _running_blitz(conn)
+    if not state:
+        return {}
+    if blitz_expired(state):
+        return _finish_blitz(conn, state, found=False)
+    elapsed = blitz_elapsed(state)
+    return {
+        "active": True,
         "elapsed": elapsed,
-        "message": f"Есть! {elapsed} с, комбо {combo}, начислено {earned} сл. "
-                   f"(таймер съел {elapsed * BLITZ_TICK_COST} сл.)",
+        "left": BLITZ_SECONDS - elapsed,
+        "fragment": state.get("fragment", ""),
     }
 
 

@@ -38,7 +38,6 @@
     <div class="gate-body">
       <div id="gate-board" class="board small"></div>
       <div class="gate-side">
-        <p id="gate-line" class="spider-says">Стоять. Сначала мат в два хода.</p>
         <p id="gate-message" class="note"></p>
         <p id="gate-hint" class="note hint" hidden></p>
         <p class="note">
@@ -110,7 +109,7 @@
 
 {% block scripts %}
 {% if companion_enabled %}
-<script src="/static/chess.js"></script>
+<script src="{{ static_url('chess.js') }}"></script>
 <script>
 (function () {
   /* Калитка: форма отправляется только после решённой задачи.
@@ -118,7 +117,6 @@
   var form = document.getElementById('check-form');
   var gate = document.getElementById('gate');
   var taskBox = document.getElementById('gate-task');
-  var lineBox = document.getElementById('gate-line');
   var messageBox = document.getElementById('gate-message');
   var hintBox = document.getElementById('gate-hint');
   var solved = false;
@@ -138,23 +136,30 @@
         hintBox.hidden = true;
         messageBox.textContent = '';
         taskBox.textContent = data.task;
-        lineBox.textContent = data.line;
-        board.setPosition(data.fen, []);
+        Tolmach.say(data.line);
+        board.setPosition(data.fen, [], data.legal);
       });
   }
 
   function attempt(from, to, done) {
     if (!puzzle) { done(); return; }
+    /* законный ход рисуется сразу; проверка на мат идёт следом на сервере */
+    if (board.isLegal(from, to)) { board.preview(from, to); }
     Tolmach.post('/api/chess/puzzle', {
-      index: puzzle.index, frm: from, to: to, attempts: attempts
+      index: puzzle.index, frm: from, to: to, attempts: attempts, said: Tolmach.said
     }).then(function (result) {
-      if (result.error) { messageBox.textContent = result.error; done(); return; }
+      if (result.error) {
+        messageBox.textContent = result.error;
+        board.setPosition(puzzle.fen, [], puzzle.legal);
+        done();
+        return;
+      }
 
       if (result.solved) {
         solved = true;
         messageBox.textContent = result.message;
-        lineBox.textContent = result.line;
-        board.setPosition(result.fen, [from, to]);
+        Tolmach.say(result.line);
+        board.setPosition(result.fen, [from, to], []);
         board.lock(true);
         setTimeout(function () { gate.hidden = true; form.submit(); }, 1200);
         return;
@@ -162,16 +167,20 @@
 
       attempts += 1;
       messageBox.textContent = result.message;
-      lineBox.textContent = result.line;
+      Tolmach.say(result.line);
       if (result.hint) { hintBox.textContent = result.hint; hintBox.hidden = false; }
       if (result.fen) {
         /* показываем последствие неверного хода и возвращаем исходную позицию */
-        board.setPosition(result.fen, [from, to]);
-        setTimeout(function () { board.setPosition(puzzle.fen, []); done(); }, 900);
+        board.setPosition(result.fen, [from, to], []);
+        setTimeout(function () { board.setPosition(puzzle.fen, [], puzzle.legal); done(); }, 900);
         return;
       }
       done();
-    }).catch(function () { messageBox.textContent = 'Сервер не ответил.'; done(); });
+    }).catch(function () {
+      messageBox.textContent = 'Сервер не ответил.';
+      board.setPosition(puzzle.fen, [], puzzle.legal);
+      done();
+    });
   }
 
   form.addEventListener('submit', function (event) {

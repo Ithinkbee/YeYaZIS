@@ -5,6 +5,10 @@
  * ведёт разговор с сервером. Дублировать правила в браузере не стоило бы:
  * тогда задачу «мат в два хода» пришлось бы проверять дважды, и рано или
  * поздно две проверки разошлись бы.
+ *
+ * Список законных ходов сервер присылает вместе с позицией. По нему доска
+ * рисует ход игрока сразу, не дожидаясь ответа: сервер затем присылает
+ * настоящую позицию, и она заменяет предварительную.
  */
 
 (function (global) {
@@ -56,6 +60,9 @@
     this.root = root;
     this.options = options || {};
     this.fen = null;
+    this.squares = null;
+    /* законные ходы белых в записи e2e4; null — список неизвестен */
+    this.legal = null;
     this.selected = -1;
     this.highlight = [];
     this.cells = [];
@@ -80,16 +87,65 @@
     }
   };
 
-  Board.prototype.setPosition = function (fen, highlight) {
+  Board.prototype.setPosition = function (fen, highlight, legal) {
     this.fen = fen;
+    this.squares = parseFen(fen);
     this.highlight = highlight || [];
+    this.legal = legal === undefined ? null : legal;
     this.selected = -1;
     this.render();
   };
 
+  /** Законен ли ход по присланному сервером списку (без списка — не известно). */
+  Board.prototype.isLegal = function (from, to) {
+    if (!this.legal) { return true; }
+    var key = from + to;
+    return this.legal.some(function (move) { return move.slice(0, 4) === key; });
+  };
+
+  /** Берёт ли ход фигуру — включая взятие на проходе (пешка идёт наискосок на пустое поле). */
+  Board.prototype.isCapture = function (from, to) {
+    var squares = this.squares || parseFen(this.fen);
+    var target = squares[indexOf(to)];
+    if (target !== '.') { return target === target.toLowerCase(); }
+    return squares[indexOf(from)] === 'P' && from[0] !== to[0];
+  };
+
+  /**
+   * Рисует ход белых сразу, до ответа сервера. Правила здесь не нужны:
+   * ход уже сверен со списком законных, остаётся переставить фигуры —
+   * с ладьёй при рокировке, пешкой при взятии на проходе и ферзём при
+   * превращении (сервер по умолчанию превращает пешку в ферзя).
+   */
+  Board.prototype.preview = function (from, to) {
+    var squares = (this.squares || parseFen(this.fen)).slice();
+    var a = indexOf(from);
+    var b = indexOf(to);
+    var piece = squares[a];
+    if (piece === 'P' && to[0] !== from[0] && squares[b] === '.') {
+      squares[b + 8] = '.';                         /* взятие на проходе */
+    }
+    if (piece === 'K' && Math.abs(a - b) === 2) {  /* рокировка */
+      var rookFrom = b > a ? a + 3 : a - 4;
+      var rookTo = b > a ? a + 1 : a - 1;
+      squares[rookTo] = squares[rookFrom];
+      squares[rookFrom] = '.';
+    }
+    squares[b] = piece === 'P' && to[1] === '8' ? 'Q' : piece;
+    squares[a] = '.';
+    this.squares = squares;
+    this.highlight = [from, to];
+    this.selected = -1;
+    this.render();
+  };
+
+  function indexOf(square) {
+    return RANKS.indexOf(square[1]) * 8 + FILES.indexOf(square[0]);
+  }
+
   Board.prototype.render = function () {
     if (!this.fen) { return; }
-    var squares = parseFen(this.fen);
+    var squares = this.squares || parseFen(this.fen);
     for (var index = 0; index < 64; index++) {
       var cell = this.cells[index];
       var piece = squares[index];
@@ -104,7 +160,7 @@
   Board.prototype.onClick = function (index) {
     if (this.locked || !this.options.interactive || !this.fen) { return; }
 
-    var squares = parseFen(this.fen);
+    var squares = this.squares || parseFen(this.fen);
     var piece = squares[index];
     var isOwn = piece !== '.' && piece === piece.toUpperCase();
 
@@ -125,7 +181,14 @@
     if (typeof this.options.onMove === 'function') {
       this.locked = true;
       var board = this;
-      this.options.onMove(from, to, function () { board.locked = false; });
+      var release = function () { board.locked = false; };
+      /* Ошибка в обработчике не должна оставить доску запертой навсегда. */
+      try {
+        this.options.onMove(from, to, release);
+      } catch (error) {
+        release();
+        throw error;
+      }
     }
   };
 
@@ -146,6 +209,44 @@
   }
 
   /* --- викторина при взятии ------------------------------------------------ */
+
+  /* --- реплики Пафнутия ---------------------------------------------------- */
+
+  /* Недавно сказанное: уходит на сервер, чтобы паук не повторялся. */
+  var said = [];
+  var bubbleTimer = null;
+  var spokenAt = 0;
+
+  /**
+   * Пафнутий говорит из своего угла: реплика появляется в облачке над пауком.
+   * Если предыдущая прозвучала только что (ход игрока, сразу за ним — ответ
+   * паука), новая дописывается к ней, иначе первую никто не успел бы прочесть.
+   */
+  function say(text) {
+    if (!text) { return; }
+    said.push(text);
+    if (said.length > 10) { said.shift(); }
+
+    var companion = document.getElementById('companion');
+    var bubble = document.getElementById('companion-bubble');
+    if (!companion || !bubble) { return; }
+
+    var now = Date.now();
+    var line = document.createElement('p');
+    line.textContent = text;
+    if (companion.classList.contains('speaking') && now - spokenAt < 2500) {
+      while (bubble.children.length > 1) { bubble.removeChild(bubble.firstChild); }
+    } else {
+      bubble.innerHTML = '';
+    }
+    bubble.appendChild(line);
+    spokenAt = now;
+
+    companion.classList.add('speaking');
+    clearTimeout(bubbleTimer);
+    var shown = 4500 + 45 * bubble.textContent.length;
+    bubbleTimer = setTimeout(function () { companion.classList.remove('speaking'); }, shown);
+  }
 
   /**
    * Показывает вопрос и возвращает обещание с ответом сервера.
@@ -181,9 +282,10 @@
           button.textContent = option.name;
           button.addEventListener('click', function () {
             row.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
-            post('/api/quiz/answer', { word: question.word, answer: option.code })
+            post('/api/quiz/answer', { word: question.word, answer: option.code, said: said })
               .then(function (verdict) {
                 showQuizVerdict(host, verdict);
+                say(verdict.line);
                 setTimeout(function () { resolve(verdict); }, 2600);
               });
           });
@@ -210,19 +312,14 @@
       note.textContent = verdict.opinion_summary;
       box.appendChild(note);
     }
-
-    if (verdict.line) {
-      var line = document.createElement('p');
-      line.className = 'spider-says';
-      line.textContent = 'Пафнутий: ' + verdict.line;
-      box.appendChild(line);
-    }
     host.appendChild(box);
   }
 
   global.Tolmach = global.Tolmach || {};
   global.Tolmach.Board = Board;
   global.Tolmach.askQuiz = askQuiz;
+  global.Tolmach.say = say;
+  global.Tolmach.said = said;
   global.Tolmach.post = post;
   global.Tolmach.get = get;
   global.Tolmach.squareName = squareName;

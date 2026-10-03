@@ -419,16 +419,29 @@
   }
 
   // --- Таймер блица ---------------------------------------------------------
+  //
+  // Итог раунда подводит сервер. На странице блица по истечении времени она
+  // перезагружается и показывает итог; на выдаче перезагружать нельзя —
+  // повторный поиск снова списал бы налог и сдвинул серию, — поэтому там
+  // только появляется ссылка на итог.
 
   const blitzTimer = document.getElementById("blitz-timer");
   if (blitzTimer) {
     const limit = Number(blitzTimer.dataset.limit);
     let elapsed = Number(blitzTimer.dataset.elapsed);
-    setInterval(() => {
+    const ticker = setInterval(() => {
       elapsed += 1;
       const left = limit - elapsed;
       blitzTimer.textContent = left > 0 ? String(left) : "0";
       blitzTimer.classList.toggle("expired", left <= 0);
+      if (left > 0) return;
+      clearInterval(ticker);
+      if (blitzTimer.dataset.reload) {
+        setTimeout(() => window.location.reload(), 1200);
+      } else {
+        const expired = document.getElementById("blitz-expired");
+        if (expired) expired.hidden = false;
+      }
     }, 1000);
   }
 

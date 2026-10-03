@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}OSTIS — «{{ app_name }}»{% endblock %}
+{% block content %}
+{% set st = status %}
+<h1>Интеграция с OSTIS</h1>
+<p class="lead">В режиме OSTIS документы коллекции хранятся в базе знаний ostis-системы, реферат строит sc-агент,
+  откликающийся на действие «построить реферат документа», а интерфейс читает готовый реферат из базы знаний. Если
+  sc-сервер недоступен, тот же алгоритм выполняется локально.</p>
+
+<div class="cards">
+  <div class="card">
+    <h3>Состояние</h3>
+    <span class="big state-{{ st.state }}">{{ st.state_text }}</span>
+    <p class="note">sc-сервер: <code>{{ st.url }}</code>; режим IZBORNIK_OSTIS={{ st.mode }}</p>
+    {% if st.error %}<p class="bad small">{{ st.error }}</p>{% endif %}
+    <form method="post" action="/ostis/reconnect" class="inline no-print"><button type="submit">Подключиться заново</button></form>
+  </div>
+  <div class="card">
+    <h3>База знаний</h3>
+    {% if st.documents_in_kb is defined and st.documents_in_kb is not none %}
+    <span class="big">{{ st.documents_in_kb }}</span>
+    <p class="note">документов тестовой коллекции в базе знаний
+      {% if st.synced %}(при запуске создано {{ st.synced.created }}, уже было {{ st.synced.present }},
+      {{ st.synced.ms|ms }}){% endif %}</p>
+    {% else %}
+    <span class="big muted">—</span><p class="note">нет подключения</p>
+    {% endif %}
+    <p class="note"><a href="{{ st.sc_web }}" target="_blank" rel="noopener">sc-web ↗</a> ·
+      <a href="{{ st.sc_web }}/?sys_id=section_subject_domain_of_summarization" target="_blank" rel="noopener">раздел предметной области ↗</a></p>
+  </div>
+  <div class="card">
+    <h3>sc-агент построения реферата</h3>
+    {% if st.agent_mode == 'embedded' %}
+    <span class="big">{{ st.agent_runs if st.agent_runs is not none else '—' }}</span>
+    <p class="note">выполнено действий; агент зарегистрирован в процессе веб-интерфейса</p>
+    {% else %}
+    <span class="big">внешний</span>
+    <p class="note">агент запускается отдельно: <code>python tools/agent.py</code></p>
+    {% endif %}
+    {% if st.agent_last %}
+      {% if st.agent_last.error %}<p class="bad small">{{ st.agent_last.error }}</p>
+      {% else %}<p class="note">последний: <code>{{ st.agent_last.document }}</code>, {{ st.agent_last.total_ms|ms }}</p>{% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<h2>Онтология предметной области</h2>
+<p class="note">Раздел «Предметная область автоматического реферирования документов» загружается в базу знаний при
+  первом подключении запросом <code>create_elements_by_scs</code> — файлы ostis-системы при этом не меняются.
+  {% if st.ontology %}При этом запуске: {% if st.ontology.loaded_now %}загружено {{ st.ontology.files|length }} файлов
+  за {{ st.ontology.elapsed_ms|ms }}{% else %}уже была в базе знаний{% endif %}.{% endif %}</p>
+<ul class="plain">
+  {% for name in files %}<li><a href="/kb/{{ name }}" target="_blank"><code>kb/section_subject_domain_of_summarization/{{ name }}</code></a></li>{% endfor %}
+</ul>
+
+<h2>Как устроено</h2>
+<ol class="prose steps">
+  <li>Документ — узел <code>doc_&lt;идентификатор&gt;</code>, принадлежащий классам <code>concept_text_document</code>,
+    <code>concept_test_collection_document</code> и классу предметной области; текст — sc-ссылка, связанная
+    отношением <code>nrel_document_text</code> и принадлежащая языку <code>lang_ru</code> или <code>lang_de</code>.</li>
+  <li>Интерфейс создаёт действие классов <code>question</code> и <code>action_build_summary</code> с аргументами
+    <code>rrel_1</code> — документ и <code>rrel_2</code> — число предложений — и добавляет его в
+    <code>question_initiated</code>.</li>
+  <li>sc-агент (Python, py-sc-kpm) читает из базы знаний текст документа и тексты коллекции того же языка, вычисляет
+    веса и записывает реферат: узел <code>concept_summary</code>, связанный с документом отношением
+    <code>nrel_summary</code>, с разделами <code>rrel_classic_summary</code> и <code>rrel_keyword_summary</code>.</li>
+  <li>Агент связывает реферат с действием отношением <code>nrel_answer</code> и завершает действие
+    (<code>question_finished_successfully</code>); интерфейс читает реферат из базы знаний.</li>
+  <li>Повторный запрос того же размера читается из базы знаний без вызова агента.</li>
+</ol>
+
+<h2>Запуск ostis-системы</h2>
+<div class="prose">
+  <p>Используется ostis-система NIKA в контейнерах Docker (sc-machine 0.8.0):</p>
+  <pre>cd C:\Users\Ruslan\source\nika
+docker compose up -d --no-build</pre>
+  <p>После того как контейнер <code>nika-problem-solver</code> станет <i>healthy</i>, нажмите «Подключиться заново».
+    База знаний NIKA пересобирается при каждом запуске, поэтому онтология и документы загружаются снова — это
+    делается автоматически.</p>
+</div>
+
+{% if st.events %}
+<h2>Журнал</h2>
+<table class="grid narrow-table">
+  <tbody>{% for time, message in st.events %}<tr><td class="muted small">{{ time }}</td><td class="small">{{ message }}</td></tr>{% endfor %}</tbody>
+</table>
+{% endif %}
+{% endblock %}

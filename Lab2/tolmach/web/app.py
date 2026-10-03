@@ -11,7 +11,7 @@ from __future__ import annotations
 import html
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Annotated, Any
 
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
@@ -29,7 +29,7 @@ from .. import (
     APP_NAME, VARIANT, VERSION, config, corpus, evaluation, experiments, export,
     pafnuty, quiz as quiz_module,
 )
-from ..chess import START_FEN
+from ..chess import START_FEN, Position
 from ..methods import METHOD_CODES, METHOD_REGISTRY, describe
 from ..models import Report, Verdict
 from ..recognizer import Recognizer
@@ -46,6 +46,39 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(title=f"«{APP_NAME}» — распознавание языка текста", lifespan=lifespan)
 templates = Jinja2Templates(directory=str(config.TEMPLATES_DIR))
+
+
+def static_url(name: str) -> str:
+    """Адрес статического файла с его версией: /static/chess.js?v=….
+
+    Без версии браузер держал старые chess.js и style.css в кэше и отдавал
+    их новой странице: страница вызывала функции доски, которых в старом
+    скрипте не было, и партия замирала после первого же хода. Версия — время
+    изменения файла, так что после любой правки адрес меняется сам.
+    """
+    path = config.STATIC_DIR / name
+    try:
+        version = f"{path.stat().st_mtime_ns:x}"
+    except OSError:
+        return f"/static/{name}"
+    return f"/static/{name}?v={version}"
+
+
+templates.env.globals["static_url"] = static_url
+
+
+class RevalidatedStaticFiles(StaticFiles):
+    """Статика, которую браузер перепроверяет при каждом обращении.
+
+    Сервер отдаёт ETag, поэтому неизменившийся файл занимает ответ 304 без
+    тела; зато правка скрипта видна сразу, а не через сутки эвристического
+    кэширования.
+    """
+
+    def file_response(self, *args, **kwargs):
+        response = super().file_response(*args, **kwargs)
+        response.headers["Cache-Control"] = "no-cache"
+        return response
 
 
 class State:
@@ -174,7 +207,7 @@ def base_context(request: Request, active: str) -> dict[str, Any]:
 
 
 if config.STATIC_DIR.exists():
-    app.mount("/static", StaticFiles(directory=str(config.STATIC_DIR)), name="static")
+    app.mount("/static", RevalidatedStaticFiles(directory=str(config.STATIC_DIR)), name="static")
 
 
 # --- главная страница -------------------------------------------------------
@@ -401,6 +434,9 @@ def export_to_disk(fmt: str) -> Response:
 SQUARE = r"^[a-h][1-8]$"
 PROMOTION = r"^[qrbn]?$"
 
+#: недавние реплики паука, которые браузер присылает, чтобы тот не повторялся
+Said = Annotated[list[Annotated[str, Field(max_length=200)]], Field(max_length=12)]
+
 
 class MoveRequest(BaseModel):
     """Ход игрока в партии."""
@@ -411,6 +447,17 @@ class MoveRequest(BaseModel):
     promotion: str = Field(default="", pattern=PROMOTION)
     #: None — викторина ещё не пройдена, ход выполнять рано
     quiz_passed: bool | None = None
+    #: False — только ход игрока: ответ паука запрашивается отдельно
+    #: (/api/chess/reply), и доска показывает ход игрока, не дожидаясь перебора
+    reply: bool = True
+    said: Said = []
+
+
+class ReplyRequest(BaseModel):
+    """Позиция, в которой ходит Пафнутий."""
+
+    fen: str = Field(min_length=10, max_length=120)
+    said: Said = []
 
 
 class PuzzleRequest(BaseModel):
@@ -421,6 +468,7 @@ class PuzzleRequest(BaseModel):
     to: str = Field(pattern=SQUARE)
     promotion: str = Field(default="", pattern=PROMOTION)
     attempts: int = Field(default=0, ge=0)
+    said: Said = []
 
 
 class QuizRequest(BaseModel):
@@ -428,6 +476,7 @@ class QuizRequest(BaseModel):
 
     word: str = Field(min_length=1, max_length=40)
     answer: str = Field(min_length=1, max_length=8)
+    said: Said = []
 
 
 def _companion_guard() -> Response | None:
@@ -444,7 +493,12 @@ def chess_page(request: Request) -> Response:
     if not config.COMPANION_ENABLED:
         context["message"] = "Игровая надстройка выключена (TOLMACH_COMPANION=0)."
         return templates.TemplateResponse(request, "message.html", context, status_code=404)
-    context.update({"start_fen": START_FEN, "depth": config.CHESS_DEPTH})
+    context.update({
+        "start_fen": START_FEN,
+        "start_legal": list(game.legal_moves(Position.from_fen(START_FEN))),
+        "start_lines": list(pafnuty.LINES["chess_start"]),
+        "depth": config.CHESS_DEPTH,
+    })
     return templates.TemplateResponse(request, "chess.html", context)
 
 
@@ -465,25 +519,15 @@ def api_puzzle_try(payload: PuzzleRequest) -> Response:
         return refusal
     try:
         result = game.try_puzzle(
-            payload.index, payload.frm, payload.to, payload.promotion, payload.attempts
+            payload.index, payload.frm, payload.to, payload.promotion, payload.attempts,
+            avoid=tuple(payload.said),
         )
     except (ValueError, IndexError) as problem:
         return JSONResponse({"error": str(problem)}, status_code=400)
     return JSONResponse(result)
 
 
-@app.post("/api/chess/move")
-def api_chess_move(payload: MoveRequest) -> Response:
-    """Ход игрока и ответ Пафнутия."""
-    refusal = _companion_guard()
-    if refusal:
-        return refusal
-    try:
-        outcome = game.play(
-            payload.fen, payload.frm, payload.to, payload.promotion, payload.quiz_passed
-        )
-    except (ValueError, IndexError) as problem:
-        return JSONResponse({"error": str(problem)}, status_code=400)
+def _outcome_json(outcome: game.MoveOutcome) -> JSONResponse:
     return JSONResponse(
         {
             "ok": outcome.ok,
@@ -492,10 +536,42 @@ def api_chess_move(payload: MoveRequest) -> Response:
             "kind": outcome.kind,
             "reply": outcome.reply,
             "reply_line": outcome.reply_line,
+            "line": outcome.line,
             "status": outcome.status,
             "highlight": list(outcome.highlight),
+            "legal": list(outcome.legal),
         }
     )
+
+
+@app.post("/api/chess/move")
+def api_chess_move(payload: MoveRequest) -> Response:
+    """Ход игрока; при reply=True — сразу и ответ Пафнутия."""
+    refusal = _companion_guard()
+    if refusal:
+        return refusal
+    step = game.play if payload.reply else game.player_move
+    try:
+        outcome = step(
+            payload.fen, payload.frm, payload.to, payload.promotion, payload.quiz_passed,
+            avoid=tuple(payload.said),
+        )
+    except (ValueError, IndexError) as problem:
+        return JSONResponse({"error": str(problem)}, status_code=400)
+    return _outcome_json(outcome)
+
+
+@app.post("/api/chess/reply")
+def api_chess_reply(payload: ReplyRequest) -> Response:
+    """Ответный ход Пафнутия — после того как ход игрока уже показан."""
+    refusal = _companion_guard()
+    if refusal:
+        return refusal
+    try:
+        outcome = game.spider_move(payload.fen, avoid=tuple(payload.said))
+    except (ValueError, IndexError) as problem:
+        return JSONResponse({"error": str(problem)}, status_code=400)
+    return _outcome_json(outcome)
 
 
 @app.get("/api/quiz/word")
@@ -521,7 +597,9 @@ def api_quiz_answer(payload: QuizRequest) -> Response:
         return JSONResponse({"error": "банк слов пуст"}, status_code=503)
     state.ensure_trained()
     recognizer = state.recognizer if not state.error else None
-    return JSONResponse(game.quiz_answer(bank, payload.word, payload.answer, recognizer))
+    return JSONResponse(
+        game.quiz_answer(bank, payload.word, payload.answer, recognizer, avoid=tuple(payload.said))
+    )
 
 
 @app.get("/help", response_class=HTMLResponse)

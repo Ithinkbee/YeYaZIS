@@ -80,6 +80,10 @@ def main() -> None:
             print(f"Эталон: запросов {loaded['queries']}, оценок {loaded['judgements']}")
             if loaded.get("missing"):
                 print("  не найдены документы:", ", ".join(sorted(loaded["missing"])[:10]))
+        else:
+            restored = qrels.restore_missing(conn)
+            if restored["judgements"]:
+                print(f"Эталон: восстановлено оценок из CSV: {restored['judgements']}")
 
         summary = db.stats(conn)
         print(

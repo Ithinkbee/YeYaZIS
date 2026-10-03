@@ -1,0 +1,346 @@
+// Отношения предметной области автоматического реферирования документов.
+// Числовые значения (веса, номера, объёмы) хранятся в sc-ссылках с числовым
+// содержимым, поэтому вторым доменом числовых отношений служит понятие number.
+
+nrel_document_text
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [текст документа*]
+    (* <- lang_ru;; *);
+    [document text*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Связывает текстовый документ с sc-ссылкой, содержащей его текст. Ссылка
+     принадлежит языку текста: lang_ru или lang_de.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_text_document;;
+
+nrel_source_address
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [адрес источника*]
+    (* <- lang_ru;; *);
+    [source address*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Связывает документ с адресом, по которому доступен его исходный текст.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_text_document;;
+
+nrel_summary
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [реферат*]
+    (* <- lang_ru;; *);
+    [summary*]
+    (* <- lang_en;; *);
+=> nrel_first_domain: concept_text_document;
+=> nrel_second_domain: concept_summary;
+<- rrel_key_sc_element:
+    ...
+    (*
+    => nrel_main_idtf:
+        [Опр. (реферат*)]
+        (* <- lang_ru;; *);;
+    <- definition;;
+    <= nrel_sc_text_translation:
+        ...
+        (*
+        -> rrel_example:
+            [Реферат* — бинарное ориентированное отношение, связывающее текстовый
+             документ с построенным для него рефератом.]
+            (* <- lang_ru;; *);;
+        *);;
+    <= nrel_using_constants: {
+        concept_text_document;
+        concept_summary
+    };;
+    *);;
+
+rrel_classic_summary
+<- sc_node_role_relation;
+<- relation;
+=> nrel_main_idtf:
+    [классический реферат']
+    (* <- lang_ru;; *);
+    [classic summary']
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Роль раздела реферата, являющегося классическим рефератом.]
+    (* <- lang_ru;; *);;
+
+rrel_keyword_summary
+<- sc_node_role_relation;
+<- relation;
+=> nrel_main_idtf:
+    [реферат в виде списка ключевых слов']
+    (* <- lang_ru;; *);
+    [keyword summary']
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Роль раздела реферата, являющегося рефератом в виде списка ключевых слов.]
+    (* <- lang_ru;; *);;
+
+nrel_sentence_number
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [номер предложения в документе*]
+    (* <- lang_ru;; *);
+    [sentence number*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Порядковый номер предложения в документе, начиная с единицы.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_sentence;
+=> nrel_second_domain: number;;
+
+nrel_sentence_score
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [оценка предложения по терминам*]
+    (* <- lang_ru;; *);
+    [sentence term score*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Score(S) — сумма произведений частоты термина в предложении tf(t, S) на вес
+     термина в документе w(t, D) по всем терминам предложения.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_sentence;
+=> nrel_second_domain: number;;
+
+nrel_position_in_document
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [положение предложения в документе*]
+    (* <- lang_ru;; *);
+    [position in document*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Posd(S) = 1 − BD(S) / |D|, где |D| — число символов в документе, BD(S) —
+     число символов до предложения S.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_sentence;
+=> nrel_second_domain: number;;
+
+nrel_position_in_paragraph
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [положение предложения в абзаце*]
+    (* <- lang_ru;; *);
+    [position in paragraph*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Posp(S) = 1 − BP(S) / |P|, где |P| — число символов в абзаце, BP(S) — число
+     символов до предложения S в абзаце.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_sentence;
+=> nrel_second_domain: number;;
+
+nrel_sentence_weight
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [вес предложения*]
+    (* <- lang_ru;; *);
+    [sentence weight*]
+    (* <- lang_en;; *);
+=> nrel_first_domain: concept_sentence;
+=> nrel_second_domain: number;
+<- rrel_key_sc_element:
+    ...
+    (*
+    => nrel_main_idtf:
+        [Опр. (вес предложения*)]
+        (* <- lang_ru;; *);;
+    <- definition;;
+    <= nrel_sc_text_translation:
+        ...
+        (*
+        -> rrel_example:
+            [Вес предложения* — бинарное ориентированное отношение, связывающее
+             предложение документа с числом Score(S) · Posd(S) · Posp(S). В классический
+             реферат выбираются предложения с наибольшим весом.]
+            (* <- lang_ru;; *);;
+        *);;
+    <= nrel_using_constants: {
+        nrel_sentence_score;
+        nrel_position_in_document;
+        nrel_position_in_paragraph
+    };;
+    *);;
+
+nrel_sentence_rank
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [место предложения по весу*]
+    (* <- lang_ru;; *);
+    [sentence rank*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Место предложения среди всех предложений документа, упорядоченных по убыванию
+     веса; единица — самое весомое предложение.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_sentence;
+=> nrel_second_domain: number;;
+
+nrel_term_significance
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [значимость ключевого термина*]
+    (* <- lang_ru;; *);
+    [key term significance*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Связывает sc-дугу принадлежности ключевого термина реферату в виде списка
+     ключевых слов с числом tf · log(|DB| / df): значимость термина зависит от
+     документа, поэтому она приписывается дуге, а не самому термину.]
+    (* <- lang_ru;; *);
+=> nrel_second_domain: number;;
+
+nrel_term_frequency
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [частота ключевого термина в документе*]
+    (* <- lang_ru;; *);
+    [key term frequency*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Связывает sc-дугу принадлежности ключевого термина реферату с числом его
+     вхождений в документ.]
+    (* <- lang_ru;; *);
+=> nrel_second_domain: number;;
+
+nrel_subordinate_key_term
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [подчинённый ключевой термин*]
+    (* <- lang_ru;; *);
+    [subordinate key term*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Связывает ключевой термин со словосочетанием, которое его содержит: лазер —
+     синий лазер, база — база данных, Datenbank — Datenbanksystem.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_key_term;
+=> nrel_second_domain: concept_key_phrase;;
+
+nrel_summary_size
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [размер реферата в предложениях*]
+    (* <- lang_ru;; *);
+    [summary size*]
+    (* <- lang_en;; *);
+=> nrel_first_domain: concept_summary;
+=> nrel_second_domain: number;;
+
+nrel_document_length
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [объём документа в символах*]
+    (* <- lang_ru;; *);
+    [document length*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [|D| — число символов в документе.]
+    (* <- lang_ru;; *);
+=> nrel_second_domain: number;;
+
+nrel_collection_size
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [число документов в базе*]
+    (* <- lang_ru;; *);
+    [collection size*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [|DB| — число документов, по которым вычислялась документная частота терминов.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_summary;
+=> nrel_second_domain: number;;
+
+nrel_compression_ratio
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [коэффициент сжатия*]
+    (* <- lang_ru;; *);
+    [compression ratio*]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Отношение объёма классического реферата к объёму документа в символах.]
+    (* <- lang_ru;; *);
+=> nrel_first_domain: concept_summary;
+=> nrel_second_domain: number;;
+
+nrel_summarization_method
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [метод реферирования*]
+    (* <- lang_ru;; *);
+    [summarization method*]
+    (* <- lang_en;; *);
+=> nrel_first_domain: concept_summary;
+=> nrel_second_domain: concept_summarization_method;;
+
+nrel_processing_time
+<- sc_node_norole_relation;
+<- relation;
+<- binary_relation;
+<- oriented_relation;
+=> nrel_main_idtf:
+    [время построения в миллисекундах*]
+    (* <- lang_ru;; *);
+    [processing time*]
+    (* <- lang_en;; *);
+=> nrel_first_domain: concept_summary;
+=> nrel_second_domain: number;;

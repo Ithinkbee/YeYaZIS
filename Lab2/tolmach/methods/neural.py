@@ -63,7 +63,7 @@ def fragments(text: str, size: int, step: int) -> list[str]:
 def multiscale_fragments(
     text: str,
     sizes: tuple[int, ...] = config.NEURAL_FRAGMENT_SIZES,
-    overlap: float = config.NEURAL_FRAGMENT_OVERLAP,
+    step_share: float = config.NEURAL_FRAGMENT_STEP,
 ) -> list[str]:
     """Собирает обучающие примеры нескольких длин сразу.
 
@@ -74,7 +74,7 @@ def multiscale_fragments(
     """
     pieces: list[str] = []
     for size in sizes:
-        step = max(1, int(size * overlap))
+        step = max(1, int(size * step_share))
         pieces.extend(fragments(text, size, step))
     return pieces
 

@@ -511,10 +511,13 @@ body.has-companion .top { padding-right: calc(clamp(1rem, 5vw, 4rem) + 82px); }
   font-variant-numeric: tabular-nums;
 }
 .blitz-timer.expired { color: var(--danger); }
+.blitz-timer-small { font-size: 1.15rem; }
 .blitz-fragment {
   margin: .8rem 0 0; padding: .8rem 1rem; border-left: 3px solid var(--accent);
   background: var(--surface-2); border-radius: 0 8px 8px 0;
 }
+.blitz-banner .blitz-fragment { margin-top: .5rem; padding: .5rem .8rem; font-size: .9rem; }
+.blitz-next { margin-top: .9rem; }
 
 /* Ломбард и достижения */
 .achievement.lost { opacity: .6; }
@@ -551,25 +554,30 @@ body.has-companion .top { padding-right: calc(clamp(1rem, 5vw, 4rem) + 82px); }
 .spider-note.is-good { color: var(--accent); }
 .spider-note.is-warn { color: var(--warn); }
 
-.spider-scroll { overflow-x: auto; padding-bottom: .6rem; }
+/* Высоту столбцов задаёт сценарий, но поле не бывает ниже 28rem: столбцы
+   растягиваются на всю высоту поля, и щелчок по свободному месту под
+   столбцом кладёт в него поднятые карты. */
+.spider-scroll { overflow-x: auto; padding: .3rem 0 .6rem; }
 .spider-board {
+  --spider-card-h: 84px;
   display: grid; grid-template-columns: repeat(10, minmax(58px, 1fr));
-  gap: .45rem; min-width: 680px;
+  gap: .45rem; min-width: 680px; min-height: 28rem;
 }
 
 .spider-pile {
   position: relative; min-height: 96px; border-radius: 8px;
   background: var(--surface-2); border: 1px dashed transparent;
+  cursor: pointer;
 }
 .spider-pile.is-empty { border-color: var(--line); }
 
 .spider-card {
-  position: absolute; left: 0; right: 0; height: 84px;
+  position: absolute; left: 0; right: 0; height: var(--spider-card-h);
   border: 1px solid var(--line); border-radius: 7px;
   background: var(--surface); color: var(--text);
   box-shadow: 0 1px 2px rgba(35, 36, 31, .12);
-  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-  padding-top: .2rem; cursor: pointer; user-select: none;
+  display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start;
+  padding: .15rem .35rem 0; cursor: pointer; user-select: none;
   transition: transform .08s, box-shadow .08s;
 }
 .spider-card.is-red { color: var(--danger); }
@@ -590,17 +598,29 @@ body.has-companion .top { padding-right: calc(clamp(1rem, 5vw, 4rem) + 82px); }
   transform: translateY(-3px);
 }
 
-.spider-card-rank { font-size: 1rem; font-weight: 700; line-height: 1.1; }
-.spider-card-suit { font-size: 1.05rem; line-height: 1; }
+.spider-card-corner {
+  display: flex; align-items: baseline; gap: .1rem;
+  font-weight: 700; line-height: 1.25; white-space: nowrap;
+}
+.spider-card-rank { font-size: 1rem; }
+.spider-card-pip { font-size: .95rem; }
+.spider-card-suit {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 1.7rem; line-height: 1; padding-bottom: .3rem;
+}
 
 .spider-rules { margin: .4rem 0 0; padding-left: 1.1rem; }
 .spider-rules li { margin-bottom: .35rem; }
 
 @media (max-width: 720px) {
-  .spider-board { grid-template-columns: repeat(10, 52px); min-width: 560px; }
-  .spider-card { height: 74px; }
+  .spider-board {
+    --spider-card-h: 74px;
+    grid-template-columns: repeat(10, 52px); min-width: 560px;
+  }
+  .spider-card { padding: .1rem .2rem 0; }
   .spider-card-rank { font-size: .85rem; }
-  .spider-card-suit { font-size: .9rem; }
+  .spider-card-pip { font-size: .8rem; }
+  .spider-card-suit { font-size: 1.3rem; }
 }
 
 @media print { .spider-scroll, .spider-panel { display: none; } }

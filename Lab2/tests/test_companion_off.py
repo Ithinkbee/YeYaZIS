@@ -43,6 +43,9 @@ with TestClient(app) as client:
         "/api/chess/move",
         json={{"fen": "8/8/8/8/8/8/8/K6k w - - 0 1", "frm": "a1", "to": "a2"}},
     ).status_code
+    out["api_reply"] = client.post(
+        "/api/chess/reply", json={{"fen": "8/8/8/8/8/8/8/K6k b - - 0 1"}}
+    ).status_code
     out["api_answer"] = client.post(
         "/api/quiz/answer", json={{"word": "rabota", "answer": "ru"}}
     ).status_code
@@ -79,7 +82,7 @@ def test_chess_page_is_gone(probe):
 
 
 def test_game_api_refuses(probe):
-    for key in ("api_puzzle", "api_word", "api_move", "api_answer"):
+    for key in ("api_puzzle", "api_word", "api_move", "api_reply", "api_answer"):
         assert probe[key] == 403, key
 
 

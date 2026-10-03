@@ -138,3 +138,96 @@ def test_qrels_load_keeps_numbering_from_csv(tmp_path: Path, monkeypatch):
         assert qrels.ensure_query(conn, "ещё один запрос") == 10
     finally:
         conn.close()
+
+
+@pytest.fixture()
+def reference(tmp_path: Path, monkeypatch) -> Path:
+    """Эталон из двух запросов и коллекция из двух документов на одном узле."""
+    queries_csv = tmp_path / "eval_queries.csv"
+    judgements_csv = tmp_path / "qrels.csv"
+    queries_csv.write_text(
+        "query_id;text;note\n1;локальная сеть;\n2;резервное копирование;\n", encoding="utf-8"
+    )
+    judgements_csv.write_text(
+        "query_id;doc_slug;rel\n1;lan;2\n1;backup;0\n2;backup;1\n", encoding="utf-8"
+    )
+    monkeypatch.setattr(qrels, "EVAL_QUERIES_PATH", queries_csv)
+    monkeypatch.setattr(config, "QRELS_PATH", judgements_csv)
+
+    node = tmp_path / "old" / "NODE-A"
+    node.mkdir(parents=True)
+    (node / "lan.txt").write_text("Локальная сеть и коммутатор", encoding="utf-8")
+    (node / "backup.txt").write_text("Резервное копирование данных", encoding="utf-8")
+    return node
+
+
+def _judgements_by_slug(conn) -> dict[tuple[int, str], int]:
+    return {
+        (row["query_id"], Path(row["path"]).stem): row["rel"]
+        for row in conn.execute(
+            "SELECT q.query_id, q.rel, d.path FROM qrels q JOIN documents d ON d.id = q.doc_id"
+        )
+    }
+
+
+def test_qrels_survive_moved_collection(tmp_path: Path, reference: Path):
+    """Перенос коллекции в другой каталог не должен обнулять метрики.
+
+    После переноса паук заводит документы заново, с новыми id, а старые
+    удаляет вместе с их оценками. Сверка с CSV возвращает оценки новым
+    документам, не трогая оценку, которую пользователь уже поставил сам.
+    """
+    from arachne import crawler, indexer
+
+    conn = db.connect(tmp_path / "test.db")
+    db.init_db(conn)
+    try:
+        crawler.add_source(conn, str(reference), "NODE-A")
+        crawler.crawl(conn)
+        indexer.build_index(conn)
+        qrels.load_from_csv(conn)
+        expected = {(1, "lan"): 2, (1, "backup"): 0, (2, "backup"): 1}
+        assert _judgements_by_slug(conn) == expected
+
+        # коллекцию перенесли: старый путь исчез, добавлен новый источник
+        moved = tmp_path / "new" / "NODE-A"
+        moved.parent.mkdir()
+        reference.rename(moved)
+        crawler.add_source(conn, str(moved), "NODE-A")
+        report = crawler.crawl(conn)
+        assert report.added == 2 and report.removed == 2
+        assert _judgements_by_slug(conn) == {}
+
+        # пользователь успел оценить новый документ сам — это остаётся
+        lan = conn.execute("SELECT id FROM documents WHERE path LIKE '%lan.txt'").fetchone()["id"]
+        qrels.set_judgement(conn, 1, lan, 1)
+
+        restored = qrels.restore_missing(conn)
+        assert restored["judgements"] == 2
+        assert _judgements_by_slug(conn) == {**expected, (1, "lan"): 1}
+
+        # повторная сверка ничего не делает, а снятая вручную оценка не воскресает
+        backup = conn.execute("SELECT id FROM documents WHERE path LIKE '%backup.txt'").fetchone()["id"]
+        qrels.remove_judgement(conn, 2, backup)
+        assert qrels.restore_missing(conn)["judgements"] == 0
+        assert (2, "backup") not in _judgements_by_slug(conn)
+    finally:
+        conn.close()
+
+
+def test_restore_loads_whole_reference_into_new_base(tmp_path: Path, reference: Path):
+    """В новой базе эталонных запросов нет вовсе — эталон загружается целиком."""
+    from arachne import crawler
+
+    conn = db.connect(tmp_path / "test.db")
+    db.init_db(conn)
+    try:
+        crawler.add_source(conn, str(reference), "NODE-A")
+        crawler.crawl(conn)
+        restored = qrels.restore_missing(conn)
+        assert restored == {"queries": 2, "judgements": 3}
+        assert [row["text"] for row in qrels.list_queries(conn)] == [
+            "локальная сеть", "резервное копирование"
+        ]
+    finally:
+        conn.close()

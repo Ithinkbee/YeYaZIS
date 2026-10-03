@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Свой документ — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Свой документ</h1>
+<p class="lead">Вставьте текст или загрузите файл — система построит реферат так же, как для документов коллекции.
+  Документная частота терминов df(t) берётся по документам коллекции того же языка, а сам документ добавляется к
+  ним: |DB| увеличивается на единицу.</p>
+
+{% if error %}<div class="banner error">{{ error }}</div>{% endif %}
+
+<form class="text-form" method="post" action="/text" enctype="multipart/form-data">
+  <label for="text">Текст документа</label>
+  <textarea id="text" name="text" rows="14" placeholder="Абзацы разделяйте пустой строкой. Заголовок раздела можно отметить знаком «# » в начале строки.">{{ form.text or '' }}</textarea>
+  <div class="row">
+    <label class="file">или файл: <input type="file" name="upload" accept=".txt,.md,.html,.htm,.docx,.pdf"></label>
+    <span class="note">TXT, MD, HTML, DOCX, PDF — до {{ (config.MAX_UPLOAD_SIZE / 1048576)|int }} МиБ</span>
+  </div>
+  <div class="row">
+    <label>Заголовок <input type="text" name="title" value="{{ form.title or '' }}" placeholder="необязательно"></label>
+    <label>Язык
+      <select name="language">
+        <option value="auto">определить по алфавиту</option>
+        {% for code in config.LANGUAGE_CODES %}
+        <option value="{{ code }}" {% if form.language == code %}selected{% endif %}>{{ language_name(code) }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Предложений <input type="number" name="n" min="1" max="50" value="{{ form.n or config.SUMMARY_SENTENCES }}"></label>
+    <button type="submit">Построить реферат</button>
+  </div>
+</form>
+
+<p class="note">Язык определяется по алфавиту: у русского и немецкого разные системы письма, и этого достаточно
+  (подробно этот вопрос разобран во второй лабораторной работе). Слова чужого алфавита в веса не идут — как и
+  требует методичка для слов из латинских букв в русском тексте.</p>
+
+{% if user_docs %}
+<h2>Документы этого сеанса</h2>
+<ul class="plain">
+  {% for doc in user_docs %}
+  <li>{{ m.lang_tag(doc.language) }} <a href="/mine/{{ doc.uid }}">{{ doc.title }}</a>
+    <span class="muted small">— {{ doc.text|length|num }} знаков{% if doc.filename %}, файл {{ doc.filename }}{% endif %}, {{ doc.created }}</span></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

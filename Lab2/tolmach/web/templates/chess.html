@@ -19,15 +19,11 @@
       <button type="button" id="new-game">Новая партия</button>
       <span id="status" class="chess-status">Ваш ход.</span>
     </div>
+    <p class="note">{{ companion_name }} перебирает ходы на {{ depth }} полухода вперёд
+      и комментирует партию из своего угла.</p>
   </div>
 
   <aside class="chess-side">
-    <div class="card">
-      <h3>{{ companion_name }} говорит</h3>
-      <p id="spider-line" class="spider-says">Доска расставлена. Не тяни.</p>
-      <p class="note">Глубина перебора: {{ depth }} полухода.</p>
-    </div>
-
     <div id="quiz" class="card quiz" hidden></div>
 
     <div class="card">
@@ -64,26 +60,41 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="/static/chess.js"></script>
+<script src="{{ static_url('chess.js') }}"></script>
 <script>
 (function () {
+  /* Ход делится на две половины. Ход игрока доска рисует сразу по списку
+     законных ходов, сервер подтверждает его за доли миллисекунды, и лишь
+     затем отдельным запросом приходит ответ Пафнутия — перебор идёт уже
+     на глазах у игрока, а не вместо показа его хода. */
   var START = {{ start_fen | tojson }};
+  var START_LEGAL = {{ start_legal | tojson }};
+  var START_LINES = {{ start_lines | tojson }};
+  var FINISHED = ['checkmate', 'stalemate', 'draw'];
+
   var board = new Tolmach.Board(document.getElementById('board'), { interactive: true, onMove: onMove });
   var quizHost = document.getElementById('quiz');
   var statusBox = document.getElementById('status');
-  var spiderLine = document.getElementById('spider-line');
   var log = document.getElementById('moves');
   var fen = START;
+  var legal = START_LEGAL;
+  var highlight = [];
   var over = false;
 
-  function reset() {
+  function reset(greet) {
     fen = START;
+    legal = START_LEGAL;
+    highlight = [];
     over = false;
     log.innerHTML = '';
     quizHost.hidden = true;
     statusBox.textContent = 'Ваш ход.';
-    spiderLine.textContent = 'Доска расставлена. Не тяни.';
-    board.setPosition(fen, []);
+    board.setPosition(fen, [], legal);
+    if (greet) {
+      var fresh = START_LINES.filter(function (text) { return Tolmach.said.indexOf(text) < 0; });
+      var pool = fresh.length ? fresh : START_LINES;
+      Tolmach.say(pool[Math.floor(Math.random() * pool.length)]);
+    }
   }
 
   function note(text) {
@@ -94,67 +105,95 @@
     log.scrollTop = log.scrollHeight;
   }
 
-  function applyOutcome(result) {
-    fen = result.fen;
-    board.setPosition(fen, result.highlight || []);
-    if (result.reply_line) { spiderLine.textContent = result.reply_line; }
+  function move(uci) { return uci.slice(0, 2) + '–' + uci.slice(2, 4); }
 
-    var parts = [];
-    if (result.kind === 'penalty') { parts.push(result.message); }
-    else if (result.message) { parts.push(result.message); }
-    if (result.reply) { parts.push('Ответ: ' + result.reply); }
-    note(parts.join(' '));
-
-    if (result.status === 'checkmate' || result.status === 'stalemate' || result.status === 'draw') {
-      over = true;
-      statusBox.textContent = result.message || 'Партия окончена.';
-    } else {
-      statusBox.textContent = result.status === 'check' ? 'Вам шах.' : 'Ваш ход.';
-    }
+  function finish(result) {
+    over = true;
+    statusBox.textContent = result.message || 'Партия окончена.';
   }
 
-  function send(from, to, passed, done) {
-    Tolmach.post('/api/chess/move', { fen: fen, frm: from, to: to, quiz_passed: passed })
-      .then(function (result) {
-        if (result.error) { statusBox.textContent = result.error; done(); return; }
-        if (!result.ok && result.kind === 'illegal') {
-          statusBox.textContent = result.message;
-          done();
-          return;
-        }
-        applyOutcome(result);
-        done();
-      })
-      .catch(function () { statusBox.textContent = 'Сервер не ответил.'; done(); });
+  /* Позиция до хода: при ошибке сервера доска возвращается к ней. */
+  function restore(text) {
+    board.setPosition(fen, highlight, legal);
+    if (text) { statusBox.textContent = text; }
   }
 
   function onMove(from, to, done) {
     if (over) { done(); return; }
+    if (!board.isLegal(from, to)) {
+      statusBox.textContent = 'Так эта фигура не ходит.';
+      done();
+      return;
+    }
+    if (board.isCapture(from, to)) {
+      askAndPlay(from, to, done);
+      return;
+    }
+    board.preview(from, to);           /* ход виден сразу */
+    playerMove(from, to, null, done);
+  }
 
-    /* Сначала спрашиваем сервер, не взятие ли это: правила живут там. */
-    Tolmach.post('/api/chess/move', { fen: fen, frm: from, to: to, quiz_passed: null })
-      .then(function (probe) {
-        if (probe.error) { statusBox.textContent = probe.error; done(); return; }
+  function askAndPlay(from, to, done) {
+    statusBox.textContent = 'Взятие: определите язык слова.';
+    Tolmach.askQuiz(quizHost).then(function (verdict) {
+      quizHost.hidden = true;
+      playerMove(from, to, verdict ? verdict.correct : true, done);
+    });
+  }
 
-        if (!probe.ok && probe.kind === 'quiz') {
-          statusBox.textContent = 'Взятие: определите язык слова.';
-          Tolmach.askQuiz(quizHost).then(function (verdict) {
-            if (!verdict) { send(from, to, true, done); return; }
-            quizHost.hidden = true;
-            send(from, to, verdict.correct, done);
-          });
+  function playerMove(from, to, passed, done) {
+    Tolmach.post('/api/chess/move', {
+      fen: fen, frm: from, to: to, quiz_passed: passed, reply: false, said: Tolmach.said
+    }).then(function (result) {
+      if (result.error) { restore(result.error); done(); return; }
+      if (!result.ok && result.kind === 'quiz') { restore(); askAndPlay(from, to, done); return; }
+      if (!result.ok) { restore(result.message); Tolmach.say(result.line); done(); return; }
+
+      fen = result.fen;
+      highlight = result.highlight || [];
+      legal = [];
+      board.setPosition(fen, highlight, legal);
+      Tolmach.say(result.line);
+      note('Вы: ' + move(from + to) + (result.message ? '. ' + result.message : ''));
+
+      if (FINISHED.indexOf(result.status) >= 0) { finish(result); done(); return; }
+      statusBox.textContent = (result.status === 'check' ? 'Шах Пафнутию. ' : '') +
+        'Пафнутий думает…';
+      spiderMove(done);
+    }).catch(function () { restore('Сервер не ответил.'); done(); });
+  }
+
+  function spiderMove(done) {
+    Tolmach.post('/api/chess/reply', { fen: fen, said: Tolmach.said })
+      .then(function (result) {
+        if (result.error || !result.ok) {
+          statusBox.textContent = result.error || result.message;
+          done();
           return;
         }
+        fen = result.fen;
+        highlight = result.highlight || [];
+        legal = result.legal || [];
+        board.setPosition(fen, highlight, legal);
+        Tolmach.say(result.reply_line);
+        if (result.reply) {
+          note('Пафнутий: ' + move(result.reply) + (result.message ? '. ' + result.message : ''));
+        }
 
-        if (!probe.ok) { statusBox.textContent = probe.message; done(); return; }
-        applyOutcome(probe);
+        if (FINISHED.indexOf(result.status) >= 0) { finish(result); }
+        else { statusBox.textContent = result.status === 'check' ? 'Вам шах.' : 'Ваш ход.'; }
         done();
       })
       .catch(function () { statusBox.textContent = 'Сервер не ответил.'; done(); });
   }
 
-  document.getElementById('new-game').addEventListener('click', reset);
-  reset();
+  document.getElementById('new-game').addEventListener('click', function () { reset(true); });
+  reset(false);
+  /* приветствие уже стоит в облачке паука — показываем его, не дожидаясь наведения */
+  setTimeout(function () {
+    var bubble = document.getElementById('companion-bubble');
+    if (bubble && bubble.textContent.trim()) { Tolmach.say(bubble.textContent.trim()); }
+  }, 400);
 })();
 </script>
 {% endblock %}
