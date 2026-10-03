@@ -1,0 +1,54 @@
+// Действие построения реферата и абстрактный sc-агент, который его выполняет.
+
+action_build_summary
+<- sc_node_class;
+=> nrel_main_idtf:
+    [действие. построить реферат документа]
+    (* <- lang_ru;; *);
+    [action. build document summary]
+    (* <- lang_en;; *);
+<- actions_class;
+<- atomic_action_class;
+<= nrel_inclusion: information_action;
+<- rrel_key_sc_element:
+    ...
+    (*
+    <- explanation;;
+    <= nrel_sc_text_translation:
+        ...
+        (*
+        -> rrel_example:
+            [Действие построения реферата документа. Первый аргумент (rrel_1) — текстовый
+             документ, второй (rrel_2, необязательный) — sc-ссылка с числом предложений
+             классического реферата, по умолчанию 10. Результат — реферат*, связанный с
+             документом и включённый в структуру ответа (nrel_answer).]
+            (* <- lang_ru;; *);;
+        *);;
+    *);;
+
+nrel_sc_agent_action_class
+<- sc_node_norole_relation;
+=> nrel_main_idtf:
+    [класс действий sc-агента*]
+    (* <- lang_ru;; *);
+    [sc-agent action class*]
+    (* <- lang_en;; *);;
+
+agent_build_summary
+<- abstract_sc_agent;
+=> nrel_main_idtf:
+    [абстрактный sc-агент построения реферата]
+    (* <- lang_ru;; *);
+    [abstract sc-agent of document summary building]
+    (* <- lang_en;; *);
+=> nrel_primary_initiation_condition:
+    (sc_event_add_output_arc => question_initiated);
+=> nrel_sc_agent_action_class:
+    action_build_summary;
+=> nrel_note:
+    [Агент реализован на языке Python (библиотека py-sc-kpm). Получив инициированное
+     действие класса action_build_summary, агент читает из базы знаний текст документа и
+     тексты документов тестовой коллекции того же языка, вычисляет веса терминов и
+     предложений методом sentence extraction, строит классический реферат и реферат в
+     виде списка ключевых слов и записывает их в базу знаний.]
+    (* <- lang_ru;; *);;

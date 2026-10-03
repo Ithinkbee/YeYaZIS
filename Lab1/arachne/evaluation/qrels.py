@@ -10,9 +10,12 @@ import csv
 import sqlite3
 from pathlib import Path
 
-from .. import config
+from .. import config, db
 
 EVAL_QUERIES_PATH = config.DATA_DIR / "eval_queries.csv"
+
+#: до какого id документа разметка уже сверена с CSV (см. restore_missing)
+RESTORED_UPTO_KEY = "qrels:restored_upto"
 
 
 def slug_to_id(conn: sqlite3.Connection) -> dict[str, int]:
@@ -169,7 +172,74 @@ def load_from_csv(conn: sqlite3.Connection) -> dict:
             set_judgement(conn, query_id, doc_id, int(row["rel"]))
             judgements += 1
 
+    _mark_restored(conn)
     return {"queries": len(numbers), "judgements": judgements, "missing": missing}
+
+
+def _newest_document(conn: sqlite3.Connection) -> int:
+    return int(conn.execute("SELECT COALESCE(MAX(id), 0) FROM documents").fetchone()[0])
+
+
+def _mark_restored(conn: sqlite3.Connection) -> None:
+    db.set_setting(conn, RESTORED_UPTO_KEY, str(_newest_document(conn)))
+
+
+def restore_missing(conn: sqlite3.Connection) -> dict:
+    """Возвращает в базу оценки из CSV для документов, появившихся после прошлой сверки.
+
+    Оценка в базе ссылается на id документа и удаляется вместе с ним. Когда
+    документ исчезает и появляется снова — коллекцию перенесли в другой
+    каталог, базу очистили и обошли сеть заново, — он получает новый id, и
+    без этой сверки его оценки пропадали, а метрики обнулялись.
+
+    Сверяются только документы с id больше запомненного: AUTOINCREMENT не
+    выдаёт номер повторно, поэтому это ровно документы, заведённые после
+    прошлой сверки. Оценку, снятую вручную у старого документа, сверка не
+    вернёт, а оценку, уже стоящую в базе, не перезапишет. Документы
+    сопоставляются по имени файла, запросы — по тексту.
+
+    Если в базе нет ни одного эталонного запроса (новая база), эталон
+    загружается из CSV целиком.
+    """
+    empty = {"queries": 0, "judgements": 0}
+    if not EVAL_QUERIES_PATH.exists() or not config.QRELS_PATH.exists():
+        return empty
+
+    newest = _newest_document(conn)
+    checked = int(db.get_setting(conn, RESTORED_UPTO_KEY, "0") or 0)
+    if newest <= checked:
+        return empty
+
+    if conn.execute("SELECT 1 FROM eval_queries LIMIT 1").fetchone() is None:
+        loaded = load_from_csv(conn)
+        return {"queries": loaded["queries"], "judgements": loaded["judgements"]}
+
+    with EVAL_QUERIES_PATH.open(encoding="utf-8", newline="") as handle:
+        csv_texts = {
+            row["query_id"]: row["text"].strip()
+            for row in csv.DictReader(handle, delimiter=";")
+        }
+    by_text = {row["text"]: row["id"] for row in conn.execute("SELECT id, text FROM eval_queries")}
+    fresh = {
+        Path(row["path"]).stem: row["id"]
+        for row in conn.execute("SELECT id, path FROM documents WHERE id > ?", (checked,))
+    }
+
+    restored = 0
+    with config.QRELS_PATH.open(encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle, delimiter=";"):
+            query_id = by_text.get(csv_texts.get(row["query_id"], ""))
+            doc_id = fresh.get(row["doc_slug"])
+            if query_id is None or doc_id is None:
+                continue
+            cursor = conn.execute(
+                "INSERT OR IGNORE INTO qrels(query_id, doc_id, rel) VALUES(?,?,?)",
+                (query_id, doc_id, int(row["rel"])),
+            )
+            restored += cursor.rowcount
+    conn.commit()
+    _mark_restored(conn)
+    return {"queries": 0, "judgements": restored}
 
 
 def save_to_csv(conn: sqlite3.Connection) -> dict:

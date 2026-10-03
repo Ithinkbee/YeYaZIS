@@ -1,0 +1,66 @@
+section_subject_domain_of_summarization
+=> nrel_main_idtf:
+    [Раздел. Предметная область автоматического реферирования документов]
+    (* <- lang_ru;; *);
+    [Section. Subject domain of automatic document summarization]
+    (* <- lang_en;; *);
+<- atomic_section;;
+
+section_subject_domain_of_summarization = [*
+    subject_domain_of_summarization
+    <- sc_node_struct;
+    => nrel_main_idtf:
+        [Предметная область автоматического реферирования документов]
+        (* <- lang_ru;; *);
+        [Subject domain of automatic document summarization]
+        (* <- lang_en;; *);
+    <- subject_domain;
+    -> rrel_maximum_studied_object_class:
+        concept_text_document;
+        concept_summary;
+    -> rrel_not_maximum_studied_object_class:
+        concept_test_collection_document;
+        concept_scientific_article_on_computer_science;
+        concept_essay_on_literature;
+        concept_sentence;
+        concept_classic_summary;
+        concept_keyword_summary;
+        concept_key_term;
+        concept_keyword;
+        concept_key_phrase;
+        concept_summarization_method;
+        action_build_summary;
+    -> rrel_explored_relation:
+        nrel_document_text;
+        nrel_source_address;
+        nrel_summary;
+        rrel_classic_summary;
+        rrel_keyword_summary;
+        nrel_sentence_number;
+        nrel_sentence_score;
+        nrel_position_in_document;
+        nrel_position_in_paragraph;
+        nrel_sentence_weight;
+        nrel_sentence_rank;
+        nrel_term_significance;
+        nrel_term_frequency;
+        nrel_subordinate_key_term;
+        nrel_summary_size;
+        nrel_document_length;
+        nrel_collection_size;
+        nrel_compression_ratio;
+        nrel_summarization_method;
+        nrel_processing_time;;
+*];;
+
+section_subject_domain_of_summarization
+-> rrel_key_sc_element:
+    subject_domain_of_summarization;
+    concept_text_document;
+    concept_summary;
+    concept_classic_summary;
+    concept_keyword_summary;
+    action_build_summary;
+    sentence_extraction;
+    nrel_summary;
+    nrel_sentence_weight;;

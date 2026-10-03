@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Бой с {{ companion_instrumental }} — «{{ app_name }}»{% endblock %}
+{% block content %}
+{{ m.game_symbols() }}
+<div id="battle" class="battle">
+<h1>Бой с {{ companion_instrumental }}</h1>
+
+<section id="battle-intro" class="battle-intro">
+  <div class="block">
+    <h2>Правила</h2>
+    <ul class="battle-rules-list">
+      <li>Слева — ваш <b>Изборник</b>, справа — <b>паутина {{ companion_genitive }}</b>. Каждые 10 секунд из паутины
+        выходит паук и идёт к Изборнику.</li>
+      <li>Под дорожкой — поле букв. В нём спрятаны {{ config.BATTLE_WORDS[0] }}–{{ config.BATTLE_WORDS[1] }} ключевых
+        слов из реферата одного документа коллекции; их список — рядом с полем. Слова читаются только по прямой:
+        слева направо или сверху вниз.</li>
+      <li>Нашли слово — зажмите кнопку мыши на первой букве и проведите до последней. Слово сотрётся с поля и выйдет
+        из Изборника воином. Чем длиннее слово, тем крепче и сильнее воин.</li>
+      <li>Слово и паук, встретившись, дерутся; дошедший до чужой базы бьёт по ней. Все слова найдены — поле
+        перемешается и даст новые.</li>
+      <li>За побеждённых пауков дают монеты. В лавке на них покупаются улучшения слов и починка Изборника.</li>
+      <li>Победа — паутина порвана, поражение — пауки разрушили Изборник.</li>
+    </ul>
+    <div class="battle-start-row">
+      <label>Слова
+        <select id="battle-language">
+          {% for code in config.LANGUAGE_CODES %}<option value="{{ code }}">{{ {'ru': 'русские', 'de': 'немецкие'}[code] }}</option>{% endfor %}
+        </select>
+      </label>
+      <button type="button" id="battle-start">Начать бой</button>
+      <span class="note" id="battle-start-note"></span>
+    </div>
+  </div>
+  <div class="block">
+    <h2>Пауки {{ companion_genitive }}</h2>
+    <ul class="spider-legend" id="spider-legend"></ul>
+  </div>
+</section>
+
+<section id="battle-arena" class="battle-arena" hidden>
+  <div class="battle-hud">
+    <div class="hud-side">
+      <span class="hud-name">Изборник</span>
+      <span class="hud-bar hud-bar-base"><i id="hud-base-bar"></i></span>
+      <b id="hud-base-hp"></b>
+    </div>
+    <div class="hud-mid">
+      <b id="hud-clock">0:00</b>
+      <span>паук через <b id="hud-next"></b> с</span>
+      <span class="hud-coins" title="монеты"><i class="coin"></i><b id="hud-coins">0</b></span>
+    </div>
+    <div class="hud-side hud-side-web">
+      <b id="hud-web-hp"></b>
+      <span class="hud-bar hud-bar-web"><i id="hud-web-bar"></i></span>
+      <span class="hud-name">Паутина</span>
+    </div>
+  </div>
+
+  <div class="lane" id="lane">
+    <div class="base base-book" title="Изборник">
+      <svg viewBox="0 0 90 130" aria-hidden="true">
+        <path d="M45 22 V6" stroke="#6d2c21" stroke-width="2"/>
+        <path d="M46 6 L60 10.5 L46 15 Z" fill="#c65a3f"/>
+        <rect x="22" y="22" width="46" height="46" rx="7" fill="#8a3b2e"/>
+        <text x="45" y="57" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34"
+              font-weight="700" fill="#fff">И</text>
+        <rect x="6" y="68" width="74" height="18" rx="3" fill="#4f6b3a"/>
+        <rect x="10" y="72" width="66" height="2" fill="#e5eddc" opacity=".6"/>
+        <rect x="12" y="86" width="68" height="18" rx="3" fill="#3a6383"/>
+        <rect x="16" y="90" width="60" height="2" fill="#dfe8ef" opacity=".6"/>
+        <rect x="4" y="104" width="80" height="20" rx="3" fill="#6d2c21"/>
+        <rect x="8" y="109" width="72" height="2" fill="#f0d7c7" opacity=".6"/>
+      </svg>
+    </div>
+    <div class="base base-web" title="Паутина {{ companion_genitive }}">
+      <svg viewBox="0 0 116 130" aria-hidden="true">
+        <g class="web-threads" fill="none">
+          <path d="M58 0 V10"/>
+          <path d="M58 62 L110 62 M58 62 L94.8 98.8 M58 62 L58 114 M58 62 L21.2 98.8 M58 62 L6 62 M58 62 L21.2 25.2 M58 62 L58 10 M58 62 L94.8 25.2"/>
+          <polygon points="106,62 91.9,95.9 58,110 24.1,95.9 10,62 24.1,28.1 58,14 91.9,28.1"/>
+          <polygon points="94,62 83.5,87.5 58,98 32.5,87.5 22,62 32.5,36.5 58,26 83.5,36.5"/>
+          <polygon points="82,62 75,79 58,86 41,79 34,62 41,45 58,38 75,45"/>
+          <polygon points="70,62 66.5,70.5 58,74 49.5,70.5 46,62 49.5,53.5 58,50 66.5,53.5"/>
+        </g>
+        <g id="web-pafnuty" class="web-pafnuty">
+          <use href="#spider-glyph" x="38" y="40" width="40" height="40"></use>
+        </g>
+      </svg>
+    </div>
+    <div class="lane-units" id="lane-units"></div>
+    <div class="lane-toast" id="lane-toast" role="status"></div>
+    <div class="battle-result" id="battle-result" hidden>
+      <h2 id="battle-result-title"></h2>
+      <p id="battle-result-text"></p>
+      <p>
+        <button type="button" id="battle-again">Ещё бой</button>
+        <button type="button" class="ghost" id="battle-rules">К правилам</button>
+      </p>
+    </div>
+  </div>
+
+  <div class="battle-bottom">
+    <div class="letters-wrap">
+      <div class="letters" id="letters" style="--cols: {{ grid_cols }}"></div>
+      <div class="letters-cover" id="letters-cover" hidden>Пауза. Буквы спрятаны, чтобы никто не подглядывал.</div>
+    </div>
+    <aside class="battle-side">
+      <h3>Спрятанные слова</h3>
+      <ul class="battle-words" id="battle-words"></ul>
+      <p class="note" id="battle-source"></p>
+      <h3>Лавка</h3>
+      <div class="battle-shop" id="battle-shop"></div>
+      <div class="battle-controls">
+        <button type="button" class="ghost small-button" id="battle-pause">Пауза</button>
+        <button type="button" class="ghost small-button" id="battle-surrender">Сдаться</button>
+      </div>
+      <p class="note" id="battle-stats"></p>
+    </aside>
+  </div>
+</section>
+</div>
+
+<script type="application/json" id="battle-lines">{{ lines|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('battle.js') }}"></script>
+{% endblock %}

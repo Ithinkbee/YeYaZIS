@@ -258,6 +258,13 @@
 
   /* --- отрисовка и управление -------------------------------------------- */
 
+  /* Сдвиг следующей карты вниз: под открытой картой видна её верхняя полоса
+     с достоинством и мастью, под закрытой — только край рубашки. */
+  var STEP_UP = 28;
+  var STEP_DOWN = 12;
+  /* запас под последней картой: тень поднятой карты и место, куда щёлкнуть */
+  var PILE_PADDING = 16;
+
   function ready(callback) {
     if (document.readyState !== 'loading') { callback(); }
     else { document.addEventListener('DOMContentLoaded', callback); }
@@ -300,13 +307,24 @@
         return face;
       }
       if (rules.RED.indexOf(card.suit) >= 0) { face.classList.add('is-red'); }
+      /* Уголок «10♥» — всё, что видно у карты, накрытой следующей. Раньше
+         масть стояла под достоинством и пряталась под соседней картой: при
+         четырёх мастях червы нельзя было отличить от бубен, и игрок не видел,
+         почему последовательность не поднимается. */
+      var corner = document.createElement('span');
+      corner.className = 'spider-card-corner';
       var rank = document.createElement('span');
       rank.className = 'spider-card-rank';
       rank.textContent = rules.RANKS[card.rank];
+      var pip = document.createElement('span');
+      pip.className = 'spider-card-pip';
+      pip.textContent = rules.SUITS[card.suit];
+      corner.appendChild(rank);
+      corner.appendChild(pip);
       var suit = document.createElement('span');
       suit.className = 'spider-card-suit';
       suit.textContent = rules.SUITS[card.suit];
-      face.appendChild(rank);
+      face.appendChild(corner);
       face.appendChild(suit);
       return face;
     }
@@ -317,15 +335,22 @@
         var pile = document.createElement('div');
         pile.classList.add('spider-pile');
         pile.dataset.column = String(columnIndex);
+        if (!column.length) { pile.classList.add('is-empty'); }
+        /* Щелчок по свободному месту столбца — тоже выбор столбца, куда
+           класть: попадать в узкую полосу последней карты не обязательно. */
+        pile.addEventListener('click', function () { onColumnClick(columnIndex, -1); });
 
-        if (!column.length) {
-          pile.classList.add('is-empty');
-          pile.addEventListener('click', function () { onColumnClick(columnIndex, -1); });
-        }
-
+        /* Отступ карты — сумма шагов всех карт над ней. Прежде он считался как
+           номер карты × шаг её собственного вида, а высота столбца — как
+           сумма шагов; под открытыми картами, лежащими на закрытых, эти числа
+           расходились, и нижние карты вылезали за поле. Их нижняя половина
+           обрезалась, а щелчок по ней уходил мимо карты — часть ходов,
+           разрешённых правилами, сделать было нельзя. */
+        var top = 0;
         column.forEach(function (card, cardIndex) {
           var element = cardFace(card);
-          element.style.top = (cardIndex * (card.up ? 26 : 12)) + 'px';
+          element.style.top = top + 'px';
+          top += card.up ? STEP_UP : STEP_DOWN;
           if (picked && picked.column === columnIndex && cardIndex >= picked.index) {
             element.classList.add('is-picked');
           }
@@ -337,11 +362,12 @@
         });
 
         /* высота столбца задаётся вручную: карты лежат абсолютно */
-        var last = column.length ? column.length - 1 : 0;
-        var height = column.reduce(function (sum, card, index) {
-          return index === last ? sum : sum + (card.up ? 26 : 12);
-        }, 0);
-        pile.style.minHeight = (height + 96) + 'px';
+        var lastTop = 0;
+        column.forEach(function (card, index) {
+          if (index < column.length - 1) { lastTop += card.up ? STEP_UP : STEP_DOWN; }
+        });
+        pile.style.minHeight =
+          'calc(' + lastTop + 'px + var(--spider-card-h) + ' + PILE_PADDING + 'px)';
         board.appendChild(pile);
       });
       refreshCounters();
@@ -369,8 +395,9 @@
         return;
       }
 
-      if (picked.column === columnIndex && picked.index === cardIndex) {
-        picked = null;                        /* повторный щелчок отменяет выбор */
+      if (picked.column === columnIndex && (picked.index === cardIndex || cardIndex < 0)) {
+        picked = null;          /* повторный щелчок по карте или её столбцу отменяет выбор */
+        note('');
         render();
         return;
       }

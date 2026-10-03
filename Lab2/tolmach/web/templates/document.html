@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}{{ document.doc_id }} — «{{ app_name }}»{% endblock %}
+
+{% block content %}
+
+<p class="crumbs"><a href="/">← к коллекции</a></p>
+
+<h1>{{ document.title }}</h1>
+<p class="lead">
+  Файл <a href="/raw/{{ document.doc_id }}" target="_blank"><code>{{ document.doc_id }}</code></a>
+  · {{ document.letters }} букв · {{ document.words }} слов · {{ document.size }} байт
+</p>
+
+<section class="verdict-head">
+  <div class="verdict-main">
+    <span class="muted">Язык документа</span>
+    <strong class="big tag-{{ verdict.language }}">{{ verdict.language_name }}</strong>
+    <span class="muted">согласие методов: {{ '%.0f'|format(verdict.agreement * 100) }}%</span>
+  </div>
+  <div class="verdict-side">
+    {% if document.gold %}
+    <p>Эталон: <b>{{ document.gold_name }}</b>
+      {% if verdict.correct %}<span class="ok">— совпадает</span>
+      {% else %}<span class="bad">— расходится</span>{% endif %}
+    </p>
+    {% endif %}
+    <p class="muted">Суммарное время: {{ '%.2f'|format(verdict.elapsed_ms) }} мс</p>
+  </div>
+</section>
+
+{% for code in method_codes %}
+{% set result = verdict.results[code] %}
+<section class="method-block">
+  <h2>{{ method_titles[code] }}</h2>
+  <p class="note">
+    Решение: <b>{{ result.language_name }}</b>
+    · уверенность {{ '%.0f'|format(result.confidence * 100) }}%
+    · {{ '%.2f'|format(result.elapsed_ms) }} мс
+  </p>
+
+  <table class="grid narrow">
+    <thead><tr><th>язык</th><th>расстояние</th><th></th></tr></thead>
+    <tbody>
+    {% for code_lang, distance in result.ranked() %}
+      <tr class="{{ 'row-best' if code_lang == result.language else '' }}">
+        <td>{{ language_name(code_lang) }}</td>
+        <td class="num">{{ '%.4f'|format(distance) }}</td>
+        <td class="bar-cell">
+          <span class="bar" style="width: {{ (distance * 100)|round|int }}%"></span>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% set detail = result.detail %}
+
+  {% if detail.top %}
+  <p class="note">Чаще всего встречается в документе:</p>
+  <p class="chips">
+    {% for item in detail.top %}
+    <span class="chip mono" title="ранг {{ item.rank }}, доля {{ '%.3f'|format(item.weight) }}">{{ item.feature }}</span>
+    {% endfor %}
+  </p>
+  {% endif %}
+
+  {% if detail.overlap %}
+  <p class="note">Сколько N-грамм документа нашлось в профиле языка:</p>
+  <ul class="plain">
+    {% for code_lang, item in detail.overlap.items() %}
+    <li>{{ language_name(code_lang) }}: {{ item.found }} из {{ detail.profile_size }}
+      ({{ '%.0f'|format(item.share * 100) }}%), не найдено {{ item.missing }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if detail.coverage %}
+  <p class="note">Доля букв документа, входящих в алфавит языка:</p>
+  <ul class="plain">
+    {% for code_lang, value in detail.coverage.items() %}
+    <li>{{ language_name(code_lang) }}: {{ '%.1f'|format(value * 100) }}%
+      {% if detail.alien[code_lang] %}
+      <small class="muted">чужие буквы: <span class="mono">{{ detail.alien[code_lang] }}</span></small>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if detail.probabilities %}
+  <p class="note">Вероятности на выходе сети:</p>
+  <ul class="plain">
+    {% for code_lang, value in detail.probabilities.items() %}
+    <li>{{ language_name(code_lang) }}: {{ '%.4f'|format(value) }}</li>
+    {% endfor %}
+  </ul>
+  {% if detail.salient %}
+  <p class="note">Признаки, сильнее прочих повлиявшие на решение:</p>
+  <p class="chips">
+    {% for item in detail.salient %}
+    <span class="chip mono {{ 'chip-plus' if item.contribution > 0 else 'chip-minus' }}"
+          title="вклад {{ '%.3f'|format(item.contribution) }}">{{ item.feature }}</span>
+    {% endfor %}
+  </p>
+  {% endif %}
+  {% endif %}
+</section>
+{% endfor %}
+
+{% endblock %}

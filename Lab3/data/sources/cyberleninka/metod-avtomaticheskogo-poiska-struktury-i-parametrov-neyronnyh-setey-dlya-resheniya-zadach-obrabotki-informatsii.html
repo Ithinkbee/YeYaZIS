@@ -1,0 +1,1215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="https://cyberleninka.ru/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii" />
+
+    <title>МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ – тема научной статьи по компьютерным и информационным наукам читайте бесплатно текст научно-исследовательской работы в электронной библиотеке КиберЛенинка</title>
+    <meta name="keywords" content="научная статья бесплатно на тему МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ текст научной работы по компьютерным и информационным наукам из научного журнала Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика. НЕЙРОННЫЕ СЕТИ, МАШИННОЕ ОБУЧЕНИЕ, ОПТИМИЗАЦИЯ СТРУКТУРЫ НЕЙРОННЫХ СЕТЕЙ, АНАЛИЗ И ОБРАБОТКА ДАННЫХ, СВЕРТОЧНЫЕ НЕЙРОННЫЕ СЕТИ, АВТОЭНКОДЕРЫ, ГЕНЕРАТИВНО-СОСТЯЗАТЕЛЬНЫЕ СЕТИ" />
+    <meta name="description" content="Нейронные сети активно применяются при решении различных прикладных задач анализа, обработки и генерации данных. При их использовании одним из сложных этапов является подбор структуры и параметров нейронных сетей (количество и типы слоев нейронов, функции активации, оптимизаторы и т.д.), обеспечивающих наибольшую точность и, следовательно, успешность решения поставленной задачи. В настоящее время данный вопрос решается путем аналитического подбора архитектуры нейронной сети исследователем или разработчиком программного обеспечения. Существующие автоматические инструменты (AutoKeras, AutoGAN, AutoSklearn, DEvol и др.) недостаточно универсальны и функциональны.  Поэтому в рамках данной работы рассматривается метод автоматического поиска структуры и параметров нейронных сетей различного типа (многослойных плотных, сверточных, генеративно-состязательных, автоэнкодеров и др.) для решения широкого класса задач. Представлена формализация метода и его основные этапы. Рассмотрена апробация метода, доказывающая его эффективность относительно аналитического решения при подборе архитектуры нейронной сети. Проведено сравнение метода с существующими аналогами, выявлено его преимущество по точности сформированных нейронных сетей  и времени поиска." />
+
+    <link rel="stylesheet" media="all" href="/app.css?2824926673" />
+    <link rel="preload" href="/fonts/ProximaNovaBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaExtraCondensedLight.woff2" as="font" type="font/woff2" crossorigin>
+    
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <meta name="robots" content="NOODP" />
+  <meta name="robots" content="noyaca" />
+
+  <meta property="og:url" content="https://cyberleninka.ru/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii" />
+  <meta property="og:site_name" content="КиберЛенинка" />
+  <meta property="og:title" content="МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ" />
+  <meta property="og:description" content="Нейронные сети активно применяются при решении различных прикладных задач анализа, обработки и генерации данных. При их использовании одним из сложных этапов является подбор структуры и параметров нейронных сетей (количество и типы слоев нейронов, функции активации, оптимизаторы и т.д.), обеспечивающих наибольшую точность и, следовательно, успешность решения поставленной задачи. В настоящее время данный вопрос решается путем аналитического подбора архитектуры нейронной сети исследователем или разработчиком программного обеспечения. Существующие автоматические инструменты (AutoKeras, AutoGAN, AutoSklearn, DEvol и др.) недостаточно универсальны и функциональны.  Поэтому в рамках данной работы рассматривается метод автоматического поиска структуры и параметров нейронных сетей различного типа (многослойных плотных, сверточных, генеративно-состязательных, автоэнкодеров и др.) для решения широкого класса задач. Представлена формализация метода и его основные этапы. Рассмотрена апробация метода, доказывающая его эффективность относительно аналитического решения при подборе архитектуры нейронной сети. Проведено сравнение метода с существующими аналогами, выявлено его преимущество по точности сформированных нейронных сетей  и времени поиска." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://cyberleninka.ru/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii/og" />
+  <meta property="og:image:width" content="1074" />
+  <meta property="og:image:height" content="480" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@CyberLeninka" />
+
+    
+
+<link rel="preconnect" href="https://yastatic.net">
+<link rel="preconnect" href="https://securepubads.g.doubleclick.net">
+<link rel="preconnect" href="https://exchange.buzzoola.com">
+<link rel="preconnect" href="https://pb.adriver.ru">
+<link rel="preconnect" href="https://ad.mail.ru">
+<link rel="preconnect" href="https://ads.betweendigital.com">
+<script src="https://yandex.ru/ads/system/header-bidding.js" async></script>
+<script>window.yaContextCb = window.yaContextCb || []</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+<script src="https://content.adriver.ru/AdRiverFPS.js" async></script>
+<script src="https://cdn.skcrtxr.com/roxot-wrapper/js/roxot-manager.js?pid=1f462bba-63b2-4d05-8a2c-12cb7f02b607" async></script>
+
+<script>
+const adfoxBiddersMap = {
+  "myTarget": "763128",
+  "betweenDigital": "793538",
+  "adriver": "776589",
+  "otm": "1460822",
+  "buzzoola": "769160",
+  "sape": "1697231",
+  "mediasniper": "2297743",
+  "mediatoday": "2365797",
+  "roxot": "2723510",
+  "gnezdo":"2930570",
+  "hybrid":"2994840",
+  "smi2":"3125554",
+  "link": "3389346",
+  "adfox_yandex_adplay-adv":"3294122",
+  "ohmybid": "3434190",
+  "videonow": "2930576"
+};
+
+var biddersCpmAdjustmentMap = {
+  'myTarget': 0.46,
+  'betweenDigital': 0.84,
+  'adriver': 0.79,
+  'otm': 0.87,
+  'buzzoola': 0.77,
+  'sape': 0.79,
+  'mediasniper': 0.79,
+  'mediatoday': 0.68,
+  'gnezdo': 0.92,
+  'hybrid': 0.92,
+  'smi2': 0.9
+};
+
+if (window.innerWidth >= 768) {
+
+  
+
+
+  adUnits = [
+    {
+      "code": "adfox_head",
+      "sizes": [[970,250],[300,250],[300,300],[970,90],[728,90]],
+      "bids": [
+        {"bidder": "myTarget", "params": {"placementId": 320990}},
+        {"bidder": "betweenDigital", "params": {"placementId": 2674177}},
+        {"bidder": "adriver", "params": {
+          "placementId": "20:cyberleninka_970x250",
+          "additional": {"ext": {"query": "custom=10=20&cid=" + localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm", "params": {"placementId": "911"}},
+        {"bidder": "buzzoola", "params": {"placementId": 1221042}},
+        {"bidder": "sape", "params": {"placementId": 821135}},
+        {"bidder": "mediasniper", "params": {"placementId": 360005}},
+        {"bidder": "roxot", "params": {"placementId": "51768c0a-c428-4776-a4ba-1025d94c29ad", "sendTargetRef": true}},
+        {"bidder": "gnezdo", "params": {"placementId": 353101}},
+        {"bidder": "hybrid", "params": {"placementId": "661fc2a34d506e1118632ce8"}},
+        {"bidder": "smi2", "params": {"placementId": "103126"}},
+        {"bidder": "link", "params": {"placementId": "cdf306abf7023052d3eb67588de05431"}},
+        {"bidder":"videonow","params":{"placementId":"16232754"}},
+        {"bidder": "ohmybid", "params": {"placementId": "HOdayBV9B8Q9L3FV"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side1",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320974}},
+        {"bidder":"betweenDigital","params":{"placementId":2673847}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm","params":{"placementId":"912"}},
+        {"bidder": "buzzoola","params":{"placementId":1221043}},
+        {"bidder": "sape","params":{"placementId":821136}},
+        {"bidder": "mediasniper","params":{"placementId":360006}},
+        {"bidder": "mediatoday","params":{"placementId":9682}},
+        {"bidder": "roxot","params":{"placementId":"d82943a0-d3d0-41b5-9ce9-ecf5c59a1c2e","sendTargetRef":true}},
+        {"bidder": "hybrid","params":{"placementId":"661fc2c67bc72ff858bdcfb4"}},
+        {"bidder": "smi2","params":{"placementId":"103131"}},
+        {"bidder": "adfox_yandex_adplay-adv","params":{"p1":"dgped","p2":"jdhb"}},
+        {"bidder":"link","params":{"placementId":"b98512a98211345da7923634e913ca47"}},
+        {"bidder":"videonow","params":{"placementId":"16233892"}},
+        {"bidder":"ohmybid","params":{"placementId":"zySZorOzKZhXjdDj"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side2",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320975}},
+        {"bidder":"betweenDigital","params":{"placementId":2673848}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"913"}},
+        {"bidder":"buzzoola","params":{"placementId":1221044}},
+        {"bidder":"sape","params":{"placementId":821138}},
+        {"bidder":"mediasniper","params":{"placementId":360007}},
+        {"bidder":"mediatoday","params":{"placementId":9682}},
+        {"bidder":"roxot","params":{"placementId":"80dadf4c-5c8d-4bc3-b0e0-1328270a7d94","sendTargetRef":true}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2f54d506e1118632cea"}},
+        {"bidder":"smi2","params":{"placementId":"103132"}},
+        {"bidder":"link","params":{"placementId":"8232acc3e5e0ffb434bce7b63999dcca"}},
+        {"bidder":"videonow","params":{"placementId":"16234941"}},
+        {"bidder":"ohmybid","params":{"placementId":"NcqadnIaACfH7uWm"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320978}},
+        {"bidder":"betweenDigital","params":{"placementId":2673849}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"914"}},
+        {"bidder":"buzzoola","params":{"placementId":1221045}},
+        {"bidder":"sape","params":{"placementId":821140}},
+        {"bidder":"mediasniper","params":{"placementId":360008}},
+        {"bidder":"mediatoday","params":{"placementId":9675}},
+        {"bidder":"roxot","params":{"placementId":"a4d837bd-166d-4cb9-8210-34688740a4ef","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353095}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3157bc72ff858bdcfb6"}},
+        {"bidder":"smi2","params":{"placementId":"103133"}},
+        {"bidder":"adfox_yandex_adplay-adv","params":{"p1":"dgpec","p2":"jbzl"}},
+        {"bidder":"link","params":{"placementId":"0b21aa98d95dcb9bf6258692583009c0"}},
+        {"bidder":"ohmybid","params":{"placementId":"9bXBoQSn0JqFIuA8"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320979}},
+        {"bidder":"betweenDigital","params":{"placementId":2673850}},
+        {"bidder":"otm","params":{"placementId":"915"}},
+        {"bidder":"buzzoola","params":{"placementId":1221046}},
+        {"bidder":"sape","params":{"placementId":821142}},
+        {"bidder":"mediasniper","params":{"placementId":360009}},
+        {"bidder":"mediatoday","params":{"placementId":9676}},
+        {"bidder":"roxot","params":{"placementId":"8cc4e575-2379-4c53-9d3b-457a4abeabbc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353096}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3334d506e1118632cec"}},
+        {"bidder":"smi2","params":{"placementId":"103134"}},
+        {"bidder":"link","params":{"placementId":"aa4cde959439c223735f8c5d1272d9d6"}},
+        {"bidder":"videonow","params":{"placementId":"16235894"}},
+        {"bidder":"ohmybid","params":{"placementId":"Mniw5psCV5bYbDPP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320982}},
+        {"bidder":"betweenDigital","params":{"placementId":2673851}},
+        {"bidder":"otm","params":{"placementId":"916"}},
+        {"bidder":"buzzoola","params":{"placementId":1221047}},
+        {"bidder":"sape","params":{"placementId":821143}},
+        {"bidder":"mediasniper","params":{"placementId":360010}},
+        {"bidder":"mediatoday","params":{"placementId":9677}},
+        {"bidder":"roxot","params":{"placementId":"def97489-bf90-4dc2-b25d-6e98089bdbea","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353097}},
+        {"bidder":"hybrid","params":{"placementId":"661fc34d4d506e1118632cf6"}},
+        {"bidder":"smi2","params":{"placementId":"103135"}},
+        {"bidder":"link","params":{"placementId":"cc58da3f5040ed3f081281d234642f1b"}},
+        {"bidder":"videonow","params":{"placementId":"16617416"}},
+        {"bidder":"ohmybid","params":{"placementId":"hvP3ncZ9Z3IcN7kP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320983}},
+        {"bidder":"betweenDigital","params":{"placementId":2673852}},
+        {"bidder":"otm","params":{"placementId":"917"}},
+        {"bidder":"buzzoola","params":{"placementId":1221048}},
+        {"bidder":"sape","params":{"placementId":821144}},
+        {"bidder":"mediasniper","params":{"placementId":360011}},
+        {"bidder":"mediatoday","params":{"placementId":9678}},
+        {"bidder":"roxot","params":{"placementId":"1253e1f2-f966-4c30-bb31-d73d70170b5e","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353098}},
+        {"bidder":"hybrid","params":{"placementId":"661fc59c4d506e1118632d08"}},
+        {"bidder":"smi2","params":{"placementId":"103136"}},
+        {"bidder":"link","params":{"placementId":"03db8f736f856b5a7989654cb20fb4b4"}},
+        {"bidder":"videonow","params":{"placementId":"16237809"}},
+        {"bidder":"ohmybid","params":{"placementId":"epg8ArJA41baCf0f"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320985}},
+        {"bidder":"betweenDigital","params":{"placementId":2673854}},
+        {"bidder":"otm","params":{"placementId":"918"}},
+        {"bidder":"buzzoola","params":{"placementId":1221049}},
+        {"bidder":"sape","params":{"placementId":821145}},
+        {"bidder":"mediasniper","params":{"placementId":360012}},
+        {"bidder":"mediatoday","params":{"placementId":9679}},
+        {"bidder":"roxot","params":{"placementId":"57ea14a5-a9dc-421d-8f05-7dbcf17e3619","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353099}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3817bc72ff858bdcfbe"}},
+        {"bidder":"smi2","params":{"placementId":"103137"}},
+        {"bidder":"link","params":{"placementId":"746ae63162e72a09439269ffb366a9f5"}},
+        {"bidder":"ohmybid","params":{"placementId":"Ybi2I2NcSMHFHAUL"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320988}},
+        {"bidder":"betweenDigital","params":{"placementId":2673853}},
+        {"bidder":"otm","params":{"placementId":"919"}},
+        {"bidder":"buzzoola","params":{"placementId":1221050}},
+        {"bidder":"sape","params":{"placementId":821146}},
+        {"bidder":"mediasniper","params":{"placementId":360013}},
+        {"bidder":"mediatoday","params":{"placementId":9680}},
+        {"bidder":"roxot","params":{"placementId":"10b6c096-8ccd-4d62-9e78-d7500399003d","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353100}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3a24d506e1118632cf8"}},
+        {"bidder":"smi2","params":{"placementId":"103138"}},
+        {"bidder":"link","params":{"placementId":"412c7b3a30c7a86a40df78707a0effed"}},
+        {"bidder":"videonow","params":{"placementId":"16236896"}},
+        {"bidder":"ohmybid","params":{"placementId":"tf3WAI4nf1jZxl3p"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1200;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+
+
+
+
+
+} else {
+
+  adUnits = [
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320966}},
+        {"bidder":"betweenDigital","params":{"placementId":2673855}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"907"}},
+        {"bidder":"buzzoola","params":{"placementId":1221037}},
+        {"bidder":"sape","params":{"placementId":821190}},
+        {"bidder":"mediasniper","params":{"placementId":360001}},
+        {"bidder":"mediatoday","params":{"placementId":9671}},
+        {"bidder":"roxot","params":{"placementId":"2735e182-e1c2-422b-b7d3-b1ee1ecbb439","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353090}},
+        {"bidder":"hybrid","params":{"placementId":"661fc22c7bc72ff858bdcfb2"}},
+        {"bidder":"smi2","params":{"placementId":"103127"}},
+        {"bidder":"link","params":{"placementId":"317a18769d3b042bcd12d87c18153cdc"}},
+        {"bidder":"videonow","params":{"placementId":"3393503"}},
+        {"bidder":"ohmybid","params":{"placementId":"oqv6s4quummeiGOn"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320968}},
+        {"bidder":"betweenDigital","params":{"placementId":2673856}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"908"}},
+        {"bidder":"buzzoola","params":{"placementId":1221039}},
+        {"bidder":"sape","params":{"placementId":821191}},
+        {"bidder":"mediasniper","params":{"placementId":360002}},
+        {"bidder":"mediatoday","params":{"placementId":9672}},
+        {"bidder":"roxot","params":{"placementId":"6e1adc14-1564-4bfb-9789-1f4b4caf9bb7","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353091}},
+        {"bidder":"hybrid","params":{"placementId":"661fc24e4d506e1118632ce2"}},
+        {"bidder":"smi2","params":{"placementId":"103128"}},
+        {"bidder":"link","params":{"placementId":"d194b3f2f2b4a8b0c899fbc4b2e475d0"}},
+        {
+          "bidder": "adfox_yandex_adplay-adv",
+          "params": {
+            "p1": "dkyya",
+            "p2": "jopb"
+          }
+        },
+        {"bidder":"videonow","params":{"placementId":"16229115"}},
+        {"bidder":"ohmybid","params":{"placementId":"YHowFqVl0va3sLxs"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320969}},
+        {"bidder":"betweenDigital","params":{"placementId":2673857}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_3",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"909"}},
+        {"bidder":"buzzoola","params":{"placementId":1221040}},
+        {"bidder":"sape","params":{"placementId":821192}},
+        {"bidder":"mediasniper","params":{"placementId":360003}},
+        {"bidder":"mediatoday","params":{"placementId":9673}},
+        {"bidder":"roxot","params":{"placementId":"3a70251b-7720-4736-b3a6-ea209d5feedc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353092}},
+        {"bidder":"hybrid","params":{"placementId":"661fc26d4d506e1118632ce4"}},
+        {"bidder":"smi2","params":{"placementId":"103129"}},
+        {"bidder":"link","params":{"placementId":"1565397ffd8f126ff093e1e81b9ad40f"}},
+        {"bidder":"videonow","params":{"placementId":"16230384"}},
+        {"bidder":"ohmybid","params":{"placementId":"BUVNSDdXEDKvWKcK"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot3",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320971}},
+        {"bidder":"betweenDigital","params":{"placementId":2673858}},
+        {"bidder":"otm","params":{"placementId":"910"}},
+        {"bidder":"buzzoola","params":{"placementId":1221041}},
+        {"bidder":"sape","params":{"placementId":821193}},
+        {"bidder":"mediasniper","params":{"placementId":360004}},
+        {"bidder":"mediatoday","params":{"placementId":9674}},
+        {"bidder":"roxot","params":{"placementId":"6ddc5b2a-3e9c-4917-b29e-a5a381a58063","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353093}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2844d506e1118632ce6"}},
+        {"bidder":"smi2","params":{"placementId":"103130"}},
+        {"bidder":"link","params":{"placementId":"959a5bd2b2b6eb23343b893e24d8093f"}},
+        {"bidder":"videonow","params":{"placementId":"16231837"}},
+        {"bidder":"ohmybid","params":{"placementId":"RUR2bXlUyFsYdcHx"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1300;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+}
+</script>
+
+
+
+  <meta name="citation_title" content="МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ" />
+  
+    <meta name="citation_author" content="Обухов Артем Дмитриевич" />
+  
+
+	
+  
+	
+
+  <meta name="citation_publication_date" content="2023" />
+  <meta name="citation_journal_title" content="Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика" />
+  <meta name="citation_fulltext_html_url" content="https://cyberleninka.ru/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii" />
+  <meta name="citation_abstract_html_url" content="https://cyberleninka.ru/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii" />
+  <meta name="citation_pdf_url" content="https://cyberleninka.ru/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii/pdf" />
+  <meta name="citation_publisher" content="Федеральное государственное бюджетное образовательное учреждение высшего образования «Саратовский национальный исследовательский государственный университет имени Н. Г. Чернышевского»" />
+  <meta name="citation_issue" content="1" />
+  <meta name="citation_volume" content="23" />
+  <meta name="citation_issn" content="1816-9791" />
+  
+    <meta name="citation_eissn" content="2541-9005" />
+  
+  <meta name="citation_keywords" content="НЕЙРОННЫЕ СЕТИ, МАШИННОЕ ОБУЧЕНИЕ, ОПТИМИЗАЦИЯ СТРУКТУРЫ НЕЙРОННЫХ СЕТЕЙ, АНАЛИЗ И ОБРАБОТКА ДАННЫХ, СВЕРТОЧНЫЕ НЕЙРОННЫЕ СЕТИ, АВТОЭНКОДЕРЫ, ГЕНЕРАТИВНО-СОСТЯЗАТЕЛЬНЫЕ СЕТИ" />
+  
+    <meta name="eprints.creators_name" content="Обухов Артем Дмитриевич" />
+  
+  <meta name="eprints.metadata_visibility" content="show" />
+  <meta name="eprints.ispublished" content="pub" />
+  <meta name="eprints.full_text_status" content="public" />
+  <meta name="eprints.type" content="article" />
+  <meta name="eprints.title" content="МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ" />
+  <meta name="eprints.date" content="2023" />
+  <meta name="eprints.date_type" content="published" />
+  <meta name="eprints.document_url" content="https://cyberleninka.ru/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii" />
+  <meta name="eprints.publication" content="Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика" />
+  <meta name="eprints.publisher" content="Федеральное государственное бюджетное образовательное учреждение высшего образования «Саратовский национальный исследовательский государственный университет имени Н. Г. Чернышевского»" />
+  <meta name="eprints.refereed" content="TRUE" />
+  <meta name="eprints.citation" content="Обухов Артем Дмитриевич МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ // Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика. 2023. Выпуск номер 1 том 23, С.113-125" />
+  <meta name="eprints.place_of_pub" content="Россия, Саратов" />
+  <meta name="eprints.number" content="1" />
+  <meta name="eprints.volume" content="23" />
+  <meta name="eprints.pagerange" content="113-125" />
+  <meta name="eprints.issn" content="1816-9791" />
+  <meta name="eprints.abstract" content="Neural networks are actively used in solving various applied problems of data analysis, processing and generation. When using them, one of the difficult stages is the selection of the structure and parameters of neural networks (the number and types of layers of neurons, activation functions, optimizers, and so on) that provide the greatest accuracy and, therefore, the success of solving the problem. Currently, this issue is being solved by analytical selection of the neural network architecture by a researcher or software developer. Existing automatic tools (AutoKeras, AutoGAN, AutoSklearn, DEvol and others) are not universal and functional enough. Therefore, within the framework of this work, a method of automatic search for the structure and parameters of neural networks of various types (multilayer dense, convolutional, generative-adversarial, autoencoders, and others) is considered for solving a wide class of problems. The formalization of the method and its main stages are presented. The approbation of the method is considered, which proves its effectiveness in relation to the analytical solution in the selection of the architecture of the neural network. A comparison of the method with existing analogues is carried out, its advantage is revealed in terms of the accuracy of the formed neural networks and the time to find a solution. The research results can be used to solve a large class of data processing problems for which it is required to automate the selection of the structure and parameters of a neural network." />
+  
+    <meta name="eprints.eissn" content="2541-9005" />
+  
+  <meta name="eprints.keywords" content="НЕЙРОННЫЕ СЕТИ, МАШИННОЕ ОБУЧЕНИЕ, ОПТИМИЗАЦИЯ СТРУКТУРЫ НЕЙРОННЫХ СЕТЕЙ, АНАЛИЗ И ОБРАБОТКА ДАННЫХ, СВЕРТОЧНЫЕ НЕЙРОННЫЕ СЕТИ, АВТОЭНКОДЕРЫ, ГЕНЕРАТИВНО-СОСТЯЗАТЕЛЬНЫЕ СЕТИ" />
+  
+  <meta name="eprints.abstract" content="Нейронные сети активно применяются при решении различных прикладных задач анализа, обработки и генерации данных. При их использовании одним из сложных этапов является подбор структуры и параметров нейронных сетей (количество и типы слоев нейронов, функции активации, оптимизаторы и т.д.), обеспечивающих наибольшую точность и, следовательно, успешность решения поставленной задачи. В настоящее время данный вопрос решается путем аналитического подбора архитектуры нейронной сети исследователем или разработчиком программного обеспечения. Существующие автоматические инструменты (AutoKeras, AutoGAN, AutoSklearn, DEvol и др.) недостаточно универсальны и функциональны.  Поэтому в рамках данной работы рассматривается метод автоматического поиска структуры и параметров нейронных сетей различного типа (многослойных плотных, сверточных, генеративно-состязательных, автоэнкодеров и др.) для решения широкого класса задач. Представлена формализация метода и его основные этапы. Рассмотрена апробация метода, доказывающая его эффективность относительно аналитического решения при подборе архитектуры нейронной сети. Проведено сравнение метода с существующими аналогами, выявлено его преимущество по точности сформированных нейронных сетей  и времени поиска." />
+  
+
+
+  </head>
+
+  <body id="body">
+    <div id="vk_api_transport"></div>
+    <div id="menu" style="height: 55px;"></div>
+
+    <div class="content" style="overflow: visible;">
+      <div class="main">
+        
+
+<span itemscope="itemscope" itemtype="http://schema.org/ScholarlyArticle">
+<div class="cover mobhide">
+  <a href="/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii/viewer"><img src="/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii/cover" alt="Научная статья на тему 'МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ'" itemprop="image" /><img class="cover-overlay" src ="/images/tsvg/view.svg" /></a>
+</div>
+<div>
+  <h1><i itemprop="headline">МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ</i> <span>Текст научной статьи по специальности &laquo;<i itemprop="articleSection">Компьютерные и информационные науки</i>&raquo;</span></h1>
+  <div class="infoblock authors visible">
+    <div id="article-authors" style="min-height: 35px;"></div>
+    <div class="top-cc" style="min-height: 20px;">
+    
+      <div class="statitem label-cc" title="Лицензия Creative Commons"><img src="/images/tsvg/cc-label.svg" />CC BY</div>
+    
+    
+      <div class="statitem views" title="Просмотры"><img src ="/images/tsvg/view.svg" />513</div><div class="statitem downloads" title="Загрузки"><img src ="/images/tsvg/download.svg" />73</div>
+    </div>
+  </div>
+
+  <div class="infoblock">
+    
+    <div id="article-controls" style="min-height: 118px;"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_top1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_top2"></div>
+        </div>
+        <div id="crt-4f158b60" style="width:720px;height:250px;" class="mobhide"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'top');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=top"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  <div class="infoblock">
+    <div class="half">
+			
+      <div class="title">Журнал<a href="https://scholar.google.com/citations?view_op=list_hcore&amp;venue=uvNDTHGncMwJ.2019&amp;hl=ru" class="scholar" target="_blank"><img src="/images/scholar.svg" /></a></div>
+      <span><a href="/journal/n/izvestiya-saratovskogo-universiteta-novaya-seriya-seriya-matematika-mehanika-informatika">Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика</a></span>
+      <div class="labels">
+	      <div class="label year"><time itemprop="datePublished" datetime="2023">2023</time></div>
+        
+  <div class="label zbmath">zbMATH</div><div class="label rsci">RSCI</div><div class="label esci">ESCI</div><div class="label vak">ВАК</div><div class="label mathscinet">MathSciNet</div>
+
+      </div>
+    </div>
+    <div class="half-right">
+      <div class="title">Область наук</div>
+      <ul>
+        <li><a href="/article/c/computer-and-information-sciences">Компьютерные и информационные науки</a></li>
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="infoblock visible">
+    <div class="full keywords">
+      <div class="title" >Ключевые слова</div>
+      <i itemprop="keywords">
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">НЕЙРОННЫЕ СЕТИ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">МАШИННОЕ ОБУЧЕНИЕ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">ОПТИМИЗАЦИЯ СТРУКТУРЫ НЕЙРОННЫХ СЕТЕЙ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">АНАЛИЗ И ОБРАБОТКА ДАННЫХ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">СВЕРТОЧНЫЕ НЕЙРОННЫЕ СЕТИ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">АВТОЭНКОДЕРЫ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">ГЕНЕРАТИВНО-СОСТЯЗАТЕЛЬНЫЕ СЕТИ</span>
+        
+      </i>
+    </div>
+  </div>
+  
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>Аннотация <span>научной статьи по компьютерным и информационным наукам, автор научной работы — Обухов Артем Дмитриевич</span></h2>
+      <p itemprop="description">Нейронные сети активно применяются при решении различных прикладных задач анализа, обработки и генерации данных. При их использовании одним из сложных этапов является подбор структуры и параметров <span class="hl to-search">нейронных сетей</span> (количество и типы слоев нейронов, функции активации, оптимизаторы и т.д.), обеспечивающих наибольшую точность и, следовательно, успешность решения поставленной задачи. В настоящее время данный вопрос решается путем аналитического подбора архитектуры <span class="hl to-search">нейронной сети</span> исследователем или разработчиком программного обеспечения. Существующие автоматические инструменты (AutoKeras, AutoGAN, AutoSklearn, DEvol и др.) недостаточно универсальны и функциональны.  Поэтому в рамках данной работы рассматривается метод автоматического поиска структуры и параметров <span class="hl to-search">нейронных сетей</span> различного типа (многослойных плотных, сверточных, генеративно-состязательных, <span class="hl to-search">автоэнкодеров</span> и др.) для решения широкого класса задач. Представлена формализация метода и его основные этапы. Рассмотрена апробация метода, доказывающая его эффективность относительно аналитического решения при подборе архитектуры <span class="hl to-search">нейронной сети</span>. Проведено сравнение метода с существующими аналогами, выявлено его преимущество по точности сформированных <span class="hl to-search">нейронных сетей</span>  и времени поиска.</p>
+    </div>
+  </div>
+  
+
+	
+	<div class="infoblock">
+		<div class="full">
+			<div style="font-size: 0; text-align: center; height: 350px;">
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+					<div id="adfox_mid1"></div>
+				</div>
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+					<div id="adfox_mid2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'mid');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=mid"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+	<div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Похожие темы <span>научных работ по компьютерным и информационным наукам , автор научной работы — Обухов Артем Дмитриевич</span></h2>
+      <ul class="list">
+        
+        <li>
+          <a class="similar" href="/article/n/obosnovanie-arhitektury-svertochnoy-neyronnoy-seti-dlya-avtonomnogo-raspoznavaniya-obektov-na-izobrazheniyah-bortovoy-vychislitelnoy">
+            <div class="title">Обоснование архитектуры сверточной нейронной сети для автономного распознавания объектов на изображениях бортовой вычислительной системой</div>
+            <span>2018 / Хомоненко Анатолий Дмитриевич, Яковлев Евгений Леонидович</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/metody-glubokogo-obucheniya-dlya-obrabotki-tekstov-na-estestvennom-yazyke">
+            <div class="title">МЕТОДЫ ГЛУБОКОГО ОБУЧЕНИЯ ДЛЯ ОБРАБОТКИ ТЕКСТОВ НА ЕСТЕСТВЕННОМ ЯЗЫКЕ</div>
+            <span>2022 / Курейчик Владимир Викторович, Родзин Сергей Иванович, Бова Виктория Викторовна</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/glubokie-neyronnye-seti-zarozhdenie-stanovlenie-sovremennoe-sostoyanie">
+            <div class="title">ГЛУБОКИЕ НЕЙРОННЫЕ СЕТИ: ЗАРОЖДЕНИЕ, СТАНОВЛЕНИЕ, СОВРЕМЕННОЕ СОСТОЯНИЕ</div>
+            <span>2020 / Макаренко А. В.</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/organizatsiya-zaschity-konfidentsialnyh-svedeniy-soderzhaschihsya-v-naborah-dannyh-pri-obuchenii-neyronnyh-setey-na-udalennyh-evm-i">
+            <div class="title">ОРГАНИЗАЦИЯ ЗАЩИТЫ КОНФИДЕНЦИАЛЬНЫХ СВЕДЕНИЙ, СОДЕРЖАЩИХСЯ В НАБОРАХ ДАННЫХ, ПРИ ОБУЧЕНИИ НЕЙРОННЫХ СЕТЕЙ НА УДАЛЕННЫХ ЭВМ И В ОБЛАЧНЫХ СЕРВИСАХ</div>
+            <span>2021 / Тарасенко С. С., Морковин С. В.</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/sluchaynoe-multimodalnoe-glubokoe-obuchenie-v-zadache-raspoznavaniya-izobrazheniy">
+            <div class="title">СЛУЧАЙНОЕ МУЛЬТИМОДАЛЬНОЕ ГЛУБОКОЕ ОБУЧЕНИЕ В ЗАДАЧЕ РАСПОЗНАВАНИЯ ИЗОБРАЖЕНИЙ</div>
+            <span>2021 / Паршин А. И., Аралов М. Н., Барабанов В. Ф., Гребенникова Н. И.</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=similar">подбора литературы</a>.</span></div>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div id="viewer-inline"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>METHOD OF AUTOMATIC SEARCH FOR THE STRUCTURE AND PARAMETERS OF NEURAL NETWORKS FOR SOLVING INFORMATION PROCESSING PROBLEMS</h2>
+      <p itemprop="description">Neural networks are actively used in solving various applied problems of data analysis, processing and generation. When using them, one of the difficult stages is the selection of the structure and parameters of neural networks (the number and types of layers of neurons, activation functions, optimizers, and so on) that provide the greatest accuracy and, therefore, the success of solving the problem. Currently, this issue is being solved by analytical selection of the neural network architecture by a researcher or software developer. Existing automatic tools (AutoKeras, AutoGAN, AutoSklearn, DEvol and others) are not universal and functional enough. Therefore, within the framework of this work, a method of automatic search for the structure and parameters of neural networks of various types (multilayer dense, convolutional, generative-adversarial, autoencoders, and others) is considered for solving a wide class of problems. The formalization of the method and its main stages are presented. The approbation of the method is considered, which proves its effectiveness in relation to the analytical solution in the selection of the architecture of the neural network. A comparison of the method with existing analogues is carried out, its advantage is revealed in terms of the accuracy of the formed neural networks and the time to find a solution. The research results can be used to solve a large class of data processing problems for which it is required to automate the selection of the structure and parameters of a neural network.</p>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Текст научной работы <span>на тему «МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ»</span></h2>
+      <div class="ocr" itemprop="articleBody">
+        <div class="ocr-banner">
+          <div id="ad-sidebar" class="ad-adaptive"></div>
+        </div>
+				
+        <p>﻿ИНФОРМАТИКА</p>
+        <p>Известия Саратовского университета. Новая серия. Серия: Математика. Механика. Информатика. 2023. Т. 23, вып. 1. С. 113-125 Izvestiya of Saratov University. Mathematics. Mechanics. Informatics, 2023, vol. 23, iss. 1, pp. 113-125 mmi.sgu.ru</p>
+        <p>https://doi.org/10.18500/1816-9791-2023-23-1-113-125 EDN: QQEIGU</p>
+        <p>Научная статья УДК 004.89</p>
+        <p>Метод автоматического поиска структуры и параметров нейронных сетей для решения задач обработки информации</p>
+        <p>А. Д. Обухов</p>
+        <p>Тамбовский государственный технический университет, Россия, 392000, г. Тамбов, ул. Советская, д. 106</p>
+        <p>Обухов Артем Дмитриевич, кандидат технических наук, доцент кафедры систем автоматизированной поддержки принятия решений, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660904130e09104807141226010b070f0a4805090b">[email&#160;protected]</a>, https://orcid.org/0000-0002-3450-5213, AuthorlD: 751895</p>
+        <p>Аннотация. Нейронные сети активно применяются при решении различных прикладных задач анализа, обработки и генерации данных. При их использовании одним из сложных этапов является подбор структуры и параметров нейронных сетей (количество и типы слоев нейронов, функции активации, оптимизаторы и т.д.), обеспечивающих наибольшую точность и, следовательно, успешность решения поставленной задачи. В настоящее время данный вопрос решается путем аналитического подбора архитектуры нейронной сети исследователем или разработчиком программного обеспечения. Существующие автоматические инструменты (AutoKeras, AutoGAN, AutoSklearn, DEvol и др.) недостаточно универсальны и функциональны. Поэтому в рамках данной работы рассматривается метод автоматического поиска структуры и параметров нейронных сетей различного типа (многослойных плотных, сверточных, генеративно-состязательных, автоэнкодеров и др.) для решения широкого класса задач. Представлена формализация метода и его основные этапы. Рассмотрена апробация метода, доказывающая его эффективность относительно аналитического решения при подборе архитектуры нейронной сети. Проведено сравнение метода с существующими аналогами, выявлено его преимущество по точности сформированных нейронных сетей и времени поиска</p>
+        <p>Научный отдел</p>
+        <p>решения. Результаты исследования могут использоваться при решении большого класса задач обработки данных, для которых требуется автоматизировать подбор структуры и параметров нейронной сети.</p>
+        <p>Ключевые слова: нейронные сети, машинное обучение, оптимизация структуры нейронных сетей, анализ и обработка данных, сверточные нейронные сети, автоэнкодеры, генеративно-состязательные сети</p>
+        <p>Благодарности: Работа выполнена при поддержке лаборатории медицинских VR тренажерных систем для обучения, диагностики и реабилитации, Тамбовский государственный технический университет.</p>
+        <p>Для цитирования: Обухов А. Д. Метод автоматического поиска структуры и параметров нейронных сетей для решения задач обработки информации // Известия Саратовского университета. Новая серия. Серия: Математика. Механика. Информатика. 2023. Т. 23, вып. 1. С. 113-125. https://doi.org/10.18500/1816-9791-2023-23-1-113-125, EDN: QQEIGU Статья опубликована на условиях лицензии Creative Commons Attribution 4.0 International (CC-BY 4.0)</p>
+        <p>Article</p>
+        <p>Method of automatic search for the structure and parameters of neural networks for solving information processing problems</p>
+        <p>A. D. Obukhov</p>
+        <p>Tambov State Technical University, 106 Sovetskaya St., Tambov 392000, Russia</p>
+        <p>Artem D. Obukhov, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="167974637e79603877646256717b777f7a3875797b">[email&#160;protected]</a>, https://orcid.org/0000-0002-3450-5213, AuthorlD: 751895</p>
+        <p>Abstract. Neural networks are actively used in solving various applied problems of data analysis, processing and generation. When using them, one of the difficult stages is the selection of the structure and parameters of neural networks (the number and types of layers of neurons, activation functions, optimizers, and so on) that provide the greatest accuracy and, therefore, the success of solving the problem. Currently, this issue is being solved by analytical selection of the neural network architecture by a researcher or software developer. Existing automatic tools (AutoKeras, AutoGAN, AutoSklearn, DEvol and others) are not universal and functional enough. Therefore, within the framework of this work, a method of automatic search for the structure and parameters of neural networks of various types (multilayer dense, convolutional, generative-adversarial, autoencoders, and others) is considered for solving a wide class of problems. The formalization of the method and its main stages are presented. The approbation of the method is considered, which proves its effectiveness in relation to the analytical solution in the selection of the architecture of the neural network. A comparison of the method with existing analogues is carried out, its advantage is revealed in terms of the accuracy of the formed neural networks and the time to find a solution. The research results can be used to solve a large class of data processing problems for which it is required to automate the selection of the structure and parameters of a neural network.</p>
+        <p>Keywords: neural networks, machine learning, optimization of the neural network structure, data analysis and processing, convolutional neural networks, autoencoders, generative-adversarial networks</p>
+        <p>Acknowledgements: This work was supported by the Laboratory of medical VR simulation systems for training, diagnostics and rehabilitation, Tambov State Technical University.</p>
+        <p>For citation: Obukhov A. D. Method of automatic search for the structure and parameters of neural networks for solving information processing problems. Izvestiya of Saratov University. Mathematics. Mechanics. Informatics, 2023, vol. 23, iss. 1, pp. 113-125 (in Russian). https://doi.org/10.18500/1816-9791-2023-23-1-113-125, EDN: QQEIGU</p>
+        <p>This is an open access article distributed under the terms of Creative Commons Attribution 4.0 International License (CC-BY 4.0)</p>
+        <p>Введение</p>
+        <p>Методы машинного обучения, в частности нейронные сети, широко применяются при решении задач анализа, обработки и генерации данных в различных сферах человеческой деятельности для автоматизации процессов работы с информацией [1]. При их использовании этап подбора структуры и параметров нейронных сетей является наиболее важным и сложным, так как от него зависит итоговая точность сети и, следовательно, успешность решения поставленной задачи. Изначально выбор типа нейронной сети и поиск ее оптимальных настроек производился аналитическим (экспертным) путем, однако в последние годы появились теоретические методы [2,3] и программные решения (AutoKeras [4], DEvol [5,6], AutoSklearn [7], Google AutoML [8], AutoGAN [9]), направленные на автоматизацию данного процесса.</p>
+        <p>Подходы к автоматическому поиску структур и параметров нейронных сетей связаны с формированием различных конфигураций сетей и их сравнением на контрольном наборе данных, что приводит к значительному потреблению вычислительных ресурсов или временным затратам и, следовательно, затрудняет их широкое распространение и применение. Поиск оптимальных параметров и архитектур аналитическим методом не гарантирует оптимального решения при низкой квалификации разработчиков или исследователей. Следовательно, это ограничивает возможность применения подобных подходов в небольших командах без привлечения специалистов в области машинного обучения и обработки информации с соответствующим уровнем компетенций.</p>
+        <p>Поэтому актуальной задачей является автоматизация процесса подбора структуры и параметров нейронных сетей. В работе коллектива ученых [10] рассматривается подход, основанный на исследовании пространства возможных архитектур, образованного путем добавления или удаления слоев и изменения их параметров. Для поиска оптимальных настроек сети используются контроллер и функция вознаграждения, оценивающая полученные решения.</p>
+        <p>Другим теоретическим подходом, направленным на снижение сложности процесса выбора структуры и обучения нейронных сетей, стала методология, предложенная в исследовании [11]. Ее особенностью является реализация единственной, универсальной нейронной сети, способной работать с множеством сценариев за счет использования сотен или тысяч подсетей с одним общим ядром. Это позволяет не искать специализированную структуру для каждой конкретной задачи, а использовать универсальную модель. Эффективность решения растет при росте количества сценариев (задач).</p>
+        <p>Анализ практических подходов к автоматизированному выбору структуры нейронных сетей позволил выделить следующие программные решения [12]: AutoKeras [4], DEvol [5,6], AutoSklearn [7], Google AutoML [8], AutoGAN [9]. В каждом из инструментов используются свои подходы для нахождения оптимальных настроек и архитектур нейронных сетей: байесовская оптимизация параметров сетей (AutoSklearn, AutoKeras), генетическое программирование (DEvol), контроллеры на основе нейронных сетей (Google AutoML, AutoGAN).</p>
+        <p>Проведенный анализ данных инструментов показал следующие результаты, представленные в таблице.</p>
+        <p>Сравнение существующих подходов по автоматического поиску архитектур нейронных сетей Table. Comparison of the existing approaches for automatic search for neural network</p>
+        <p>architectures</p>
+        <p>Критерий	AutoKeras	DEvol	AutoSklearn	AutoGAN</p>
+        <p>Классификация данных	&#43;	&#43;	&#43;	-</p>
+        <p>Регрессия	&#43;	&#43;	&#43;	-</p>
+        <p>Генерация данных заданного класса	-	-	-	&#43;</p>
+        <p>Сжатие состояния объекта	-	-	-	-</p>
+        <p>Прогнозирование данных	&#43;	&#43;	&#43;	-</p>
+        <p>Восстановление значений	&#43;	&#43;	&#43;	-</p>
+        <p>Преобразование данных	&#43;	&#43;	-	&#43;</p>
+        <p>Определение категории задач	&#43;	-	&#43;	-</p>
+        <p>Подбор структуры нейронной сети	&#43;	&#43;	&#43;	&#43;</p>
+        <p>Многомерность входных и выходных векторов	-	&#43;	-	&#43;</p>
+        <p>В качестве основных критериев сравнения использовались функциональные особенности (возможность решения задач классификации, регрессии, генерации, сжатия, прогнозирования, восстановления, преобразования), а также способность автоматического определения категории задач для более точного выбора архитектуры (например, сверточных слоев при работе с изображениями), перебор различных типов нейронных сетей и возможность работы с многомерными входными и выходными данными. Сравнение проведено на основе данных из документации рассматриваемых инструментов [4-9], а также в ходе их установки и проверки функциональности в рассматриваемых категориях задач.</p>
+        <p>Проведенный анализ позволил сделать следующие выводы. AutoKeras не поддерживает многомерные входные данные, а только одномерный вектор. Выходные данные могут быть представлены единственным значением, что приводит к необходимости создания нескольких выходов для представления векторов. Это создает значительные трудности при обработке данных и ограничивает применимость библиотеки без внесения существенных корректив в структуру исходных данных.</p>
+        <p>DEvol требует ручной настройки функции потерь, иначе понижается эффективность библиотеки при решении задач регрессии.</p>
+        <p>AutoSklearn также не поддерживает многомерные входные и выходные данные. Кроме того, невозможно формирование нескольких независимых входов или выходов.</p>
+        <p>Вышеперечисленные библиотеки не поддерживают работу с нейронными сетями генеративно-состязательного типа и автоэнкодерами.</p>
+        <p>В отличие от них библиотека AutoGAN реализует подбор структуры генеративно-состязательной сети. Она показывает высокую эффективность при генерации данных на основе датасетов CIFAR10 и STL-10, однако ее архитектура крайне тяжело адаптируется под другие наборы данных. Особенно это касается данных, представленных в виде многомерных численных значений, а не изображений, так как средства оптимизации структуры нейронной сети в данной библиотеке основаны на метрике Inception Score и использовании модели Inception V3. Это значительно ограничивает применение этой библиотеки.</p>
+        <p>Таким образом, на основе проведенного анализа существующих подходов к поиску архитектур нейронных сетей получено, что универсального метода, применимого</p>
+        <p>для поиска структур и параметров различных нейронных сетей, не существует, что подтверждает актуальность проводимых исследований. В рамках работы планируется реализация и апробация метода, позволяющего реализовать все функциональные критерии, перечисленные в таблице.</p>
+        <p>1. Материалы и методы</p>
+        <p>Определим структуру и параметры произвольной нейронной сети NN следующим выражением:</p>
+        <p>NN = (X,Y,W,TN,SN,HN),	(1)</p>
+        <p>где X, У — набор входных и выходных векторов данных соответственно, размерность X составляет Их, У — ; Ш — множество всех весов нейронной сети; TN — тип архитектуры нейронной сети (многослойная плотная, сверточная, генеративно-состязательная, рекуррентная, автоэнкодер и т.д.); SN — структура нейронной сети, отражающая количество слоев, нейронов в каждом их них, связи между слоями, выбранные функции активации; HN — гиперпараметры нейронной сети (скорость обучения, размер пакета, параметры регуляризации).</p>
+        <p>Функция У = NN(X, Ш) математически выражает нейронную сеть NN. Нахождение весов Ш и метода отображения X и Ш в У определяет структуру БХ, тип TN и параметры HN нейронной сети NN [13].</p>
+        <p>Тогда необходимо сформировать вектор выходных данных У = (у\,...,ут) заданной размерности со структурой данных БУ на основе обработки вектора входных данных X = (х\,...,хп) заданной размерности со структурой данных с помощью некоторой нейронной сети МЩ, входящей в множество всех возможных архитектур нейронных сетей NN. Для решения поставленной задачи в автоматическом режиме необходимо автоматизировать процесс подбора структуры и параметров нейронных сетей в зависимости от категории Ki задачи и формата исходных данных. Под понятием «структура данных» будем понимать класс данных, однозначно определяющий множество характеристик и значений каждого элемента класса, а также множество операций, которые могут быть к ним применены, и пусть 5 — множество всех классов данных. Тогда под структурой данных БЛ некоторого вектора А = (а,1,...,а^ будем понимать образ множества А при отображении /в : А ^ Б А, где Б А е 5.</p>
+        <p>Рассмотрим формализованное представление метода автоматического поиска структуры и параметров нейронной сети, включающее следующие этапы.</p>
+        <p>1.	Формализация вектора входных X = (х\,...,хп) и выходных У = (ух,...,ут) данных, определение их структур (классов данных): БХ и БУсоответственно.</p>
+        <p>2.	Анализ связей между входными и выходными данными, что позволит определить категорию Ki решаемой задачи.</p>
+        <p>3.	Подготовка и обработка исходных данных. На этом этапе осуществляется преобразование исходных данных X путем выполнения различных операций: нормализации, округления, перехода от непрерывных значений к категориальным, использование разреженных матриц вместо дискретных значений, лемматиза-ция, очистка исходных данных от лишней или служебной информации и т.д. Реализация перечисленных операций возможна в автоматическом режиме за счет набора библиотек программного кода, а их применение позволяет ускорить работу нейронных сетей и повысить их точность. Каждая категория задач Ki реализует свою процедуру обработки данных.</p>
+        <p>4.	В соответствии с выбранной задачей К^ в автоматическом режиме выбирается архитектура (1) нейронной сети NN * е NN: итерационно осуществляется</p>
+        <p>анализ точности нейронных сетей NNj е NN на небольшой выборке данных Х0 е X .К основным варьируемым параметрам относятся:</p>
+        <p>•	архитектура модели нейронной сети (последовательная, функциональная);</p>
+        <p>•	тип используемых слоев нейронов (плотные для численных значений, сверточные для изображений, рекуррентные для последовательностей, слои нормализации для уменьшения эффекта переобучения);</p>
+        <p>•	количество плотных слоев нейронов (от 1 до 20);</p>
+        <p>•	количество слоев исключения (dropout) (от 0 до 9);</p>
+        <p>•	количество специализированных слоев (сверточных, рекуррентных и т.д.) (от 1 до 10);</p>
+        <p>•	количество нейронов в слое (от 5 до 2000);</p>
+        <p>•	тип активационных функций (линейная, сигмоидальная, гиперболический тангенс, ReLU, SELU);</p>
+        <p>•	оптимизатор (SGD, Adam, Adamax, Nadam, RMSprop);</p>
+        <p>•	функция потерь (MSE, MAE, MAPE, кросс-энтропия, бинарная энтропия);</p>
+        <p>•	количество эпох обучения (от 3 до 300).</p>
+        <p>Подмножество сетей NNa с NN, показывающее наилучшую точность, используется дальше и модифицируется, подмножество NN\NNa отбрасывается. Этап 4 повторяется до тех пор, пока не будет достигнута требуемая точность либо разрешенное время на выполнение этапа. Для каждой задачи Кг определяется конкретное подмножество возможных архитектур и параметров нейронных сетей, что позволяет сократить время поиска оптимальной архитектуры и исключить изначально неэффективные решения. Если структура входных данных соответствует изображениям (определяется на шаге 2 и 3), то используются сверточные слои, если многомерным векторам временных последовательностей — рекуррентные и т.д. Таким образом, в рамках каждой категории задачи возможно сократить максимальное количество возможных сочетаний параметров и структуры нейронной сети с сотен миллионов до нескольких десятков тысяч.</p>
+        <p>5.	Нейронная сеть NN * обучается на всем тренировочном наборе Xtrain е X. Оценивается ее точность А. В случае превышения ошибки A(NN*) заданного порога е осуществляется возврат к этапу 4. Способ вычисления ошибки (например, на основе среднеквадратичного отклонения, перекрестной энтропии или иных метрик) определен для каждой задачи.</p>
+        <p>6.	Если обученная нейронная сеть обеспечивает требуемую точность (A(NN*) ^ е), то осуществляется контрольный замер на данных Xtest е X,Xtest П Xtrain = 0. Полученные средствами нейронной сети значения Yiesi оцениваются на принадлежность области допустимых значений Y.</p>
+        <p>7.	Нейронная сеть используется для решения выбранной задачи Кг.</p>
+        <p>Таким образом, разработанный метод позволяет в автоматическом режиме подобрать необходимые параметры и структуру нейронных сетей в зависимости от выбранной категории задач К^</p>
+        <p>2. Программная реализация метода</p>
+        <p>Для программной реализации метода использовались язык программирования Python и библиотека по работе с машинным обучением Keras. Выбор языка программирования обусловлен возможностью объективного сравнения с альтернативными решениями, которые также реализованы на Python, наличием удобных инструментов для анализа и обработки больших объемов данных. Необходимо отметить, что пред-</p>
+        <p>лагаемый метод может быть реализован с применением как различных фреймворков (СаИе, РуТогеЬ, ТепБОгПс^, Эагкпе^ ховооб! и др.), так и языков программирования. КегаБ использовался по причине простоты реализации нейронных сетей за счет высокого уровня абстракции. Архитектура программного обеспечения имеет следующий вид (рис. 1): первый компонент определяет конкретную категорию задач обработки данных для исходных структур информации, а второй - реализует все основные этапы метода автоматического поиска структур и параметров нейронных сетей.</p>
+        <p>Рис. 1. Структура программного обеспечения для поиска параметров нейронных сетей Fig. 1. The structure of software for searching the parameters of neural networks</p>
+        <p>В рамках второго компонента разработан родительский программный класс, обеспечивающий основную функциональность метода, от которого уже осуществлено наследование набора классов, решающих конкретные задачи обработки данных (сжатие данных, прогнозирование, генерация и т.д.).</p>
+        <p>3. Апробация метода</p>
+        <p>Для проверки метода проведем несколько экспериментов, в которых сравним точность работы нейронных сетей, полученных аналитическим способом, со сформированными разработанным программным обеспечением, реализующим метод автоматического поиска.</p>
+        <p>В первом эксперименте осуществим подбор структуры и параметров нейронной сети автоэнкодера. В качестве датасета используем ММБТ (60 000 изображений размером 28x28 пикселей для обучения, 10 000 —для тестирования), так как на нем можно визуально оценить качество сжатия и восстановления из скрытого представления исходных данных. На рис. 2 представлены результаты данного эксперимента, а также значения основных метрик и параметров: Н — длина сжатого состояния; Т — время поиска структуры и параметров нейронной сети; Ь0, Ь — значение функции потерь (среднеквадратичной ошибки) до и после применения метода.</p>
+        <p>Во втором эксперименте найдем оптимальную структуру и параметры для генеративно-состязательной сети на примере датасета МШБТ (рис. 3). Задача усложняется тем, что процесс обучения сетей такого типа нестабилен, что связано с одновременной динамической тренировкой двух конкурирующих моделей. Поэтому важен правильный контроль процесса обучения двух моделей и его своевременный перезапуск в</p>
+        <p>Исходный объект	Аналитическое решение	Разработанный метод</p>
+        <p>H=10 T=478 L0=0.15	Я	J	«Я</p>
+        <p>L=0.11</p>
+        <p>Рис. 2. Результаты поиска структуры нейронной сети автоэнкодера Fig. 2. Results of searching for the structure of an autoencoder neural network</p>
+        <p>случае дисбаланса в сторону одной из моделей. Для этого используется постоянная оценка качества сгенерированных моделей с применением разработанной ранее модифицированной метрики Inception Score [14]. Особенность метрики заключается в переходе от сети Inception V3 к произвольному классификатору при расчете предельной вероятности (среднего значения условных вероятностей для объектов в группе). Так как задано N = 10 классов цифр, то обучается нейронная сеть, осуществляющая соответствующую классификацию по N категориям. Для изображений в классификаторе используется последовательность сверточных слоев. Далее эта нейронная сеть подставляется вместо Inception V3 в программную реализацию метрики Inception Score.</p>
+        <p>Аналитическое решение</p>
+        <p>Разработанный метод</p>
+        <p>T=1437</p>
+        <p>a</p>
+        <p>IS=5.78</p>
+        <p>Рис. 3. Результаты поиска структуры генеративно-состязательной сети Fig. 3. Search results for the structure of a generative-adversarial network</p>
+        <p>Прирост модифицированной метрики Inception Score после применения метода составил 34%. Полученные значения можно интерпретировать следующим образом: аналитическое решение способно сгенерировать 5.78 различных классов из 10, после применения метода —7.74 из 10 возможных.</p>
+        <p>В результате в первом эксперименте значение функции потерь после поиска оптимальных параметров и структуры нейронной сети было сокращено на 26%, а во втором эксперименте значение метрики Inception Score улучшено на 34%, что подтверждает применимость изложенного метода для решения поставленной задачи.</p><div class="bibloid_serp bibloid_serp_ocr"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=ocr">подбора литературы</a>.</span></div>
+        <p>4. Сравнительный анализ эффективности метода</p>
+        <p>Для проверки эффективности предлагаемого метода относительно существующих подходов к автоматическому формированию нейронных сетей осуществим его сравнение с библиотеками AutoKeras, DEvol, AutoSklearn. AutoGAN не участвует в сравнении, так как его возможности ограничены только генерацией изображений.</p>
+        <p>Разработанный метод отвечает всем критериям, представленным в таблице, что отражает его большую универсальность и функциональность, применимость для</p>
+        <p>поиска структур и параметров широкого набора типов нейронных сетей (генеративных, рекуррентных, сверточных и т.д.), что успешно доказано при апробации в предыдущем разделе.</p>
+        <p>Для оценки времени нахождения структур нейронных сетей и их итоговой точности при различных методах проведено несколько экспериментов:</p>
+        <p>•	классификация объектов (датасет MNIST, функция ошибки — кросс-энтропия)</p>
+        <p>[15];</p>
+        <p>•	регрессия фрагмента данных на основе остальных значений (датасет Adult, функция ошибки —MSE) [16];</p>
+        <p>•	прогнозирование временного ряда (датасеты Individual household electric power consumption, HAR accelerometer, функция ошибки —MSE) [16].</p>
+        <p>Получены следующие результаты (точность — в процентах, время поиска структуры и параметров нейронной сети — в секундах):</p>
+        <p>•	классификация (MNIST): AutoKeras (99.8%, 2162), DEvol (99%, 3434), AutoSklearn (96.9%, 1897), предлагаемый метод (на основе автоэнкодера — 98.3%, 63, на основе рекуррентной сети — 98.1%, 192);</p>
+        <p>•	регрессия (Adult): AutoKeras (86.9%, 954), DEvol (82.0%, 570), AutoSklearn (83.6%, 1121), предлагаемый метод (84.9%, 320);</p>
+        <p>•	прогнозирование (Individual household electric power consumption): DEvol (99.7%, 2030), предлагаемый метод (99.9%, 1142);</p>
+        <p>•	прогнозирование (HAR accelerometer): DEvol (94.8%, 1566), предлагаемый метод (92.9%, 868).</p>
+        <p>Не все методы использовались в каждом эксперименте, что обусловлено их ограничениями (см. таблицу). На рис. 4 и 5 представлены сводные диаграммы сравнения средней точности (в процентах) и среднего времени поиска структуры нейронной сети (в секундах) соответственно для каждого подхода.</p>
+        <p>о я</p>
+        <p>100.0 90.0 80.0 70.0 60.0 50.0 40.0 30.0 20.0 10.0 0.0</p>
+        <p>93 4.</p>
+        <p>93 9.</p>
+        <p>90 3.</p>
+        <p>94 8.</p>
+        <p>□ AutoKeras □ DEvol □ AutoSklearn ■ Разработанный метод</p>
+        <p>Рис. 4. Сравнение точности нейронных сетей, полученных различными методами поиска структуры нейронных сетей</p>
+        <p>Fig. 4. Comparison of the accuracy of neural networks obtained by various methods of searching for the structure of neural networks</p>
+        <p>2000.0</p>
+        <p>1900.0</p>
+        <p>1800.0</p>
+        <p>1600.0</p>
+        <p>1558.0</p>
+        <p>1509.0</p>
+        <p>1400.0</p>
+        <p>о</p>
+        <p>1200.0</p>
+        <p>1000.0</p>
+        <p>800.0</p>
+        <p>600.0</p>
+        <p>517.0</p>
+        <p>200.0</p>
+        <p>400.0</p>
+        <p>0.0</p>
+        <p>□ AutoKeras DDEvol □AutoSkleam ■ Разработанный метод</p>
+        <p>Рис. 5. Сравнение времени решения задачи поиска структуры нейронных сетей различными методами</p>
+        <p>Fig. 5. Comparison of the time of solving the problem of finding the structure of neural networks by different methods</p>
+        <p>Таким образом, средняя точность нейронных сетей после применения разработанного метода составила 94.8%, а среднее время поиска структуры и параметров сетей —517 сек. Средняя точность остальных методов равна 92.5%. В среднем время решения задач остальными методами равнялось 1655 сек.</p>
+        <p>Полученные результаты сравнительного анализа показывают преимущество разработанного метода по времени нахождения оптимальных структур и параметров нейронных сетей произвольного типа, а также по итоговой точности полученных сетей.</p>
+        <p>Заключение</p>
+        <p>Предложенный метод автоматического поиска структур и параметров нейронных сетей основан на определении категории задач обработки данных и переборе множеств варьируемых характеристик нейронных сетей на небольшой тестовой выборке, что способствует сокращению времени поиска при сохранении высокой точности итогового решения. Разработанный метод отличается от аналогов большей универсальностью, что позволяет использовать его для формирования многослойных, сверточных, рекуррентных, генеративно-состязательных нейронных сетей, а также автоэнкодеров.</p>
+        <p>Метод апробирован на примере двух задач (формирования автоэнкодера и генеративно-состязательной сети), относительно аналитического решения получено улучшение метрик на 26-34%. Сравнение метода при решении различных задач (классификация, регрессия, прогнозирование) с конкурентными программными библиотеками показало его превосходство по времени нахождения решения (до 3.2 раза) и итоговой точности нейронной сети (до 2.3%).</p>
+        <p>Таким образом, предложенный метод поиска структур и параметров достаточно прост в реализации, применим для широкого набора типов нейронных сетей и, соответственно, задач обработки информации, отличается быстродействием и высокой</p>
+        <p>точностью. Область его применения включает разработку адаптивных информационных систем, интеллектуальных модулей анализа, обработки и генерации данных, систем, основанных на технологиях машинного зрения и обучения. В рамках проводимой в Тамбовском государственном техническом университете научной деятельности метод успешно апробирован при решении следующих задач: анализ данных о перемещении пользователя в виртуальной реальности, преобразование данных при передаче между компонентами тренажерных комплексов, персонализация интерфейса адаптивных систем электронного документооборота [17,18].</p>
+        <p>Список литературы</p>
+        <p>1.	Бескровный А. С., Бессонов Л. В., Иванов Д. В., Кириллова И. В., Коссович Л. Ю. Использование сверточной нейронной сети для автоматизации построения двумерных твердотельных моделей позвонков // Известия Саратовского университета. Новая серия. Серия: Математика. Механика. Информатика. 2020. Т. 20, вып. 4. С. 502-516. https://doi.org/10.18500/1816-9791-2020-20-4-502-516</p>
+        <p>2.	Li H., Yuan D, Ma X., Cui D., Cao L. Genetic algorithm for the optimization of features and neural networks in ECG signals classification // Scientific Reports. 2017. Vol. 7, iss. 1. P. 1-12. https://doi.org/10.1038/srep41011</p>
+        <p>3.	He X., Zhao K, Chu X. AutoML: A Survey of the State-of-the-Art // Knowledge-Based Systems. 2021. Vol. 212. P. 106622. https://doi.org/10.1016/j-.knosys.2020.106622</p>
+        <p>4.	Jin H., Song Q., Hu X. Auto-keras: An efficient neural architecture search system // Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. 2019. P. 1946-1956. https://doi.org/10.1145/3292500.3330648</p>
+        <p>5.	Real E., Aggarwal A., Huang Y., Le Q. V. Regularized evolution for image classifier architecture search // Proceedings of the AAAI Conference on Artificial Intelligence. 2019. Vol. 33. P. 4780-4789. https://doi.org/10.1609/aaai.v33i01.33014780</p>
+        <p>6.	Budjac R., Nikmon M., Schreiber P., Zahradnikova B., Janacova D. Automated machine learning overview // Research Papers Faculty of Materials Science and Technology Slovak University of Technology. 2019. Vol. 27, iss. 45. P. 107-112. https://doi.org/10.2478/ rput-2019-0033</p>
+        <p>7.	Feurer M., Klein A., Eggensperger K., Springenberg J., Blum M., Hutter F. Efficient and robust automated machine learning// Automated Machine Learning. 2019. P. 113-134. https://doi.org/10.1007/978-3-030-05318-5_6</p>
+        <p>8.	Le Q., Zoph B. Using machine learning to explore neural network architecture // Google Research Blog. 2017. URL: https://research.googleblog.com/2017/05/using-machine-lear ning-to-explore.html (дата обращения: 05.04.2022).</p>
+        <p>9.	Gong X., Chang S., Jiang Y., Wang Z. Autogan: Neural architecture search for generative adversarial networks // Proceedings of the IEEE International Conference on Computer Vision. 2019. P. 3224-3234. https://doi.org/10.1109/ICCV.2019.00332</p>
+        <p>10.	Liu C., Zoph B., Neumann M, Shlens J., Hua W., Li L. J., Murphy K. Progressive Neural Architecture Search // Computer Vision - ECCV 2018. ECCV 2018 / eds.: V. Ferrari, M. Hebert, C. Sminchisescu, Y. Weiss. Cham : Springer, 2018. P. 19-34. (Lecture Notes in Computer Science, vol. 11205). https://doi.org/10.1007/978-3-030-01246-5_2</p>
+        <p>11.	Cai H., Gan C., Han S. Once for all: Train one network and specialize it for efficient deployment // arXiv preprint arXiv:1908.09791. 2019.</p>
+        <p>12.	Truong A., Walters A., Goodsitt J., Hines K., Bruss C. B., Farivar R. Towards automated machine learning: Evaluation and comparison of AutoML approaches and tools // 2019 IEEE 31st International Conference on Tools with Artificial Intelligence. 2019. P. 1471-1479. https://doi.org/10.1109/ICTAI.2019.00209</p>
+        <p>13.	Moen E., Bannon D., Kudo T., Graf W., Covert M., Van Valen D. Deep learning for cellular image analysis // Nature Methods. 2019. Vol. 16, iss. 12. P. 1233-1246. https://doi.org/10.1038/s41592-019-0403-1</p>
+        <p>14.	Obukhov A., Krasnyanskiy M. Quality assessment method for GAN based on modified metrics inception score and Frechet inception distance // Proceedings of the Computational Methods in Systems and Software. 2020. P. 102-114. https://doi.org/10.1007/978-3-030-63322-6_8</p>
+        <p>15.	MNIST handwritten digit database, Yann LeCun, Corinna Cortes and Chris Burges. URL: http://yann.lecun.com/exdb/mnist/ (дата обращения: 05.04.2022).</p>
+        <p>16.	UCI Machine Learning Repository. URL: https://archive.ics.uci.edu/ml/datasets.php (дата обращения: 05.04.2022).</p>
+        <p>17.	Obukhov A., Siukhin A., Dedov D. The model of the automatic control system for a treadmill based on neural networks // 2020 International Multi-Conference on Industrial Engineering and Modern Technologies (FarEastCon). 2020. P. 1-5. https://dx.doi.org/10. 1109/FarEastCon50210.2020.9271589</p>
+        <p>18.	Обухов А. Д., Краснянский М. Н. Нейросетевой метод обработки и передачи данных в адаптивных информационных системах // Вестник Удмуртского университета. Математика. Механика. Компьютерные науки. 2021. Т. 31, вып. 1. С. 149-164. https://doi.org/10.35634/vm210111</p>
+        <p>References</p>
+        <p>1.	Beskrovny A. S., Bessonov L. V., Ivanov D. V., Kirillova I. V., Kossovich L. Yu. Using the mask-RCNN convolutional neural network to automate the construction of two-dimensional solid vertebral models. Izvestiya of Saratov University. Mathematics. Mechanics. Informatics, 2020, vol. 20, iss. 4, pp. 502-516 (in Russian). https://doi.org/10. 18500/1816-9791-2020-20-4-502-516</p>
+        <p>2.	Li H., Yuan D.,Ma X., Cui D., Cao L. Genetic algorithm for the optimization of features and neural networks in ECG signals classification. Scientific Reports, 2017, vol. 7, iss. 1, pp. 1-12. https://doi.org/10.1038/srep41011</p>
+        <p>3.	He X., Zhao K., Chu X. AutoML: A survey of the state-of-the-art. Knowledge-Based Systems, 2021, vol. 212, pp. 106622. https://doi.org/10.1016/j-.knosys.2020.106622</p>
+        <p>4.	Jin H., Song Q., Hu X. Auto-keras: An efficient neural architecture search system. Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 2019, pp. 1946-1956. https://doi.org/10.1145/3292500.3330648</p>
+        <p>5.	Real E., Aggarwal A., Huang Y., Le Q. V. Regularized evolution for image classifier architecture search. Proceedings of the AAAI Conference on Artificial Intelligence, 2019, vol. 33, pp. 4780-4789. https://doi.org/10.1609/aaai.v33i01.33014780</p>
+        <p>6.	Budjac R., Nikmon M., Schreiber P., Zahradnikova B., Janacova D. Automated machine learning overview. Research Papers Faculty of Materials Science and Technology Slovak University of Technology, 2019, vol. 27, iss. 45, pp. 107-112. https://doi.org/10.2478/ rput-2019-0033</p>
+        <p>7.	Feurer M., Klein A., Eggensperger K., Springenberg J., Blum M., Hutter F. Efficient and robust automated machine learning. Automated Machine Learning, 2019, pp. 113-134. https://doi.org/10.1007/978-3-030-05318-5_6</p>
+        <p>8.	Le Q., Zoph B. Using machine learning to explore neural network architecture. Google Research Blog, 2017. Available at: https://research.googleblog.com/2017/05/using-machine-learning-to-explore.html (accessed 5 April 2022).</p>
+        <p>9.	Gong X., Chang S., Jiang Y., Wang Z. Autogan: Neural architecture search for generative adversarial networks. Proceedings of the IEEE International Conference on Computer Vision, 2019, pp. 3224-3234. https://doi.org/10.1109/ICCV.2019.00332</p>
+        <p>10. Liu C., Zoph B., Neumann M., Shlens J., Hua W., Li L. J., Murphy K. Progressive Neural Architecture Search. In: Ferrari V., Hebert M., Sminchisescu C., Weiss Y. (eds.) Computer Vision - ECCV2018. ECCV 2018. Lecture Notes in Computer Science, vol. 11205. Cham, Springer, 2018, pp. 19-34. https://doi.org/10.1007/978-3-030-01246-5_2</p>
+        <p>11.	Cai H., Gan C., Han S. Once for all: Train one network and specialize it for efficient deployment. arXiv preprint, arXiv:1908.09791. 2019.</p>
+        <p>12.	Truong A., Walters A., Goodsitt J., Hines K., Bruss C. B., Farivar R. Towards automated machine learning: Evaluation and comparison of AutoML approaches and tools. 2019 IEEE 31st International Conference on Tools with Artificial Intelligence, 2019, pp. 1471-1479. https://doi.org/10.1109/ICTAI.2019.00209</p>
+        <p>13.	Moen E., Bannon D., Kudo T., Graf W., Covert M., Van Valen D. Deep learning for cellular image analysis. Nature Methods, 2019, vol. 16, iss. 12, pp. 1233-1246. https: //doi.org/10.1038/s41592-019-0403-1</p>
+        <p>14.	Obukhov A., Krasnyanskiy M. Quality assessment method for GAN based on modified metrics inception score and Frechet inception distance. Proceedings of the Computational Methods in Systems and Software, 2020, pp. 102-114. https://doi.org/10.1007/978-3-030-63322-6_8</p>
+        <p>15.	MNIST handwritten digit database, Yann LeCun, Corinna Cortes and Chris Burges. Available at: http://yann.lecun.com/exdb/mnist/ (accessed 5 April 2022).</p>
+        <p>16.	UCI Machine Learning Repository. Available at: https://archive.ics.uci.edu/ml/datasets.php (accessed 5 April 2022).</p>
+        <p>17.	Obukhov A., Siukhin A., Dedov D. The model of the automatic control system for a treadmill based on neural networks. 2020 International Multi-Conference on Industrial Engineering and Modern Technologies (FarEastCon), 2020, pp. 1-5. https://dx.doi.org/ 10.1109/FarEastCon50210.2020.9271589</p>
+        <p>18.	Obukhov A., Krasnyanskiy M. Neural network method of data processing and transmission in adaptive information systems. Vestnik Udmurtskogo Universiteta. Matematika. Mekhani-ka. Komp&#39;yuternye Nauki, 2021, vol. 31, iss. 1, pp. 149-164 (in Russian). https://doi.org/ 10.35634/vm210111</p>
+        <p>Поступила в редакцию / Received 26.07.2021 Принята к публикации / Accepted 12.09.2022 Опубликована / Published 01.03.2023</p></div>
+    </div>
+  </div>
+
+	
+  <div class="infoblock visible">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot3"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot2');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot2"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+</div>
+</span>
+
+
+<div class="left-banner" style="width: 300px; margin-left: -320px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-left" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side1"></div>
+    <div id="crt-4f158390" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+<div class="right-banner" style="margin-left: 740px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-right" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side2"></div>
+    <div id="crt-4f158390-1" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+
+
+
+        <div class="footer">
+          <hr />
+          <div class="half">
+            <a href="/terms.html" target="_blank">Пользовательское соглашение</a>
+            <a href="/policy.html" target="_blank">Политика конфиденциальности</a>
+          </div>
+          <div class="half-right">
+            <a style="margin-top: 5px;" class="openscience" href="http://open-science.ru/" target="_blank"><img src="/images/openscience.svg" alt="Открытая наука" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="/app.js?2862416399" defer></script>
+    
+    <script type="text/javascript">
+      
+
+      window.__cl = function (f) {
+        if (!window.__cl_callbacks) {
+          window.__cl_callbacks = [];
+        }
+        window.__cl_callbacks.push(f);
+      };
+
+      window.__cl(function(app) {
+        var app = app.element(app.elm.Menu, 'menu', { user: window.__cl_user, id: "", path: "/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii" });
+        if (app == null) { return; }
+        window.notify.login = function() {
+          app.ports.showLoginSub.send();
+        }
+      });
+      window.__cl(function(app) {
+        app.element(app.elm.Notification.Persist, 'notification-persist', {
+          cookie: document.cookie
+        });
+      })
+    </script>
+
+    
+  
+  <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = 'https://vk.com/rtrg?p=VK-RTRG-113217-3vhqF';</script>
+  <script type="text/javascript">
+    (window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=pBktsqObaAtvToEtTxQbb/cxSGdswTMQ5wcdtediEFrGEy1Rbzr/IMae3Notd2g/GdggCzMzIdcwjWAsDf7M*I1hGYLGK2Uho4KO3yct6a3PDEHu/PU3m87/qEKB5u005s5BZOxtV0KGfmxRfV5X4n3kmNOYtnudE89WXjBuKsQ-';
+  </script>
+  
+
+
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(15765706, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/15765706" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+  
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-33095299-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+
+    
+
+<script>
+  var adfox = function(id, params) {
+        window.yaContextCb.push(()=>{
+            Ya.adfoxCode.create({
+              ownerId: 254948,
+              containerId: id,
+              params: params
+            });
+          });
+  }
+
+  adfox('adfox_bot3', {
+    pp: 'nol',
+    ps: 'czgi',
+    p2: 'ganf',
+    puid1: ''
+  });
+  if (window.innerWidth >= 768) {
+    adfox('adfox_top1', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_top2', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid1', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot1', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid2', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot2', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot4', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+  } else {
+      adfox('adfox_top1', {
+          pp: 'noj',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_mid1', {
+          pp: 'nok',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_bot1', {
+          pp: 'nol',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+  }
+  if (window.innerWidth >= 1360) {
+    adfox('adfox_side1',{
+      pp: 'noj',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+    adfox('adfox_side2', {
+      pp: 'nok',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+  }
+</script>
+
+
+<script type="text/javascript">
+window.__cl(function(app) {
+  app.element(app.elm.Viewer.Inline, "viewer-inline", {
+    id:  19655499 ,
+    pages:  13 ,
+    link: "metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii",
+    doi: ""
+  })
+  var authors = app.element(app.elm.Article.Authors, "article-authors", {
+    is_author:  false ,
+    authors: [{"id":26625428,"name":"Обухов Артем Дмитриевич","link":"","status":""}] || [],
+    user: window.__cl_user
+  });
+  var controls = app.element(app.elm.Article.Controls, "article-controls", {
+    quotes: {
+      gost_electronic: "Обухов Артем Дмитриевич МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ \/\/ Изв. Сарат. ун-та. Нов. cер. Сер. Математика. Механика. Информатика. 2023. №1. URL: https:\/\/cyberleninka.ru\/article\/n\/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii (дата обращения: 28.09.2026).",
+      gost_print: "Обухов Артем Дмитриевич МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ \/\/ Изв. Сарат. ун-та. Нов. cер. Сер. Математика. Механика. Информатика. 2023. №1. С.113-125",
+      wiki: "{{статья|автор=Обухов Артем Дмитриевич|заглавие=МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ|издание=Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика|год=2023|ссылка=https:\/\/cyberleninka.ru\/article\/n\/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii|номер=1}}",
+      apa: "Обухов Артем Дмитриевич (2023). МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ. Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика, 23 (1), 113-125.",
+      ama: "Обухов Артем Дмитриевич. МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ. Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика.  2023;23(1):113-125.",
+      mla: "Обухов Артем Дмитриевич. \u0022МЕТОД АВТОМАТИЧЕСКОГО ПОИСКА СТРУКТУРЫ И ПАРАМЕТРОВ НЕЙРОННЫХ СЕТЕЙ ДЛЯ РЕШЕНИЯ ЗАДАЧ ОБРАБОТКИ ИНФОРМАЦИИ\u0022 Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика, vol. 23, no. 1, 2023, pp. 113-125."
+    },
+    pages:  13 ,
+    id:  19655499 ,
+    link: "metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii",
+    doi: "",
+    authors: [{"id":26625428,"name":"Обухов Артем Дмитриевич","link":"","status":""}] || [],
+    likes: {"likes":"0","dislikes":"0","user":0},
+    user: window.__cl_user
+  });
+
+  var claim = document.getElementById('claim')
+  if (claim) {
+    claim.onclick = function(e) {
+      e.preventDefault();
+      controls.ports.claim.send(true);
+    }
+  }
+
+  var searchFromSelector = function(sel) {
+    var els = document.querySelectorAll(sel);
+    els.forEach(function(el) {
+      var t = el.innerText;
+      el.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = "/search?q=" + encodeURIComponent(t);
+      }
+    });
+  }
+  searchFromSelector(".to-search");
+});
+</script>
+
+
+    <div id="notification-flash"></div>
+    <div class="info"><div id="notification-persist"></div></div>
+  </body>
+</html>

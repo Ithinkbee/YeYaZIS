@@ -1,0 +1,1198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="https://cyberleninka.ru/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov" />
+
+    <title>ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ – тема научной статьи по компьютерным и информационным наукам читайте бесплатно текст научно-исследовательской работы в электронной библиотеке КиберЛенинка</title>
+    <meta name="keywords" content="научная статья бесплатно на тему ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ текст научной работы по компьютерным и информационным наукам из научного журнала Международный научно-исследовательский журнал. параллельный модуль, криптографическая защита файлов, производительность, безопасность, шифрование, дешифрование, AES, TripleDES, Twofish, параллельные вычисления, parallel module, cryptographic file protection, performance, security, encryption, decryption, AES, TripleDES, Twofish, parallel computing" />
+    <meta name="description" content="В данной статье рассматривается разработка параллельного модуля для криптографической защиты файлов. Основной целью исследования является повышение производительности и уровня безопасности систем обработки данных посредством распределения вычислительной нагрузки между несколькими ядрами или узлами. В статье проведен анализ существующих решений и алгоритмов криптографической защиты, таких как AES, TripleDES и Twofish. Особое внимание уделено реализации параллельных вычислений для шифрования и дешифрования данных, что позволяет значительно ускорить процесс обработки информации. Методология тестирования включала планирование и разработку тестовых сценариев, проведение тестов на реальных данных и анализ полученных результатов. Тестирование проводилось на аппаратно-программной платформе, включающей процессор Intel Core i5 10400, 4 модуля оперативной памяти AMD Radeon R7 Performance Series R748G2606U2S-U DDR4 – 8 ГБ 2666 и хранилище данных Samsung SSD 860 EVO 500GB M.2. Результаты показали, что параллельное шифрование и дешифрование работают в среднем в 2,81 раза быстрее, чем последовательное шифрование, а параллельное дешифрование – в 2,57 раза быстрее. Анализ производительности и безопасности подтверждает, что разработанный модуль обеспечивает надежную криптографическую защиту и соответствует современным требованиям к системам обработки данных. Использование параллельных вычислений в криптографии открывает новые возможности для повышения эффективности работы с данными и обеспечения их безопасности" />
+
+    <link rel="stylesheet" media="all" href="/app.css?2824926673" />
+    <link rel="preload" href="/fonts/ProximaNovaBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaExtraCondensedLight.woff2" as="font" type="font/woff2" crossorigin>
+    
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <meta name="robots" content="NOODP" />
+  <meta name="robots" content="noyaca" />
+
+  <meta property="og:url" content="https://cyberleninka.ru/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov" />
+  <meta property="og:site_name" content="КиберЛенинка" />
+  <meta property="og:title" content="ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ" />
+  <meta property="og:description" content="В данной статье рассматривается разработка параллельного модуля для криптографической защиты файлов. Основной целью исследования является повышение производительности и уровня безопасности систем обработки данных посредством распределения вычислительной нагрузки между несколькими ядрами или узлами. В статье проведен анализ существующих решений и алгоритмов криптографической защиты, таких как AES, TripleDES и Twofish. Особое внимание уделено реализации параллельных вычислений для шифрования и дешифрования данных, что позволяет значительно ускорить процесс обработки информации. Методология тестирования включала планирование и разработку тестовых сценариев, проведение тестов на реальных данных и анализ полученных результатов. Тестирование проводилось на аппаратно-программной платформе, включающей процессор Intel Core i5 10400, 4 модуля оперативной памяти AMD Radeon R7 Performance Series R748G2606U2S-U DDR4 – 8 ГБ 2666 и хранилище данных Samsung SSD 860 EVO 500GB M.2. Результаты показали, что параллельное шифрование и дешифрование работают в среднем в 2,81 раза быстрее, чем последовательное шифрование, а параллельное дешифрование – в 2,57 раза быстрее. Анализ производительности и безопасности подтверждает, что разработанный модуль обеспечивает надежную криптографическую защиту и соответствует современным требованиям к системам обработки данных. Использование параллельных вычислений в криптографии открывает новые возможности для повышения эффективности работы с данными и обеспечения их безопасности" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://cyberleninka.ru/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov/og" />
+  <meta property="og:image:width" content="1074" />
+  <meta property="og:image:height" content="480" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@CyberLeninka" />
+
+    
+
+<link rel="preconnect" href="https://yastatic.net">
+<link rel="preconnect" href="https://securepubads.g.doubleclick.net">
+<link rel="preconnect" href="https://exchange.buzzoola.com">
+<link rel="preconnect" href="https://pb.adriver.ru">
+<link rel="preconnect" href="https://ad.mail.ru">
+<link rel="preconnect" href="https://ads.betweendigital.com">
+<script src="https://yandex.ru/ads/system/header-bidding.js" async></script>
+<script>window.yaContextCb = window.yaContextCb || []</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+<script src="https://content.adriver.ru/AdRiverFPS.js" async></script>
+<script src="https://cdn.skcrtxr.com/roxot-wrapper/js/roxot-manager.js?pid=1f462bba-63b2-4d05-8a2c-12cb7f02b607" async></script>
+
+<script>
+const adfoxBiddersMap = {
+  "myTarget": "763128",
+  "betweenDigital": "793538",
+  "adriver": "776589",
+  "otm": "1460822",
+  "buzzoola": "769160",
+  "sape": "1697231",
+  "mediasniper": "2297743",
+  "mediatoday": "2365797",
+  "roxot": "2723510",
+  "gnezdo":"2930570",
+  "hybrid":"2994840",
+  "smi2":"3125554",
+  "link": "3389346",
+  "adfox_yandex_adplay-adv":"3294122",
+  "ohmybid": "3434190",
+  "videonow": "2930576"
+};
+
+var biddersCpmAdjustmentMap = {
+  'myTarget': 0.46,
+  'betweenDigital': 0.84,
+  'adriver': 0.79,
+  'otm': 0.87,
+  'buzzoola': 0.77,
+  'sape': 0.79,
+  'mediasniper': 0.79,
+  'mediatoday': 0.68,
+  'gnezdo': 0.92,
+  'hybrid': 0.92,
+  'smi2': 0.9
+};
+
+if (window.innerWidth >= 768) {
+
+  
+
+
+  adUnits = [
+    {
+      "code": "adfox_head",
+      "sizes": [[970,250],[300,250],[300,300],[970,90],[728,90]],
+      "bids": [
+        {"bidder": "myTarget", "params": {"placementId": 320990}},
+        {"bidder": "betweenDigital", "params": {"placementId": 2674177}},
+        {"bidder": "adriver", "params": {
+          "placementId": "20:cyberleninka_970x250",
+          "additional": {"ext": {"query": "custom=10=20&cid=" + localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm", "params": {"placementId": "911"}},
+        {"bidder": "buzzoola", "params": {"placementId": 1221042}},
+        {"bidder": "sape", "params": {"placementId": 821135}},
+        {"bidder": "mediasniper", "params": {"placementId": 360005}},
+        {"bidder": "roxot", "params": {"placementId": "51768c0a-c428-4776-a4ba-1025d94c29ad", "sendTargetRef": true}},
+        {"bidder": "gnezdo", "params": {"placementId": 353101}},
+        {"bidder": "hybrid", "params": {"placementId": "661fc2a34d506e1118632ce8"}},
+        {"bidder": "smi2", "params": {"placementId": "103126"}},
+        {"bidder": "link", "params": {"placementId": "cdf306abf7023052d3eb67588de05431"}},
+        {"bidder":"videonow","params":{"placementId":"16232754"}},
+        {"bidder": "ohmybid", "params": {"placementId": "HOdayBV9B8Q9L3FV"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side1",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320974}},
+        {"bidder":"betweenDigital","params":{"placementId":2673847}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm","params":{"placementId":"912"}},
+        {"bidder": "buzzoola","params":{"placementId":1221043}},
+        {"bidder": "sape","params":{"placementId":821136}},
+        {"bidder": "mediasniper","params":{"placementId":360006}},
+        {"bidder": "mediatoday","params":{"placementId":9682}},
+        {"bidder": "roxot","params":{"placementId":"d82943a0-d3d0-41b5-9ce9-ecf5c59a1c2e","sendTargetRef":true}},
+        {"bidder": "hybrid","params":{"placementId":"661fc2c67bc72ff858bdcfb4"}},
+        {"bidder": "smi2","params":{"placementId":"103131"}},
+        {"bidder": "adfox_yandex_adplay-adv","params":{"p1":"dgped","p2":"jdhb"}},
+        {"bidder":"link","params":{"placementId":"b98512a98211345da7923634e913ca47"}},
+        {"bidder":"videonow","params":{"placementId":"16233892"}},
+        {"bidder":"ohmybid","params":{"placementId":"zySZorOzKZhXjdDj"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side2",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320975}},
+        {"bidder":"betweenDigital","params":{"placementId":2673848}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"913"}},
+        {"bidder":"buzzoola","params":{"placementId":1221044}},
+        {"bidder":"sape","params":{"placementId":821138}},
+        {"bidder":"mediasniper","params":{"placementId":360007}},
+        {"bidder":"mediatoday","params":{"placementId":9682}},
+        {"bidder":"roxot","params":{"placementId":"80dadf4c-5c8d-4bc3-b0e0-1328270a7d94","sendTargetRef":true}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2f54d506e1118632cea"}},
+        {"bidder":"smi2","params":{"placementId":"103132"}},
+        {"bidder":"link","params":{"placementId":"8232acc3e5e0ffb434bce7b63999dcca"}},
+        {"bidder":"videonow","params":{"placementId":"16234941"}},
+        {"bidder":"ohmybid","params":{"placementId":"NcqadnIaACfH7uWm"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320978}},
+        {"bidder":"betweenDigital","params":{"placementId":2673849}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"914"}},
+        {"bidder":"buzzoola","params":{"placementId":1221045}},
+        {"bidder":"sape","params":{"placementId":821140}},
+        {"bidder":"mediasniper","params":{"placementId":360008}},
+        {"bidder":"mediatoday","params":{"placementId":9675}},
+        {"bidder":"roxot","params":{"placementId":"a4d837bd-166d-4cb9-8210-34688740a4ef","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353095}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3157bc72ff858bdcfb6"}},
+        {"bidder":"smi2","params":{"placementId":"103133"}},
+        {"bidder":"adfox_yandex_adplay-adv","params":{"p1":"dgpec","p2":"jbzl"}},
+        {"bidder":"link","params":{"placementId":"0b21aa98d95dcb9bf6258692583009c0"}},
+        {"bidder":"ohmybid","params":{"placementId":"9bXBoQSn0JqFIuA8"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320979}},
+        {"bidder":"betweenDigital","params":{"placementId":2673850}},
+        {"bidder":"otm","params":{"placementId":"915"}},
+        {"bidder":"buzzoola","params":{"placementId":1221046}},
+        {"bidder":"sape","params":{"placementId":821142}},
+        {"bidder":"mediasniper","params":{"placementId":360009}},
+        {"bidder":"mediatoday","params":{"placementId":9676}},
+        {"bidder":"roxot","params":{"placementId":"8cc4e575-2379-4c53-9d3b-457a4abeabbc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353096}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3334d506e1118632cec"}},
+        {"bidder":"smi2","params":{"placementId":"103134"}},
+        {"bidder":"link","params":{"placementId":"aa4cde959439c223735f8c5d1272d9d6"}},
+        {"bidder":"videonow","params":{"placementId":"16235894"}},
+        {"bidder":"ohmybid","params":{"placementId":"Mniw5psCV5bYbDPP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320982}},
+        {"bidder":"betweenDigital","params":{"placementId":2673851}},
+        {"bidder":"otm","params":{"placementId":"916"}},
+        {"bidder":"buzzoola","params":{"placementId":1221047}},
+        {"bidder":"sape","params":{"placementId":821143}},
+        {"bidder":"mediasniper","params":{"placementId":360010}},
+        {"bidder":"mediatoday","params":{"placementId":9677}},
+        {"bidder":"roxot","params":{"placementId":"def97489-bf90-4dc2-b25d-6e98089bdbea","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353097}},
+        {"bidder":"hybrid","params":{"placementId":"661fc34d4d506e1118632cf6"}},
+        {"bidder":"smi2","params":{"placementId":"103135"}},
+        {"bidder":"link","params":{"placementId":"cc58da3f5040ed3f081281d234642f1b"}},
+        {"bidder":"videonow","params":{"placementId":"16617416"}},
+        {"bidder":"ohmybid","params":{"placementId":"hvP3ncZ9Z3IcN7kP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320983}},
+        {"bidder":"betweenDigital","params":{"placementId":2673852}},
+        {"bidder":"otm","params":{"placementId":"917"}},
+        {"bidder":"buzzoola","params":{"placementId":1221048}},
+        {"bidder":"sape","params":{"placementId":821144}},
+        {"bidder":"mediasniper","params":{"placementId":360011}},
+        {"bidder":"mediatoday","params":{"placementId":9678}},
+        {"bidder":"roxot","params":{"placementId":"1253e1f2-f966-4c30-bb31-d73d70170b5e","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353098}},
+        {"bidder":"hybrid","params":{"placementId":"661fc59c4d506e1118632d08"}},
+        {"bidder":"smi2","params":{"placementId":"103136"}},
+        {"bidder":"link","params":{"placementId":"03db8f736f856b5a7989654cb20fb4b4"}},
+        {"bidder":"videonow","params":{"placementId":"16237809"}},
+        {"bidder":"ohmybid","params":{"placementId":"epg8ArJA41baCf0f"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320985}},
+        {"bidder":"betweenDigital","params":{"placementId":2673854}},
+        {"bidder":"otm","params":{"placementId":"918"}},
+        {"bidder":"buzzoola","params":{"placementId":1221049}},
+        {"bidder":"sape","params":{"placementId":821145}},
+        {"bidder":"mediasniper","params":{"placementId":360012}},
+        {"bidder":"mediatoday","params":{"placementId":9679}},
+        {"bidder":"roxot","params":{"placementId":"57ea14a5-a9dc-421d-8f05-7dbcf17e3619","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353099}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3817bc72ff858bdcfbe"}},
+        {"bidder":"smi2","params":{"placementId":"103137"}},
+        {"bidder":"link","params":{"placementId":"746ae63162e72a09439269ffb366a9f5"}},
+        {"bidder":"ohmybid","params":{"placementId":"Ybi2I2NcSMHFHAUL"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320988}},
+        {"bidder":"betweenDigital","params":{"placementId":2673853}},
+        {"bidder":"otm","params":{"placementId":"919"}},
+        {"bidder":"buzzoola","params":{"placementId":1221050}},
+        {"bidder":"sape","params":{"placementId":821146}},
+        {"bidder":"mediasniper","params":{"placementId":360013}},
+        {"bidder":"mediatoday","params":{"placementId":9680}},
+        {"bidder":"roxot","params":{"placementId":"10b6c096-8ccd-4d62-9e78-d7500399003d","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353100}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3a24d506e1118632cf8"}},
+        {"bidder":"smi2","params":{"placementId":"103138"}},
+        {"bidder":"link","params":{"placementId":"412c7b3a30c7a86a40df78707a0effed"}},
+        {"bidder":"videonow","params":{"placementId":"16236896"}},
+        {"bidder":"ohmybid","params":{"placementId":"tf3WAI4nf1jZxl3p"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1200;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+
+
+
+
+
+} else {
+
+  adUnits = [
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320966}},
+        {"bidder":"betweenDigital","params":{"placementId":2673855}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"907"}},
+        {"bidder":"buzzoola","params":{"placementId":1221037}},
+        {"bidder":"sape","params":{"placementId":821190}},
+        {"bidder":"mediasniper","params":{"placementId":360001}},
+        {"bidder":"mediatoday","params":{"placementId":9671}},
+        {"bidder":"roxot","params":{"placementId":"2735e182-e1c2-422b-b7d3-b1ee1ecbb439","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353090}},
+        {"bidder":"hybrid","params":{"placementId":"661fc22c7bc72ff858bdcfb2"}},
+        {"bidder":"smi2","params":{"placementId":"103127"}},
+        {"bidder":"link","params":{"placementId":"317a18769d3b042bcd12d87c18153cdc"}},
+        {"bidder":"videonow","params":{"placementId":"3393503"}},
+        {"bidder":"ohmybid","params":{"placementId":"oqv6s4quummeiGOn"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320968}},
+        {"bidder":"betweenDigital","params":{"placementId":2673856}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"908"}},
+        {"bidder":"buzzoola","params":{"placementId":1221039}},
+        {"bidder":"sape","params":{"placementId":821191}},
+        {"bidder":"mediasniper","params":{"placementId":360002}},
+        {"bidder":"mediatoday","params":{"placementId":9672}},
+        {"bidder":"roxot","params":{"placementId":"6e1adc14-1564-4bfb-9789-1f4b4caf9bb7","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353091}},
+        {"bidder":"hybrid","params":{"placementId":"661fc24e4d506e1118632ce2"}},
+        {"bidder":"smi2","params":{"placementId":"103128"}},
+        {"bidder":"link","params":{"placementId":"d194b3f2f2b4a8b0c899fbc4b2e475d0"}},
+        {
+          "bidder": "adfox_yandex_adplay-adv",
+          "params": {
+            "p1": "dkyya",
+            "p2": "jopb"
+          }
+        },
+        {"bidder":"videonow","params":{"placementId":"16229115"}},
+        {"bidder":"ohmybid","params":{"placementId":"YHowFqVl0va3sLxs"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320969}},
+        {"bidder":"betweenDigital","params":{"placementId":2673857}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_3",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"909"}},
+        {"bidder":"buzzoola","params":{"placementId":1221040}},
+        {"bidder":"sape","params":{"placementId":821192}},
+        {"bidder":"mediasniper","params":{"placementId":360003}},
+        {"bidder":"mediatoday","params":{"placementId":9673}},
+        {"bidder":"roxot","params":{"placementId":"3a70251b-7720-4736-b3a6-ea209d5feedc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353092}},
+        {"bidder":"hybrid","params":{"placementId":"661fc26d4d506e1118632ce4"}},
+        {"bidder":"smi2","params":{"placementId":"103129"}},
+        {"bidder":"link","params":{"placementId":"1565397ffd8f126ff093e1e81b9ad40f"}},
+        {"bidder":"videonow","params":{"placementId":"16230384"}},
+        {"bidder":"ohmybid","params":{"placementId":"BUVNSDdXEDKvWKcK"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot3",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320971}},
+        {"bidder":"betweenDigital","params":{"placementId":2673858}},
+        {"bidder":"otm","params":{"placementId":"910"}},
+        {"bidder":"buzzoola","params":{"placementId":1221041}},
+        {"bidder":"sape","params":{"placementId":821193}},
+        {"bidder":"mediasniper","params":{"placementId":360004}},
+        {"bidder":"mediatoday","params":{"placementId":9674}},
+        {"bidder":"roxot","params":{"placementId":"6ddc5b2a-3e9c-4917-b29e-a5a381a58063","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353093}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2844d506e1118632ce6"}},
+        {"bidder":"smi2","params":{"placementId":"103130"}},
+        {"bidder":"link","params":{"placementId":"959a5bd2b2b6eb23343b893e24d8093f"}},
+        {"bidder":"videonow","params":{"placementId":"16231837"}},
+        {"bidder":"ohmybid","params":{"placementId":"RUR2bXlUyFsYdcHx"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1300;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+}
+</script>
+
+
+
+  <meta name="citation_title" content="ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ" />
+  
+    <meta name="citation_author" content="Николаев В.А." />
+  
+    <meta name="citation_author" content="Гуляев И.А." />
+  
+    <meta name="citation_author" content="Лаптева М.Г." />
+  
+    <meta name="citation_author" content="Хафизова А.Ш." />
+  
+    <meta name="citation_author" content="Пикулева Н.И." />
+  
+
+	
+  
+	
+
+  <meta name="citation_publication_date" content="2024" />
+  <meta name="citation_journal_title" content="Международный научно-исследовательский журнал" />
+  <meta name="citation_fulltext_html_url" content="https://cyberleninka.ru/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov" />
+  <meta name="citation_abstract_html_url" content="https://cyberleninka.ru/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov" />
+  <meta name="citation_pdf_url" content="https://cyberleninka.ru/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov/pdf" />
+  <meta name="citation_publisher" content="Индивидуальный предприниматель Соколова Марина Владимировна" />
+  <meta name="citation_issue" content="8 (146)" />
+  <meta name="citation_volume" content="" />
+  <meta name="citation_issn" content="2303-9868" />
+  
+    <meta name="citation_eissn" content="2227-6017" />
+  
+  <meta name="citation_keywords" content="параллельный модуль, криптографическая защита файлов, производительность, безопасность, шифрование, дешифрование, AES, TripleDES, Twofish, параллельные вычисления, parallel module, cryptographic file protection, performance, security, encryption, decryption, AES, TripleDES, Twofish, parallel computing" />
+  
+    <meta name="eprints.creators_name" content="Николаев В. А." />
+  
+    <meta name="eprints.creators_name" content="Гуляев И. А." />
+  
+    <meta name="eprints.creators_name" content="Лаптева М. Г." />
+  
+    <meta name="eprints.creators_name" content="Хафизова А. Ш." />
+  
+    <meta name="eprints.creators_name" content="Пикулева Н. И." />
+  
+  <meta name="eprints.metadata_visibility" content="show" />
+  <meta name="eprints.ispublished" content="pub" />
+  <meta name="eprints.full_text_status" content="public" />
+  <meta name="eprints.type" content="article" />
+  <meta name="eprints.title" content="ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ" />
+  <meta name="eprints.date" content="2024" />
+  <meta name="eprints.date_type" content="published" />
+  <meta name="eprints.document_url" content="https://cyberleninka.ru/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov" />
+  <meta name="eprints.publication" content="Международный научно-исследовательский журнал" />
+  <meta name="eprints.publisher" content="Индивидуальный предприниматель Соколова Марина Владимировна" />
+  <meta name="eprints.refereed" content="TRUE" />
+  <meta name="eprints.citation" content="Николаев В. А., Гуляев И. А., Лаптева М. Г., Хафизова А. Ш., Пикулева Н. И. ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ // Международный научно-исследовательский журнал. 2024. Выпуск номер 8 (146), С.21" />
+  <meta name="eprints.place_of_pub" content="Россия, Екатеринбург" />
+  <meta name="eprints.number" content="8 (146)" />
+  <meta name="eprints.volume" content="" />
+  <meta name="eprints.pagerange" content="21" />
+  <meta name="eprints.issn" content="2303-9868" />
+  <meta name="eprints.abstract" content="This article examines the development of a parallel module for cryptographic protection of files. The main objective of the research is to improve the performance and security level of data processing systems by distributing the computational load among several cores or nodes. The work analyses existing solutions and algorithms of cryptographic protection such as AES, TripleDES and Twofish. Particular attention is paid to the implementation of parallel computing for data encryption and decryption, which allows to significantly accelerate the information processing. The testing methodology included planning and development of test scenarios, conducting tests on real data and analysing the obtained results. The testing was conducted on a hardware and software platform including Intel Core i5 10400 processor, 4 AMD Radeon R7 Performance Series R748G2606U2S-U DDR4 – 8 GB 2666 RAM modules and Samsung SSD 860 EVO 500GB M.2 data storage. The results show that parallel encryption and decryption perform on average 2.81 times faster than serial encryption and parallel decryption performs 2.57 times faster. Performance and security analysis confirms that the developed module provides reliable cryptographic protection and meets modern requirements to data processing systems. The use of parallel computing in cryptography opens up new opportunities for increasing the efficiency of data handling and ensuring its security" />
+  
+    <meta name="eprints.eissn" content="2227-6017" />
+  
+  <meta name="eprints.keywords" content="параллельный модуль, криптографическая защита файлов, производительность, безопасность, шифрование, дешифрование, AES, TripleDES, Twofish, параллельные вычисления, parallel module, cryptographic file protection, performance, security, encryption, decryption, AES, TripleDES, Twofish, parallel computing" />
+  
+  <meta name="eprints.abstract" content="В данной статье рассматривается разработка параллельного модуля для криптографической защиты файлов. Основной целью исследования является повышение производительности и уровня безопасности систем обработки данных посредством распределения вычислительной нагрузки между несколькими ядрами или узлами. В статье проведен анализ существующих решений и алгоритмов криптографической защиты, таких как AES, TripleDES и Twofish. Особое внимание уделено реализации параллельных вычислений для шифрования и дешифрования данных, что позволяет значительно ускорить процесс обработки информации. Методология тестирования включала планирование и разработку тестовых сценариев, проведение тестов на реальных данных и анализ полученных результатов. Тестирование проводилось на аппаратно-программной платформе, включающей процессор Intel Core i5 10400, 4 модуля оперативной памяти AMD Radeon R7 Performance Series R748G2606U2S-U DDR4 – 8 ГБ 2666 и хранилище данных Samsung SSD 860 EVO 500GB M.2. Результаты показали, что параллельное шифрование и дешифрование работают в среднем в 2,81 раза быстрее, чем последовательное шифрование, а параллельное дешифрование – в 2,57 раза быстрее. Анализ производительности и безопасности подтверждает, что разработанный модуль обеспечивает надежную криптографическую защиту и соответствует современным требованиям к системам обработки данных. Использование параллельных вычислений в криптографии открывает новые возможности для повышения эффективности работы с данными и обеспечения их безопасности" />
+  
+
+
+  </head>
+
+  <body id="body">
+    <div id="vk_api_transport"></div>
+    <div id="menu" style="height: 55px;"></div>
+
+    <div class="content" style="overflow: visible;">
+      <div class="main">
+        
+
+<span itemscope="itemscope" itemtype="http://schema.org/ScholarlyArticle">
+<div class="cover mobhide">
+  <a href="/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov/viewer"><img src="/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov/cover" alt="Научная статья на тему 'ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ'" itemprop="image" /><img class="cover-overlay" src ="/images/tsvg/view.svg" /></a>
+</div>
+<div>
+  <h1><i itemprop="headline">ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ</i> <span>Текст научной статьи по специальности &laquo;<i itemprop="articleSection">Компьютерные и информационные науки</i>&raquo;</span></h1>
+  <div class="infoblock authors visible">
+    <div id="article-authors" style="min-height: 35px;"></div>
+    <div class="top-cc" style="min-height: 20px;">
+    
+      <div class="statitem label-cc" title="Лицензия Creative Commons"><img src="/images/tsvg/cc-label.svg" />CC BY</div>
+    
+    
+      <div class="statitem label-doi" title="Статье выдан DOI: 10.60797/IRJ.2024.146.31"><img src="/images/tsvg/doi-logo.svg" /></div>
+    
+      <div class="statitem views" title="Просмотры"><img src ="/images/tsvg/view.svg" />130</div><div class="statitem downloads" title="Загрузки"><img src ="/images/tsvg/download.svg" />17</div>
+    </div>
+  </div>
+
+  <div class="infoblock">
+    
+    <div id="article-controls" style="min-height: 118px;"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_top1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_top2"></div>
+        </div>
+        <div id="crt-4f158b60" style="width:720px;height:250px;" class="mobhide"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'top');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=top"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  <div class="infoblock">
+    <div class="half">
+			
+      <div class="title">Журнал<a href="http://scholar.google.com/citations?view_op=list_hcore&amp;venue=CJOjY2ilnIMJ.2016&amp;hl=ru" class="scholar" target="_blank"><img src="/images/scholar.svg" /></a></div>
+      <span><a href="/journal/n/mezhdunarodnyy-nauchno-issledovatelskiy-zhurnal">Международный научно-исследовательский журнал</a></span>
+      <div class="labels">
+	      <div class="label year"><time itemprop="datePublished" datetime="2024">2024</time></div>
+        
+  <div class="label vak">ВАК</div><div class="label agris">AGRIS</div>
+
+      </div>
+    </div>
+    <div class="half-right">
+      <div class="title">Область наук</div>
+      <ul>
+        <li><a href="/article/c/computer-and-information-sciences">Компьютерные и информационные науки</a></li>
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="infoblock visible">
+    <div class="full keywords">
+      <div class="title" >Ключевые слова</div>
+      <i itemprop="keywords">
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">параллельный модуль</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">криптографическая защита файлов</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">производительность</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">безопасность</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">шифрование</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">дешифрование</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">AES</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">TripleDES</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">Twofish</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">параллельные вычисления</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">parallel module</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">cryptographic file protection</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">performance</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">security</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">encryption</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">decryption</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">AES</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">TripleDES</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">Twofish</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">parallel computing</span>
+        
+      </i>
+    </div>
+  </div>
+  
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>Аннотация <span>научной статьи по компьютерным и информационным наукам, автор научной работы — Николаев В. А., Гуляев И. А., Лаптева М. Г., Хафизова А. Ш., Пикулева Н. И.</span></h2>
+      <p itemprop="description">В данной статье рассматривается разработка параллельного модуля для <span class="hl to-search">криптографической защиты файлов</span>. Основной целью исследования является повышение <span class="hl to-search">производительности</span> и уровня <span class="hl to-search">безопасности</span> систем обработки данных посредством распределения вычислительной нагрузки между несколькими ядрами или узлами. В статье проведен анализ существующих решений и алгоритмов криптографической защиты, таких как <span class="hl to-search">AES</span>, <span class="hl to-search">TripleDES</span> и <span class="hl to-search">Twofish</span>. Особое внимание уделено реализации <span class="hl to-search">параллельных вычислений</span> для <span class="hl to-search">шифрования</span> и <span class="hl to-search">дешифрования</span> данных, что позволяет значительно ускорить процесс обработки информации. Методология тестирования включала планирование и разработку тестовых сценариев, проведение тестов на реальных данных и анализ полученных результатов. Тестирование проводилось на аппаратно-программной платформе, включающей процессор Intel Core i5 10400, 4 модуля оперативной памяти AMD Radeon R7 <span class="hl to-search">Performance</span> Series R748G2606U2S-U DDR4 – 8 ГБ 2666 и хранилище данных Samsung SSD 860 EVO 500GB M.2. Результаты показали, что параллельное <span class="hl to-search">шифрование</span> и <span class="hl to-search">дешифрование</span> работают в среднем в 2,81 раза быстрее, чем последовательное <span class="hl to-search">шифрование</span>, а параллельное <span class="hl to-search">дешифрование</span> – в 2,57 раза быстрее. Анализ <span class="hl to-search">производительности</span> и <span class="hl to-search">безопасности</span> подтверждает, что разработанный модуль обеспечивает надежную криптографическую защиту и соответствует современным требованиям к системам обработки данных. Использование <span class="hl to-search">параллельных вычислений</span> в криптографии открывает новые возможности для повышения эффективности работы с данными и обеспечения их <span class="hl to-search">безопасности</span></p>
+    </div>
+  </div>
+  
+
+	
+	<div class="infoblock">
+		<div class="full">
+			<div style="font-size: 0; text-align: center; height: 350px;">
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+					<div id="adfox_mid1"></div>
+				</div>
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+					<div id="adfox_mid2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'mid');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=mid"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+	<div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Похожие темы <span>научных работ по компьютерным и информационным наукам , автор научной работы — Николаев В. А., Гуляев И. А., Лаптева М. Г., Хафизова А. Ш., Пикулева Н. И.</span></h2>
+      <ul class="list">
+        
+        <li>
+          <a class="similar" href="/article/n/preobrazovanie-dannyh-s-ispolzovaniem-tehnologii-parallelnyh-vychisleniy">
+            <div class="title">Преобразование данных с использованием технологии параллельных вычислений</div>
+            <span>2014 / Крючин Олег Владимирович, Хабирова Кристина Раильевна</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/osnovnye-kriptograficheskie-mehanizmy-zaschity-dannyh-peredavaemyh-v-oblachnye-servisy-i-seti-hraneniya-dannyh">
+            <div class="title">ОСНОВНЫЕ КРИПТОГРАФИЧЕСКИЕ МЕХАНИЗМЫ ЗАЩИТЫ ДАННЫХ, ПЕРЕДАВАЕМЫХ В ОБЛАЧНЫЕ СЕРВИСЫ И СЕТИ ХРАНЕНИЯ ДАННЫХ</div>
+            <span>2020 / Минаков Сергей Сергеевич</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/shifrovanie-polzovatelskih-dannyh-v-prilozhenii-na-baze-os-android">
+            <div class="title">ШИФРОВАНИЕ ПОЛЬЗОВАТЕЛЬСКИХ ДАННЫХ В ПРИЛОЖЕНИИ НА БАЗЕ ОС ANDROID</div>
+            <span>2024 / Протченко К. О., Титов П. Л.</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/organizatsiya-zaschischennoy-peredachi-dannyh-v-sensornoy-seti-na-baze-mikrokontrollerov-avr">
+            <div class="title">Организация защищенной передачи данных в сенсорной сети на базе микроконтроллеров avr</div>
+            <span>2018 / Гибадуллин Руслан Фаршатович</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/arhitektura-parallelnogo-kriptoyadra-dlya-sistem-zaschity-informatsii-pri-ee-hranenii">
+            <div class="title">Архитектура параллельного криптоядра для систем защиты информации при ее хранении</div>
+            <span>2008 / Раевский А. В.</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=similar">подбора литературы</a>.</span></div>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div id="viewer-inline"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>PARALLEL MODULE FOR CRYPTOGRAPHIC FILE PROTECTION</h2>
+      <p itemprop="description">This article examines the development of a <span class="hl to-search">parallel module</span> for cryptographic protection of files. The main objective of the research is to improve the <span class="hl to-search">performance</span> and <span class="hl to-search">security</span> level of data processing systems by distributing the computational load among several cores or nodes. The work analyses existing solutions and algorithms of cryptographic protection such as <span class="hl to-search">AES</span>, <span class="hl to-search">TripleDES</span> and <span class="hl to-search">Twofish</span>. Particular attention is paid to the implementation of <span class="hl to-search">parallel computing</span> for data <span class="hl to-search">encryption</span> and <span class="hl to-search">decryption</span>, which allows to significantly accelerate the information processing. The testing methodology included planning and development of test scenarios, conducting tests on real data and analysing the obtained results. The testing was conducted on a hardware and software platform including Intel Core i5 10400 processor, 4 AMD Radeon R7 <span class="hl to-search">Performance</span> Series R748G2606U2S-U DDR4 – 8 GB 2666 RAM modules and Samsung SSD 860 EVO 500GB M.2 data storage. The results show that parallel <span class="hl to-search">encryption</span> and <span class="hl to-search">decryption</span> perform on average 2.81 times faster than serial <span class="hl to-search">encryption</span> and parallel <span class="hl to-search">decryption</span> performs 2.57 times faster. <span class="hl to-search">Performance</span> and <span class="hl to-search">security</span> analysis confirms that the developed module provides reliable cryptographic protection and meets modern requirements to data processing systems. The use of <span class="hl to-search">parallel computing</span> in cryptography opens up new opportunities for increasing the efficiency of data handling and ensuring its <span class="hl to-search">security</span></p>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Текст научной работы <span>на тему «ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ»</span></h2>
+      <div class="ocr" itemprop="articleBody">
+        <div class="ocr-banner">
+          <div id="ad-sidebar" class="ad-adaptive"></div>
+        </div>
+				
+        <p>﻿ИНФОРМАТИКА И ИНФОРМАЦИОННЫЕ ПРОЦЕССЫ / INFORMATICS AND INFORMATION PROCESSES</p>
+        <p>DOI: https://doi.org/10.60797/IRJ.2024.146.31 ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ</p>
+        <p>Научная статья</p>
+        <p>Николаев В.А.1, *, Гуляев И.А.2, Лаптева М.Г.3, Хафизова А.Ш.4, Пикулева Н.И.5</p>
+        <p>1, 2, 4, 5 Казанский национальный исследовательский технический университет им. А.Н. Туполева - КАИ, Казань,</p>
+        <p>Российская Федерация</p>
+        <p>3 Казанский национальный исследовательский технологический университет, Казань, Российская Федерация * Корреспондирующий автор (vanikolaev2002[at]yandex.ru)</p>
+        <p>Аннотация</p>
+        <p>В данной статье рассматривается разработка параллельного модуля для криптографической защиты файлов. Основной целью исследования является повышение производительности и уровня безопасности систем обработки данных посредством распределения вычислительной нагрузки между несколькими ядрами или узлами. В статье проведен анализ существующих решений и алгоритмов криптографической защиты, таких как AES, TripleDES и Twofish. Особое внимание уделено реализации параллельных вычислений для шифрования и дешифрования данных, что позволяет значительно ускорить процесс обработки информации. Методология тестирования включала планирование и разработку тестовых сценариев, проведение тестов на реальных данных и анализ полученных результатов. Тестирование проводилось на аппаратно-программной платформе, включающей процессор Intel Core i5 10400, 4 модуля оперативной памяти AMD Radeon R7 Performance Series R748G2606U2S-U DDR4 - 8 ГБ 2666 и хранилище данных Samsung SSD 860 EVO 500GB M.2. Результаты показали, что параллельное шифрование и дешифрование работают в среднем в 2,81 раза быстрее, чем последовательное шифрование, а параллельное дешифрование - в 2,57 раза быстрее. Анализ производительности и безопасности подтверждает, что разработанный модуль обеспечивает надежную криптографическую защиту и соответствует современным требованиям к системам обработки данных. Использование параллельных вычислений в криптографии открывает новые возможности для повышения эффективности работы с данными и обеспечения их безопасности.</p>
+        <p>Ключевые слова: параллельный модуль, криптографическая защита файлов, производительность, безопасность, шифрование, дешифрование, AES, TripleDES, Twofish, параллельные вычисления.</p>
+        <p>PARALLEL MODULE FOR CRYPTOGRAPHIC FILE PROTECTION</p>
+        <p>Research article</p>
+        <p>Nikolaev V.A.1&#39; *, Gulyaev I.A.2, Lapteva M.G.3, Khafizova A.S.4, Pikuleva N.I.5</p>
+        <p>1 2&#39; 4&#39; 5 Kazan National Research Technical University named after A.N. Tupolev - KAI, Kazan, Russian Federation 3 Kazan National Research Technological University, Kazan, Russian Federation</p>
+        <p>* Corresponding author (vanikolaev2002[at]yandex.ru)</p>
+        <p>Abstract</p>
+        <p>This article examines the development of a parallel module for cryptographic protection of files. The main objective of the research is to improve the performance and security level of data processing systems by distributing the computational load among several cores or nodes. The work analyses existing solutions and algorithms of cryptographic protection such as AES, TripleDES and Twofish. Particular attention is paid to the implementation of parallel computing for data encryption and decryption, which allows to significantly accelerate the information processing. The testing methodology included planning and development of test scenarios, conducting tests on real data and analysing the obtained results. The testing was conducted on a hardware and software platform including Intel Core i5 10400 processor, 4 AMD Radeon R7 Performance Series R748G2606U2S-U DDR4 - 8 GB 2666 RAM modules and Samsung SSD 860 EVO 500GB M.2 data storage. The results show that parallel encryption and decryption perform on average 2.81 times faster than serial encryption and parallel decryption performs 2.57 times faster. Performance and security analysis confirms that the developed module provides reliable cryptographic protection and meets modern requirements to data processing systems. The use of parallel computing in cryptography opens up new opportunities for increasing the efficiency of data handling and ensuring its security.</p>
+        <p>Keywords: parallel module, cryptographic file protection, performance, security, encryption, decryption, AES, TripleDES, Twofish, parallel computing.</p>
+        <p>Введение</p>
+        <p>Криптографическая защита информации является одной из самых важных задач в современном мире, где информация стала важнейшим ресурсом. Благодаря разработке параллельного модуля для криптографической защиты файлов можно значительно улучшить производительность и обеспечить высокий уровень безопасности данных. Это особенно важно в современном мире, где утечка информации может привести к серьезным последствиям как для частных лиц, так и для организаций и государств.</p>
+        <p>Применение параллельных вычислений для шифрования и дешифрования файлов позволит эффективно использовать ресурсы многопроцессорных и многоядерных систем, что приведет к увеличению скорости работы с данными. Это также повысит уровень защиты информации, так как параллельные алгоритмы криптографической защиты могут быть более надежными и сложными для взлома. Таким образом, разработка параллельного модуля для</p>
+        <p>криптографической защиты файлов является важным шагом в обеспечении безопасности информации и повышении производительности систем обработки данных.</p>
+        <p>Криптография - наука о методах защиты информации от несанкционированного доступа. С ее помощью защищают данные, используя различные методы шифрования. История криптографии насчитывает тысячелетия, начиная с простых методов замены символов и перестановки букв и заканчивая современными алгоритмами, такими как AES и RSA. Развитие криптографии тесно связано с развитием человеческой цивилизации и с появлением новых технологий, таких как компьютеры и информационные технологии. Криптография остается актуальной и важной для обеспечения безопасности данных в современном мире.</p>
+        <p>Современные методы криптографической защиты файлов играют важную роль в обеспечении безопасности информации. Основные методы включают в себя симметричное и асимметричное шифрование. Симметричное шифрование использует один ключ для шифрования и расшифрования, например, AES [1]. Асимметричное шифрование использует пару ключей: открытый для шифрования и закрытый для расшифровки, например, RSA. Также применяется гибридное шифрование, объединяющее оба метода.</p>
+        <p>Хэширование является еще одним важным методом, основанным на хэш-функциях, которые преобразуют данные в фиксированную строку. Это позволяет проверять целостность файлов и обнаруживать подделки, а также использоваться для хранения паролей и проверки подлинности. Различные хэш-функции, такие как MD5 [2], SHA-1 [3] и SHA-256 [4], имеют уникальные особенности и применения в зависимости от требований безопасности.</p>
+        <p>Цифровые подписи используются для подтверждения подлинности и целостности файлов путем хеширования и шифрования. Они обеспечивают непротиворечивость информации и защиту от изменений в процессе передачи.</p>
+        <p>Контейнеры с защищенным доступом позволяют шифровать и ограничивать доступ к конфиденциальной информации, обеспечивая безопасность данных. Один из распространенных методов защиты контейнеров -симметричное шифрование с использованием одного ключа для шифрования и расшифрования данных.</p>
+        <p>Параллельные вычисления позволяют выполнять операции над данными одновременно, используя множество вычислительных ресурсов. Это ускоряет обработку данных и выполнение сложных вычислительных задач. Важно разделить задачу на подзадачи, распределить их между вычислительными узлами или ядрами процессора. Параллельные вычисления могут быть использованы для ускорения шифрования файлов. Для эффективного управления задачами используются параллельные программные библиотеки.</p>
+        <p>Однако возникают сложности с синхронизацией данных и доступом к общим ресурсам, для решения которых применяются методы синхронизации. Важно разработать эффективные алгоритмы распределения нагрузки между вычислительными узлами, учитывая особенности вычислительных ресурсов и требования к производительности. Применение параллельных вычислений требует анализа задачи и выбора подходящих методов и инструментов.</p>
+        <p>В современном мире, где информация является важнейшим ресурсом, обеспечение ее безопасности становится первостепенной задачей. Разработка параллельного модуля для криптографической защиты файлов позволяет значительно улучшить производительность и надежность систем обработки данных. Использование параллельных вычислений в криптографии открывает новые возможности для защиты информации и повышения эффективности работы с данными.</p>
+        <p>Структура разработанного модуля</p>
+        <p>Разработка параллельного модуля для криптографической защиты файлов с использованием таких алгоритмов, как AES, TripleDES [5] и Twofish [6], позволяет существенно повысить производительность и уровень безопасности систем обработки данных.</p>
+        <p>AES (Advanced Encryption Standard) является симметричным алгоритмом шифрования, который обеспечивает высокий уровень защиты и быструю обработку данных. Он работает с блоками данных размером 128 бит и поддерживает различные длины ключей (128, 192 и 256 бит). Алгоритм AES использует несколько раундов преобразований для шифрования данных, что делает его устойчивым к различным видам атак. В нашем модуле реализация AES основана на использовании режима шифрования CBC и генерации уникального вектора инициализации для каждого шифрования.</p>
+        <p>Twofish - это один из самых надежных и устойчивых к атакам алгоритмов шифрования. Он поддерживает ключи различной длины и блочные размеры данных 128 бит. Алгоритм Twofish использует преобразования Галуа и подстановки байтов для повышения стойкости к криптоанализу, что обеспечивает высокую производительность при шифровании файлов различных размеров и типов.</p>
+        <p>TripleDES является модификацией оригинального алгоритма DES (Data Encryption Standard). Он использует три последовательных прохода DES для шифрования данных, что значительно увеличивает стойкость алгоритма. Несмотря на появление более мощных алгоритмов, TripleDES остается надежным методом шифрования, обеспечивающим защиту данных на высоком уровне.</p>
+        <p>Параллельный модуль для криптографической защиты файлов, названный «ParallelEncryptionModule», предоставляет возможность параллельного шифрования и дешифрования файлов с использованием алгоритмов AES, TripleDES и Twofish. Модуль также включает модульные тесты для проверки его функциональности.</p>
+        <p>Структура модуля «ParallelEncryptionModule» обеспечивает четкое разделение компонентов и функциональности, что позволяет эффективно разрабатывать, поддерживать и тестировать систему. Основные компоненты модуля включают:</p>
+        <p>1.	Algorithms: реализация алгоритмов шифрования AES, TripleDES и Twofish.</p>
+        <p>2.	EncryptionManager: управление процессами шифрования и дешифрования файлов.</p>
+        <p>3.	KeyManagement: управление ключами шифрования и дешифрования.</p>
+        <p>4.	ParallelProcessing: механизмы параллельной обработки данных.</p>
+        <p>Интеграция параллельного модуля с файловым менеджером является ключевым аспектом его архитектуры. Файловый менеджер предоставляет удобный пользовательский интерфейс для работы с файлами и управляет операциями копирования, перемещения и удаления файлов.</p>
+        <p>Архитектура файлового менеджера построена на принципах модульности и разделения ответственности. В его структуре присутствуют следующие компоненты:</p>
+        <p>1.	Commands: реализация пользовательских команд.</p>
+        <p>2.	Converter: преобразование данных.</p>
+        <p>3.	DB: управление базой данных.</p>
+        <p>4.	Icons: иконки для отображения файлов и папок.</p>
+        <p>5.	Models: модели данных файловой системы.</p>
+        <p>6.	Services: дополнительные сервисы.</p>
+        <p>7.	View: файлы пользовательского интерфейса.</p>
+        <p>8.	ViewModels: связь моделей и представлений.</p>
+        <p>9.	app.xaml: главный объект приложения.</p>
+        <p>10.	readme.md: документация по файловому менеджеру.</p>
+        <p>Файловый менеджер взаимодействует с параллельным модулем для шифрования и дешифрования файлов. Пользователь выбирает файлы и ключ шифрования для зашифровки или зашифрованные файлы и ключ дешифрования для расшифровки. Параллельный модуль выполняет операции с использованием выбранного алгоритма, обеспечивая криптографическую защиту данных. Файловый менеджер предоставляет удобный интерфейс для работы с зашифрованными и расшифрованными файлами, что делает управление данными простым и эффективным.</p>
+        <p>Диаграмма класса EncryptionDialogueViewModel представлена на рисунке 1.</p>
+        <p>(C) EncryptionDialogueViewModel</p>
+        <p>□	RelayCommand _ericryptByPassword</p>
+        <p>□	RelayCommand _encryptByPublicKey</p>
+        <p>□	bool _encryptionMode</p>
+        <p>□	File _model</p>
+        <p>□	string[] _files</p>
+        <p>□	KeyStorage _selectedKey</p>
+        <p>o EncryptionDialogueViewModel(File model) o EncryptlonDlalogueViewModel(string[] files)</p>
+        <p>o Visibility EncryptlonByPassword o Visibility EncryptlonByPubllcKey o RelayCommand EncryptByPasswordCommand o RelayCommand EncryptByPublicKeyCommand o RelayCommand EncryptActionCommand o RelayCommand SelectKeyCommand o KeyStorage SelectedKey</p>
+        <p>o List&lt;EncryptionAlgorithms&gt; EncryptionAlgorithmComboBox o object Selectedltem o booll DeleteFile o string Password o string RepeatedPassword</p>
+        <p>■	void SelectKey(object obj)</p>
+        <p>■	void Encrypt(object obj)</p>
+        <p>■	void EncryptByPublicKey{object obj)</p>
+        <p>■	void EncryptByPassword(object obj)</p>
+        <p>■	bool lsPasswordMatch{)</p>
+        <p>Рисунок 1 - Диаграмма класса программного модуля DOI: https://doi.org/10.60797/IRJ.2024.146.31.1</p>
+        <p>Диаграмма классов «EncryptionDialogueViewModel» представляет структуру и функциональность класса «EncryptionDialogueViewModel», который отвечает за обработку и управление операциями шифрования и дешифрования файлов в приложении «ParallelEncryptionModule».</p>
+        <p>Основные элементы класса «EncryptionDialogueViewModel» включают поля, конструкторы, свойства и методы. Поля включают «private RelayCommand _encryptByPassword» для выполнения шифрования по паролю, «private RelayCommand _encryptByPublicKey» для выполнения шифрования по открытому ключу, «private bool _encryptionMode» для режима шифрования (по умолчанию включен), «private readonly File _model» для модели файла,</p>
+        <p>который подлежит шифрованию, «private readonly string[] _files» для массива файлов, предназначенных для шифрования, и «private KeyStorage _selectedKey» для выбранного ключа шифрования.</p>
+        <p>Конструкторы включают «public EncryptionDialogueViewModel(File model)» для инициализации с моделью файла и «public EncryptionDialogueViewModel(string[] files)» для инициализации с массивом файлов. Свойства включают «public Visibility EncryptionByPassword { get; }» для видимости опции шифрования по паролю, «public Visibility EncryptionByPublicKey { get; }» для видимости опции шифрования по открытому ключу, «public RelayCommand EncryptByPasswordCommand { get; }» для команды шифрования по паролю, «public RelayCommand EncryptByPublicKeyCommand { get; }» для команды шифрования по открытому ключу, «public RelayCommand EncryptActionCommand { get; }» для команды выполнения шифрования, «public RelayCommand SelectKeyCommand { get; }» для команды выбора ключа, «public KeyStorage SelectedKey { get; set; }» для выбранного ключа шифрования, «public List&lt;EncryptionAlgorithms&gt; EncryptionAlgorithmComboBox { get; }» для списка доступных алгоритмов шифрования, «public object Selectedltem { get; set; }» для выбранного элемента (файл или ключ), «public bool DeleteFile { get; set; }» для флага удаления файла после шифрования, «public string Password { get; set; }» для пароля шифрования, и «public string RepeatedPassword { get; set; }» для подтверждения пароля.</p>
+        <p>Методы включают «private void SelectKey(object obj)» для выбора ключа, «private void Encrypt(object obj)» для выполнения шифрования, «private void EncryptByPublicKey(object obj)» для шифрования по открытому ключу, «private void EncryptByPassword(object obj)» для шифрования по паролю и «private bool IsPasswordMatch()» для проверки совпадения паролей.</p>
+        <p>Класс «EncryptionDialogueViewModel» обеспечивает функциональность для управления операциями шифрования файлов в диалоговом окне приложения. Он предоставляет команды и свойства, необходимые для взаимодействия с пользователем и выполнения различных операций шифрования. Этот класс используется в диалоговом окне шифрования файлов, позволяя пользователям выбрать метод шифрования (по паролю или открытому ключу), задать необходимые параметры (ключ или пароль), и выполнить операцию шифрования. Также он обеспечивает обработку ошибок и проверку корректности введенных данных, таких как совпадение паролей.</p>
+        <p>Диаграмма иллюстрирует структуру класса, показывая его поля, конструкторы, свойства и методы, что помогает понять внутреннюю логику и функциональность «EncryptionDialogueViewModel» в контексте приложения «ParallelEncryptionModule».</p>
+        <p>На рис. 2 и 3 представлены элементы пользовательского интерфейса приложения.</p>
+        <p>Рисунок 2 - Главное окно файлового менеджера с отображением контекстного меню шифрования и дешифрования</p>
+        <p>DOI: https://doi.Org/10.60797/IRJ.2024.146.31.2</p>
+        <p>Рисунок 3 - Окно шифрования файла DOI: https://doi.Org/10.60797/IRJ.2024.146.31.3</p>
+        <p>Тестирование и анализ результатов</p>
+        <p>Тестирование разработанного параллельного модуля для криптографической защиты файлов проводилось с целью оценки его производительности, надежности и безопасности. Методология тестирования включала несколько этапов. На этапе планирования тестирования были определены цели и задачи тестирования, а также составлен план тестирования. Далее были разработаны тестовые случаи, представляющие собой сценарии тестирования для проверки функциональности модуля. На этапе проведения тестов тестовые сценарии были выполнены на реальных данных. Затем проведен анализ результатов, включающий сравнение полученных результатов с ожидаемыми значениями. В случае выявления дефектов проводилось их устранение и повторное тестирование.</p>
+        <p>Основные цели тестирования включали проверку функциональности, надежности, производительности и безопасности разработанного модуля.</p>
+        <p>Загрузка и отображение файлов и папок проводилось с использованием различных наборов данных. Модуль успешно загружал и корректно отображал файлы и папки, что подтверждало его функциональность и надежность.</p>
+        <p>Навигация по файловой системе была протестирована на различных структурах каталогов. Модуль обеспечивал быструю и корректную навигацию, что подтверждало удобство использования и эффективность интерфейса.</p>
+        <p>В проекте «РагаПеШпсгуриопМ^и1е» для реализации параллельного модуля шифрования файлов использованы различные подходы для распараллеливания. Задачи шифрования и дешифрования файлов разделены на независимые потоки выполнения. Каждый поток отвечает за обработку определенного участка данных или выполнение конкретной операции, что позволяет использовать преимущества многопоточности и распараллеливать вычисления, увеличивая производительность и эффективность модуля. Для предотвращения возможных конфликтов и гонок при доступе к общим ресурсам, таким как файлы или память, применяются механизмы синхронизации, такие как мьютексы, семафоры или блокировки, что гарантирует корректное взаимодействие между потоками и защиту общих ресурсов от некорректного доступа.</p>
+        <p>Данные и задачи распределяются между потоками таким образом, чтобы сбалансировать нагрузку и обеспечить равномерное использование ресурсов. Например, при шифровании нескольких файлов они разделяются между потоками, чтобы каждый поток обрабатывал свой блок данных. Используются механизмы управления потоками и пулом потоков для эффективной работы с потоками, что позволяет контролировать создание, выполнение и завершение потоков, а также повторное использование потоков для минимизации накладных расходов на создание и уничтожение потоков. При параллельной обработке данных предусмотрена обработка ошибок и исключений. В случае возникновения ошибок, таких как неправильные данные или ошибки в работе алгоритмов шифрования, они корректно обрабатываются и предоставляется информация об ошибке пользователю.</p>
+        <p>Применение метода «РагаПе^огЕаЛ» для параллельного выполнения операций шифрования и дешифрования файлов (рис. 4). Метод «РагаПе^огЕаЛ» позволяет выполнять итерации параллельно, используя все доступные процессорные ресурсы [7], [8], [9]. В коде задается максимальная степень параллелизма, равная количеству процессоров в системе, что позволяет максимально эффективно использовать доступные вычислительные ресурсы.</p>
+        <p>Рисунок 4 - Параллельные процессы шифрования и дешифрования DOI: https://doi.Org/10.60797/IRJ.2024.146.31.4</p>
+        <p>Эти подходы обеспечивают высокую производительность и надежность модуля, а также позволяют эффективно обрабатывать большие объемы данных.</p>
+        <p>Тестирование шифрования и дешифрования файлов проводилось с использованием алгоритмов AES, TripleDES и Twofish. Результаты показали высокую производительность и надежность модуля. Параллельное шифрование и дешифрование работало в среднем в 2.81 раза быстрее, чем последовательное шифрование, а параллельное дешифрование - в 2.57 раза быстрее.</p>
+        <p>Функция удаления файлов была протестирована на различных наборах данных. Модуль успешно удалял файлы, что подтверждало его функциональность и удобство использования.</p>
+        <p>Для сравнения разработанного модуля с существующими решениями были рассмотрены несколько популярных программ для шифрования файлов. Модуль продемонстрировал конкурентоспособные характеристики по следующим критериям: функциональность, удобство использования, безопасность и производительность. Модуль обладает всеми необходимыми функциональными возможностями для шифрования и дешифрования файлов, а также расширенными функциями. Он имеет интуитивно понятный интерфейс и удобные средства навигации. Модуль использует современные алгоритмы шифрования и методы защиты ключей. Он обеспечивает высокую производительность при шифровании и дешифровании файлов.</p>
+        <p>Тестирование проводилось на аппаратно-программной платформе, включающей процессор Intel Core i5 10400 [10], 4 модуля оперативной памяти AMD Radeon R7 Performance Series R748G2606U2S-U DDR4 - 8 ГБ 2666 и хранилище данных Samsung SSD 860 EVO 500GB M.2.</p>
+        <p>Анализ производительности и безопасности показал, что время выполнения последовательного и параллельного шифрования и дешифрования файлов различного размера значительно улучшилось при использовании параллельного модуля. Приложение эффективно использовало системные ресурсы при выполнении операций шифрования и дешифрования пяти файлов объемом 1 ГБ каждый, что подтверждало эффективность работы параллельных операций. Оценка стойкости алгоритмов шифрования показала, что используемые алгоритмы обладают высокой стойкостью и не содержат известных уязвимостей. Это гарантировало надежную защиту шифрованных данных от несанкционированного доступа и восстановления исходных данных без соответствующего ключа.</p>
+        <p>Результаты анализа производительности и безопасности подтверждают, что разработанный модуль обладает высокой производительностью и надежной криптографической защитой, соответствуя требованиям к современным системам обработки данных.</p>
+        <p>Заключение</p>
+        <p>В данной статье была рассмотрена разработка параллельного модуля для криптографической защиты файлов с использованием алгоритмов AES, TripleDES и Twofish. Проведенные исследования и тестирования подтвердили высокую производительность и надежность разработанного модуля. Использование параллельных вычислений позволяет значительно ускорить процесс шифрования и дешифрования данных, что особенно актуально в условиях современного мира, где защита информации становится первостепенной задачей.</p>
+        <p>Разработанный модуль успешно интегрируется с файловым менеджером, обеспечивая удобный пользовательский интерфейс и эффективное взаимодействие с файлами. Он предоставляет все необходимые функциональные возможности для шифрования и дешифрования файлов, а также дополнительные функции для удобства использования и управления ключами.</p><div class="bibloid_serp bibloid_serp_ocr"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=ocr">подбора литературы</a>.</span></div>
+        <p>Анализ производительности и безопасности показал, что параллельное шифрование и дешифрование работают в среднем в 2.81 раза быстрее, чем последовательное шифрование, а параллельное дешифрование - в 2.57 раза быстрее. Это подтверждает эффективность использования параллельных вычислений в криптографии. Тестирование проводилось на современном аппаратно-программном обеспечении, что также свидетельствует о применимости модуля в реальных условиях.</p>
+        <p>Перспективы дальнейшего развития включают интеграцию дополнительных алгоритмов шифрования и оптимизацию существующих для еще большей производительности и надежности. Также возможно расширение функциональности модуля, включая разработку новых методов управления ключами и улучшение интерфейса пользователя. Продолжение исследований в области параллельных вычислений и их применения в криптографии позволит создать еще более эффективные и безопасные системы для защиты данных в будущем.</p>
+        <p>Список литературы / References</p>
+        <p>1.	Borhan R. Successful implementation of AES algorithm in hardware / R. Borhan, R.M. Fuad Tengku Aziz // 2012 IEEE International Conference on Electronics Design, Systems and Applications (ICEDSA). — Kuala Lumpur, 2012. — P. 27-32. — DOI: 10.1109/ICEDSA.2012.6507810.</p>
+        <p>2.	Zheng X. Research for the application and safety of MD5 algorithm in password authentication / X. Zheng, J. Jin // 2012 9th International Conference on Fuzzy Systems and Knowledge Discovery. — Chongqing, 2012. — P. 2216-2219. — DOI: 10.1109/FSKD.2012.6234010.</p>
+        <p>3.	Putri Ratna A.A. Analysis and comparison of MD5 and SHA-1 algorithm implementation in Simple-O authentication based security system / A.A. Putri Ratna, P. Dewi Purnamasari, A. Shaugi [et al.] // 2013 International Conference on QiR. — Yogyakarta, 2013. — P. 99-104. — DOI: 10.1109/QiR.2013.6632545.</p>
+        <p>4.	Wu R. A High-Performance Parallel Hardware Architecture of SHA-256 Hash in ASIC / R. Wu, X. Zhang, M. Wang [et al.] // 2020 22nd International Conference on Advanced Communication Technology (ICACT). — Phoenix Park, 2020. — P. 1242-1247. — DOI: 10.23919/ICACT48636.2020.9061457.</p>
+        <p>5.	Dulla G.L. An Enhanced BlowFish (eBf) Algorithm for Securing x64FileMessage Content / G.L. Dulla, B.D. Gerardo, R.P. Medina // 2018 IEEE 10th International Conference on Humanoid, Nanotechnology, Information Technology,Communication and Control, Environment and Management (HNICEM). — Baguio City, 2018. — P. 1-6. — DOI: 10.1109/HNICEM.2018.8666434.</p>
+        <p>6.	Dibas H. A comprehensive performance empirical study of the symmetric algorithms:AES, 3DES, Blowfish and Twofish / H. Dibas, K.E. Sabri // 2021 International Conference on Information Technology (ICIT). — Amman, 2021. — P. 344-349. — DOI: 10.1109/ICIT52682.2021.9491644.</p>
+        <p>7.	Гибадуллин Р.Ф. Потокобезопасные вызовы элементов управления в обогащенных клиентских приложениях / Р.Ф. Гибадуллин // Программные системы и вычислительные методы. — 2022. — № 4. — С. 1-19. — DOI: 10.7256/2454-0714.2022.4.39029.</p>
+        <p>8.	Викторов И.В. Разработка синтаксического дерева для автоматизированного транслятора последовательного программного кода в параллельный код для многоядерных процессоров / И.В. Викторов, Р.Ф. Гибадуллин // Программные системы и вычислительные методы. — 2023. — № 1. — С. 13-25. — DOI: 10.7256/24540714.2023.1.38483.</p>
+        <p>9.	Гибадуллин Р.Ф. Неоднозначность результатов при использовании методов класса Parallel в рамках исполняющей среды .NET Framework / Р.Ф. Гибадуллин, И.В. Викторов // Программные системы и вычислительные методы. — 2023. — № 2. — С. 1-14. — DOI: 10.7256/2454-0714.2023.2.39801.</p>
+        <p>10.	Cebrian J.M. Improving Energy Efficiency through Parallelization and Vectorization on Intel Core i5 and i7 Processors / J.M. Cebrian, L. Natvig, J.C. Meyer [et al.] // 2012 SC Companion: High Performance Computing, Networking Storage and Analysis. — Salt Lake City, 2012. — P. 675-684. — DOI: 10.1109/SC.Companion.2012.93.</p>
+        <p>Список литературы на английском языке / References in English</p>
+        <p>1.	Borhan R. Successful implementation of AES algorithm in hardware / R. Borhan, R.M. Fuad Tengku Aziz // 2012 IEEE International Conference on Electronics Design, Systems and Applications (ICEDSA). — Kuala Lumpur, 2012. — P. 27-32. — DOI: 10.1109/ICEDSA.2012.6507810.</p>
+        <p>2.	Zheng X. Research for the application and safety of MD5 algorithm in password authentication / X. Zheng, J. Jin // 2012 9th International Conference on Fuzzy Systems and Knowledge Discovery. — Chongqing, 2012. — P. 2216-2219. — DOI: 10.1109/FSKD.2012.6234010.</p>
+        <p>Гибадуллин Р.Ф., Казанский национальный исследовательский технический университет им. А.Н. Туполева - КАИ, Казань, Российская Федерация DOI: https://doi.Org/10.60797/IRJ.2024.146.31.5</p>
+        <p>Gibadullin R.F., Kazan National Research Technical University named after A.N. Tupolev - KAI, Kazan, Russian Federation</p>
+        <p>DOI: https://doi.org/10.60797/IRJ.2024.146.31.5</p>
+        <p>MewdynapoànhM MayuMO-uccAedoBameAbCKUü wypnm ■ № 8 (146) • Август</p>
+        <p>3.	Putri Ratna A.A. Analysis and comparison of MD5 and SHA-1 algorithm implementation in Simple-O authentication based security system / A.A. Putri Ratna, P. Dewi Purnamasari, A. Shaugi [et al.] // 2013 International Conference on QiR. — Yogyakarta, 2013. — P. 99-104. — DOI: 10.1109/QiR.2013.6632545.</p>
+        <p>4.	Wu R. A High-Performance Parallel Hardware Architecture of SHA-256 Hash in ASIC / R. Wu, X. Zhang, M. Wang [et al.] // 2020 22nd International Conference on Advanced Communication Technology (ICACT). — Phoenix Park, 2020. — P. 1242-1247. — DOI: 10.23919/ICACT48636.2020.9061457.</p>
+        <p>5.	Dulla G.L. An Enhanced BlowFish (eBf) Algorithm for Securing x64FileMessage Content / G.L. Dulla, B.D. Gerardo, R.P. Medina // 2018 IEEE 10th International Conference on Humanoid, Nanotechnology, Information Technology,Communication and Control, Environment and Management (HNICEM). — Baguio City, 2018. — P. 1-6. — DOI: 10.1109/HNICEM.2018.8666434.</p>
+        <p>6.	Dibas H. A comprehensive performance empirical study of the symmetric algorithms:AES, 3DES, Blowfish and Twofish / H. Dibas, K.E. Sabri // 2021 International Conference on Information Technology (ICIT). — Amman, 2021. — P. 344-349. — DOI: 10.1109/ICIT52682.2021.9491644.</p>
+        <p>7.	Gibadullin R.F. Potokobezopasnye vyzovy jelementov upravlenija v obogashhennyh klientskih prilozhenijah [Thread-safe calls of control elements in enriched client applications] / R.F. Gibadullin // Programmnye sistemy i vychislitel&#39;nye metody [Software Systems and Computational Methods]. — 2022. — № 4. — P. 1-19. — DOI: 10.7256/24540714.2022.4.39029. [in Russian]</p>
+        <p>8.	Viktorov I.V. Razrabotka sintaksicheskogo dereva dlja avtomatizirovannogo transljatora posledovatel&#39;nogo programmnogo koda v parallel&#39;nyj kod dlja mnogojadernyh processorov [Development of syntax tree for automated translator of sequential program code into parallel code for multicore processors] / I.V. Viktorov, R.F. Gibadullin // Programmnye sistemy i vychislitel&#39;nye metody [Software Systems and Computational Methods]. — 2023. — № 1. — P. 13-25. — DOI: 10.7256/2454-0714.2023.1.38483. [in Russian]</p>
+        <p>9.	Gibadullin R.F. Neodnoznachnost&#39; rezul&#39;tatov pri ispol&#39;zovanii metodov klassa Parallel v ramkah ispolnjajushhej sredy .NET Framework [Ambiguity of results when using methods of Parallel class within the framework of executable environment .NET Framework] / R.F. Gibadullin, I.V. Viktorov // Programmnye sistemy i vychislitel&#39;nye metody [Programme Systems and Computational Methods]. — 2023. — № 2. — P. 1-14. — DOI: 10.7256/2454-0714.2023.2.39801. [in Russian]</p>
+        <p>10.	Cebrian J.M. Improving Energy Efficiency through Parallelization and Vectorization on Intel Core i5 and i7 Processors / J.M. Cebrian, L. Natvig, J.C. Meyer [et al.] // 2012 SC Companion: High Performance Computing, Networking Storage and Analysis. — Salt Lake City, 2012. — P. 675-684. — DOI: 10.1109/SC.Companion.2012.93.</p></div>
+    </div>
+  </div>
+
+	
+  <div class="infoblock visible">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot3"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot2');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot2"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+</div>
+</span>
+
+
+<div class="left-banner" style="width: 300px; margin-left: -320px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-left" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side1"></div>
+    <div id="crt-4f158390" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+<div class="right-banner" style="margin-left: 740px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-right" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side2"></div>
+    <div id="crt-4f158390-1" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+
+
+
+        <div class="footer">
+          <hr />
+          <div class="half">
+            <a href="/terms.html" target="_blank">Пользовательское соглашение</a>
+            <a href="/policy.html" target="_blank">Политика конфиденциальности</a>
+          </div>
+          <div class="half-right">
+            <a style="margin-top: 5px;" class="openscience" href="http://open-science.ru/" target="_blank"><img src="/images/openscience.svg" alt="Открытая наука" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <script type="text/javascript" src="/app.js?2862416399" defer></script>
+    
+    <script type="text/javascript">
+      
+
+      window.__cl = function (f) {
+        if (!window.__cl_callbacks) {
+          window.__cl_callbacks = [];
+        }
+        window.__cl_callbacks.push(f);
+      };
+
+      window.__cl(function(app) {
+        var app = app.element(app.elm.Menu, 'menu', { user: window.__cl_user, id: "", path: "/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov" });
+        if (app == null) { return; }
+        window.notify.login = function() {
+          app.ports.showLoginSub.send();
+        }
+      });
+      window.__cl(function(app) {
+        app.element(app.elm.Notification.Persist, 'notification-persist', {
+          cookie: document.cookie
+        });
+      })
+    </script>
+
+    
+  
+  <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = 'https://vk.com/rtrg?p=VK-RTRG-113217-3vhqF';</script>
+  <script type="text/javascript">
+    (window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=pBktsqObaAtvToEtTxQbb/cxSGdswTMQ5wcdtediEFrGEy1Rbzr/IMae3Notd2g/GdggCzMzIdcwjWAsDf7M*I1hGYLGK2Uho4KO3yct6a3PDEHu/PU3m87/qEKB5u005s5BZOxtV0KGfmxRfV5X4n3kmNOYtnudE89WXjBuKsQ-';
+  </script>
+  
+
+
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(15765706, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/15765706" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+  
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-33095299-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+
+    
+
+<script>
+  var adfox = function(id, params) {
+        window.yaContextCb.push(()=>{
+            Ya.adfoxCode.create({
+              ownerId: 254948,
+              containerId: id,
+              params: params
+            });
+          });
+  }
+
+  adfox('adfox_bot3', {
+    pp: 'nol',
+    ps: 'czgi',
+    p2: 'ganf',
+    puid1: ''
+  });
+  if (window.innerWidth >= 768) {
+    adfox('adfox_top1', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_top2', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid1', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot1', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid2', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot2', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot4', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+  } else {
+      adfox('adfox_top1', {
+          pp: 'noj',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_mid1', {
+          pp: 'nok',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_bot1', {
+          pp: 'nol',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+  }
+  if (window.innerWidth >= 1360) {
+    adfox('adfox_side1',{
+      pp: 'noj',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+    adfox('adfox_side2', {
+      pp: 'nok',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+  }
+</script>
+
+
+<script type="text/javascript">
+window.__cl(function(app) {
+  app.element(app.elm.Viewer.Inline, "viewer-inline", {
+    id:  20103778 ,
+    pages:  8 ,
+    link: "parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov",
+    doi: "10.60797\/IRJ.2024.146.31"
+  })
+  var authors = app.element(app.elm.Article.Authors, "article-authors", {
+    is_author:  false ,
+    authors: [{"id":27577513,"name":"Николаев В.А.","link":"","status":""},{"id":27577514,"name":"Гуляев И.А.","link":"","status":""},{"id":27577515,"name":"Лаптева М.Г.","link":"","status":""},{"id":27577516,"name":"Хафизова А.Ш.","link":"","status":""},{"id":27577517,"name":"Пикулева Н.И.","link":"","status":""}] || [],
+    user: window.__cl_user
+  });
+  var controls = app.element(app.elm.Article.Controls, "article-controls", {
+    quotes: {
+      gost_electronic: "Николаев В. А., Гуляев И. А., Лаптева М. Г., Хафизова А. Ш., Пикулева Н. И. ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ \/\/ МНИЖ. 2024. №8 (146). URL: https:\/\/cyberleninka.ru\/article\/n\/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov (дата обращения: 28.09.2026).",
+      gost_print: "Николаев В. А., Гуляев И. А., Лаптева М. Г., Хафизова А. Ш., Пикулева Н. И. ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ \/\/ МНИЖ. 2024. №8 (146). С.21",
+      wiki: "{{статья|автор=Николаев В. А., Гуляев И. А., Лаптева М. Г., Хафизова А. Ш., Пикулева Н. И.|заглавие=ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ|издание=Международный научно-исследовательский журнал|год=2024|ссылка=https:\/\/cyberleninka.ru\/article\/n\/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov|doi=10.60797\/IRJ.2024.146.31|номер=8 (146)}}",
+      apa: "Николаев В.А., Гуляев И.А., Лаптева М.Г., Хафизова А.Ш., \u0026 Пикулева Н.И. (2024). ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ. Международный научно-исследовательский журнал,  (8 (146)), 21. doi: 10.60797\/IRJ.2024.146.31",
+      ama: "Николаев В.А., Гуляев И.А., Лаптева М.Г., Хафизова А.Ш., Пикулева Н.И.. ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ. Международный научно-исследовательский журнал.  2024;(8 (146)):21. doi:10.60797\/IRJ.2024.146.31",
+      mla: "Николаев В.А., Гуляев И.А., Лаптева М.Г., Хафизова А.Ш.,  and Пикулева Н.И.. \u0022ПАРАЛЛЕЛЬНЫЙ МОДУЛЬ ДЛЯ КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ФАЙЛОВ\u0022 Международный научно-исследовательский журнал, no. 8 (146), 2024, pp. 21. doi:10.60797\/IRJ.2024.146.31"
+    },
+    pages:  8 ,
+    id:  20103778 ,
+    link: "parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov",
+    doi: "10.60797\/IRJ.2024.146.31",
+    authors: [{"id":27577513,"name":"Николаев В.А.","link":"","status":""},{"id":27577514,"name":"Гуляев И.А.","link":"","status":""},{"id":27577515,"name":"Лаптева М.Г.","link":"","status":""},{"id":27577516,"name":"Хафизова А.Ш.","link":"","status":""},{"id":27577517,"name":"Пикулева Н.И.","link":"","status":""}] || [],
+    likes: {"likes":"0","dislikes":"0","user":0},
+    user: window.__cl_user
+  });
+
+  var claim = document.getElementById('claim')
+  if (claim) {
+    claim.onclick = function(e) {
+      e.preventDefault();
+      controls.ports.claim.send(true);
+    }
+  }
+
+  var searchFromSelector = function(sel) {
+    var els = document.querySelectorAll(sel);
+    els.forEach(function(el) {
+      var t = el.innerText;
+      el.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = "/search?q=" + encodeURIComponent(t);
+      }
+    });
+  }
+  searchFromSelector(".to-search");
+});
+</script>
+
+
+    <div id="notification-flash"></div>
+    <div class="info"><div id="notification-persist"></div></div>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Профили языков — «{{ app_name }}»{% endblock %}
+
+{% block content %}
+
+<h1>Поисковые образы языков</h1>
+<p class="lead">
+  Профиль языка строится по обучающему корпусу один раз и сохраняется на диск.
+  Профиль входного документа строится по тем же правилам, после чего методы
+  сравнивают их своей метрикой.
+</p>
+
+<section class="cards">
+  <div class="card">
+    <h3>Обучающий корпус</h3>
+    <table class="mini">
+      <tr><th></th><th>файлов</th><th>объём</th><th>букв</th><th>слов</th></tr>
+      {% for code, stats in corpus_stats.items() %}
+      <tr>
+        <td>{{ language_name(code) }}</td>
+        <td class="num">{{ stats.files }}</td>
+        <td class="num {{ 'ok' if stats.within_limits else 'warn' }}">{{ '%.1f'|format(stats.kilobytes) }} Кб</td>
+        <td class="num">{{ stats.letters }}</td>
+        <td class="num">{{ stats.words }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="card">
+    <h3>Обновление профилей</h3>
+    <p class="note">
+      {% if from_disk %}Профили прочитаны с диска.{% else %}Профили построены заново.{% endif %}
+      {% if trained_at %}<br>Время: {{ trained_at.strftime('%d.%m.%Y %H:%M:%S') }}{% endif %}
+    </p>
+    <form action="/train" method="post">
+      <button type="submit">Построить заново</button>
+    </form>
+    <p class="note">Требуется после изменения обучающего корпуса.</p>
+  </div>
+</section>
+
+{% for code in method_codes %}
+{% set method = recognizer.methods[code] %}
+<section class="method-block">
+  <h2>{{ method.title }}</h2>
+  <p class="note">{{ method.description }}</p>
+
+  {% if method.info %}
+  <p class="note mono small">
+    {% for key, value in method.info.items() %}
+      {% if key not in ('languages', 'loss_curve') %}{{ key }} = {{ value }}{% if not loop.last %} · {% endif %}{% endif %}
+    {% endfor %}
+  </p>
+  {% endif %}
+
+  <div class="cards">
+    {% for lang in language_codes %}
+    {% if lang in method.profiles %}
+    {% set profile = method.profiles[lang] %}
+    <div class="card">
+      <h3>{{ language_name(lang) }}</h3>
+      <p class="note">
+        признаков в профиле: {{ profile|length }}
+        {% if method.info.languages and method.info.languages[lang] %}
+          {% for key, value in method.info.languages[lang].items() %}
+          {% if key != 'alphabet' %}<br>{{ key }}: {{ value }}{% endif %}
+          {% endfor %}
+        {% endif %}
+      </p>
+      <ol class="profile-list">
+        {% for feature, rank, weight in profile.top(top_count) %}
+        <li>
+          <span class="mono">{{ feature.replace('_', '␣').replace(' ', '␣') }}</span>
+          <span class="weight-bar"><span style="width: {{ (weight * 900)|round|int if weight < 0.11 else 100 }}%"></span></span>
+          <span class="muted small">{{ '%.4f'|format(weight) }}</span>
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+  {% if code == 'alphabet' and method.info.languages %}
+  <p class="note">Алфавиты, выделенные по корпусу:</p>
+  <ul class="plain">
+    {% for lang, item in method.info.languages.items() %}
+    <li>{{ language_name(lang) }} ({{ item.alphabet_size }} букв):
+      <span class="mono">{{ item.alphabet }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+{% endfor %}
+
+{% endblock %}

@@ -358,6 +358,8 @@ def search(
                 "synonym_tip": companion.suggest_synonym(conn, analysis),
                 "lucky_ready": modes.lucky_ready(conn),
                 "notice": notice,
+                "blitz": modes.blitz_status(conn),
+                "blitz_seconds": modes.BLITZ_SECONDS,
             },
             conn=conn,
         )
@@ -645,6 +647,9 @@ def start_crawl():
     def job(conn: sqlite3.Connection) -> str:
         report = crawler.crawl(conn, progress=_progress)
         statistics = indexer.build_index(conn, progress=_progress)
+        # документы, заведённые заново, получили новые id — их оценки
+        # возвращаются из data/qrels.csv
+        restored = qrels.restore_missing(conn)
         companion.check_after_index(conn, statistics["documents"])
         # новый документ — жирный разовый бонус: коллекция статична, и без
         # него паук голодал бы вечно
@@ -654,6 +659,8 @@ def start_crawl():
             f"добавлено {report.added}, обновлено {report.updated}, "
             f"пропущено {report.skipped}, удалено {report.removed}, "
             f"ошибок {report.errors}; в индексе {statistics['terms']} терминов"
+            + (f"; восстановлено оценок эталона: {restored['judgements']}"
+               if restored["judgements"] else "")
         )
 
     _run_background("crawl", job)
@@ -714,12 +721,14 @@ def metrics_page(
         new_achievements = []
         if outcome["per_query"]:
             new_achievements = companion.check_after_evaluation(conn, outcome["per_query"])
+        queries = qrels.list_queries(conn)
 
         return render(
             request,
             "metrics.html",
             {
-                "queries": qrels.list_queries(conn),
+                "queries": queries,
+                "unjudged": sum(1 for row in queries if row["judged_count"] == 0),
                 "per_query": outcome["per_query"],
                 "summary": outcome["summary"],
                 "error": outcome.get("error", ""),

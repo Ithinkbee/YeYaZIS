@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Тестовая коллекция — «{{ app_name }}»{% endblock %}
+
+{% block content %}
+
+<h1>Тестовая коллекция</h1>
+<p class="lead">
+  Каждый документ коллекции разбирается тремя методами сразу. Решением метода
+  считается язык, до профиля которого получилось наименьшее расстояние.
+</p>
+
+<section class="cards">
+  <div class="card">
+    <h3>Обучающий корпус</h3>
+    <table class="mini">
+      <tr><th></th><th>файлов</th><th>объём</th><th>букв</th></tr>
+      {% for code, stats in corpus_stats.items() %}
+      <tr>
+        <td>{{ language_name(code) }}</td>
+        <td>{{ stats.files }}</td>
+        <td class="{{ 'ok' if stats.within_limits else 'warn' }}">{{ '%.1f'|format(stats.kilobytes) }} Кб</td>
+        <td>{{ '{:,}'.format(stats.letters).replace(',', ' ') }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <p class="note">Требование методички — от 20 до 120 Кб на язык.</p>
+  </div>
+
+  {% if report %}
+  <div class="card">
+    <h3>Итог прогона</h3>
+    <table class="mini">
+      <tr><th>метод</th><th>точность</th><th>мс/док</th></tr>
+      {% for code in method_codes %}
+      {% set score = report.scores[code] %}
+      <tr>
+        <td>{{ method_titles[code] }}</td>
+        <td class="{{ 'ok' if score.accuracy == 1.0 else 'warn' }}">{{ '%.0f'|format(score.accuracy * 100) }}%</td>
+        <td>{{ '%.2f'|format(score.mean_ms) }}</td>
+      </tr>
+      {% endfor %}
+      <tr class="sum">
+        <td>{{ consensus_title }}</td>
+        <td class="{{ 'ok' if report.consensus.accuracy == 1.0 else 'warn' }}">{{ '%.0f'|format(report.consensus.accuracy * 100) }}%</td>
+        <td>{{ '%.2f'|format(report.consensus.mean_ms) }}</td>
+      </tr>
+    </table>
+    <p class="note">Прогон от {{ report.created_at.replace('T', ' ') }}</p>
+  </div>
+  {% endif %}
+
+  <div class="card">
+    <h3>Действия</h3>
+    <form action="/run" method="post" class="inline">
+      <button type="submit">Распознать заново</button>
+    </form>
+    <p class="note">Сохранить результат:</p>
+    <p class="chips">
+      {% for code, entry in formats.items() %}
+      <a class="chip" href="/export/{{ code }}" title="{{ entry[2] }}">{{ code|upper }}</a>
+      {% endfor %}
+      <a class="chip" href="/print" target="_blank">Печать</a>
+    </p>
+    <p class="note">Файл скачивается; вариант «Печать» открывает версию без навигации.</p>
+  </div>
+</section>
+
+{% if report %}
+<h2>Результат по документам</h2>
+<p class="note">
+  Имя документа — активная ссылка: она открывает исходный HTML-файл.
+  Столбец «разбор» ведёт к подробностям решения каждого метода.
+</p>
+
+<table class="grid">
+  <thead>
+    <tr>
+      <th>документ</th>
+      <th>букв</th>
+      <th>эталон</th>
+      {% for code in method_codes %}<th>{{ method_titles[code] }}</th>{% endfor %}
+      <th>итог</th>
+      <th>разбор</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for verdict in report.verdicts %}
+    <tr class="{{ 'row-bad' if verdict.correct is false else '' }}">
+      <td><a href="/raw/{{ verdict.document.doc_id }}" target="_blank">{{ verdict.document.doc_id }}</a></td>
+      <td class="num">{{ verdict.document.letters }}</td>
+      <td><span class="tag tag-{{ verdict.document.gold }}">{{ verdict.document.gold_name }}</span></td>
+      {% for code in method_codes %}
+      {% set result = verdict.results[code] %}
+      <td class="{{ 'cell-ok' if verdict.is_correct(code) else 'cell-bad' }}">
+        {{ result.language_name }}
+        <small class="muted">{{ '%.3f'|format(result.distances[result.language]) }}</small>
+      </td>
+      {% endfor %}
+      <td>
+        <b>{{ verdict.language_name }}</b>
+        {% if verdict.agreement < 1.0 %}<small class="warn">спор</small>{% endif %}
+      </td>
+      <td><a href="/document/{{ verdict.document.doc_id }}">→</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Сводная статистика</h2>
+<ul class="summary">
+  {% for line in summary %}<li>{{ line }}</li>{% endfor %}
+</ul>
+{% elif not error %}
+<p class="note">Результатов пока нет. Нажмите «Распознать заново».</p>
+{% endif %}
+
+{% endblock %}

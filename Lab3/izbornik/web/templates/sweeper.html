@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Сапёр — «{{ app_name }}»{% endblock %}
+{% block content %}
+{{ m.game_symbols() }}
+<h1>Сапёр</h1>
+<p class="lead">{{ companion_name }} спрятал на поле своих паучат. Откройте все клетки, где их нет. Цифра в открытой
+  клетке — сколько паучат прячется в восьми соседних. Клетку с паучонком можно пометить флажком; откроете её —
+  паучонок проснётся, и партия проиграна.</p>
+
+<div class="toolbar sweeper-toolbar">
+  <span class="sweeper-presets">
+    <button type="button" class="ghost small-button" data-preset="novice" title="9 × 9, 10 паучат">Новичок</button>
+    <button type="button" class="ghost small-button" data-preset="amateur" title="16 × 16, 40 паучат">Любитель</button>
+    <button type="button" class="ghost small-button" data-preset="expert" title="16 × 30, 99 паучат">Профессионал</button>
+  </span>
+  <label>Высота <input type="number" id="sweeper-rows" min="5" max="30" value="9"></label>
+  <label>Ширина <input type="number" id="sweeper-cols" min="5" max="40" value="9"></label>
+  <label>Паучат <input type="number" id="sweeper-spiders" min="1" max="80" value="10"></label>
+  <span class="note" id="sweeper-density"></span>
+  <span class="spacer"></span>
+  <button type="button" id="sweeper-new">Новая игра</button>
+</div>
+
+<div class="sweeper-status">
+  <span class="sw-counter" title="сколько паучат ещё не помечено">
+    <svg class="sw-counter-icon" viewBox="0 0 60 60" aria-hidden="true"><use href="#spider-glyph"></use></svg>
+    <b id="sweeper-left">10</b></span>
+  <span class="sw-counter" title="время партии">Время <b id="sweeper-clock">0:00</b></span>
+  <label class="check sw-mode"><input type="checkbox" id="sweeper-flag-mode"> касание ставит флажок</label>
+  <span id="sweeper-note" class="sweeper-note"></span>
+</div>
+
+<div class="sweeper-wrap" id="sweeper-wrap">
+  <div class="sweeper-board" id="sweeper-board" aria-label="Поле сапёра"></div>
+</div>
+
+<p class="note">Левая кнопка мыши открывает клетку, правая ставит или снимает флажок. Щелчок по цифре, вокруг
+  которой уже стоит столько же флажков, открывает остальных соседей (так же действует средняя кнопка). Первый ход
+  всегда безопасен. На сенсорном экране флажок ставится долгим касанием или в режиме «касание ставит флажок».</p>
+
+<script type="application/json" id="sweeper-lines">{{ lines|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('sweeper.js') }}"></script>
+{% endblock %}

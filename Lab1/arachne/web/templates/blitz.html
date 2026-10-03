@@ -14,12 +14,25 @@
 
 {% if not state %}
 <div class="notice notice-warn">Индекс пуст — загадывать нечего.</div>
+{% elif state.result %}
+
+<section class="card blitz-card">
+  <div class="notice {{ '' if state.result.won else 'notice-warn' }}">{{ state.result.message }}</div>
+  <p>Загаданный документ:
+    <a href="/doc/{{ state.result.doc_id }}">{{ state.result.title }}</a></p>
+  <blockquote class="blitz-fragment">{{ state.fragment }}</blockquote>
+  <div class="blitz-head blitz-next">
+    <a class="button" href="/blitz?restart=true">Новый раунд</a>
+    <span class="muted small">комбо {{ combo }}</span>
+  </div>
+</section>
+
 {% else %}
 
 <section class="card blitz-card">
   <div class="blitz-head">
     <span class="blitz-timer" id="blitz-timer" data-elapsed="{{ elapsed }}"
-          data-limit="{{ seconds }}" data-tick="{{ tick }}">{{ seconds - elapsed }}</span>
+          data-limit="{{ seconds }}" data-tick="{{ tick }}" data-reload="true">{{ seconds - elapsed }}</span>
     <span class="muted small">секунд осталось · комбо {{ combo }}</span>
     <a class="ghost small button" href="/blitz?restart=true">Другой документ</a>
   </div>
@@ -29,8 +42,10 @@
 {% include "_searchform.html" %}
 
 <p class="muted small">
+  Поиск откроет обычную выдачу: фрагмент и таймер останутся вверху страницы.
   Попадание засчитывается при открытии документа из выдачи: система сравнивает
-  его идентификатор с загаданным. Не нашли — потраченное время не возвращается.
+  его идентификатор с загаданным. Не тот документ раунд не заканчивает; время,
+  потраченное до конца раунда, не возвращается.
 </p>
 {% endif %}
 {% endblock %}

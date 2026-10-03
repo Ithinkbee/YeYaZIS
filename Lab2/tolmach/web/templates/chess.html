@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% block title %}Партия с {{ companion_instrumental }} — «{{ app_name }}»{% endblock %}
+
+{% block content %}
+
+<h1>Партия с {{ companion_instrumental }}</h1>
+<p class="lead">
+  Вы играете белыми. Правила обычные, но одно добавлено: чтобы взять фигуру
+  паука, нужно определить язык слова, записанного латиницей. Ошиблись —
+  {{ companion_name }} съедает вашу фигуру и забирает ход.
+</p>
+
+<div class="chess-layout">
+
+  <div class="chess-main">
+    <div id="board" class="board"></div>
+
+    <div class="chess-bar">
+      <button type="button" id="new-game">Новая партия</button>
+      <span id="status" class="chess-status">Ваш ход.</span>
+    </div>
+    <p class="note">{{ companion_name }} перебирает ходы на {{ depth }} полухода вперёд
+      и комментирует партию из своего угла.</p>
+  </div>
+
+  <aside class="chess-side">
+    <div id="quiz" class="card quiz" hidden></div>
+
+    <div class="card">
+      <h3>Правило взятия</h3>
+      <ol class="plain small">
+        <li>Вы идёте на поле с фигурой паука.</li>
+        <li>Появляется слово латиницей: <span class="mono">rabota</span>, <span class="mono">waerme</span>.</li>
+        <li>Угадали язык — фигура ваша.</li>
+        <li>Ошиблись — {{ companion_name }} съедает вашу фигуру, ход переходит к нему.</li>
+      </ol>
+      <p class="note">
+        Короля паук не трогает: при ошибке вы потеряете только ход. Так же он
+        поступит с фигурой, которая прикрывает короля, — иначе на доске
+        возникла бы невозможная позиция.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Зачем латиница</h3>
+      <p class="note">
+        Русское слово записывается латиницей, а у немецкого сворачиваются
+        умлауты. Оба языка оказываются в одном алфавите, и узнать язык можно
+        только по строению слова — ровно так работает метод N-грамм.
+        Занятно, что профили системы, обученные на кириллице, на такой записи
+        ошибаются, и человек оказывается точнее машины.
+      </p>
+    </div>
+  </aside>
+</div>
+
+<h2>Журнал партии</h2>
+<ol id="moves" class="move-log"></ol>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('chess.js') }}"></script>
+<script>
+(function () {
+  /* Ход делится на две половины. Ход игрока доска рисует сразу по списку
+     законных ходов, сервер подтверждает его за доли миллисекунды, и лишь
+     затем отдельным запросом приходит ответ Пафнутия — перебор идёт уже
+     на глазах у игрока, а не вместо показа его хода. */
+  var START = {{ start_fen | tojson }};
+  var START_LEGAL = {{ start_legal | tojson }};
+  var START_LINES = {{ start_lines | tojson }};
+  var FINISHED = ['checkmate', 'stalemate', 'draw'];
+
+  var board = new Tolmach.Board(document.getElementById('board'), { interactive: true, onMove: onMove });
+  var quizHost = document.getElementById('quiz');
+  var statusBox = document.getElementById('status');
+  var log = document.getElementById('moves');
+  var fen = START;
+  var legal = START_LEGAL;
+  var highlight = [];
+  var over = false;
+
+  function reset(greet) {
+    fen = START;
+    legal = START_LEGAL;
+    highlight = [];
+    over = false;
+    log.innerHTML = '';
+    quizHost.hidden = true;
+    statusBox.textContent = 'Ваш ход.';
+    board.setPosition(fen, [], legal);
+    if (greet) {
+      var fresh = START_LINES.filter(function (text) { return Tolmach.said.indexOf(text) < 0; });
+      var pool = fresh.length ? fresh : START_LINES;
+      Tolmach.say(pool[Math.floor(Math.random() * pool.length)]);
+    }
+  }
+
+  function note(text) {
+    if (!text) { return; }
+    var item = document.createElement('li');
+    item.textContent = text;
+    log.appendChild(item);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function move(uci) { return uci.slice(0, 2) + '–' + uci.slice(2, 4); }
+
+  function finish(result) {
+    over = true;
+    statusBox.textContent = result.message || 'Партия окончена.';
+  }
+
+  /* Позиция до хода: при ошибке сервера доска возвращается к ней. */
+  function restore(text) {
+    board.setPosition(fen, highlight, legal);
+    if (text) { statusBox.textContent = text; }
+  }
+
+  function onMove(from, to, done) {
+    if (over) { done(); return; }
+    if (!board.isLegal(from, to)) {
+      statusBox.textContent = 'Так эта фигура не ходит.';
+      done();
+      return;
+    }
+    if (board.isCapture(from, to)) {
+      askAndPlay(from, to, done);
+      return;
+    }
+    board.preview(from, to);           /* ход виден сразу */
+    playerMove(from, to, null, done);
+  }
+
+  function askAndPlay(from, to, done) {
+    statusBox.textContent = 'Взятие: определите язык слова.';
+    Tolmach.askQuiz(quizHost).then(function (verdict) {
+      quizHost.hidden = true;
+      playerMove(from, to, verdict ? verdict.correct : true, done);
+    });
+  }
+
+  function playerMove(from, to, passed, done) {
+    Tolmach.post('/api/chess/move', {
+      fen: fen, frm: from, to: to, quiz_passed: passed, reply: false, said: Tolmach.said
+    }).then(function (result) {
+      if (result.error) { restore(result.error); done(); return; }
+      if (!result.ok && result.kind === 'quiz') { restore(); askAndPlay(from, to, done); return; }
+      if (!result.ok) { restore(result.message); Tolmach.say(result.line); done(); return; }
+
+      fen = result.fen;
+      highlight = result.highlight || [];
+      legal = [];
+      board.setPosition(fen, highlight, legal);
+      Tolmach.say(result.line);
+      note('Вы: ' + move(from + to) + (result.message ? '. ' + result.message : ''));
+
+      if (FINISHED.indexOf(result.status) >= 0) { finish(result); done(); return; }
+      statusBox.textContent = (result.status === 'check' ? 'Шах Пафнутию. ' : '') +
+        'Пафнутий думает…';
+      spiderMove(done);
+    }).catch(function () { restore('Сервер не ответил.'); done(); });
+  }
+
+  function spiderMove(done) {
+    Tolmach.post('/api/chess/reply', { fen: fen, said: Tolmach.said })
+      .then(function (result) {
+        if (result.error || !result.ok) {
+          statusBox.textContent = result.error || result.message;
+          done();
+          return;
+        }
+        fen = result.fen;
+        highlight = result.highlight || [];
+        legal = result.legal || [];
+        board.setPosition(fen, highlight, legal);
+        Tolmach.say(result.reply_line);
+        if (result.reply) {
+          note('Пафнутий: ' + move(result.reply) + (result.message ? '. ' + result.message : ''));
+        }
+
+        if (FINISHED.indexOf(result.status) >= 0) { finish(result); }
+        else { statusBox.textContent = result.status === 'check' ? 'Вам шах.' : 'Ваш ход.'; }
+        done();
+      })
+      .catch(function () { statusBox.textContent = 'Сервер не ответил.'; done(); });
+  }
+
+  document.getElementById('new-game').addEventListener('click', function () { reset(true); });
+  reset(false);
+  /* приветствие уже стоит в облачке паука — показываем его, не дожидаясь наведения */
+  setTimeout(function () {
+    var bubble = document.getElementById('companion-bubble');
+    if (bubble && bubble.textContent.trim()) { Tolmach.say(bubble.textContent.trim()); }
+  }, 400);
+})();
+</script>
+{% endblock %}

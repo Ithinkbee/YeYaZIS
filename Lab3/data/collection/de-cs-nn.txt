@@ -1,0 +1,105 @@
+# Überblick
+
+KNN werden beim maschinellen Lernen eingesetzt. Damit können Computer Probleme lösen, die zu kompliziert sind, um sie mit Regeln zu beschreiben, zu denen es aber viele Daten gibt, die als Beispiele für die gewünschte Lösung dienen können. Ein Algorithmus passt das zunächst unwissende Netz so an die Beispieldaten an, dass es von ihnen auf neue Fälle verallgemeinern kann. Dieser Vorgang wird Training genannt. Das trainierte Netz kann für neue Daten Vorhersagen treffen oder Empfehlungen und Entscheidungen erzeugen.
+
+KNN wurden von den Netzwerken inspiriert, die biologische Neuronen in Gehirnen bilden. Biologische Neuronen sind miteinander vernetzt und in Schichten organisiert. Sie können mehrere Eingangssignale aufsummieren und geben nur dann ein Signal an andere Neuronen weiter, wenn die Summe der Eingangssignale einen Schwellenwert erreicht.
+
+Ein KNN wird von künstlichen Neuronen gebildet. Künstliche Neuronen bilden ausgewählte Eigenschaften von biologischen Neuronen mit mathematischen Mitteln nach. Ein künstliches Neuron kann mehrere Eingangssignale aufsummieren. Jedes Eingangssignal wird gewichtet und kann dadurch die Summe der Eingangssignale unterschiedlich stark erhöhen oder reduzieren. Die Aktivierungsfunktion eines künstlichen Neurons sorgt dafür, dass es nur dann ein Ausgangssignal ausgibt, wenn die Summe aller Eingangssignale einen Schwellenwert überschreitet. Wenn die Summe aller Eingangssignale unter dem Schwellenwert liegt, gibt das künstliche Neuron kein Ausgangssignal aus.
+
+In der Regel besteht ein KNN aus mehreren Schichten von künstlichen Neuronen. Die Signale wandern von der ersten Schicht (der Eingabeschicht) zur letzten Schicht (der Ausgabeschicht) und durchlaufen dabei möglicherweise mehrere Zwischenschichten (versteckte Schichten). Jede Schicht kann die Signale an ihren Eingängen unterschiedlich transformieren. Ein Netz mit vielen verborgenen Schichten kann eine komplizierte Aufgabe in mehrere einfachere Aufgaben zerlegen, die jeweils in verschiedenen Schichten des Modells ausgeführt werden. Ein solches KNN wird auch als tiefes neuronales Netz bezeichnet. Darauf bezieht sich der Begriff „Deep Learning“.
+
+Zu Beginn des Trainings stehen alle Schwellenwerte und Gewichte auf Zufallswerten. Während des Trainings passt ein Algorithmus schrittweise Schwellenwerte und Gewichte an die Daten an, mit denen das Netz trainiert wird, siehe auch Optimierung. Die resultierenden Gewichte werden als Parameter des KI-Modells bezeichnet. Das Training wird beendet, wenn das Netz für alle Beispiele aus den Trainingsdaten eine möglichst korrekte Ausgabe erzeugt.
+
+Das Erstellen eines geeigneten Trainingsdatensatzes kann sehr schwierig sein, da man verhindern muss, dass die Daten Muster aufweisen, die das Netz nicht zur Entscheidung heranziehen soll. Das Forschungsgebiet Explainable Artificial Intelligence arbeitet an Verfahren, die erklären können, wie ein trainiertes KNN zu einer Entscheidung kommt. Beispielsweise wurde untersucht, welchen Teil eines Bildes ein KNN betrachtet, um ein Bild zu klassifizieren. Dabei entdeckten die Forscher z. B. ein KNN, das Eisenbahnzüge erkennen sollte und dazu nur auf Schienen achtete.
+
+# Beschreibung
+
+Außerdem verändert sich das Lernverhalten bei Veränderung der Aktivierungsfunktion der Neuronen oder der Lernrate des Netzes. Praktisch gesehen „lernt“ ein Netz hauptsächlich durch Modifikation der Gewichte der Verbindungen zwischen den Neuronen. Eine Anpassung des Schwellenwertes kann hierbei durch ein on-Neuron miterledigt werden. Dadurch sind KNNs in der Lage, komplizierte nichtlineare Funktionen über einen „Lern“-Algorithmus, der durch iterative oder rekursive Vorgehensweise aus vorhandenen Ein- und gewünschten Ausgangswerten alle Parameter der Funktion zu bestimmen versucht, zu erlernen. KNNs sind dabei eine Realisierung des konnektionistischen Paradigmas, da die Funktion aus vielen einfachen gleichartigen Teilen besteht. Erst in ihrer Summe kann deren Verhalten im Zusammenspiel sehr vieler beteiligter Teile komplex werden. Ein neuronales Netz, das deterministisch beschrieben wird und Rückkopplungen erlaubt, stellt unter dem Gesichtspunkt der Berechenbarkeit ein äquivalentes Modell zur Turingmaschine dar. D.h. zu jedem Netz gibt es mindestens eine Turingmaschine und zu jeder Turingmaschine gibt es mindestens ein Netz mit Rückkopplung. Bei einer stochastischen Beschreibung ist dies nicht der Fall. Rekurrente Netze sind damit die ausdrucksstärkste Form (Typ 0 in der Chomsky-Hierarchie).
+
+# Geschichtliche Entwicklung
+
+Das Interesse für künstliche neuronale Netze setzte bereits in den frühen 1940er Jahren ein, also etwa gleichzeitig mit dem Einsatz programmierbarer Computer in angewandter Mathematik.
+
+# Anfänge
+
+Die Anfänge gehen auf Warren McCulloch und Walter Pitts zurück. Sie beschrieben 1943 Verknüpfungen von elementaren Einheiten zu einem Netz ähnlich dem der Neuronen im Gehirn, mit dem sich praktisch jede logische oder arithmetische Funktion berechnen lassen könnte. 1947 wiesen sie darauf hin, dass ein solches Netz beispielsweise zur räumlichen Mustererkennung eingesetzt werden kann. 1949 formulierte Donald O. Hebb seine Hebbsche Lernregel, die in ihrer allgemeinen Form die meisten der künstlichen neuronalen Lernverfahren wiedergibt. Karl Lashley fand 1950, dass der Prozess der Informationsspeicherung im Gehirn verteilt auf verschiedene Untereinheiten realisiert wird.
+
+# Erste Blütezeit
+
+Im anschließenden Jahr, 1951, gelingt Marvin Minsky mit seiner Dissertationsarbeit der Bau des Neurocomputers Snarc, der seine Gewichte automatisch justieren kann, jedoch nicht praktisch einsetzbar ist. 1956 treffen sich Wissenschaftler und Studenten auf der Dartmouth Conference. Diese Konferenz gilt als Geburtsstunde der Künstlichen Intelligenz als akademisches Fachgebiet. Von 1957 bis 1958 entwickeln Frank Rosenblatt und Charles Wightman den ersten erfolgreichen Neurocomputer, mit dem Namen Mark I Perceptron. Der Computer konnte mit seinem 20 × 20 Pixel großen Bildsensor bereits einfache Ziffern erkennen. Im nachfolgenden Jahr formuliert Rosenblatt das Perceptron-Konvergenz-Theorem. 1960 stellen Bernard Widrow und Marcian E. Hoff das ADALINE (ADAptive LInear NEuron) vor. Dieses Netz erreichte als erstes weite kommerzielle Verbreitung. Anwendung fand es in Analogtelefonen zur Echtzeit-Echofilterung. Das neuronale Netz lernte mit der Deltaregel. 1961 stellte Karl Steinbuch Techniken der assoziativen Speicherung vor. 1969 gaben Marvin Minsky und Seymour Papert eine genaue mathematische Analyse des Perceptrons. Sie zeigten auf, dass wichtige Probleme nicht gelöst werden können. So sind unter anderem XOR-Operatoren nicht auflösbar und es gibt Probleme in der linearen Separierbarkeit. Die Folge war ein vorläufiges Ende der Forschungen auf dem Gebiet der neuronalen Netze, da die meisten Forschungsgelder gestrichen wurden.
+
+# Langsamer Wiederaufbau
+
+1972 präsentiert Teuvo Kohonen den linearen Assoziator, ein Modell des Assoziativspeichers. James A. Anderson beschreibt das Modell unabhängig von Kohonen aus neuropsychologischer Sicht im selben Jahr. 1973 benutzt Christoph von der Malsburg ein Neuronenmodell, das nichtlinear ist. Bereits 1974 entwickelt Paul Werbos für seine Dissertation die Backpropagation bzw. die Fehlerrückführung. Das Modell bekam aber erst später eine größere Bedeutung. Ab 1976 entwickelt Stephen Grossberg mathematisch fundierte Modelle neuronaler Netze. Zusammen mit Gail Carpenter widmet er sich auch dem Problem, ein neuronales Netz lernfähig zu halten, ohne bereits Gelerntes zu zerstören. Sie formulieren ein Architekturkonzept für neuronale Netze, die Adaptive Resonanztheorie. 1982 beschreibt Teuvo Kohonen die nach ihm benannten selbstorganisierenden Karten. Im selben Jahr beschreibt John Hopfield das Modell der Hopfield-Netze. 1983 wird von Kunihiko Fukushima, S. Miyake und T. Ito das neuronale Modell Neocognitron vorgestellt. Das Modell war eine Weiterentwicklung des 1975 entwickelten Cognitrons und diente zur Erkennung handgeschriebener Zeichen.
+
+# Renaissance
+
+1985 veröffentlicht John Hopfield eine Lösung des Travelling Salesman Problems durch ein Hopfield-Netz. 1985 wird das Lernverfahren Backpropagation of Error als Verallgemeinerung der Delta-Regel durch die Parallel-Distributed-Processing-Gruppe separat entwickelt. Somit werden nicht linear separierbare Probleme durch mehrschichtige Perceptrons lösbar. Marvin Minskys Auffassung war also widerlegt.
+
+# Neue Erfolge in Mustererkennungswettbewerben seit 2009
+
+In jüngster Zeit erlebten neuronale Netze eine Wiedergeburt, da sie bei herausfordernden Anwendungen oft bessere Ergebnisse als konkurrierende Lernverfahren liefern. Zwischen 2009 und 2012 gewannen die rekurrenten bzw. tiefen vorwärtsgerichteten neuronalen Netze der Forschungsgruppe von Jürgen Schmidhuber am Schweizer KI Labor IDSIA eine Serie von acht internationalen Wettbewerben in den Bereichen Mustererkennung und maschinelles Lernen. Insbesondere gewannen ihre rekurrenten LSTM-Netze drei Wettbewerbe zur verbundenen Handschrifterkennung bei der Intl. Conf. on Document Analysis and Recognition (ICDAR) 2009 – obwohl kein A-priori-Wissen über die drei verschiedenen zu lernenden Sprachen in die Programmierung der Modelle einbezogen wurde. Die LSTM-Netze erlernten gleichzeitige Segmentierung und Erkennung. Dies waren die ersten internationalen Wettbewerbe, die durch Deep Learning oder durch rekurrente Netze gewonnen wurden.
+
+Tiefe vorwärtsgerichtete Netze wie Kunihiko Fukushimas Konvolutionsnetz der 80er Jahre haben wieder an Bedeutung gewonnen. Sie verfügen über alternierende Konvolutionslagen (convolutional layers) und Lagen von Neuronen, die mehrere Aktivierungen zusammenfassen (pooling layers), um die räumliche Dimension zu reduzieren. Abgeschlossen wird ein solches Konvolutionsnetz in der Regel durch mehrere vollständig verbundene Schichten (englisch fully connected layers). Yann LeCuns Team von der New York University wandte den 1989 schon gut bekannten Backpropagation-Algorithmus auf solche Netze an. Moderne Varianten verwenden sogenanntes max-pooling für die Zusammenfassung der Aktivierungen, das stets der stärksten Aktivierung den Vorzug gibt. Schnelle Grafikprozessor (GPU)-Implementierungen dieser Kombination wurden 2011 durch Dan Ciresan und Kollegen in Schmidhubers Gruppe eingeführt. Sie gewannen seither zahlreiche Wettbewerbe, u. a. die „ISBI 2012 Segmentation of Neuronal Structures in Electron Microscopy Stacks Challenge“ und den „ICPR 2012 Contest on Mitosis Detection in Breast Cancer Histological Images“. AlexNet, ein ähnliches Modell, erzielte auch die zu diesem Zeitpunkt besten Ergebnisse auf dem ImageNet Benchmark. GPU-basierte max-pooling-Konvolutionsnetze waren auch die ersten künstlichen Mustererkenner mit übermenschlicher Performanz in Wettbewerben wie der „IJCNN 2011 Traffic Sign Recognition Competition“. In den letzten Jahren fand auch die Theorie der Zufallsmatrizen vermehrt Anwendung in der Erforschung von neuronalen Netzen. Neuronale Operatoren sind Verallgemeinerungen von künstlichen neuronalen Netzwerken auf unendlichdimensionale Funktionenräume. Die primäre Anwendung von neuronalen Operatoren liegt darin Lösungsoperatoren von partiellen Differentialgleichungen zu erlernen.
+
+# Topologie der Verbindungsnetze
+
+In künstlichen neuronalen Netzen bezeichnet die Topologie die Struktur des Netzes. Damit ist im Allgemeinen gemeint, wie viele künstliche Neuronen sich auf wie vielen Schichten befinden, und wie diese miteinander verbunden sind. Künstliche Neuronen können auf vielfältige Weise zu einem künstlichen neuronalen Netz verbunden werden. Dabei werden Neuronen bei vielen Modellen in hintereinander liegenden Schichten (englisch layers) angeordnet; bei einem Netz mit nur einer trainierbaren Neuronenschicht spricht man von einem einschichtigen Netz.
+
+Unter Verwendung eines Graphen können die Neuronen als Knoten und ihre Verbindungen als Kanten dargestellt werden. Die Eingaben werden gelegentlich auch als Knoten dargestellt, was hilft, den Informationsfluss durch das Netzwerk zu visualisieren.
+
+Die hinterste Schicht des Netzes, deren Neuronenausgaben meist als einzige außerhalb des Netzes sichtbar sind, wird Ausgabeschicht (englisch output layer) genannt. Davorliegende Schichten werden entsprechend als versteckte Schicht (englisch hidden layer) bezeichnet.
+
+# Typische Strukturen
+
+Die Struktur eines Netzes hängt unmittelbar mit dem verwendeten Lernverfahren zusammen und umgekehrt; so kann mit der Delta-Regel nur ein einschichtiges Netz trainiert werden, bei mehreren Schichten ist eine leichte Abwandlung vonnöten. Dabei müssen Netze nicht zwingend homogen sein: es existieren auch Kombinationen aus verschiedenen Modellen, um so unterschiedliche Vorteile zu kombinieren.
+
+Es gibt reine feedforward-Netze, bei denen eine Schicht immer nur mit der nächsthöheren Schicht verbunden ist. Darüber hinaus gibt es Netze, in denen Verbindungen in beiden Richtungen erlaubt sind. Die passende Netzstruktur wird meist nach der Methode von Versuch und Irrtum gefunden, was durch evolutionäre Algorithmen und eine Fehlerrückführung unterstützt werden kann.
+
+# Einschichtiges feedforward-Netz
+
+Einschichtige Netze mit der feedforward-Eigenschaft (englisch für vorwärts) sind die einfachsten Strukturen künstlicher neuronaler Netze. Sie besitzen lediglich eine Ausgabeschicht. Die feedforward-Eigenschaft besagt, dass Neuronenausgaben nur in Verarbeitungsrichtung geleitet werden und nicht durch eine rekurrente Kante zurückgeführt werden können (azyklischer, gerichteter Graph).
+
+# Mehrschichtiges feedforward-Netz
+
+Mehrschichtige Netze besitzen neben der Ausgabeschicht auch verdeckte Schichten, deren Ausgabe wie beschrieben, außerhalb des Netzes nicht sichtbar sind. Verdeckte Schichten verbessern die Abstraktion solcher Netze. So kann erst das mehrschichtige Perzeptron das XOR-Problem lösen.
+
+# Rekurrentes Netz
+
+Rekurrente Netze besitzen im Gegensatz dazu auch rückgerichtete (rekurrente) Kanten (englisch feedback loops) und enthalten somit eine Rückkopplung. Solche Kanten werden dann immer mit einer Zeitverzögerung (in der Systemtheorie als Verzögerungsglied bezeichnet) versehen, sodass bei einer schrittweisen Verarbeitung die Neuronenausgaben der vergangenen Einheit wieder als Eingaben angelegt werden können. Diese Rückkopplungen ermöglichen einem Netz ein dynamisches Verhalten und statten es mit einem Gedächtnis aus.
+
+# Dynamische neuronale Netze
+
+Dynamische neuronale Netze passen die Struktur und/oder Parameter dynamisch je nach Input bei der Inferenz an.
+
+# Neuronale Netze mit Gedächtnis
+
+Neuronale Netze mit Gedächtnis verfügen über einen statischen Speicher, der bei der Inferenz dynamisch abgefragt werden kann.
+
+# Funktionsweise
+
+Künstliche neuronale Netze dienen als universelle Funktionsapproximatoren. Werte werden dabei von der Eingabe- bis zur Ausgabeschicht propagiert, wobei eine Aktivierungsfunktion für Nichtlinearität sorgt. Beim Trainieren wird ein Fehler bestimmt; mit Hilfe von Fehlerrückführung und einem Optimierungsverfahren werden dabei die Gewichte schichtweise angepasst.
+
+# Künstliche Neuronen
+
+das Neuron annimmt, wird nicht direkt durch die Netz-Eingabe bestimmt, sondern durch die Aktivierungsfunktion. Dieses Aktivitätslevel bestimmt dann die Ausgabe des Neurons an Neuronen der nächsten Schicht.
+
+Die Aktivierungsfunktion ermöglicht die Einführung von Nichtlinearität ins neuronale Netz, denn nicht alle Aufgaben neuronaler Netze lassen sich mit linearen Funktionen abbilden. Es gibt verschiedene Aktivierungsfunktionen. In den verdeckten Schichten wird meist die Rectifier-Funktion verwendet, in der Ausgabeschicht eine Sigmoidfunktion.
+
+Die Aktivierungsfunktion, welche im allerletzten Schritt des neuronalen Netzes ausgeführt wird, kann als Ausgabefunktion aufgefasst werden. Diese Ausgabefunktion hat als Hauptaufgabe sicherzustellen, dass der Bereich (Träger) der Ausgaben zu weiteren Annahmen der Modellierung passt. Die Ausgabefunktion kann sicherstellen, dass Verteilungsvoraussetzungen der Likelihoodfunktion erfüllt sind, wie z. B. die Ausgabe von strikt positiven Ergebnissen oder Ergebnissen nur im Intervall von 0 bis 1. Die Aufgabe der Ausgabefunktion ist direkt analog zur (inversen) Linkfunktion in verallgemeinerten linearen Modellen.
+
+# Verlustfunktion
+
+wird dabei lediglich zur Vereinfachung bei der Ableitung hinzugenommen.
+
+Der MQF eignet sich, wenn die Rückgabe des Netzes ein einzelner Wert ist.
+
+# Fehlerrückführung
+
+Mit Hilfe des Fehlers lassen sich die Gewichte anpassen. Dies geschieht in zwei Schritten: Im ersten Schritt werden mit Hilfe der Fehlerrückführung die Gradienten bestimmt. Im zweiten Schritt werden die Gradienten mit einem Optimierungsverfahren verwendet, um die Gewichte zu aktualisieren. In diesem Abschnitt geht es um die Fehlerrückführung.
+
+# Optimierung
+
+Es ist wichtig, das Training mit zufälligen Anfangswerten zu beginnen. Bei überall gleichen Anfangswerten hätte beispielsweise jeder Knoten im KNN das gleiche Gewicht. Wenn dann Gewichte durch die Fehlerrückführung angepasst werden, würde der Fehler auf alle Knoten gleich verteilt und es würden auch alle Gewichte gleichmäßig verändert. Da das Problem in der Regel nicht symmetrisch ist, dürfen auch die Anfangswerte keine Symmetrien aufweisen, sonst kann der Lernalgorithmus das KNN nicht gut an die Trainingsdaten anpassen.
+
+Mit der Fehlerrückführung wurden Fehler und Gewichte in einer Funktion abgebildet. Das Lernen korrespondiert nun zu einer Minimierung der Fehlerfunktion, indem die Gewichte angepasst werden. Das aus der Schule bekannte Optimalitätskriterium 1. Ordnung, das Nullsetzen der Ableitung, ist bei Neuronalen Netzen praktisch jedoch ungeeignet. Stattdessen wird mit Gradientenverfahren gearbeitet, um ein lokales Minimum der Fehlerfunktion zu finden. Der Gradient ist die Richtung des steilsten Anstieges einer Funktion, eine Bewegung entgegen den Gradienten ermöglicht also einen Abstieg auf dem Graphen der Fehlerfunktion. Eine Iteration des naiven Gradientverfahrens oder Gradientenabstieges ist also die Berechnung des Gradienten für die aktuelle Wahl der Gewichte, anschließend wird von den Gewichten der Gradient abgezogen und so neue Gewichte mit niedrigerem Fehler erhalten. Das Netz hat somit also „gelernt“.

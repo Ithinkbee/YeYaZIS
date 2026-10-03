@@ -1,0 +1,125 @@
+# Begriffsbeschreibungen
+
+Informationssicherheit hat das Ziel, Informationen hinsichtlich der drei Schutzziele Vertraulichkeit, Verfügbarkeit und Integrität zu schützen. Je nach Quelle bezieht sich der Begriff ausschließlich auf die Informationstechnik (IT) oder schließt auch nicht-technische Systeme ein. In einem IT-System ist Informationssicherheit die Eigenschaft, nur solche Systemzustände anzunehmen, die nicht zu einer unautorisierten Datenmanipulation oder Datenpreisgabe führen.
+
+Der Begriff Informationssicherheit bezieht sich oft auf eine globale Informationssicherheit, bei der die Zahl der möglichen schädlichen Szenarien summarisch reduziert ist oder der Aufwand zur Kompromittierung für den Betreiber in einem ungünstigen Verhältnis zum erwarteten Informationsgewinn steht. In dieser Sichtweise ist die Informationssicherheit eine ökonomische Größe, mit der zum Beispiel in Betrieben und Organisationen gerechnet werden muss.
+
+Daneben bezieht sich der Begriff auch auf die Sicherheit unter einem bestimmten Szenarium. In diesem Sinn liegt Informationssicherheit vor, wenn über einen bereits bekannten Weg kein Angriff auf das System mehr möglich ist. Man spricht von einer binären Größe, weil die Information beim Anwenden dieser speziellen Methode entweder sicher oder nicht sicher sein kann.
+
+Die nachfolgenden Begriffe sind Aspekte des umfassenden Begriffs der Informationssicherheit. Je nach Autor und sprachlichem Umfeld werden sie teils unterschiedlich interpretiert. Abzugrenzen ist die Informationssicherheit von der funktionalen Sicherheit: dem Schutz von Personen und Umwelt vor den Gefahren einer technischen Anlage.
+
+Informationssicherheit (information security) umfasst IT-Sicherheit (IT security) ebenso wie Cyber-Sicherheit (cyber-security). Dabei ist Cyber-Sicherheit der Teil der IT-Sicherheit, die v. a. auf Angriffe und Gefahren für Netzwerke sowie Gefahren aus dem Internet ausgerichtet ist.
+
+# IT-Sicherheit
+
+Unter IT-Sicherheit versteht man Strategien und Maßnahmen, um die Verfügbarkeit von IT-Systemen zu gewährleisten und den unerlaubten Zugriff sowie die unberechtigte Veränderung von Informationen zu vermeiden. Die IT-Sicherheit bedeutet damit Abschottung eingesetzter IT-Systeme gegen Angriffe von außen und Schutz vor drohenden Gefahren von innen.
+
+IT-Systeme sind Teil der soziotechnischen Systeme. Daher kommt der IT-Sicherheit eine Schlüsselrolle für die Sicherheit von soziotechnischen Systemen zu. Zu den Aufgaben der IT-Sicherheit gehört der Schutz von IT-Systemen von Organisationen (zum Beispiel Unternehmen) gegen Bedrohungen. Damit soll unter anderem wirtschaftlicher Schaden verhindert werden.
+
+IT-Sicherheit ist ein Teil der Informationssicherheit. In Abgrenzung zu IT-Sicherheit umfasst Informationssicherheit neben der Sicherheit der IT-Systeme und der darin gespeicherten Daten auch die Sicherheit von nicht elektronisch verarbeiteten Informationen. Beispiel: Die Prinzipien der Informationssicherheit können auch auf per Hand auf Papier notierte Rezepte eines Restaurants angewendet werden, da Vertraulichkeit, Integrität und Verfügbarkeit der Rezepte für das Restaurant extrem wichtig sein können, selbst wenn dieses Restaurant vollkommen ohne Einsatz irgendeines IT-Systems betrieben wird.
+
+# Netzwerksicherheit
+
+Netzwerksicherheit bezieht sich auf die Sicherheit von Rechnernetzen und die Absicherung der Computer vor Angriffen, die über ein Rechnernetz durchgeführt werden.
+
+# Datensicherheit
+
+Datensicherheit ist häufig mit dem Datenschutz verknüpft, die von diesem zu unterscheiden ist: Datensicherheit hat das technische Ziel, Daten jeglicher Art gegen Verlust, Manipulationen und andere Bedrohungen zu sichern. Die Datensicherheit ist eine Voraussetzung für den Datenschutz. Aber das frühere Bundesdatenschutzgesetz nannte den Begriff der Datensicherheit lediglich im damaligen § 9a BDSG im Zusammenhang mit dem ebenfalls nicht näher definierten „Datenschutzaudit“.
+
+Es gibt einen Ansatz namens Datenzentrierte Sicherheit (englisch Data-centric security), bei dem die Sicherheit der Daten selbst im Vordergrund steht und nicht die Sicherheit von Netzwerken, Servern oder Anwendungen.
+
+# Datensicherung
+
+Datensicherung ist ein Synonym für das englischsprachige „Backup“ (dt. Sicherung), es war der ursprüngliche gesetzliche Begriff für Datensicherheit.
+
+# Datenschutz
+
+Beim Datenschutz geht es nicht um den Schutz von allgemeinen Daten vor Schäden, sondern um den Schutz personenbezogener Daten vor Missbrauch („Datenschutz ist Personenschutz“). Der Schutz personenbezogener Daten stützt sich auf das Prinzip der informationellen Selbstbestimmung. Diese wurde im BVerfG-Urteil zur Volkszählung festgeschrieben. Geschützt werden muss dabei die Privatsphäre, d. h. Persönlichkeitsdaten bzw. Anonymität müssen gewahrt bleiben. Datenschutz verlangt über die Datensicherheit hinaus den Ausschluss des Zugangs zu Daten mit unberechtigtem Lesen durch unbefugte Dritte. Das deutsche Bundesdatenschutzgesetz beschreibt in § 1 ausschließlich Anforderungen für den Umgang mit personenbezogenen Daten. Die DSGVO und das BDSG definieren den Unterschied der Begriffe Datenschutz und Datensicherheit nicht. Nur wenn geeignete Schutzmaßnahmen getroffen werden, kann man davon ausgehen, dass vertrauliche bzw. personenbezogene Daten nicht in die Hände von Unbefugten gelangen. Hierbei spricht man in der Regel von technischen und organisatorischen Maßnahmen zum Datenschutz, die insbesondere in Art. 32 DSGVO, dem BDSG und in den Landesdatenschutzgesetzen beschrieben sind.
+
+# Motivation und Ziele der Informationssicherheit
+
+Informationen (oder Daten) sind schützenswerte Güter. Der Zugriff auf diese sollte beschränkt und kontrolliert sein. Nur autorisierte Benutzer oder Programme dürfen auf die Information zugreifen.
+
+Vertraulichkeit (englisch confidentiality): Daten dürfen lediglich von autorisierten Benutzern gelesen werden, dies gilt sowohl beim Zugriff auf gespeicherte Daten wie auch während der Datenübertragung.
+
+Integrität (englisch integrity): Daten dürfen nicht unbemerkt verändert werden. Alle Änderungen müssen nachvollziehbar sein.
+
+Verfügbarkeit (englisch availability): Verhinderung von Systemausfällen; der Zugriff auf Daten muss innerhalb eines vereinbarten Zeitrahmens gewährleistet sein.
+
+Authentizität (englisch authenticity) bezeichnet die Eigenschaften der Echtheit, Überprüfbarkeit und Vertrauenswürdigkeit eines Subjekts bzw. Objekts.
+
+Verbindlichkeit/Nichtabstreitbarkeit (englisch non repudiation): Sie erfordert, dass „kein unzulässiges Abstreiten durchgeführter Handlungen“ möglich ist. Sie ist unter anderem wichtig beim elektronischen Abschluss von Verträgen. Erreichbar ist sie beispielsweise durch elektronische Signaturen.
+
+Zurechenbarkeit (englisch accountability): „Eine durchgeführte Handlung kann einem Kommunikationspartner eindeutig zugeordnet werden.“
+
+Jedes noch so gut geplante und umgesetzte IT-System kann Schwachstellen besitzen. Sind bestimmte Angriffe zum Umgehen der vorhandenen Sicherheitsvorkehrungen möglich, ist das System verwundbar. Nutzt ein Angreifer eine Schwachstelle oder eine Verwundbarkeit zum Eindringen in ein IT-System, sind die Vertraulichkeit, Datenintegrität und Verfügbarkeit bedroht (englisch threat). Angriffe auf die Schutzziele bedeuten für Unternehmen Angriffe auf reale Unternehmenswerte, im Regelfall das Abgreifen oder Verändern von unternehmensinternen Informationen. Für betroffene Personen können sie einen Verlust insbesondere der informationellen Selbstbestimmung bedeuten, die z. B. in Deutschland grundrechtlich geschützt ist. Jede mögliche Bedrohung ist ein Risiko (englisch risk) für das Unternehmen. Unternehmen versuchen durch die Verwendung eines Risikomanagements (englisch risk management) die Wahrscheinlichkeit des Eintretens eines Schadens und die daraus resultierende Schadenshöhe zu bestimmen.
+
+Nach einer Risikoanalyse und Bewertung der unternehmensspezifischen IT-Systeme können entsprechende Schutzziele definiert werden. Anschließend folgt die Auswahl von IT-Sicherheitsmaßnahmen für die jeweiligen Geschäftsprozesse eines Unternehmens. Dieser Vorgang zählt zu den Tätigkeiten des IT-Sicherheitsmanagements. Eine genormte Vorgehensweise wird durch das Verwenden von IT-Standards ermöglicht.
+
+Im Rahmen des IT-Sicherheitsmanagements findet die Auswahl und Umsetzung entsprechender IT-Sicherheitsstandards statt. Zu diesem Zweck existieren im Bereich IT-Sicherheitsmanagement verschiedene Standards. Mit Hilfe des ISO/IEC 27001- oder des IT-Grundschutz-Standards wird mit anerkannten Regeln versucht, die Komplexität soziotechnischer Systeme für den Bereich des IT-Sicherheitsmanagements zu reduzieren und ein geeignetes Maß an Informationssicherheit zu finden.
+
+# Bedeutung der Informationssicherheit
+
+In den frühen Anfangszeiten des (Personal-)Computers verstand man unter Computersicherheit die Sicherstellung der korrekten Funktionalität von Hardware (Ausfall von zum Beispiel Bandlaufwerken oder anderen mechanischen Bauteilen) und Software (richtige Installation und Wartung von Programmen). Mit der Zeit änderten sich die Anforderungen an die Computer (Internet, Speichermedien); die Aufgaben zur Computersicherheit mussten anders gestaltet werden. Somit bleibt der Begriff der Computersicherheit wandelbar.
+
+Private und öffentliche Unternehmen sind heute in allen Bereichen ihrer Geschäftstätigkeit, Privatpersonen in den meisten Belangen des täglichen Lebens auf IT-Systeme angewiesen. Da neben der Abhängigkeit auch die Risiken für IT-Systeme in Unternehmen in der Regel größer sind als für Computer und Netzwerke in privaten Haushalten, ist Informationssicherheit überwiegend Aufgabe von Unternehmen.
+
+Entsprechende Verpflichtungen lassen sich im gesamten deutschsprachigen Raum aus den verschiedenen Gesetzen zum Gesellschaftsrecht, Haftungsrecht, Datenschutz, Bankenrecht usw. herleiten. Dort stellt Informationssicherheit einen Baustein des Risikomanagements dar. International spielen Vorschriften wie Basel II und der Sarbanes-Oxley Act eine wichtige Rolle.
+
+# Angriffe und Schutz
+
+Unter einem Angriff auf den Datenschutz oder Datensicherheit (repräsentiert durch zum Beispiel ein Computersystem) versteht man jeden Vorgang, dessen Folge oder Ziel ein Verlust des Datenschutzes oder der Datensicherheit ist. Auch technisches Versagen wird in diesem Sinne als Angriff gewertet.
+
+Ein System wird dann als sicher bezeichnet, wenn für den Angreifer der Aufwand für das Eindringen in das System höher ist als der daraus resultierende Nutzen. Deshalb ist es wichtig, die Hürden für einen erfolgreichen Einbruch möglichst hoch zu setzen und damit das Risiko zu reduzieren.
+
+Ein System ist dann absolut sicher, wenn es jedem denkbaren Angriff widerstehen kann. Die absolute Sicherheit kann nur unter besonderen Bedingungen erreicht werden, die die Arbeitsfähigkeit des Systems oft erheblich einschränken (isolierte Systeme, wenige und hochqualifizierte Zugriffsberechtigte).
+
+Der Mangel an Computersicherheit ist eine vielschichtige Bedrohung, die nur durch eine anspruchsvolle Abwehr beantwortet werden kann. Der Kauf und die Installation einer Software ist kein Ersatz für eine umsichtige Analyse der Risiken, möglicher Verluste, der Abwehr und von Sicherheitsbestimmungen.
+
+Ist einmal die Sicherheit eines Systems verletzt worden, muss es als kompromittiert betrachtet werden, was Maßnahmen zur Verhinderung weiterer Schäden und ggf. zur Datenrettung erfordert.
+
+# Cybercrime
+
+Der Begriff Computerkriminalität wird typischerweise als Sammelbegriff für Straftaten verwendet, die unter Einsatz oder gegen digitale Informations- und Kommunikationstechnologien begangen werden. Es existiert keine allgemein gültige Definition, aber im Allgemeinen bezieht sich Computerkriminalität auf Delikte, bei denen Computer oder das Internet als Werkzeuge oder Ziel für kriminelle Handlungen verwendet werden. Dies kann eine Vielzahl von Straftaten umfassen, von Cyberangriffen und Datenmanipulation bis hin zu betrügerischen Aktivitäten im Online-Bereich.
+
+Im Bereich der Strafverfolgung wird zwischen zwei Hauptkategorien von Cyberkriminalität unterschieden: „Cybercrime im engeren Sinne“ und „Cybercrime im weiteren Sinne“. Unter „Cybercrime im engeren Sinne“ fallen Straftaten, die sich gezielt gegen das Internet, Datennetze, informationstechnische Systeme oder deren Daten richten. Diese Art von Cyberkriminalität umfasst hochtechnische Straftaten, die eine ebenso anspruchsvolle Ermittlungsarbeit seitens der Polizei erfordern.
+
+Im Gegensatz dazu bezieht sich „Cybercrime im weiteren Sinne“ auf Straftaten, die mithilfe von Informationstechnik begangen werden. Anders als bei hochtechnischen Angriffen im engeren Sinne können Straftaten im weiteren Sinne auch in der analogen Welt begangen werden. Ein Beispiel hierfür ist der Drogenhandel, der durch den Einsatz von Informationstechnik stattfinden kann.
+
+Die Polizei ist daher vor die Herausforderung gestellt, sowohl hochtechnische Ermittlungsstrategien im Bereich des Cybercrime im engeren Sinne als auch vielschichtige Ansätze im Umgang mit den facettenreichen Formen von Cybercrime im weiteren Sinne zu entwickeln und einzusetzen.
+
+# Effekte oder Ziele
+
+Systemmissbrauch z. B. durch illegitime Ressourcennutzung, Veränderung von publizierten Inhalten wie Vandalismus etc.
+
+# Ursachen oder Mittel
+
+Seitenkanalangriffe – also solche Angriffe, die Nebeneffekte (Laufzeitverhalten, Energieverbrauch) beobachten und so Rückschlüsse auf die Daten ziehen; dies findet insbesondere bei Schlüsselmaterial Anwendung.
+
+Fehlbedienung durch Personal oder zugangsberechtigte Personen verursacht werden.
+
+# Schadensprogramme: Malware, Viren, Würmer, Spyware, trojanische Pferde
+
+Malware, kurz für „schädliche Software“, bezeichnet Programme, die mit der Absicht entwickelt und verbreitet werden, um auf fremden Rechnern Schaden anzurichten. Dieser Begriff umfasst verschiedene Formen von schädlichen Programmen, darunter Computerwürmer, -viren, Spyware und |Trojaner (trojanische Pferde). Die Bekämpfung von Malware erfordert fortlaufende Anstrengungen im Bereich der Cybersicherheit, um Schutzmechanismen zu entwickeln und die Öffentlichkeit über bewährte Praktiken zur Vermeidung von Infektionen aufzuklären.
+
+Während im Firmenumfeld die ganze Themenbreite der Computersicherheit Beachtung findet, verbinden viele Privatanwender mit diesem Begriff primär den Schutz vor Viren, Würmern, Spyware und Trojanern.
+
+Viren sind selbstreproduzierende ausführbare Programme, die unbemerkt von einem Rechner zum anderen übertragen werden. Sie setzen sich auf dem infizierten System fest und richten in der Regel Schaden an. Viren benötigen ein Gastprogramm, um sich zu verbreiten. Die ersten Computerviren waren noch recht harmlos und dienten lediglich dem Aufzeigen diverser Schwachstellen von Computersystemen. Doch recht bald erkannte man, dass Viren zu weitaus mehr in der Lage sind. Es begann eine rasante Weiterentwicklung der Schädlinge und der Ausbau ihrer Fähigkeiten – vom simplen Löschen von Dateien über das Ausspionieren von Daten (zum Beispiel von Passwörtern) bis hin zum Öffnen des Rechners für entfernte Benutzer (Backdoor – „Hintertür“).
+
+Im Gegensatz zu Viren verbreiten sich Würmer eigenständig in Netzwerken. Sie nutzen vorhandene Sicherheitslücken aus und breiten sich von einem Computer zum nächsten aus, ohne auf ein Hostprogramm angewiesen zu sein.
+
+Spyware sind Programme, die darauf abzielen, Informationen über die Aktivitäten des Benutzers zu sammeln und diese Daten anschließend an Dritte weiterzuleiten. Dies kann persönliche Informationen, Surfgewohnheiten oder Passwörter umfassen.
+
+Trojaner (trojanische Pferde) sind Programme, die keinen eigenen Reproduktionsmechanismus haben. Stattdessen verbergen sie sich oft in scheinbar harmlosen Anwendungen und öffnen dem Angreifer eine „Hintertür“ zum infizierten System. Trojaner werden häufig genutzt, um Systeme auszuspionieren oder für weitere Angriffe vorzubereiten.
+
+Die Bekämpfung von Malware erfordert fortlaufende Anstrengungen im Bereich der Cybersicherheit, um Schutzmechanismen zu entwickeln und die Öffentlichkeit über bewährte Praktiken zur Vermeidung von Infektionen aufzuklären.
+
+Mittlerweile existieren diverse Baukästen im Internet, die neben einer Anleitung auch alle notwendigen Bestandteile für das einfache Programmieren von Viren liefern. Nicht zuletzt schleusen kriminelle Organisationen Viren auf PCs ein, um diese für ihre Zwecke (UBE/UCE, DoS-Angriffe etc.) zu nutzen. So entstanden bereits riesige Bot-Netze, die auch illegal vermietet werden.
+
+Ein neuer Faktor, der hier zu beachten ist, ist die Nutzung von künstlicher Intelligenz (KI) durch Cyberkriminelle. Mithilfe von KI können etwa realistischere Phishing-Mails formuliert werden oder Exploits für Sicherheitslücken schneller entwickelt werden. KI bietet aber auch Potenziale zum Schutz vor Cyberkriminellen, etwa durch aktive Intrusion Detection Systeme.
+
+# Maßnahmen
+
+Die Maßnahmen müssen im Rahmen der Erstellung eines Sicherheitskonzeptes an den Wert der zu schützenden Unternehmenswerte angepasst werden. Zu viele Maßnahmen bedeuten zu hohe finanzielle, organisatorische oder personelle Aufwände. Akzeptanzprobleme treten auf, wenn die Mitarbeiter nicht genügend in den Prozess der IT-Sicherheit eingebunden werden. Implementiert man zu wenig Maßnahmen, bleiben für Angreifer lohnende Sicherheitslücken offen.
+
+Informationssicherheit stellt keinen statischen Endzustand dar, der einmal erreicht wird und daraufhin unverändert bleibt. Vielmehr handelt es sich um einen fortlaufenden Prozess, der kontinuierlich an aktuelle Anforderungen angepasst werden muss. Der Leitfaden zur Basis-Absicherung des BSI betont dabei insbesondere einen pragmatischen Ansatz: Statt einer vollständigen Risikoanalyse werden typische Gefährdungen identifiziert, denen mit standardisierten Basismaßnahmen begegnet wird. Dazu zählen unter anderem klare Zuständigkeiten für Informationssicherheit, regelmäßige Datensicherungen, Zugriffsbeschränkungen, Aktualisierung von Systemen sowie die Sensibilisierung von Mitarbeitenden. Der Fokus liegt auf der schnellen Umsetzbarkeit und der Erhöhung der Resilienz gegenüber häufig auftretenden Sicherheitsvorfällen. Veränderungen in den Verfahren und Abläufen einer Institution, Entwicklungen in den gesetzlichen Rahmenbedingungen, Fortschritte in der Technologie sowie die fortwährende Identifikation bislang unbekannter Schwachstellen und daraus resultierender Bedrohungen erfordern eine kontinuierliche Überprüfung und Anpassung der Sicherheitsmaßnahmen. Die nachhaltige Angemessenheit und Wirksamkeit von Maßnahmen zur Informationssicherheit müssen aktiv verwaltet werden, da sie nicht automatisch gewährleistet sind.

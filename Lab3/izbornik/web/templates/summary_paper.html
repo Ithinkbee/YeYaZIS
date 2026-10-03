@@ -1,0 +1,37 @@
+{# Реферат «на бумаге»: общий для печати и для сохранения в HTML. #}
+<div class="paper">
+  <div class="paper-head">
+    <p class="paper-kicker">Реферат документа</p>
+    <h1>{{ summary.title }}</h1>
+    <p>Исходный документ: <a href="{{ ctx.source_link }}">{{ ctx.source_link }}</a></p>
+    {% if summary.source_url %}<p>Источник: {{ ctx.source_site }} — <a href="{{ summary.source_url }}">{{ summary.source_url }}</a>{% if ctx.license %} ({{ ctx.license }}){% endif %}</p>{% endif %}
+    {% if ctx.authors %}<p>Авторы: {{ ctx.authors }}</p>{% endif %}
+    <p>Язык: {{ language_name(summary.language) }}{% if summary.domain %}; предметная область: {{ domain_name(summary.domain) }}{% endif %}.
+      Метод: sentence extraction; {{ 'построено sc-агентом OSTIS' if summary.engine == 'ostis' else 'локальный расчёт' }}.</p>
+  </div>
+
+  <h2>1. Классический реферат</h2>
+  <ol class="paper-list">
+    {% for sentence in summary.sentences %}
+    <li>{{ sentence.compressed if ctx.compressed else sentence.text }}
+      <span class="paper-meta">[№ {{ sentence.index + 1 }}, вес {{ '%.2f'|format(sentence.weight) }}]</span></li>
+    {% endfor %}
+  </ol>
+
+  <h2>2. Реферат в виде списка ключевых слов</h2>
+  <ul class="paper-tree">
+    {% for top in summary.keywords.tree %}
+    <li><b>{{ top.text }}</b>
+      {% if top.children %}<ul>{% for child in top.children %}<li>{{ child.text }}
+        {% if child.children %}<ul>{% for g in child.children %}<li>{{ g.text }}</li>{% endfor %}</ul>{% endif %}</li>{% endfor %}</ul>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% if summary.keywords.loose %}<p>Другие словосочетания: {{ summary.keywords.loose|map(attribute='text')|join(', ') }}.</p>{% endif %}
+
+  <div class="paper-foot">
+    <p class="note">Объём документа — {{ summary.stats.chars }} знаков, реферата — {{ summary.stats.summary_chars }}
+      (коэффициент сжатия {{ '%.3f'|format(summary.stats.compression or 0) }}).
+      «{{ app_name }}» {{ version }}, {{ generated }}.</p>
+  </div>
+</div>

@@ -13,6 +13,7 @@ import webbrowser
 
 from arachne import APP_NAME, companion, config, db
 from arachne.ai import llm
+from arachne.evaluation import qrels
 
 
 def prepare() -> None:
@@ -21,6 +22,9 @@ def prepare() -> None:
     conn = db.connect()
     try:
         db.init_db(conn)
+        # оценки документов, заведённых заново (перенос коллекции, очистка
+        # базы), возвращаются из data/qrels.csv
+        restored = qrels.restore_missing(conn)
         statistics = db.stats(conn)
         patch = companion.patch_notes(conn, advance=True) if config.COMPANION_ENABLED else None
     finally:
@@ -30,6 +34,8 @@ def prepare() -> None:
     print(f"  база данных: {config.DB_PATH}")
     print(f"  документов:  {statistics['documents']} (проиндексировано {statistics['indexed']})")
     print(f"  терминов:    {statistics['terms']}")
+    if restored["judgements"]:
+        print(f"  эталон:      восстановлено оценок из data/qrels.csv: {restored['judgements']}")
     status = llm.status()
     print(
         "  помощник:    "

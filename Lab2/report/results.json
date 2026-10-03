@@ -1,0 +1,965 @@
+{
+  "application": "Толмач",
+  "variant": 4,
+  "languages": {
+    "ru": "русский",
+    "de": "немецкий"
+  },
+  "created_at": "2026-09-22T14:07:53",
+  "collection": {
+    "size": 20,
+    "labelled": 20,
+    "by_language": {
+      "ru": 10,
+      "de": 10
+    }
+  },
+  "documents": [
+    {
+      "file": "de-01-holzbau.html",
+      "title": "Holzbau und Fachwerk",
+      "letters": 2459,
+      "words": 443,
+      "size": 3738,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.313022
+          },
+          "confidence": 0.6859,
+          "elapsed_ms": 8.624
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.991938,
+            "de": 0.044974
+          },
+          "confidence": 0.9547,
+          "elapsed_ms": 0.521
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.99998,
+            "de": 2e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.828
+        }
+      }
+    },
+    {
+      "file": "de-02-kaffee.html",
+      "title": "Kaffee: von der Bohne zur Tasse",
+      "letters": 2368,
+      "words": 408,
+      "size": 3396,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.3301
+          },
+          "confidence": 0.6688,
+          "elapsed_ms": 6.737
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.99202,
+            "de": 0.044335
+          },
+          "confidence": 0.9553,
+          "elapsed_ms": 0.296
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.999979,
+            "de": 2.1e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 3.818
+        }
+      }
+    },
+    {
+      "file": "de-03-leuchtturm.html",
+      "title": "Leuchttürme und Seenavigation",
+      "letters": 2772,
+      "words": 487,
+      "size": 3665,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.283044
+          },
+          "confidence": 0.716,
+          "elapsed_ms": 6.874
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.991938,
+            "de": 0.03979
+          },
+          "confidence": 0.9599,
+          "elapsed_ms": 0.322
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.999981,
+            "de": 1.9e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 5.285
+        }
+      }
+    },
+    {
+      "file": "de-04-imkerei.html",
+      "title": "Das Bienenvolk und die Imkerei",
+      "letters": 2728,
+      "words": 512,
+      "size": 3688,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.369156
+          },
+          "confidence": 0.6296,
+          "elapsed_ms": 7.889
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.991938,
+            "de": 0.049187
+          },
+          "confidence": 0.9504,
+          "elapsed_ms": 0.315
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.999981,
+            "de": 1.9e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.606
+        }
+      }
+    },
+    {
+      "file": "de-05-kartografie.html",
+      "title": "Alte Karten und die Kunst der Projektion",
+      "letters": 2853,
+      "words": 490,
+      "size": 3783,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.259778
+          },
+          "confidence": 0.7394,
+          "elapsed_ms": 7.701
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.991938,
+            "de": 0.035123
+          },
+          "confidence": 0.9646,
+          "elapsed_ms": 0.323
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.999981,
+            "de": 1.9e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.05
+        }
+      }
+    },
+    {
+      "file": "de-06-uhrmacherei.html",
+      "title": "Mechanische Uhren: wie Zeit gemessen wird",
+      "letters": 2625,
+      "words": 453,
+      "size": 3678,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.322878
+          },
+          "confidence": 0.676,
+          "elapsed_ms": 6.32
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.991802,
+            "de": 0.053529
+          },
+          "confidence": 0.946,
+          "elapsed_ms": 0.31
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.999981,
+            "de": 1.9e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.248
+        }
+      }
+    },
+    {
+      "file": "de-07-brot.html",
+      "title": "Brot und Backhandwerk",
+      "letters": 2674,
+      "words": 494,
+      "size": 3605,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.328778
+          },
+          "confidence": 0.6701,
+          "elapsed_ms": 6.986
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.991938,
+            "de": 0.054313
+          },
+          "confidence": 0.9452,
+          "elapsed_ms": 0.318
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.999979,
+            "de": 2.1e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 3.966
+        }
+      }
+    },
+    {
+      "file": "de-08-berge.html",
+      "title": "Berge: Höhe, Wetter und Mensch",
+      "letters": 2573,
+      "words": 470,
+      "size": 3510,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.325533
+          },
+          "confidence": 0.6734,
+          "elapsed_ms": 7.021
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.991938,
+            "de": 0.051203
+          },
+          "confidence": 0.9484,
+          "elapsed_ms": 0.308
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.999981,
+            "de": 1.9e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 6.302
+        }
+      }
+    },
+    {
+      "file": "de-09-post.html",
+      "title": "Post, Leitzahlen und die Logistik der Sendungen",
+      "letters": 2891,
+      "words": 493,
+      "size": 3895,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.283044
+          },
+          "confidence": 0.716,
+          "elapsed_ms": 9.486
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.992074,
+            "de": 0.03858
+          },
+          "confidence": 0.9611,
+          "elapsed_ms": 0.37
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.999981,
+            "de": 1.9e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 5.057
+        }
+      }
+    },
+    {
+      "file": "de-10-filmschnitt.html",
+      "title": "Schnitt: wie aus Einstellungen ein Film wird",
+      "letters": 2879,
+      "words": 504,
+      "size": 4076,
+      "gold": "de",
+      "consensus": "de",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "de",
+          "distances": {
+            "ru": 0.996667,
+            "de": 0.300989
+          },
+          "confidence": 0.698,
+          "elapsed_ms": 8.228
+        },
+        "alphabet": {
+          "language": "de",
+          "distances": {
+            "ru": 0.991802,
+            "de": 0.050351
+          },
+          "confidence": 0.9492,
+          "elapsed_ms": 0.348
+        },
+        "neural": {
+          "language": "de",
+          "distances": {
+            "ru": 0.99998,
+            "de": 2e-05
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.462
+        }
+      }
+    },
+    {
+      "file": "ru-01-zodchestvo.html",
+      "title": "Деревянное зодчество Русского Севера",
+      "letters": 2422,
+      "words": 424,
+      "size": 6222,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.377789,
+            "de": 0.996667
+          },
+          "confidence": 0.6209,
+          "elapsed_ms": 7.007
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.067629,
+            "de": 1.0
+          },
+          "confidence": 0.9324,
+          "elapsed_ms": 0.407
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.9e-05,
+            "de": 0.999981
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 5.413
+        }
+      }
+    },
+    {
+      "file": "ru-02-chai.html",
+      "title": "Чай: от листа до чашки",
+      "letters": 2389,
+      "words": 394,
+      "size": 5790,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.386456,
+            "de": 0.996667
+          },
+          "confidence": 0.6123,
+          "elapsed_ms": 7.708
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.057997,
+            "de": 1.0
+          },
+          "confidence": 0.942,
+          "elapsed_ms": 0.625
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.7e-05,
+            "de": 0.999983
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 6.377
+        }
+      }
+    },
+    {
+      "file": "ru-03-mayak.html",
+      "title": "Маяки и морская навигация",
+      "letters": 2411,
+      "words": 419,
+      "size": 5625,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.342067,
+            "de": 0.996667
+          },
+          "confidence": 0.6568,
+          "elapsed_ms": 7.21
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.058258,
+            "de": 1.0
+          },
+          "confidence": 0.9417,
+          "elapsed_ms": 0.395
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.8e-05,
+            "de": 0.999982
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.092
+        }
+      }
+    },
+    {
+      "file": "ru-04-pchely.html",
+      "title": "Пчелиная семья и пасека",
+      "letters": 2432,
+      "words": 416,
+      "size": 5685,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.381933,
+            "de": 0.996667
+          },
+          "confidence": 0.6168,
+          "elapsed_ms": 7.473
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.068893,
+            "de": 1.0
+          },
+          "confidence": 0.9311,
+          "elapsed_ms": 0.403
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.8e-05,
+            "de": 0.999982
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.273
+        }
+      }
+    },
+    {
+      "file": "ru-05-karty.html",
+      "title": "Старые карты и искусство проекции",
+      "letters": 2428,
+      "words": 407,
+      "size": 5687,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.340222,
+            "de": 0.996667
+          },
+          "confidence": 0.6586,
+          "elapsed_ms": 11.834
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.044824,
+            "de": 1.0
+          },
+          "confidence": 0.9552,
+          "elapsed_ms": 0.428
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.8e-05,
+            "de": 0.999982
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.55
+        }
+      }
+    },
+    {
+      "file": "ru-06-chasy.html",
+      "title": "Механические часы: как измеряют время",
+      "letters": 2265,
+      "words": 374,
+      "size": 5499,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.420856,
+            "de": 0.996667
+          },
+          "confidence": 0.5777,
+          "elapsed_ms": 8.683
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.05781,
+            "de": 1.0
+          },
+          "confidence": 0.9422,
+          "elapsed_ms": 0.399
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.8e-05,
+            "de": 0.999982
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.636
+        }
+      }
+    },
+    {
+      "file": "ru-07-hleb.html",
+      "title": "Хлеб и хлебопечение",
+      "letters": 2324,
+      "words": 405,
+      "size": 5476,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.378056,
+            "de": 0.996667
+          },
+          "confidence": 0.6207,
+          "elapsed_ms": 10.955
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.073742,
+            "de": 1.0
+          },
+          "confidence": 0.9263,
+          "elapsed_ms": 0.446
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.8e-05,
+            "de": 0.999982
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.342
+        }
+      }
+    },
+    {
+      "file": "ru-08-gory.html",
+      "title": "Горы: высота, погода и человек",
+      "letters": 2155,
+      "words": 378,
+      "size": 5161,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.370956,
+            "de": 0.996667
+          },
+          "confidence": 0.6278,
+          "elapsed_ms": 10.376
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.059057,
+            "de": 1.0
+          },
+          "confidence": 0.9409,
+          "elapsed_ms": 0.388
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.8e-05,
+            "de": 0.999982
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 4.398
+        }
+      }
+    },
+    {
+      "file": "ru-09-pochta.html",
+      "title": "Почта, индексы и логистика отправлений",
+      "letters": 2537,
+      "words": 408,
+      "size": 5958,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.344367,
+            "de": 0.996244
+          },
+          "confidence": 0.6543,
+          "elapsed_ms": 10.681
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.049886,
+            "de": 0.989358
+          },
+          "confidence": 0.9496,
+          "elapsed_ms": 0.448
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 2e-05,
+            "de": 0.99998
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 5.486
+        }
+      }
+    },
+    {
+      "file": "ru-10-kino.html",
+      "title": "Монтаж: как из кадров получается фильм",
+      "letters": 2494,
+      "words": 423,
+      "size": 6064,
+      "gold": "ru",
+      "consensus": "ru",
+      "agreement": 1.0,
+      "correct": true,
+      "methods": {
+        "ngram": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.346211,
+            "de": 0.996
+          },
+          "confidence": 0.6524,
+          "elapsed_ms": 7.844
+        },
+        "alphabet": {
+          "language": "ru",
+          "distances": {
+            "ru": 0.056739,
+            "de": 0.981469
+          },
+          "confidence": 0.9422,
+          "elapsed_ms": 0.423
+        },
+        "neural": {
+          "language": "ru",
+          "distances": {
+            "ru": 1.9e-05,
+            "de": 0.999981
+          },
+          "confidence": 1.0,
+          "elapsed_ms": 5.058
+        }
+      }
+    }
+  ],
+  "scores": {
+    "ngram": {
+      "accuracy": 1.0,
+      "correct": 20,
+      "errors": 0,
+      "total": 20,
+      "mean_ms": 8.282,
+      "docs_per_second": 120.7,
+      "confidence": 0.6586,
+      "confusion": {
+        "ru": {
+          "ru": 10,
+          "de": 0
+        },
+        "de": {
+          "ru": 0,
+          "de": 10
+        }
+      },
+      "per_language": {
+        "ru": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "de": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    },
+    "alphabet": {
+      "accuracy": 1.0,
+      "correct": 20,
+      "errors": 0,
+      "total": 20,
+      "mean_ms": 0.39,
+      "docs_per_second": 2566.2,
+      "confidence": 0.9469,
+      "confusion": {
+        "ru": {
+          "ru": 10,
+          "de": 0
+        },
+        "de": {
+          "ru": 0,
+          "de": 10
+        }
+      },
+      "per_language": {
+        "ru": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "de": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    },
+    "neural": {
+      "accuracy": 1.0,
+      "correct": 20,
+      "errors": 0,
+      "total": 20,
+      "mean_ms": 4.762,
+      "docs_per_second": 210.0,
+      "confidence": 1.0,
+      "confusion": {
+        "ru": {
+          "ru": 10,
+          "de": 0
+        },
+        "de": {
+          "ru": 0,
+          "de": 10
+        }
+      },
+      "per_language": {
+        "ru": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "de": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        }
+      }
+    }
+  },
+  "consensus": {
+    "accuracy": 1.0,
+    "correct": 20,
+    "total": 20,
+    "mean_ms": 13.434,
+    "confusion": {
+      "ru": {
+        "ru": 10,
+        "de": 0
+      },
+      "de": {
+        "ru": 0,
+        "de": 10
+      }
+    }
+  },
+  "speed": [
+    {
+      "method": "alphabet",
+      "accuracy": 1.0,
+      "correct": 20,
+      "errors": 0,
+      "total": 20,
+      "mean_ms": 0.38967999989836244,
+      "per_second": 2566.2081714761425,
+      "slowdown": 1.0,
+      "confidence": 0.9469209283043398
+    },
+    {
+      "method": "neural",
+      "accuracy": 1.0,
+      "correct": 20,
+      "errors": 0,
+      "total": 20,
+      "mean_ms": 4.762419999860867,
+      "per_second": 209.97728046438883,
+      "slowdown": 12.221361119644367,
+      "confidence": 0.9999809321347886
+    },
+    {
+      "method": "ngram",
+      "accuracy": 1.0,
+      "correct": 20,
+      "errors": 0,
+      "total": 20,
+      "mean_ms": 8.281794999993508,
+      "per_second": 120.74677047678479,
+      "slowdown": 21.2528100034736,
+      "confidence": 0.6585813872048072
+    }
+  ]
+}

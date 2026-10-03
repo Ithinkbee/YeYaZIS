@@ -1,0 +1,70 @@
+{# Общие фрагменты страниц. #}
+
+{% macro lang_tag(code) -%}
+<span class="tag tag-{{ code }}">{{ language_name(code) }}</span>
+{%- endmacro %}
+
+{% macro domain_tag(code) -%}
+{% if code %}<span class="tag tag-domain tag-{{ code }}">{{ domain_name(code, short=True) }}</span>{% endif %}
+{%- endmacro %}
+
+{% macro keyword_tree(keywords, max_weight) -%}
+<ul class="kw-tree">
+  {% for top in keywords.tree %}
+  {{ keyword_node(top, max_weight, 0) }}
+  {% endfor %}
+</ul>
+{% if keywords.loose %}
+<p class="note">Другие словосочетания, не подчинённые ни одному ключевому слову:</p>
+<div class="chips">
+  {% for kw in keywords.loose %}<span class="chip" title="встречается {{ kw.freq }} раз">{{ kw.text }}</span>{% endfor %}
+</div>
+{% endif %}
+{%- endmacro %}
+
+{% macro keyword_node(kw, max_weight, depth) -%}
+<li class="kw kw-depth-{{ depth }} kw-{{ kw.kind }}">
+  <span class="kw-text" title="значимость {{ kw.weight|num(2) }}, вхождений: {{ kw.freq }}">{{ kw.text }}</span>
+  <span class="kw-bar"><span style="width: {{ (100 * kw.weight / max_weight) if max_weight else 0 }}%"></span></span>
+  <span class="kw-freq">{{ kw.freq }}</span>
+  {% if kw.children %}
+  <ul>
+    {% for child in kw.children %}{{ keyword_node(child, max_weight, depth + 1) }}{% endfor %}
+  </ul>
+  {% endif %}
+</li>
+{%- endmacro %}
+
+{# Рисунки для игр Пафнутия: паук (цвет — от currentColor, глаза — от --eye) и флажок. #}
+{% macro game_symbols() -%}
+<svg class="symbols" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="spider-glyph" viewBox="0 0 60 60">
+    <g stroke="currentColor" stroke-width="3.2" stroke-linecap="round" fill="none">
+      <path d="M22 27 L9 14 M20 33 L4 31 M20 39 L6 49 M24 44 L15 57"/>
+      <path d="M38 27 L51 14 M40 33 L56 31 M40 39 L54 49 M36 44 L45 57"/>
+    </g>
+    <ellipse cx="30" cy="37" rx="11" ry="13" fill="currentColor"/>
+    <circle cx="30" cy="22" r="8" fill="currentColor"/>
+    <circle cx="26.8" cy="20.5" r="2.4" style="fill: var(--eye, #fff)"/>
+    <circle cx="33.2" cy="20.5" r="2.4" style="fill: var(--eye, #fff)"/>
+    <circle cx="27.2" cy="21" r="1.1" style="fill: var(--pupil, #111)"/>
+    <circle cx="33.6" cy="21" r="1.1" style="fill: var(--pupil, #111)"/>
+  </symbol>
+  <symbol id="flag-glyph" viewBox="0 0 20 20">
+    <path d="M6 2.5 V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M7 3 L16.5 6.8 L7 10.6 Z" style="fill: var(--flag, #8a3b2e)"/>
+    <path d="M3 17.5 H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+</svg>
+{%- endmacro %}
+
+{% macro save_menu(page, count, engine, view) -%}
+<details class="menu no-print">
+  <summary class="button">Сохранить в файл</summary>
+  <div class="menu-list">
+    {% for fmt, item in formats.items() %}
+    <a href="/export/{{ page.kind }}/{{ page.key }}.{{ fmt }}?n={{ count }}&engine={{ engine }}&view={{ view }}">{{ item[0] }}</a>
+    {% endfor %}
+  </div>
+</details>
+{%- endmacro %}

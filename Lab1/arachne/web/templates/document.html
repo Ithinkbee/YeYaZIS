@@ -4,8 +4,13 @@
 
 {% block content %}
 {% if lucky %}<div class="notice">{{ lucky }}</div>{% endif %}
-{% if blitz and blitz.message %}
+{% if blitz and blitz.miss %}
+<div class="notice notice-warn">{{ blitz.message }}
+  <a href="/blitz">к заданию</a></div>
+{% elif blitz and blitz.message %}
 <div class="notice {{ '' if blitz.won else 'notice-warn' }}">{{ blitz.message }}
+  {% if not blitz.won and blitz.doc_id != doc.id %}Загаданный документ:
+  <a href="/doc/{{ blitz.doc_id }}">{{ blitz.title }}</a>.{% endif %}
   <a href="/blitz?restart=true">Ещё раунд →</a></div>
 {% endif %}
 

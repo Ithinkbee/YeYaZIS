@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Реферат: {{ page.title }} — «{{ app_name }}»{% endblock %}
+{% block content %}
+{% set s = summary %}
+<p class="crumbs no-print">
+  {% if page.kind == 'doc' %}<a href="/">Коллекция</a>{% else %}<a href="/text">Свой документ</a>{% endif %} / реферат
+</p>
+
+<section class="doc-head">
+  <div>
+    <h1>{{ page.title }}</h1>
+    <p class="meta">
+      {{ m.lang_tag(s.language) }} {{ m.domain_tag(s.domain) }}
+      <span>{{ layout.length|num }} знаков · {{ (layout.length / config.PAGE_CHARS)|num(1) }} стр. ·
+        {{ layout.sentences|length }} предложений</span>
+      {% if page.meta.authors %}<span class="muted">· {{ page.meta.authors }}</span>{% endif %}
+    </p>
+    <p class="links">
+      <a class="source-link" href="{{ page.source_link }}?n={{ count }}">Исходный документ</a>
+      {% if s.source_url %}
+      <a href="{{ s.source_url }}" target="_blank" rel="noopener">Оригинал: {{ page.meta.source_site }} ↗</a>
+      {% endif %}
+      <a href="{{ page.raw_link }}" target="_blank">Текст файлом</a>
+      {% if page.meta.license %}<span class="muted small">лицензия источника: {{ page.meta.license }}</span>{% endif %}
+    </p>
+  </div>
+  <div class="engine engine-{{ s.engine }}">
+    {% if s.engine == 'ostis' %}
+    <b>Построено sc-агентом OSTIS</b>
+    <span>{% if s.ostis.from_kb %}прочитано из базы знаний{% else %}действие выполнено агентом{% endif %}
+      за {{ s.timings.ostis_total|ms }}</span>
+    {% else %}
+    <b>Локальный расчёт</b>
+    <span>за {{ ((s.timings.term_weights or 0) + (s.timings.sentences or 0) + (s.timings.keywords or 0))|ms }}
+      (разбор документа — {{ s.timings.analysis|ms }})</span>
+    {% endif %}
+  </div>
+</section>
+
+{% if page.notice %}<div class="banner warn-banner">{{ page.notice }}</div>{% endif %}
+
+<form class="toolbar no-print" method="get">
+  <label>Предложений в реферате
+    <select name="n" onchange="this.form.submit()">
+      {% for value in [3, 5, 7, 10, 15, 20, 30] %}
+      <option value="{{ value }}" {% if value == count %}selected{% endif %}>{{ value }}</option>
+      {% endfor %}
+      {% if count not in [3, 5, 7, 10, 15, 20, 30] %}<option value="{{ count }}" selected>{{ count }}</option>{% endif %}
+    </select>
+  </label>
+  <label>Построение
+    <select name="engine" onchange="this.form.submit()">
+      {% for code, name in engines.items() %}
+      <option value="{{ code }}" {% if code == engine %}selected{% endif %}>{{ name }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <input type="hidden" name="view" value="{{ view }}">
+  <noscript><button type="submit">Показать</button></noscript>
+  <span class="spacer"></span>
+  {{ m.save_menu(page, count, engine, view) }}
+  <a class="button" href="/print/{{ page.kind }}/{{ page.key }}?n={{ count }}&engine={{ engine }}&view={{ view }}" target="_blank">Печать</a>
+  {% if s.engine == 'ostis' %}
+  <a class="button ghost" href="{{ s.ostis.sc_web_url }}" target="_blank" rel="noopener">Документ в sc-web ↗</a>
+  {% endif %}
+</form>
+
+<section class="block">
+  <div class="block-head">
+    <h2>1. Классический реферат</h2>
+    <div class="switch no-print">
+      <a href="?n={{ count }}&engine={{ engine }}&view=compressed" {% if view == 'compressed' %}class="on"{% endif %}
+         title="без ссылок на литературу, отсылок к рисункам и вводных конструкций">сжатые предложения</a>
+      <a href="?n={{ count }}&engine={{ engine }}&view=original" {% if view == 'original' %}class="on"{% endif %}>как в тексте</a>
+    </div>
+  </div>
+  <p class="note">{{ s.sentences|length }} предложений с наибольшим весом Score · Posd · Posp в том порядке, в каком
+    они идут в документе. Объём — {{ s.stats.summary_chars|num }} знаков
+    ({{ s.stats.compression|pct }} документа).</p>
+  <ol class="summary-list">
+    {% for sentence in s.sentences %}
+    <li>
+      <p>{{ sentence.compressed if view == 'compressed' else sentence.text }}</p>
+      <p class="sentence-meta">
+        предложение № {{ sentence.index + 1 }}{% if sentence.paragraph >= 0 %}, абзац {{ sentence.paragraph + 1 }}{% endif %} ·
+        вес <b>{{ sentence.weight|num(2) }}</b> = Score {{ sentence.score|num(2) }} × Posd {{ sentence.posd|num(3) }}
+        × Posp {{ sentence.posp|num(3) }} · место по весу {{ sentence.rank }}
+        {% if sentence.top_terms %}<span class="terms">· термины: {% for term, value in sentence.top_terms %}{{ term }}{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
+      </p>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<section class="block">
+  <h2>2. Реферат в виде списка ключевых слов</h2>
+  <p class="note">Ключевые слова — существительные с наибольшей значимостью tf · log(|DB| / df); под каждым —
+    именные группы, которые его содержат. Полоса — значимость, число справа — вхождений в документ.</p>
+  {% set weights = [] %}
+  {% for top in s.keywords.tree %}{% for depth, kw in top.walk() %}{% set _ = weights.append(kw.weight) %}{% endfor %}{% endfor %}
+  {{ m.keyword_tree(s.keywords, (weights|max) if weights else 1) }}
+</section>
+
+<details class="block explain" {% if page.kind == 'mine' %}open{% endif %}>
+  <summary><h2>3. Как построен реферат</h2></summary>
+
+  <div class="cards compact">
+    <div class="card"><h3>|D|, символов</h3><span class="big">{{ layout.length|num }}</span></div>
+    <div class="card"><h3>Предложений</h3><span class="big">{{ layout.sentences|length }}</span>
+      <p class="note">абзацев {{ page.local.summary.stats.paragraphs }}, заголовков {{ page.local.summary.stats.headings }}</p></div>
+    <div class="card"><h3>Терминов</h3><span class="big">{{ page.local.summary.stats.terms|num }}</span>
+      <p class="note">из {{ page.local.summary.stats.words|num }} слов учтено {{ page.local.summary.stats.words_counted|num }};
+        tf<sub>max</sub> = {{ page.local.summary.stats.tf_max }}</p></div>
+    <div class="card"><h3>|DB|</h3><span class="big">{{ page.local.stats.n_docs }}</span>
+      <p class="note">документов {{ 'того же языка' if page.local.stats.scope == 'language' else 'всей коллекции' }}</p></div>
+  </div>
+
+  <h3>Веса терминов w(t, D) = 0,5 · (1 + tf / tf<sub>max</sub>) · log(|DB| / df)</h3>
+  <table class="grid narrow-table">
+    <thead><tr><th>Термин</th><th class="num">tf(t, D)</th><th class="num">df(t)</th><th class="num">log(|DB|/df)</th><th class="num">w(t, D)</th></tr></thead>
+    <tbody>
+      {% for t in top_terms %}
+      <tr><td>{{ t.display }}</td><td class="num">{{ t.tf }}</td><td class="num">{{ t.df }}</td>
+        <td class="num">{{ t.idf|num(3) }}</td><td class="num"><b>{{ t.weight|num(3) }}</b></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Предложения с наибольшим весом</h3>
+  <table class="grid">
+    <thead><tr><th class="num">Место</th><th class="num">№</th><th>Начало предложения</th><th class="num">Score</th>
+      <th class="num">Posd</th><th class="num">Posp</th><th class="num">Вес</th></tr></thead>
+    <tbody>
+      {% for sc in top_scores %}
+      <tr class="{% if sc.index in selected %}row-best{% endif %}">
+        <td class="num">{{ loop.index }}</td><td class="num">{{ sc.index + 1 }}</td>
+        <td class="small">{{ layout.sentences[sc.index].text[:110] }}{% if layout.sentences[sc.index].text|length > 110 %}…{% endif %}</td>
+        <td class="num">{{ sc.score|num(2) }}</td><td class="num">{{ sc.posd|num(3) }}</td>
+        <td class="num">{{ sc.posp|num(3) }}</td><td class="num"><b>{{ sc.weight|num(2) }}</b></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="note">Выделены предложения, вошедшие в реферат. Таблица рассчитана локально по тем же формулам, что
+    и в sc-агенте.</p>
+
+  <h3>Затраченное время</h3>
+  <table class="grid narrow-table">
+    <tbody>
+      {% for key, value in s.timings.items() %}
+      <tr><td>{{ {'analysis': 'разбор документа (сегментация, морфология)', 'term_weights': 'веса терминов',
+                 'sentences': 'веса и отбор предложений', 'keywords': 'ключевые слова',
+                 'kb_document': 'документ в базе знаний', 'agent_wait': 'выполнение действия агентом',
+                 'kb_read': 'чтение реферата из базы знаний', 'ostis_total': 'всего через OSTIS',
+                 'agent': 'работа агента (по данным базы знаний)'}.get(key, key) }}</td>
+        <td class="num">{{ value|ms }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if s.engine == 'ostis' %}
+  <h3>Реферат в базе знаний</h3>
+  <table class="grid narrow-table">
+    <tbody>
+      <tr><td>Узел документа</td><td><code>{{ s.ostis.document_idtf }}</code> (sc-адрес {{ s.ostis.document_addr }})</td></tr>
+      <tr><td>Узел реферата</td><td>sc-адрес {{ s.ostis.summary_addr }}</td></tr>
+      <tr><td>Действие</td><td>{% if s.ostis.action_addr %}action_build_summary, sc-адрес {{ s.ostis.action_addr }} ·
+        <a href="{{ config.SC_WEB_URL }}/?question={{ s.ostis.action_addr }}" target="_blank" rel="noopener">ответ в sc-web ↗</a>
+        {% else %}реферат уже был в базе знаний — агент не вызывался{% endif %}</td></tr>
+      <tr><td>Совпадение с локальным расчётом</td>
+        <td>{% if page.consistent %}<span class="ok">✓ те же предложения</span>{% else %}<span class="bad">✗ предложения различаются</span>{% endif %}</td></tr>
+    </tbody>
+  </table>
+  <form method="post" action="/doc/{{ page.key }}/rebuild" class="inline no-print">
+    {% if page.kind == 'doc' %}<input type="hidden" name="n" value="{{ count }}">
+    <button type="submit" class="ghost">Построить заново агентом</button>{% endif %}
+  </form>
+  {% endif %}
+</details>
+{% endblock %}

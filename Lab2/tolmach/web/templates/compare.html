@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block title %}Сравнение методов — «{{ app_name }}»{% endblock %}
+
+{% block content %}
+
+<h1>Сравнение методов</h1>
+<p class="lead">
+  Методичка требует сравнить методы по точности и затраченному времени.
+  Здесь к этому добавлены два опыта, которые показывают различия там, где
+  обычная точность их не показывает.
+</p>
+
+{% if report %}
+
+<h2>1. Точность и быстродействие на полных документах</h2>
+<table class="grid">
+  <thead>
+    <tr>
+      <th>метод</th><th>точность</th><th>верно</th><th>ошибок</th>
+      <th>мс на документ</th><th>док./с</th><th>медленнее лидера</th><th>уверенность</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in speed %}
+    <tr>
+      <td><b>{{ method_titles[row.method] }}</b></td>
+      <td class="{{ 'ok' if row.accuracy == 1.0 else 'warn' }}">{{ '%.1f'|format(row.accuracy * 100) }}%</td>
+      <td class="num">{{ row.correct }} / {{ row.total }}</td>
+      <td class="num">{{ row.errors }}</td>
+      <td class="num">{{ '%.2f'|format(row.mean_ms) }}</td>
+      <td class="num">{{ '%.0f'|format(row.per_second) }}</td>
+      <td class="num">{{ '%.1f'|format(row.slowdown) }}×</td>
+      <td class="num">{{ '%.0f'|format(row.confidence * 100) }}%</td>
+    </tr>
+  {% endfor %}
+    <tr class="sum">
+      <td><b>{{ consensus_title }}</b></td>
+      <td class="{{ 'ok' if report.consensus.accuracy == 1.0 else 'warn' }}">{{ '%.1f'|format(report.consensus.accuracy * 100) }}%</td>
+      <td class="num">{{ report.consensus.correct }} / {{ report.consensus.total }}</td>
+      <td class="num">{{ report.consensus.errors }}</td>
+      <td class="num">{{ '%.2f'|format(report.consensus.mean_ms) }}</td>
+      <td class="num">{{ '%.0f'|format(report.consensus.per_second) }}</td>
+      <td class="num">—</td>
+      <td class="num">{{ '%.0f'|format(report.consensus.confidence * 100) }}%</td>
+    </tr>
+  </tbody>
+</table>
+<p class="note">
+  Время согласованного решения — сумма времени всех трёх методов: чтобы
+  получить голосование, нужно выполнить каждый из них.
+</p>
+
+<h2>2. Точность и полнота по языкам</h2>
+<table class="grid">
+  <thead>
+    <tr>
+      <th rowspan="2">метод</th>
+      {% for code in language_codes %}<th colspan="3">{{ language_name(code) }}</th>{% endfor %}
+    </tr>
+    <tr>
+      {% for code in language_codes %}<th>точн.</th><th>полн.</th><th>F1</th>{% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for code in method_codes %}
+  {% set score = report.scores[code] %}
+    <tr>
+      <td><b>{{ method_titles[code] }}</b></td>
+      {% for lang in language_codes %}
+      <td class="num">{{ '%.2f'|format(score.precision(lang)) }}</td>
+      <td class="num">{{ '%.2f'|format(score.recall(lang)) }}</td>
+      <td class="num">{{ '%.2f'|format(score.f1(lang)) }}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>3. Матрицы ошибок</h2>
+<div class="cards">
+{% for code in method_codes %}
+{% set score = report.scores[code] %}
+  <div class="card">
+    <h3>{{ method_titles[code] }}</h3>
+    <table class="mini confusion">
+      <tr><th>эталон ↓ ответ →</th>{% for p in language_codes %}<th>{{ p }}</th>{% endfor %}</tr>
+      {% for gold in language_codes %}
+      <tr>
+        <th>{{ gold }}</th>
+        {% for predicted in language_codes %}
+        <td class="{{ 'diag' if gold == predicted else 'off' }}">{{ score.confusion.get(gold, {}).get(predicted, 0) }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if length_study %}
+<h2>4. Зависимость точности от длины входа</h2>
+<p class="note">
+  На полной странице текста задача решается всеми методами одинаково: русский и
+  немецкий пользуются разными системами письма. Чтобы различить методы, каждый
+  документ нарезан на окна заданной длины.
+</p>
+<table class="grid">
+  <thead>
+    <tr>
+      <th>метод</th>
+      {% for length in length_study.lengths %}<th>{{ length }} симв.</th>{% endfor %}
+      <th>порог 95%</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for code in method_codes %}
+    <tr>
+      <td><b>{{ method_titles[code] }}</b></td>
+      {% for length in length_study.lengths %}
+      {% set point = length_study.points[code][length] %}
+      <td class="num {{ 'ok' if point.accuracy == 1.0 else ('warn' if point.accuracy >= 0.9 else 'bad') }}">
+        {{ '%.0f'|format(point.accuracy * 100) }}%
+      </td>
+      {% endfor %}
+      <td class="num">{{ length_study.threshold(code) or '—' }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h3>Время на фрагмент, мс</h3>
+<table class="grid">
+  <thead>
+    <tr><th>метод</th>{% for length in length_study.lengths %}<th>{{ length }}</th>{% endfor %}</tr>
+  </thead>
+  <tbody>
+  {% for code in method_codes %}
+    <tr>
+      <td><b>{{ method_titles[code] }}</b></td>
+      {% for length in length_study.lengths %}
+      <td class="num">{{ '%.2f'|format(length_study.points[code][length].mean_ms) }}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<p class="note">Испытано фрагментов на каждой длине: {{ length_study.samples }}</p>
+{% endif %}
+
+{% if mixture_study %}
+<h2>5. Поведение на смешанном тексте</h2>
+<p class="note">
+  Русский документ постепенно замещается немецким. В таблице — доля смесей,
+  отнесённых к немецкому языку. Вдали от середины все методы отвечают
+  одинаково; различие между ними видно только у границы решения.
+</p>
+<table class="grid">
+  <thead>
+    <tr>
+      <th>метод</th>
+      {% for ratio in mixture_study.ratios %}<th>{{ '%.0f'|format(ratio * 100) }}%</th>{% endfor %}
+      <th>перелом</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for code in method_codes %}
+    <tr>
+      <td><b>{{ method_titles[code] }}</b></td>
+      {% for ratio in mixture_study.ratios %}
+      {% set share = mixture_study.shares[code][ratio] %}
+      <td class="num {{ 'cell-de' if share >= 0.5 else 'cell-ru' }}">{{ '%.0f'|format(share * 100) }}</td>
+      {% endfor %}
+      <td class="num">
+        {% set point = mixture_study.crossover(code) %}
+        {{ '%.1f'|format(point * 100) + '%' if point is not none else '—' }}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<ul class="summary">
+  {% for line in mixture_lines %}<li>{{ line }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+<h2>Выводы</h2>
+<div class="prose">
+  <p>
+    Для пары «русский — немецкий» задача распознавания решается всеми тремя
+    методами без ошибок, и решается уверенно: алфавиты языков не пересекаются,
+    и уже десятка символов достаточно для однозначного ответа. Поэтому
+    сравнивать методы по точности на этой паре малоинформативно — различие
+    следует искать в цене решения и в поведении у границы.
+  </p>
+  <p>
+    По быстродействию разрыв значителен. Алфавитный метод строит профиль за
+    один проход по тексту и сравнивает векторы длиной в несколько десятков
+    чисел. Метод N-грамм извлекает из того же текста на порядок больше
+    признаков и сортирует их, отчего оказывается самым дорогим. Нейросетевой
+    метод занимает промежуточное положение: сборка вектора признаков стоит
+    дёшево, а прямой проход сети — это два умножения матриц.
+  </p>
+  <p>
+    Различаются методы и тем, как они ведут себя на равной смеси двух языков.
+    Метод N-грамм склоняется к немецкому раньше середины: немецкие слова
+    длиннее, и с той же длины текста их приходит больше в профиль. Алфавитный
+    метод, наоборот, дольше держится за русский. Нейросетевой метод делит
+    равную смесь ровно пополам — обучение выровняло его границу, тогда как у
+    двух других она задана видом метрики и смещена свойствами самих языков.
+  </p>
+  <p>
+    Практический вывод: для языков с разными системами письма достаточно
+    алфавитного метода, и платить за более сложные нет смысла. Ценность
+    метода N-грамм и нейросетевого раскрывается на парах с общим алфавитом,
+    где решение приходится принимать по оттенкам частот, а не по самому
+    набору букв.
+  </p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Реферат вручную — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Реферат вручную</h1>
+<p class="lead">Прочитайте короткий отрывок и напишите его реферат — своими словами или фразами из текста, как
+  удобнее. Система реферирует тот же отрывок по формулам sentence extraction и сравнит: упомянуты ли ключевые
+  понятия, насколько совпали рефераты, подходит ли объём. Идеальным реферат быть не обязан: человек пишет без
+  вычислений, а реферат системы — не эталон, а одно из мнений о главном.</p>
+
+<form class="toolbar no-print" method="get" action="/manual">
+  <label>Откуда отрывок
+    <select name="source" class="source-select" onchange="this.form.submit()">
+      {% for group, options in choices %}
+      <optgroup label="{{ group }}">
+        {% for value, name in options %}
+        <option value="{{ value }}" {% if value == choice %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </optgroup>
+      {% endfor %}
+    </select>
+  </label>
+  <button type="submit" class="ghost">Другой отрывок</button>
+  <span class="spacer"></span>
+  {% if item %}<span class="note">{{ item.chars|num }} знаков · {{ item.sentences }} предложений</span>{% endif %}
+</form>
+
+{% if not item %}
+<div class="banner warn-banner">В выбранном документе нет отрывка подходящего размера: нужны соседние абзацы одного
+  раздела, {{ config.PRACTICE_MIN_CHARS|num }}–{{ config.PRACTICE_MAX_CHARS|num }} знаков и не меньше
+  {{ config.PRACTICE_MIN_SENTENCES }} предложений. Выберите другой документ.</div>
+{% else %}
+
+<section class="block excerpt-block">
+  <div class="block-head">
+    <h2>Отрывок</h2>
+    <span>{{ m.lang_tag(item.source.language) }} {{ m.domain_tag(item.source.domain) }}</span>
+  </div>
+  <p class="note">«{{ item.source.title }}»{% if item.section %}, раздел «{{ item.section }}»{% endif %},
+    абзацы {{ item.first + 1 }}–{{ item.last + 1 }} · <a href="{{ item.source_link }}">весь документ</a></p>
+  <div class="excerpt">
+    {% if result %}
+    {% for paragraph in excerpt_parts %}
+    <p>{% for text, number in paragraph %}{% if number %}<span class="s picked"><span class="pick-no">{{ number }}</span>{{ text }}</span>{% else %}{{ text }}{% endif %}{% endfor %}</p>
+    {% endfor %}
+    {% else %}
+    {% for paragraph in item.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+    {% endif %}
+  </div>
+  {% if result %}<p class="note">Номерами отмечены предложения, которые выбрала система.</p>{% endif %}
+</section>
+
+{% if error %}<div class="banner error">{{ error }}</div>{% endif %}
+
+{% if not result %}
+<form class="text-form" method="post" action="/manual" id="manual-form">
+  <input type="hidden" name="key" value="{{ item.key }}">
+  <input type="hidden" name="source" value="{{ choice }}">
+  <input type="hidden" name="seconds" id="manual-seconds" value="">
+  <label for="manual-text">Ваш реферат</label>
+  <textarea id="manual-text" name="text" rows="6" maxlength="{{ config.PRACTICE_MAX_INPUT }}"
+            placeholder="Два-три предложения о самом главном в отрывке.">{{ text }}</textarea>
+  <div class="row">
+    <span class="note">Хороший объём — {{ good_length[0]|num }}–{{ good_length[1]|num }} знаков, то есть
+      {{ (config.PRACTICE_GOOD_LENGTH[0] * 100)|int }}–{{ (config.PRACTICE_GOOD_LENGTH[1] * 100)|int }} % отрывка.
+      Написано: <b id="manual-count">{{ text|length }}</b>.</span>
+    <span class="spacer"></span>
+    <button type="submit">Сравнить с системой</button>
+  </div>
+</form>
+
+{% else %}
+{% set r = result %}
+{% set covered = r.concepts|selectattr('covered')|list %}
+<section class="verdict verdict-{{ r.verdict.stars }}">
+  <div class="verdict-stars" title="{{ r.verdict.stars }} из 5">
+    {% for i in range(5) %}<span {% if i < r.verdict.stars %}class="on"{% endif %}>★</span>{% endfor %}
+  </div>
+  <div>
+    <h2>{{ r.verdict.title }}</h2>
+    {% for note in r.verdict.notes %}<p>{{ note }}</p>{% endfor %}
+    <p class="note">{% if r.seconds is not none %}С открытия отрывка до отправки реферата прошло
+      {{ r.seconds|duration }}; система{% else %}Система{% endif %} построила свой реферат отрывка за
+      {{ r.system_ms|ms }}.</p>
+  </div>
+</section>
+
+<div class="compare-columns">
+  <section class="block">
+    <h2>Ваш реферат</h2>
+    <p class="human-summary">{% for text, concept in r.segments %}{% if concept %}<mark title="ключевое понятие">{{ text }}</mark>{% else %}{{ text }}{% endif %}{% endfor %}</p>
+    <p class="note">{{ r.chars|num }} знаков — {{ r.compression|pct(0) }} отрывка. Выделены ключевые понятия.</p>
+  </section>
+  <section class="block">
+    <h2>Реферат системы</h2>
+    <ol class="summary-list">
+      {% for sentence in r.system.summary.sentences %}<li><p>{{ sentence.text }}</p></li>{% endfor %}
+    </ol>
+    <p class="note">{{ r.system.summary.sentences|length }} предложения с наибольшим весом Score · Posd · Posp —
+      {{ r.system.summary.stats.compression|pct(0) }} отрывка.</p>
+  </section>
+</div>
+
+<section class="block">
+  <h2>Сравнение</h2>
+  <table class="grid compare-table">
+    <tbody>
+      <tr>
+        <th>Ключевые понятия</th>
+        <td><b>{{ covered|length }} из {{ r.concepts|length }}</b>
+          <div class="chips">
+            {% for concept in r.concepts %}<span class="chip {{ 'chip-ok' if concept.covered else 'chip-miss' }}"
+              title="в отрывке — {{ concept.freq }} раз">{{ '✓' if concept.covered else '✗' }} {{ concept.text }}</span>{% endfor %}
+          </div></td>
+        <td class="note">самые значимые существительные отрывка (tf · log(|DB| / df)), прежде всего повторяющиеся;
+          слово засчитывается в любой форме</td>
+      </tr>
+      <tr>
+        <th>Совпадение с рефератом системы</th>
+        <td>ROUGE-1: полнота <b>{{ r.rouge1.r|pct(0) }}</b>, точность <b>{{ r.rouge1.p|pct(0) }}</b><br>
+          ROUGE-2: полнота {{ r.rouge2.r|pct(0) }}</td>
+        <td class="note">полнота — какая доля значимых слов реферата системы есть у вас; точность — какая доля ваших
+          слов есть у системы. Сравниваются леммы, как при оценке по эталону</td>
+      </tr>
+      <tr>
+        <th>Объём</th>
+        <td><b>{{ r.compression|pct(0) }}</b> отрывка</td>
+        <td class="note">реферату хватает {{ (config.PRACTICE_GOOD_LENGTH[0] * 100)|int }}–{{ (config.PRACTICE_GOOD_LENGTH[1] * 100)|int }} %;
+          у системы — {{ r.system.summary.stats.compression|pct(0) }}</td>
+      </tr>
+      <tr>
+        <th>Взято из текста дословно</th>
+        <td><b>{{ r.copied|pct(0) }}</b> пар соседних слов</td>
+        <td class="note">{% if r.style == 'extract' %}Реферат-извлечение: вы, как и система, собрали его из фраз текста.
+          {% elif r.style == 'mixed' %}Смешанный реферат: часть фраз взята из текста, часть пересказана.
+          {% else %}Пересказ своими словами. Такой реферат метод sentence extraction построить не может: он только
+          выбирает готовые предложения.{% endif %}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">Звёзды складываются из доли упомянутых ключевых понятий (половина оценки) и совпадения с рефератом
+    системы; слишком короткий или слишком длинный реферат оценивается ниже.</p>
+</section>
+
+<p class="no-print">
+  <a class="button" href="/manual?source={{ choice|urlencode }}">Ещё отрывок</a>
+  <a class="button ghost" href="/manual?key={{ item.key|urlencode }}&amp;source={{ choice|urlencode }}">Этот же отрывок заново</a>
+</p>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  /* Время от открытия отрывка до отправки — для сравнения с системой. */
+  var form = document.getElementById('manual-form');
+  if (!form) return;
+  var opened = Date.now();
+  var text = document.getElementById('manual-text');
+  var count = document.getElementById('manual-count');
+  text.addEventListener('input', function () { count.textContent = text.value.length; });
+  form.addEventListener('submit', function () {
+    document.getElementById('manual-seconds').value = String((Date.now() - opened) / 1000);
+  });
+})();
+</script>
+{% endblock %}

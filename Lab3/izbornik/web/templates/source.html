@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Исходный документ: {{ page.title }} — «{{ app_name }}»{% endblock %}
+{% block content %}
+<p class="crumbs no-print">
+  {% if page.kind == 'doc' %}<a href="/">Коллекция</a>{% else %}<a href="/text">Свой документ</a>{% endif %} /
+  <a href="{{ page.base }}?n={{ count }}">реферат</a> / исходный документ
+</p>
+<section class="doc-head">
+  <div>
+    <h1>{{ page.title }}</h1>
+    <p class="meta">{{ m.lang_tag(page.summary.language) }} {{ m.domain_tag(page.summary.domain) }}
+      <span>{{ layout.length|num }} знаков · {{ layout.paragraphs|length }} абзацев · {{ layout.sentences|length }} предложений</span></p>
+    <p class="links">
+      <a href="{{ page.base }}?n={{ count }}">← К реферату</a>
+      {% if page.summary.source_url %}<a href="{{ page.summary.source_url }}" target="_blank" rel="noopener">Оригинал: {{ page.meta.source_site }} ↗</a>{% endif %}
+      <a href="{{ page.raw_link }}" target="_blank">Текст файлом</a>
+    </p>
+  </div>
+</section>
+
+<div class="toolbar no-print">
+  <label class="check"><input type="checkbox" id="heat-toggle"> показать вес всех предложений</label>
+  <span class="note">Номера на полях — порядок предложения в реферате ({{ order|length }} из {{ layout.sentences|length }}).
+    Наведите указатель на предложение, чтобы увидеть его вес.</span>
+</div>
+
+<article class="source" id="source">
+  {% for paragraph in layout.paragraphs %}
+    {% if paragraph.heading %}
+    <h3 class="source-heading">{{ paragraph.text }}</h3>
+    {% else %}
+    <p>
+      {%- for index in paragraph.sentences -%}
+        {%- set sentence = layout.sentences[index] -%}
+        {%- set score = weights[index] -%}
+        {%- set rank = ranks[index] -%}
+        {%- set heat = 1 - (rank - 1) / total -%}
+        <span class="s{% if index in order %} picked{% endif %}" style="--heat: {{ '%.3f'|format(heat) }}"
+              title="№ {{ index + 1 }} · вес {{ score.weight|num(2) }} (Score {{ score.score|num(2) }} × Posd {{ score.posd|num(3) }} × Posp {{ score.posp|num(3) }}) · место {{ rank }}">
+          {%- if index in order %}<sup class="pick-no">{{ order[index] }}</sup>{% endif -%}
+          {{ sentence.text }}</span>{{ ' ' }}
+      {%- endfor -%}
+    </p>
+    {% endif %}
+  {% endfor %}
+</article>
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Оценка — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Оценка точности и затраченного времени</h1>
+<p class="lead">Реферат системы сравнивается с эталоном, взятым из самого источника: у статей КиберЛенинки — с
+  авторской аннотацией и ключевыми словами, у статей Википедии — с вводным разделом. Из текста документа эталон
+  удалён, поэтому совпадения не могут появиться «даром».</p>
+
+{% if running %}
+<div class="banner">Оценка выполняется — это займёт около минуты. <a href="/evaluation">Обновить страницу</a></div>
+<meta http-equiv="refresh" content="8">
+{% endif %}
+{% if error %}<div class="banner error">Оценка не выполнена: {{ error }}</div>{% endif %}
+
+<form method="post" action="/evaluation/run" class="inline no-print">
+  <button type="submit" {% if running %}disabled{% endif %}>{{ 'Пересчитать' if data else 'Выполнить оценку' }}</button>
+</form>
+{% if data %}<span class="note">последний расчёт: {{ data.created }}, {{ data.elapsed_ms|ms }};
+  размер реферата — {{ data.count }} предложений. Полная выгрузка — report/evaluation.json.</span>{% endif %}
+
+{% if data %}
+{% set groups = data.groups %}
+{% set columns = ['ru-cs', 'ru-lit', 'de-cs', 'de-lit', 'ru', 'de', 'cs', 'lit', 'all'] %}
+{% set column_names = {'ru-cs': 'рус. CS', 'ru-lit': 'рус. лит.', 'de-cs': 'нем. CS', 'de-lit': 'нем. лит.',
+                       'ru': 'русский', 'de': 'немецкий', 'cs': 'CS', 'lit': 'литература', 'all': 'вся коллекция'} %}
+
+<h2>Как считается точность</h2>
+<div class="prose">
+  <p><b>ROUGE-N</b> — доля n-грамм эталона, найденных в реферате (полнота R), и доля n-грамм реферата, найденных в
+    эталоне (точность P). Сравниваются леммы значимых слов: «нейронных сетей» и «нейронные сети» — одно и то же, а
+    стоп-слова совпадали бы всегда. ROUGE-1 — отдельные слова, ROUGE-2 — пары соседних слов.</p>
+  <p>Реферат из {{ data.count }} предложений длиннее эталона, поэтому главная мера — полнота R: сколько содержания
+    эталона система сумела отобрать. Чтобы число было осмысленным, тот же объём отбирается базовыми способами, а
+    «оракул», подбирающий предложения по самому эталону, показывает потолок для любого отбора предложений.</p>
+</div>
+
+<h2>ROUGE-1, полнота R</h2>
+<table class="grid">
+  <thead><tr><th>Способ отбора</th>{% for c in columns %}<th class="num">{{ column_names[c] }}</th>{% endfor %}</tr></thead>
+  <tbody>
+    {% for method in methods %}
+    <tr class="{% if method == 'extraction' %}row-best{% endif %}">
+      <td>{{ method_names[method] }}</td>
+      {% for c in columns %}<td class="num">{{ groups[c].rouge[method].r1|num(3) }}</td>{% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>ROUGE-2, полнота R</h2>
+<table class="grid">
+  <thead><tr><th>Способ отбора</th>{% for c in columns %}<th class="num">{{ column_names[c] }}</th>{% endfor %}</tr></thead>
+  <tbody>
+    {% for method in methods %}
+    <tr class="{% if method == 'extraction' %}row-best{% endif %}">
+      <td>{{ method_names[method] }}</td>
+      {% for c in columns %}<td class="num">{{ groups[c].rouge[method].r2|num(3) }}</td>{% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Точность P и F-мера метода</h2>
+<table class="grid">
+  <thead><tr><th>Группа</th><th class="num">P1</th><th class="num">R1</th><th class="num">F1</th>
+    <th class="num">P2</th><th class="num">R2</th><th class="num">F2</th>
+    <th class="num">Доля потолка (R1 / R1 оракула)</th><th class="num">Совпало с оракулом, предл.</th></tr></thead>
+  <tbody>
+    {% for c in columns %}
+    {% set r = groups[c].rouge.extraction %}
+    <tr><td>{{ column_names[c] }}</td>
+      <td class="num">{{ r.p1|num(3) }}</td><td class="num">{{ r.r1|num(3) }}</td><td class="num">{{ r.f1|num(3) }}</td>
+      <td class="num">{{ r.p2|num(3) }}</td><td class="num">{{ r.r2|num(3) }}</td><td class="num">{{ r.f2|num(3) }}</td>
+      <td class="num">{{ (r.r1 / groups[c].rouge.oracle.r1)|pct }}</td>
+      <td class="num">{{ groups[c].oracle_overlap|num(1) }} из {{ data.count }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Реферат в виде ключевых слов</h2>
+<table class="grid">
+  <thead><tr><th>Группа</th>
+    <th class="num">Точность по эталону: tf·idf</th><th class="num">то же: частота tf</th>
+    <th class="num">Полнота по ключевым словам авторов: tf·idf</th><th class="num">то же: частота tf</th></tr></thead>
+  <tbody>
+    {% for c in columns %}
+    {% set k = groups[c].keywords %}
+    <tr><td>{{ column_names[c] }}</td>
+      <td class="num">{{ k.precision|pct }}</td><td class="num">{{ k.precision_tf|pct }}</td>
+      <td class="num">{{ k.author_recall|pct if k.author_recall is defined else '—' }}</td>
+      <td class="num">{{ k.author_recall_tf|pct if k.author_recall_tf is defined else '—' }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="note">Точность — доля ключевых слов верхнего уровня, встречающихся в эталонном реферате. Полнота —
+  доля ключевых слов, указанных авторами статьи (есть только у статей КиберЛенинки), все слова которых вошли в
+  список системы. «Частота tf» — для сравнения: самые частые существительные без множителя log(|DB| / df).</p>
+
+<h2>Затраченное время на документ</h2>
+<table class="grid">
+  <thead><tr><th>Группа</th><th class="num">Разбор документа</th><th class="num">Веса терминов</th>
+    <th class="num">Веса и отбор предложений</th><th class="num">Ключевые слова</th><th class="num">Реферат целиком*</th></tr></thead>
+  <tbody>
+    {% for c in columns %}
+    {% set t = groups[c].timings %}
+    <tr><td>{{ column_names[c] }}</td><td class="num">{{ t.analysis|ms }}</td><td class="num">{{ t.term_weights|ms }}</td>
+      <td class="num">{{ t.sentences|ms }}</td><td class="num">{{ t.keywords|ms }}</td><td class="num">{{ t.summarize_total|ms }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="note">* после разбора документа, который выполняется один раз и хранится в памяти.</p>
+
+{% if data.ostis %}
+<h3>Через OSTIS</h3>
+<table class="grid narrow-table">
+  <tbody>
+    {% for key, value in data.ostis.items() %}
+    {% if value is number %}<tr><td>{{ {'agent_first_ms': 'первый вызов агента (разбор коллекции языка)',
+        'agent_ms': 'вызов агента, среднее', 'agent_work_ms': 'работа агента, среднее',
+        'kb_read_ms': 'чтение готового реферата из базы знаний, среднее',
+        'sync_ms': 'загрузка коллекции в базу знаний', 'ontology_ms': 'загрузка онтологии',
+        'documents': 'документов проверено', 'matches': 'совпало с локальным расчётом'}.get(key, key) }}</td>
+      <td class="num">{{ value|ms if key.endswith('_ms') else value }}</td></tr>{% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if data.size_study %}
+<h2>Размер реферата</h2>
+<table class="grid narrow-table">
+  <thead><tr><th class="num">Предложений</th><th class="num">R1 метода</th><th class="num">R1 первых N</th>
+    <th class="num">R2 метода</th><th class="num">R2 первых N</th></tr></thead>
+  <tbody>
+    {% for size, row in data.size_study.items() %}
+    <tr><td class="num">{{ size }}</td><td class="num">{{ row.extraction.r1|num(3) }}</td><td class="num">{{ row.lead.r1|num(3) }}</td>
+      <td class="num">{{ row.extraction.r2|num(3) }}</td><td class="num">{{ row.lead.r2|num(3) }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% if data.scope_study %}
+<h2>По каким документам считать df(t)</h2>
+<table class="grid narrow-table">
+  <thead><tr><th>База DB</th><th class="num">R1</th><th class="num">R2</th></tr></thead>
+  <tbody>
+    <tr><td>документы того же языка (|DB| = 10)</td><td class="num">{{ data.scope_study.language.r1|num(3) }}</td><td class="num">{{ data.scope_study.language.r2|num(3) }}</td></tr>
+    <tr><td>вся коллекция (|DB| = 20)</td><td class="num">{{ data.scope_study.collection.r1|num(3) }}</td><td class="num">{{ data.scope_study.collection.r2|num(3) }}</td></tr>
+  </tbody>
+</table>
+{% endif %}
+
+{% for image in images %}
+<figure class="figure"><img src="/report/{{ image }}" alt="{{ image }}"></figure>
+{% endfor %}
+
+<h2>По документам</h2>
+<table class="grid">
+  <thead><tr><th>Документ</th><th class="num">Эталон, знаков</th><th class="num">R1</th><th class="num">R1 первых N</th>
+    <th class="num">R1 оракула</th><th class="num">R2</th><th class="num">Точность ключ. слов</th><th class="num">Время</th></tr></thead>
+  <tbody>
+    {% for d in data.documents %}
+    <tr><td>{{ m.lang_tag(d.language) }} <a href="/doc/{{ d.doc_id }}">{{ d.title }}</a></td>
+      <td class="num">{{ d.reference_chars|num }}</td>
+      <td class="num"><b>{{ d.rouge.extraction.r1|num(3) }}</b></td><td class="num">{{ d.rouge.lead.r1|num(3) }}</td>
+      <td class="num">{{ d.rouge.oracle.r1|num(3) }}</td><td class="num">{{ d.rouge.extraction.r2|num(3) }}</td>
+      <td class="num">{{ d.keywords.precision|pct(0) }}</td>
+      <td class="num">{{ (d.timings.analysis + d.timings.summarize_total)|ms }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+{% if not running %}<p class="note">Оценка ещё не выполнялась. Нажмите «Выполнить оценку» или запустите
+  <code>python tools/evaluate.py</code>.</p>{% endif %}
+{% endif %}
+{% endblock %}

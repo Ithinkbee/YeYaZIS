@@ -10,6 +10,25 @@
 {% block content %}
 {% include "_searchform.html" %}
 
+{% if blitz and blitz.active %}
+<div class="notice blitz-banner">
+  <div class="blitz-head">
+    <b>Блиц</b>
+    <span>осталось <span class="blitz-timer blitz-timer-small" id="blitz-timer"
+      data-elapsed="{{ blitz.elapsed }}" data-limit="{{ blitz_seconds }}">{{ blitz.left }}</span> с</span>
+    <span class="muted small">откройте загаданный документ из выдачи</span>
+    <a class="small" href="/blitz">к заданию</a>
+  </div>
+  <blockquote class="blitz-fragment">{{ blitz.fragment }}</blockquote>
+  <p class="small" id="blitz-expired" hidden>Время вышло — итог раунда на странице
+    <a href="/blitz">«Блиц»</a>.</p>
+</div>
+{% elif blitz and blitz.message %}
+<div class="notice notice-warn">{{ blitz.message }}
+  Загаданный документ: <a href="/doc/{{ blitz.doc_id }}">{{ blitz.title }}</a>.
+  <a href="/blitz?restart=true">Новый раунд →</a></div>
+{% endif %}
+
 {% if notice %}<div class="notice">{{ notice }}</div>{% endif %}
 
 {% if jokers_active %}

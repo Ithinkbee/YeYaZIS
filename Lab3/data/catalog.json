@@ -1,0 +1,508 @@
+{
+  "target_chars": 18000,
+  "tolerance": 0.1,
+  "documents": [
+    {
+      "id": "ru-cs-neuro",
+      "file": "ru-cs-neuro.txt",
+      "title": "Метод автоматического поиска структуры и параметров нейронных сетей для решения задач обработки информации",
+      "language": "ru",
+      "domain": "cs",
+      "chars": 16565,
+      "paragraphs": 38,
+      "source": {
+        "kind": "cyberleninka",
+        "site": "КиберЛенинка",
+        "url": "https://cyberleninka.ru/article/n/metod-avtomaticheskogo-poiska-struktury-i-parametrov-neyronnyh-setey-dlya-resheniya-zadach-obrabotki-informatsii",
+        "authors": [
+          "Обухов Артем Дмитриевич"
+        ],
+        "year": "2023",
+        "journal": "Известия Саратовского университета. Новая серия. Серия Математика. Механика. Информатика",
+        "license": "CC BY",
+        "reference": "авторская аннотация и ключевые слова"
+      },
+      "reference": {
+        "abstract": "Нейронные сети активно применяются при решении различных прикладных задач анализа, обработки и генерации данных. При их использовании одним из сложных этапов является подбор структуры и параметров нейронных сетей (количество и типы слоев нейронов, функции активации, оптимизаторы и т.д.), обеспечивающих наибольшую точность и, следовательно, успешность решения поставленной задачи. В настоящее время данный вопрос решается путем аналитического подбора архитектуры нейронной сети исследователем или разработчиком программного обеспечения. Существующие автоматические инструменты (AutoKeras, AutoGAN, AutoSklearn, DEvol и др.) недостаточно универсальны и функциональны. Поэтому в рамках данной работы рассматривается метод автоматического поиска структуры и параметров нейронных сетей различного типа (многослойных плотных, сверточных, генеративно-состязательных, автоэнкодеров и др.) для решения широкого класса задач. Представлена формализация метода и его основные этапы. Рассмотрена апробация метода, доказывающая его эффективность относительно аналитического решения при подборе архитектуры нейронной сети . Проведено сравнение метода с существующими аналогами, выявлено его преимущество по точности сформированных нейронных сетей и времени поиска.",
+        "keywords": [
+          "нейронные сети",
+          "машинное обучение",
+          "оптимизация структуры нейронных сетей",
+          "анализ и обработка данных",
+          "сверточные нейронные сети",
+          "автоэнкодеры",
+          "генеративно-состязательные сети"
+        ]
+      }
+    },
+    {
+      "id": "ru-cs-antipatterns",
+      "file": "ru-cs-antipatterns.txt",
+      "title": "Антипаттерны в проектировании баз данных",
+      "language": "ru",
+      "domain": "cs",
+      "chars": 17996,
+      "paragraphs": 66,
+      "source": {
+        "kind": "cyberleninka",
+        "site": "КиберЛенинка",
+        "url": "https://cyberleninka.ru/article/n/antipatterny-v-proektirovanii-baz-dannyh",
+        "authors": [
+          "Сергей Михайлович Щербаков",
+          "Каринэ Хачересовна Калугян",
+          "Анна Вадимовна Абрамова",
+          "Вера Юрьевна Гречкина"
+        ],
+        "year": "2024",
+        "journal": "Открытое образование",
+        "license": "CC BY",
+        "reference": "авторская аннотация и ключевые слова"
+      },
+      "reference": {
+        "abstract": "Цель работы является адаптация метода антипаттернов для повышения эффективности обучения студентов направлений «Прикладная информатика», «Информационные системы и технологии», «Программная инженерия» принципам и техникам проектирования реляционных баз данных в рамках соответствующих дисциплин и практик. Обучение проектированию баз данных является важной составляющей формирования специалиста-разработчика программного обеспечения. Совокупность принимаемых при проектировании решений должна опираться на общепринятые правила, принципы и рекомендации, а также на имеющийся опыт создания и эксплуатации информационных систем, трудновоспроизводимый в условия аудитории вуза. Материалы и методы. Повысить эффективность обучения студентов проектированию баз данных позволит подход, ориентированный на концепцию антипаттернов – неудачных распространенных проектных решений. Понятие антипаттерна получило широкое распространение вслед за широким использованием понятия паттерна, то есть распространенного типового решения, вписанного в контекст решаемой проблемы. Как понятие паттерна, так и понятие антипаттерна первоначально были ориентированы на объектно-ориентированное программное обеспечение, но в дальнейшем получили признание во всех областях информационных технологий. В работе предложена схема описания антипаттерна , включающая название, краткую характеристику, возможные причины появления, список недостатков применения при построении реляционных баз данных , концептуальная модель в виде ER-диаграммы (диаграмма сущность-связь), пример соответствующей структуры базы данных , способы ухода от антипаттерна , а также возможные исключения, когда применение именно такого проектного решения при создании базы данных может быть оправдано. Результаты исследования. На основании учебной, научной и технической литературы и периодики, а также на основе анализа имеющейся практики проектирования информационных систем составлен и описан каталог распространенных антипаттернов проектирования реляционных баз данных . Примеры антипаттернов : ««Винегрет» имен», «Таблицы-дубли», «Ложная абстракция», «Неатомарные реквизиты», «Столбцы-дубли», «Изменение данных в рабочем порядке (временные поля)», «Параллельные связи», ««Божественная» таблица», «Спекулятивное изменение метаданных» и др. При этом часть паттернов позволила проиллюстрировать общие принципы проектирования реляционных баз данных , например, такой как «Никакое изощренное программирование не способно исправить фатальные недостатки архитектуры». Показано, что имеющиеся неудачные решения зачастую обусловлены определенными предпосылками, например, необходимостью выполнить hotfix, то есть «временное» решение, или преждевременной попыткой повысить производительность системы, либо желанием получить некоторый отчет одним запросом, избежав лишних соединений и т.д. Помимо технических аспектов показана актуальность корректной и единообразной системы наименований, отсутствие которой затрудняет сопровождение и развитие системы и ведет к лишним затратам. Предложенный подход был апробирован при обучении студентов дисциплинам « Базы данных », « Проектирование баз данных », «Архитектура информационных систем». Прошедшие обучение студенты улучшили понимание принципов и практик проектирования структуры баз данных . Заключение. Применение предложенного каталога антпаттернов в учебном процессе вуза позволяет ускорить обучение молодых специалистов приемам проектирования структуры реляционных баз данных , избежать распространенных ошибок при создании информационных систем, а также повысить общую культуру проектирования .",
+        "keywords": [
+          "база данных",
+          "субд",
+          "проектирование",
+          "антипаттерн",
+          "учебный процесс"
+        ]
+      }
+    },
+    {
+      "id": "ru-cs-crypto",
+      "file": "ru-cs-crypto.txt",
+      "title": "Параллельный модуль для криптографической защиты файлов",
+      "language": "ru",
+      "domain": "cs",
+      "chars": 16415,
+      "paragraphs": 50,
+      "source": {
+        "kind": "cyberleninka",
+        "site": "КиберЛенинка",
+        "url": "https://cyberleninka.ru/article/n/parallelnyy-modul-dlya-kriptograficheskoy-zaschity-faylov",
+        "authors": [
+          "Николаев В.А.",
+          "Гуляев И.А.",
+          "Лаптева М.Г.",
+          "Хафизова А.Ш.",
+          "Пикулева Н.И."
+        ],
+        "year": "2024",
+        "journal": "Международный научно-исследовательский журнал",
+        "license": "CC BY",
+        "reference": "авторская аннотация и ключевые слова"
+      },
+      "reference": {
+        "abstract": "В данной статье рассматривается разработка параллельного модуля для криптографической защиты файлов . Основной целью исследования является повышение производительности и уровня безопасности систем обработки данных посредством распределения вычислительной нагрузки между несколькими ядрами или узлами. В статье проведен анализ существующих решений и алгоритмов криптографической защиты, таких как AES , TripleDES и Twofish . Особое внимание уделено реализации параллельных вычислений для шифрования и дешифрования данных, что позволяет значительно ускорить процесс обработки информации. Методология тестирования включала планирование и разработку тестовых сценариев, проведение тестов на реальных данных и анализ полученных результатов. Тестирование проводилось на аппаратно-программной платформе, включающей процессор Intel Core i5 10400, 4 модуля оперативной памяти AMD Radeon R7 Performance Series R748G2606U2S-U DDR4 – 8 ГБ 2666 и хранилище данных Samsung SSD 860 EVO 500GB M.2. Результаты показали, что параллельное шифрование и дешифрование работают в среднем в 2,81 раза быстрее, чем последовательное шифрование , а параллельное дешифрование – в 2,57 раза быстрее. Анализ производительности и безопасности подтверждает, что разработанный модуль обеспечивает надежную криптографическую защиту и соответствует современным требованиям к системам обработки данных. Использование параллельных вычислений в криптографии открывает новые возможности для повышения эффективности работы с данными и обеспечения их безопасности",
+        "keywords": [
+          "параллельный модуль",
+          "криптографическая защита файлов",
+          "производительность",
+          "безопасность",
+          "шифрование",
+          "дешифрование",
+          "параллельные вычисления"
+        ]
+      }
+    },
+    {
+      "id": "ru-cs-ostis",
+      "file": "ru-cs-ostis.txt",
+      "title": "Семантические модели и метод согласованной разработки баз знаний",
+      "language": "ru",
+      "domain": "cs",
+      "chars": 18192,
+      "paragraphs": 36,
+      "source": {
+        "kind": "cyberleninka",
+        "site": "КиберЛенинка",
+        "url": "https://cyberleninka.ru/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy",
+        "authors": [
+          "Гулякина Н.А.",
+          "Давыденко И.Т."
+        ],
+        "year": "2020",
+        "journal": "Программные продукты и системы",
+        "license": "CC BY",
+        "reference": "авторская аннотация и ключевые слова"
+      },
+      "reference": {
+        "abstract": "В работе рассматривается подход к созданию легко модифицируемых гибридных баз знаний на основе семантических сетей с базовой теоретико-множественной интерпретацией. Предложена семантическая модель баз знаний , включающая семейство онтологий верхнего уровня, обеспечивающих совместимость различных видов знаний. Отличительной особенностью модели является использование в качестве базового элемента не атомарных элементов семантической сети, а знаков фрагментов базы знаний , названных структурами. Предложенная модель позволяет обеспечить согласованность различных видов знаний в рамках базы знаний , а также возможность структурирования баз знаний по произвольному набору признаков. Кроме того, в работе рассмотрен метод разработки баз знаний , построенных на основе указанной модели, ориентированный на согласованную разработку базы знаний распределенным коллективом разработчиков. Отличительными особенностями метода являются его ориентация на повторное использование разработанных ранее компонентов баз знаний различной степени сложности, а также наличие формальной онтологии, описывающей деятельность разработчиков баз знаний в соответствии с методом. Предложенный метод реализован в виде системы поддержки коллективной разработки баз знаний , которая встраивается как типовая подсистема в каждую разрабатываемую систему и таким образом обеспечивает возможность разработки базы знаний непосредственно в процессе ее эксплуатации. Применение предложенных моделей, метода и средств позволяет обеспечить семантическую совместимость различных фрагментов, включаемых в базу знаний , а также сократить время, затрачиваемое на разработку баз знаний .",
+        "keywords": [
+          "семантическая сеть",
+          "база знаний",
+          "структуризация базы знаний",
+          "согласованная разработка",
+          "интеллектуальная система",
+          "многократно используемые компоненты баз знаний"
+        ]
+      }
+    },
+    {
+      "id": "ru-cs-vision",
+      "file": "ru-cs-vision.txt",
+      "title": "Анализ методов компьютерного зрения, перспективных для применения в агропромышленном комплексе",
+      "language": "ru",
+      "domain": "cs",
+      "chars": 18317,
+      "paragraphs": 27,
+      "source": {
+        "kind": "cyberleninka",
+        "site": "КиберЛенинка",
+        "url": "https://cyberleninka.ru/article/n/analiz-metodov-kompyuternogo-zreniya-perspektivnyh-dlya-primeneniya-v-agropromyshlennom-komplekse",
+        "authors": [
+          "Рыбаков Алексей Владимирович",
+          "Выборнов Николай Анатольевич",
+          "Рыбаков Илья Александрович"
+        ],
+        "year": "2022",
+        "journal": "Прикаспийский журнал: управление и высокие технологии",
+        "license": "CC BY",
+        "reference": "авторская аннотация и ключевые слова"
+      },
+      "reference": {
+        "abstract": "В статье проанализированы возможности применения компьютерного зрения для задач сельского хозяйства. Детально рассмотрены такие направления внедрения, как управление сельскохозяйственными машинами, посев семян, выращивание рассады, уход за посевами и сбор урожая, переработка, транспортировка и хранение плодов. Приводятся результаты применения методов обработки изображений, полученных с видеокамер, установленных на различных позициях: в кабине сельскохозяйственной техники, над ящиками с рассадой, на сельскохозяйственных роботах. Для реализации данных методов использованы программы, написанные на языке Python с использованием библиотеки OpenCV.",
+        "keywords": [
+          "роботизированный манипулятор",
+          "компьютерное зрение",
+          "агромехатроника",
+          "распознавание изображений",
+          "сельскохозяйственные роботы",
+          "автоматизированный сбор урожая",
+          "управление роботами"
+        ]
+      }
+    },
+    {
+      "id": "de-cs-nn",
+      "file": "de-cs-nn.txt",
+      "title": "Künstliches neuronales Netz",
+      "language": "de",
+      "domain": "cs",
+      "chars": 18203,
+      "paragraphs": 33,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/K%C3%BCnstliches_neuronales_Netz",
+        "revision": 269579274,
+        "timestamp": "2026-08-11T16:48:07Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Künstliche neuronale Netze, auch künstliche neuronale Netzwerke, kurz: KNN (englisch artificial neural network, ANN), sind Netze aus künstlichen Neuronen, deren Aufbau von den Netzwerken biologischer Neuronen in Gehirnen inspiriert wurde. Die künstlichen Neuronen in einem KNN sind miteinander verbunden und in der Regel in Schichten organisiert. KNN werden beim maschinellen Lernen eingesetzt. Damit können spezielle Probleme mittels Computern gelöst werden, die zu kompliziert sind, um sie mit Regeln zu beschreiben, zu denen es aber viele Daten gibt, die als Beispiele für die gewünschte Lösung dienen können. KNN bilden die Basis für Deep Learning, das ab etwa 2006 erhebliche Fortschritte bei der Analyse von großen Datenmengen erlaubte. Erfolgreiche Anwendungen des Deep Learning sind beispielsweise Bilderkennung und Spracherkennung. KNNs sind Forschungsgegenstand sowohl des Maschinellen Lernens/Deep Learnings, das ein Teilbereich der künstlichen Intelligenz (KI) ist, als auch der interdisziplinären Neuroinformatik. Das Nachbilden eines aus Neuronen aufgebauten biologischen neuronalen Netzes ist eher Gegenstand der Computational Neuroscience.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-cs-compiler",
+      "file": "de-cs-compiler.txt",
+      "title": "Compiler",
+      "language": "de",
+      "domain": "cs",
+      "chars": 18154,
+      "paragraphs": 48,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Compiler",
+        "revision": 258395815,
+        "timestamp": "2025-07-29T13:26:05Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Ein Compiler (auch Kompilierer; von englisch compile ‚zusammentragen‘ bzw. lateinisch compilare ‚aufhäufen‘) ist ein Computerprogramm, das Quellcodes einer bestimmten Programmiersprache in eine Form übersetzt, die von einem Computer (direkter) ausgeführt werden kann. Daraus entsteht ein mehr oder weniger direkt ausführbares Programm. Davon zu unterscheiden sind Interpreter, etwa für frühe Versionen von BASIC, die keinen Maschinencode erzeugen. Teils wird zwischen den Begriffen Übersetzer und Compiler unterschieden. Ein Übersetzer überführt ein Programm aus einer formalen Quellsprache in ein semantisches Äquivalent in einer formalen Zielsprache. Compiler sind spezielle Übersetzer, die Programmcode aus höheren Programmiersprachen, in ausführbare Maschinensprache einer bestimmten Rechnerarchitektur oder einen Zwischencode überführen. Diese Trennung zwischen den Begriffen Übersetzer und Compiler wird nicht in allen Fällen vorgenommen. Der Vorgang der Übersetzung durch den Compiler wird als Kompilierung oder Umwandlung bezeichnet. Das Gegenteil, also die Rückübersetzung von Maschinensprache in Quelltext einer bestimmten Programmiersprache, wird Dekompilierung und entsprechende Programme Decompiler genannt.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-cs-os",
+      "file": "de-cs-os.txt",
+      "title": "Betriebssystem",
+      "language": "de",
+      "domain": "cs",
+      "chars": 18047,
+      "paragraphs": 42,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Betriebssystem",
+        "revision": 267812253,
+        "timestamp": "2026-06-09T14:30:53Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Ein Betriebssystem, auch OS (von englisch operating system) genannt, ist eine Zusammenstellung von Computerprogrammen, die die Systemressourcen eines Computers wie Arbeitsspeicher, Festplatten, Ein- und Ausgabegeräte verwaltet und diese Anwendungsprogrammen zur Verfügung stellt. Das Betriebssystem bildet dadurch die Schnittstelle zwischen den Hardware-Komponenten und der Anwendungssoftware des Benutzers. Betriebssysteme bestehen in der Regel aus einem Kernel (deutsch: Kern), der die Hardware des Computers verwaltet, sowie speziellen Programmen, die beim Start unterschiedliche Aufgaben übernehmen. Zu diesen Aufgaben gehört unter anderem das Laden von Gerätetreibern. Betriebssysteme finden sich in fast allen Arten von Computern: Als Echtzeitbetriebssysteme auf Prozessrechnern und eingebetteten Systemen, auf Personal Computern, Tabletcomputern, Smartphones und auf größeren Mehrprozessorsystemen wie z. B. Servern und Großrechnern. Die Aufgaben eines Betriebssystems lassen sich wie folgt zusammenfassen: Benutzerkommunikation; Laden, Ausführen, Unterbrechen und Beenden von Programmen; Verwaltung und Zuteilung der Prozessorzeit; Verwaltung des internen Speicherplatzes für Anwendungen; Verwaltung und Betrieb der angeschlossenen Geräte; Schutzfunktionen z. B. durch Zugriffsbeschränkungen. Die Gewichtung zwischen diesen Aufgaben wandelte sich im Laufe der Zeit, insbesondere wird Schutzfunktionen wie dem Speicherschutz oder begrenzten Benutzerrechten heute eine höhere Bedeutung zugemessen als noch in den 1990er Jahren. Dies macht Systeme allgemein robuster, reduziert z. B. die Zahl der Programm- und Systemabstürze und macht das System auch stabiler gegen Angriffe von außen, etwa durch Computerviren. Dieser Artikel behandelt den Begriff „Betriebssystem“ hauptsächlich im Kontext „allgemein zur Informationsverarbeitung verwendete Computersysteme“. Daneben sind Betriebssysteme (mit ggf. spezialisierter Funktionalität) grundsätzlich in nahezu allen Geräten im Einsatz, in denen Software betrieben wird (wie Spielecomputer, Mobiltelefone, Navigationssysteme, Maschinen der Maschinenbaubranchen u. v. a.). Auch viele Steuerungssysteme (eingebettetes System), die z. B. in Flugzeugen, Autos, Zügen oder Satelliten zu finden sind, besitzen spezialisierte Betriebssysteme.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-cs-security",
+      "file": "de-cs-security.txt",
+      "title": "Informationssicherheit",
+      "language": "de",
+      "domain": "cs",
+      "chars": 18607,
+      "paragraphs": 49,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Informationssicherheit",
+        "revision": 269851103,
+        "timestamp": "2026-08-21T09:17:44Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Informationssicherheit ist ein Zustand von technischen oder nicht-technischen Systemen zur Informationsverarbeitung und -speicherung, der die Schutzziele Vertraulichkeit, Verfügbarkeit und Integrität sicherstellen soll. Informationssicherheit dient dem Schutz vor Gefahren bzw. Bedrohungen, der Vermeidung von wirtschaftlichen Schäden und der Minimierung von Risiken. In der Praxis orientiert sich die Informationssicherheit im Rahmen des IT-Sicherheitsmanagements unter anderem an der internationalen ISO/IEC-27000-Reihe oder dem US-System der System and Organization Controls (SOC). Im deutschsprachigen Raum ist ein Vorgehen nach IT-Grundschutz verbreitet. Im Bereich der Evaluierung und Zertifizierung von IT-Produkten und -systemen findet die Norm ISO/IEC 15408 (Common Criteria) häufig Anwendung. Die Normenreihe IEC 62443 befasst sich mit der Informationssicherheit von „Industrial Automation and Control Systems“ (IACS) und verfolgt dabei einen ganzheitlichen Ansatz für Betreiber, Integratoren und Hersteller. Die Umsetzung aus der Cyberresilienz-Verordnung schafft dabei auch Sicherheit auf Hardwareebene und schützt dadurch auch die Betreiber von Anlagen und Maschinen, indirekt auch die Verbraucher.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-cs-semweb",
+      "file": "de-cs-semweb.txt",
+      "title": "Semantic Web",
+      "language": "de",
+      "domain": "cs",
+      "chars": 18231,
+      "paragraphs": 44,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Semantic_Web",
+        "revision": 266454999,
+        "timestamp": "2026-04-24T10:21:59Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Das Semantic Web ist ein Konzept eines auf Maschinenlesbarkeit basierenden World Wide Web (Web 3.0). Das Semantic Web erweitert das Web, um Daten zwischen Rechnern einfacher austauschbar und für sie einfacher verwertbar zu machen; so kann beispielsweise das Wort „Bremen“ in einem Webdokument um die Information ergänzt werden, ob hier der Begriff des Schiffs-, Familien- oder Stadtnamens gemeint ist. Diese zusätzlichen Informationen explizieren die sonst nur unstrukturiert vorkommenden Daten. Zur Realisierung dienen Standards zur Veröffentlichung und Nutzung maschinenlesbarer Daten (insbesondere RDF). Während Menschen solche Informationen aus dem gegebenen Kontext schließen können (aus dem Gesamttext, über die Art der Publikation oder der Rubrik in selbiger, Bilder etc.) und derartige Verknüpfungen unbewusst aufbauen, muss Maschinen dieser Kontext erst beigebracht werden; hierzu werden die Inhalte mit weiterführenden Informationen verknüpft. Das Semantic Web beschreibt dazu konzeptionell einen „Giant Global Graph“ (engl. ‚gigantischer globaler Graph‘). Dabei werden sämtliche Dinge von Interesse identifiziert und, mit einer eindeutigen Adresse versehen, als Knoten angelegt, die wiederum durch Kanten (ebenfalls jeweils eindeutig benannt) miteinander verbunden sind. Einzelne Dokumente im Web beschreiben dann eine Reihe von Kanten, und die Gesamtheit all dieser Kanten entspricht dem globalen Graphen.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "ru-lit-onegin",
+      "file": "ru-lit-onegin.txt",
+      "title": "Евгений Онегин",
+      "language": "ru",
+      "domain": "lit",
+      "chars": 16455,
+      "paragraphs": 45,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (ru.wikipedia.org)",
+        "url": "https://ru.wikipedia.org/wiki/%D0%95%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B9_%D0%9E%D0%BD%D0%B5%D0%B3%D0%B8%D0%BD",
+        "revision": 154475369,
+        "timestamp": "2026-08-16T10:54:09Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "«Евге́ний Оне́гин» (рус. дореф. «Евгеній Онѣгинъ») — роман в стихах русского поэта А. С. Пушкина, начат 9 мая 1823 года и закончен 5 октября 1831 года, одно из самых значительных произведений русской словесности. Повествование ведётся от имени безымянного автора, который, впрочем, в первых же строфах называет Онегина «добрый мой приятель». По известному определению В. Г. Белинского, Пушкин назвал «Евгения Онегина» романом в стихах, поскольку в нём изображена «жизнь во всей её прозаической действительности». Пушкин работал над этим романом на протяжении более семи лет. Работу над ним Пушкин называл «подвигом», из всего своего творческого наследия только «Бориса Годунова» он характеризовал этим же словом. В произведении на широком фоне картин русской жизни показана драматическая судьба представителей российского дворянства первой четверти XIX века.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "ru-lit-master",
+      "file": "ru-lit-master.txt",
+      "title": "Мастер и Маргарита",
+      "language": "ru",
+      "domain": "lit",
+      "chars": 18391,
+      "paragraphs": 27,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (ru.wikipedia.org)",
+        "url": "https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%81%D1%82%D0%B5%D1%80_%D0%B8_%D0%9C%D0%B0%D1%80%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B0",
+        "revision": 155323051,
+        "timestamp": "2026-09-27T23:49:28Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "«Ма́стер и Маргари́та» — роман Михаила Афанасьевича Булгакова, работа над которым началась, по одним данным, в 1928 году, по другим — в 1929-м и продолжалась вплоть до смерти писателя в марте 1940 года. Роман относится к незавершённым произведениям; редактирование и сведение воедино черновых записей осуществляла после смерти мужа вдова писателя — Елена Сергеевна. Первоначальная версия произведения, задуманного как «роман о дьяволе», имела рабочее название «Копыто инженера» и была уничтожена Булгаковым в 1930 году. В последующих редакциях среди героев произведения появились автор романа о Понтии Пилате и его возлюбленная. Окончательное название — «Мастер и Маргарита» — закрепилось в 1937 году. Первая публикация романа в сокращённом (цензурированном) виде была осуществлена в 1966—1967 годах (журнал «Москва», предисловие Константина Симонова, послесловие Абрама Вулиса). Первое однотомное издание книги на русском языке с тем же цензурированным текстом, опубликованным в журнале «Москва», вышло в 1967 году (издательство YMCA-Press, Париж). В 1969 году издательство «Посев» (Франкфурт-на-Майне) выпустило книгу, соединив публикацию в журнале «Москва» и текст «Купюр из романа „Мастер и Маргарита“ (1929—1940)», подготовленных Еленой Булгаковой, выделив при этом цензурные изъятия курсивом. В СССР книжный вариант без купюр (с редакторской правкой А. А. Саакянц) увидел свет в 1973 году (издательство «Художественная литература»). В 2014 году был опубликован основной текст романа в составе полного собрания черновиков, представляющего собой текстологическую монографию, основанную на более чем 10-летнем изучении архивных материалов. В «Мастере и Маргарите» получили продолжение и завершились важнейшие для Булгакова мотивы и стилистические искания: ироническое остранение обыденного, сочетание фантастики и обыденности, сатирический гротеск, конфликт творца и эпохи. «Мастер и Маргарита» сочетает в себе сатиру и философскую условность, фэнтези, библейские образы, мифологические архетипы, элементы детектива, авантюрного романа и др. Эти стилистическая синтетичность и многопроблемность — причины того, что жанр «Мастера и Маргариты» определить трудно: роман-притча, роман-утопия, сатирический роман, исторический, приключенческий, философский — каждое из этих определений верно, но не полно. Развитие сюжета в целом определяется фантастическим допущением (присутствие в Москве 1930-х годов Сатаны и его свиты и чудеса, творимые ими). Фэнтезийная условность охватывает все слои повествования, от ключевых сцен (бал у Сатаны) до второстепенных эпизодов и подробностей, и выполняет множество художественных функций. Она связывает в единое целое различные сюжетные планы (события, происходящие с московскими обывателями, ершалаимскую линию и линию Мастера и Маргариты) и разные временные пласты (античность, христианское средневековье, Москва 1930-х годов, личное прошлое героев, «вечность» Воланда и двухтысячелетнее заключение Пилата). «Мастер и Маргарита» — произведение многоплановое, богатое сюжетными коллизиями и смысловыми пластами, объединяющимися вокруг нескольких тем: любовь, долг и совесть, предательство и верность, ученичество, воздаяние и др. Все элементы романа поддаются вариативной интерпретации: от сюжетных линий, содержащих намёки на биографические моменты, политические параллели и авторскую полемику с религиозными, культурными и литературными авторитетами, до отдельных слов, с которыми связаны целые ассоциативные поля. Книга значительно повлияла на русскую и мировую литературу и является самым знаменитым произведением Булгакова. «Британская энциклопедия» признаёт роман шедевром XX века: «остроумный и фривольный, роман в то же время является проникновенным философским произведением, в котором затрагиваются глубокие и вечные проблемы добра и зла… признан одним из лучших достижений русской литературы XX века». Роман неоднократно экранизирован и инсценирован.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "ru-lit-crime",
+      "file": "ru-lit-crime.txt",
+      "title": "Преступление и наказание",
+      "language": "ru",
+      "domain": "lit",
+      "chars": 18194,
+      "paragraphs": 26,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (ru.wikipedia.org)",
+        "url": "https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B5%D1%81%D1%82%D1%83%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B8_%D0%BD%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D0%BD%D0%B8%D0%B5",
+        "revision": 154292429,
+        "timestamp": "2026-08-07T23:04:57Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "«Преступле́ние и наказа́ние» (рус. дореф. Преступленіе и наказаніе) — социально-психологический и социально-философский роман Фёдора Михайловича Достоевского, над которым писатель работал в 1865—1866 годах. Впервые опубликован в 1866 году в журнале «Русский вестник» (№ 1, 2, 4, 6—8, 11, 12). Через год вышло в свет отдельное издание, структура которого была немного изменена по сравнению с журнальной редакцией; кроме того, автор внёс в книжный вариант ряд сокращений и стилистических правок. Замысел «Преступления и наказания» созревал у Достоевского в течение многих лет, однако центральная тема, связанная с идеей главного героя об «обыкновенных» и «необыкновенных» людях, начала формироваться только в 1863 году в Италии. Приступив к непосредственной работе над произведением, автор объединил черновики незавершённого романа «Пьяненькие», в котором была намечена сюжетная линия, повествующая о семье Мармеладовых, и наброски романа-исповеди, задуманного как откровение каторжанина. В процессе работы план расширился, и в основу сюжета легло преступление студента Родиона Раскольникова, убившего ради спасения близких старуху-процентщицу. При этом криминальная история стала для автора не только темой, но и поводом для размышлений о социальных обстоятельствах, толкающих человека на преступления, а также возможностью показать, какие сложные «химические» процессы происходят в душах людей. Одним из образов романа стал большой город второй половины XIX века, жизнь в котором полна конфликтов и драм. В произведении воссозданы узнаваемые приметы времени, воспроизведена петербургская топография. Выход «Преступления и наказания» в свет вызвал бурную полемику в литературном сообществе России; отзывы рецензентов варьировались в диапазоне от восторга до полного неприятия. С фундаментальным анализом произведения выступили такие современники Достоевского, как Дмитрий Писарев, Николай Страхов, Николай Ахшарумов. В 1880-х годах произведение было переведено на французский, немецкий, шведский, английский, польский, венгерский, итальянский, датский, норвежский, финский языки. Произведение оказало влияние на мировой литературный процесс: во французской, итальянской, немецкой литературе появились романы-«спутники», продолжавшие развитие темы, заданной Достоевским. Роман был неоднократно инсценирован (первые моноспектакли появились в 1880-х годах, первая театральная постановка в России осуществлена в 1899 году, первая зарубежная сценическая версия представлена в Париже в 1888 году) и экранизирован.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "ru-lit-souls",
+      "file": "ru-lit-souls.txt",
+      "title": "Мёртвые души",
+      "language": "ru",
+      "domain": "lit",
+      "chars": 18016,
+      "paragraphs": 40,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (ru.wikipedia.org)",
+        "url": "https://ru.wikipedia.org/wiki/%D0%9C%D1%91%D1%80%D1%82%D0%B2%D1%8B%D0%B5_%D0%B4%D1%83%D1%88%D0%B8",
+        "revision": 154846036,
+        "timestamp": "2026-09-05T06:46:45Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "«Мёртвые ду́ши» (полное название — «Похождения Чичикова, или Мёртвые души», рус. дореф. Похожденія Чичикова, или Мертвыя души) — произведение Николая Васильевича Гоголя, жанр которого сам автор обозначил как «поэма». Писать это произведение Гоголь начал в 1835 году как трёхтомник. Первый том был издан в 1842 году. Почти полностью готовый второй том был утерян, но сохранилось несколько глав в черновиках. Третий том не был начат, о нём остались только отдельные сведения, которые были опубликованы вскоре после смерти автора в 1852 году. «Норвежским книжным клубом» произведение было включено в список наиболее значимых произведений мировой литературы под названием «Всемирная библиотека».",
+        "keywords": []
+      }
+    },
+    {
+      "id": "ru-lit-woe",
+      "file": "ru-lit-woe.txt",
+      "title": "Горе от ума",
+      "language": "ru",
+      "domain": "lit",
+      "chars": 16662,
+      "paragraphs": 42,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (ru.wikipedia.org)",
+        "url": "https://ru.wikipedia.org/wiki/%D0%93%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_%D1%83%D0%BC%D0%B0",
+        "revision": 155191081,
+        "timestamp": "2026-09-19T00:47:19Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "«Го́ре от ума́» — комедия в стихах русского поэта и драматурга Александра Сергеевича Грибоедова, его наиболее известное произведение. Сочетает в себе элементы классицизма и новых для начала XIX века романтизма и реализма. Описывает светское общество последних лет александровского царствования и показывает жизнь 1813—1824 годов. Само «действие происходит… спустя десять лет после войны 1812 года, то есть в 1822». Комедия «Горе от ума» — сатира на аристократическое московское общество первой половины XIX века — одна из вершин русской драматургии и поэзии; фактически завершила комедию в стихах как жанр. Афористический стиль способствовал тому, что произведение разошлось на цитаты.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-lit-werther",
+      "file": "de-lit-werther.txt",
+      "title": "Die Leiden des jungen Werthers",
+      "language": "de",
+      "domain": "lit",
+      "chars": 18505,
+      "paragraphs": 26,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Die_Leiden_des_jungen_Werthers",
+        "revision": 269564156,
+        "timestamp": "2026-08-11T07:57:10Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Die Leiden des jungen Werthers (später auch Die Leiden des jungen Werther) lautet der ursprüngliche Titel des von Johann Wolfgang Goethe verfassten Briefromans, in dem der junge Rechtspraktikant Werther bis zu seinem Suizid über seine unglückliche Liebesbeziehung zu Lotte schreibt, die zunächst mit einem anderen Mann verlobt ist und ihn später heiratet. Der Roman wurde 1774 veröffentlicht und war nach dem nationalen Erfolg des Dramas Götz von Berlichingen (1773) Goethes zweiter großer, jetzt sogar europäischer Erfolg. Beide Werke sind der literarischen Strömung des Sturm und Drang zuzuordnen. Er schrieb den Briefroman innerhalb von vier Wochen. Die Erstausgabe erschien im September 1774 zur Leipziger Buchmesse und wurde gleich zum Bestseller. 1787 überarbeitete Goethe den Roman, wobei unter anderem das Genitiv-s im Titel entfiel. Der Roman ließ Goethe gleichsam über Nacht in Deutschland berühmt werden und gehört zu den erfolgreichsten Romanen der Literaturgeschichte. Die Handlung des Romans ist insofern autobiografisch, als Goethe hier seine platonische Beziehung zu der bereits inoffiziell verlobten Charlotte Buff literarisch verarbeitete. Das Motiv für den tragischen Ausgang dieser Liebe, die Selbsttötung Werthers, lieferte Goethe der Suizid seines Bekannten Karl Wilhelm Jerusalem, Gesandtschaftssekretär in Wetzlar. Dieser hatte sich in eine verheiratete Frau verliebt, Elisabeth Herdt, geborene Egell (1741–1813), die für ihn unerreichbar blieb. Sie war seit 1768 die Ehefrau von Philipp Jakob Herdt (1735–1809), dem Geheimen Sekretär bei der Gesandtschaft des kurpfälzischen Fürstentums Pfalz-Lautern in Wetzlar. Die literarische Figur der Lotte im Roman trägt auch Züge der schwarzäugigen Maximiliane von La Roche, einer weiteren Bekanntschaft des jungen Goethe aus der Entstehungszeit des Romans. Trotz solcher Nähe des Romans zur Realität bleibt Goethes Werther ein fiktionaler, literarisch komponierter Text – weder bloße Selbstaussprache noch Schlüsselroman.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-lit-effi",
+      "file": "de-lit-effi.txt",
+      "title": "Effi Briest",
+      "language": "de",
+      "domain": "lit",
+      "chars": 18094,
+      "paragraphs": 23,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Effi_Briest",
+        "revision": 270824476,
+        "timestamp": "2026-09-27T10:23:20Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Effi Briest ist ein Roman von Theodor Fontane, der von Oktober 1894 bis März 1895 in sechs Folgen in der Deutschen Rundschau abgedruckt wurde, bevor er Mitte Oktober 1895 (vordatiert auf 1896) als Buch erschien. Das Werk gilt als ein Höhe- und Wendepunkt des poetischen Realismus der deutschen Literatur: Höhepunkt, weil der Autor kritische Distanz mit großer schriftstellerischer Eleganz verbindet; Wendepunkt, weil Fontane damit zum bedeutendsten Geburtshelfer des deutschen Gesellschaftsromans wurde, der wenige Jahre später mit Thomas Manns Roman Buddenbrooks erstmals Weltgeltung erlangen sollte. Thomas Mann verdankt Fontanes Stil zahlreiche Anregungen. Auch der Familienname der Buddenbrooks stammt mit hoher Wahrscheinlichkeit aus Effi Briest: In Kapitel 28 wird eine Person namens Buddenbrook als Sekundant erwähnt. Beschrieben wird das Schicksal Effi Briests, die ursprünglich Bertha Pappenheim heißen sollte, und die als siebzehnjähriges Mädchen auf Zureden ihrer Mutter den mehr als doppelt so alten Baron von Innstetten heiratet, der einst vergeblich um Frau Briest geworben hatte. Innstetten liebt Effi zwar, aufgrund ihres Altersunterschieds behandelt er sie aber eher wie ein Kind und vernachlässigt sie oft zugunsten karrierefördernder Dienstreisen. Zudem müssen beide in die verschlafene Kreisstadt Kessin ziehen, wo Innstetten Landrat ist und Effi außer ihrem Hauspersonal, dem Hund Rollo und dem Apotheker Gieshübler keine näheren sozialen Kontakte hat. Vereinsamt in dieser Ehe, geht Effi schließlich eine vorübergehende Liebschaft mit dem mit Innstetten befreundeten Offizier Major Crampas ein. Als Innstetten Jahre später nach Berlin versetzt wird und sich hierdurch für Effi und ihn alles zum Guten zu wenden scheint, entdeckt er zufällig Crampas’ Liebesbriefe. Zwanghaft einem eigentlich überholten Ehrenkodex verhaftet, ist Innstetten außerstande, Effi zu verzeihen, und tötet den verflossenen Liebhaber im Duell. Effi ist als geschiedene Frau fortan gesellschaftlich geächtet und wird deshalb sogar von ihren Eltern verstoßen. Erst drei Jahre später sind diese bereit, die inzwischen todkranke Effi wieder aufzunehmen.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-lit-verwandlung",
+      "file": "de-lit-verwandlung.txt",
+      "title": "Die Verwandlung",
+      "language": "de",
+      "domain": "lit",
+      "chars": 18583,
+      "paragraphs": 22,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Die_Verwandlung",
+        "revision": 269264511,
+        "timestamp": "2026-08-01T09:05:03Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Die Verwandlung ist eine im Jahr 1912 entstandene Erzählung von Franz Kafka. Die Geschichte handelt von Gregor Samsa, dessen plötzliche Verwandlung in ein „Ungeziefer“ die Kommunikation seines sozialen Umfelds mit ihm immer mehr hemmt, bis er von seiner Familie für untragbar gehalten wird und schließlich zugrunde geht. Mit einem Umfang von rund 70 Druckseiten handelt es sich um die längste der von Kafka für abgeschlossen gehaltenen und zu seinen Lebzeiten veröffentlichten Erzählungen. Der Text wurde zunächst 1915 im Oktoberheft der Zeitschrift Die weißen Blätter unter der Redaktion von René Schickele veröffentlicht. Die Erstausgabe in Buchform erschien im Dezember 1915 in der Reihe Der jüngste Tag, herausgegeben von Kurt Wolff. Von Kafkas übrigen Werken wurden nur dessen Romanfragmente in vergleichbarem Ausmaß rezipiert.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-lit-raeuber",
+      "file": "de-lit-raeuber.txt",
+      "title": "Die Räuber",
+      "language": "de",
+      "domain": "lit",
+      "chars": 18759,
+      "paragraphs": 28,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Die_R%C3%A4uber",
+        "revision": 270809530,
+        "timestamp": "2026-09-26T15:14:37Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Die Räuber ist das erste veröffentlichte Drama von Friedrich Schiller. Das Werk, das zunächst nicht als Bühnenstück, sondern als Lesedrama gedacht war, gliedert sich in fünf Akte; es entstand in der Epoche der Aufklärung und ist der Strömung Sturm und Drang in der deutschen Literatur zuzurechnen. Es wurde 1781 zunächst anonym veröffentlicht, dann am 13. Januar 1782 in Mannheim uraufgeführt, wo es für einen Theaterskandal und für nationales Aufsehen sorgte und Schiller schlagartig berühmt machte. Das Drama schildert die Rivalität zweier gräflicher Brüder: Auf der einen Seite der von seinem Vater geliebte, intelligente, freiheitsliebende spätere Räuber Karl Moor, auf der anderen Seite sein kalt berechnender, unter Liebesentzug leidender Bruder Franz, der auf Karl eifersüchtig ist und das Erbe seines Vaters an sich reißen möchte. Zentrales Motiv ist der Konflikt zwischen Verstand und Gefühl, zentrales Thema das Verhältnis von Gesetz und Freiheit. Anregung fand Schiller in der Erzählung Zur Geschichte des menschlichen Herzens von Christian Friedrich Daniel Schubart. Als Vorlage diente Schiller unter anderem das Schicksal des bekannten Räuberhauptmanns Nikol List, ebenso Matthias Klostermayr, ein Wilderer und Anführer einer „gerechten Räuberbande“. Bis in das erste Viertel des 19. Jahrhunderts waren Räuberbanden in Deutschland nichts Ungewöhnliches. Die gleichnamigen Opern von Saverio Mercadante (I briganti, Uraufführung im Théâtre Italien, Paris 1836) und Giuseppe Verdi (I masnadieri, Uraufführung in Her Majesty's Theatre, London 1847) beruhen auf Schillers Drama.",
+        "keywords": []
+      }
+    },
+    {
+      "id": "de-lit-westen",
+      "file": "de-lit-westen.txt",
+      "title": "Im Westen nichts Neues",
+      "language": "de",
+      "domain": "lit",
+      "chars": 18731,
+      "paragraphs": 32,
+      "source": {
+        "kind": "wikipedia",
+        "site": "Википедия (de.wikipedia.org)",
+        "url": "https://de.wikipedia.org/wiki/Im_Westen_nichts_Neues",
+        "revision": 266492848,
+        "timestamp": "2026-04-26T00:15:53Z",
+        "license": "CC BY-SA 4.0",
+        "reference": "вводный раздел статьи"
+      },
+      "reference": {
+        "abstract": "Im Westen nichts Neues ist ein 1928 verfasster Roman von Erich Maria Remarque, der die Schrecken des Ersten Weltkriegs aus der Sicht eines jungen Soldaten schildert. Obwohl Remarque selbst das Buch als unpolitisch bezeichnete, ist es als Antikriegsroman zu einem Klassiker der Weltliteratur geworden. Der Roman wird in der Literaturwissenschaft überwiegend der Neuen Sachlichkeit zugeordnet. Im Westen nichts Neues erschien als Vorabdruck ab dem 10. November 1928 in der Vossischen Zeitung, in Buchform beim Propyläen Verlag am 29. Januar 1929. Innerhalb von elf Wochen erreichte es nach Verlagsangaben eine Auflage von 450.000 Exemplaren. Es wurde noch im selben Jahr in 26 Sprachen übersetzt. Bis heute gibt es Ausgaben in über 50 Sprachen, die geschätzten Verkaufszahlen weltweit (Stand: 2007) liegen bei über 20 Millionen. Bei den Nationalsozialisten hatte sich Remarque mit seinem Roman Feinde gemacht. Als Teil ihrer Rufmordkampagne gegen den missliebigen Autor bezweifelten sie dessen Authentizität und verbreiteten das Gerücht, er habe überhaupt nicht am Ersten Weltkrieg teilgenommen. Während der nationalsozialistischen Bücherverbrennungen 1933 wurden zahlreiche Exemplare von Im Westen nichts Neues vernichtet. Weitere Bekanntheit erreichte das Werk durch die US-amerikanische Verfilmung aus dem Jahre 1930 von Lewis Milestone, die mit zwei Oscars ausgezeichnet wurde. Der Roman wurde 1979 unter gleichem Titel von Delbert Mann als Fernsehfilm inszeniert. Im Jahr 2022 schuf Regisseur Edward Berger die erste deutsche Verfilmung des Buches. Bei der Oscarverleihung 2023 wurde der Film mit vier Oscars ausgezeichnet.",
+        "keywords": []
+      }
+    }
+  ]
+}

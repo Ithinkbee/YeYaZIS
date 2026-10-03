@@ -1,0 +1,1223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="https://cyberleninka.ru/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy" />
+
+    <title>СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ – тема научной статьи по компьютерным и информационным наукам читайте бесплатно текст научно-исследовательской работы в электронной библиотеке КиберЛенинка</title>
+    <meta name="keywords" content="научная статья бесплатно на тему СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ текст научной работы по компьютерным и информационным наукам из научного журнала Программные продукты и системы. СЕМАНТИЧЕСКАЯ СЕТЬ, БАЗА ЗНАНИЙ, СТРУКТУРИЗАЦИЯ БАЗЫ ЗНАНИЙ, СОГЛАСОВАННАЯ РАЗРАБОТКА, ИНТЕЛЛЕКТУАЛЬНАЯ СИСТЕМА, МНОГОКРАТНО ИСПОЛЬЗУЕМЫЕ КОМПОНЕНТЫ БАЗ ЗНАНИЙ, SEMANTIC NETWORK, KNOWLEDGE BASE, KNOWLEDGEBASE STRUCTURING, COORDINATED DEVELOPMENT, INTELLIGENT SYSTEM, REUSABLE KNOWLEDGE BASE COMPONENTS" />
+    <meta name="description" content="В работе рассматривается подход к созданию легко модифицируемых гибридных баз знаний на основе семантических сетей с базовой теоретико-множественной интерпретацией. Предложена семантическая модель баз знаний, включающая семейство онтологий верхнего уровня, обеспечивающих совместимость различных видов знаний. Отличительной особенностью модели является использование в качестве базового элемента не атомарных элементов семантической сети, а знаков фрагментов базы знаний, названных структурами. Предложенная модель позволяет обеспечить согласованность различных видов знаний в рамках базы знаний, а также возможность структурирования баз знаний по произвольному набору признаков. Кроме того, в работе рассмотрен метод разработки баз знаний, построенных на основе указанной модели, ориентированный на согласованную разработку базы знаний распределенным коллективом разработчиков. Отличительными особенностями метода являются его ориентация на повторное использование разработанных ранее компонентов баз знаний различной степени сложности, а также наличие формальной онтологии, описывающей деятельность разработчиков баз знаний в соответствии с методом. Предложенный метод реализован в виде системы поддержки коллективной разработки баз знаний, которая встраивается как типовая подсистема в каждую разрабатываемую систему и таким образом обеспечивает возможность разработки базы знаний непосредственно в процессе ее эксплуатации. Применение предложенных моделей, метода и средств позволяет обеспечить семантическую совместимость различных фрагментов, включаемых в базу знаний, а также сократить время, затрачиваемое на разработку баз знаний." />
+
+    <link rel="stylesheet" media="all" href="/app.css?2824926673" />
+    <link rel="preload" href="/fonts/ProximaNovaBold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaRegular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/ProximaNovaExtraCondensedLight.woff2" as="font" type="font/woff2" crossorigin>
+    
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <meta name="robots" content="NOODP" />
+  <meta name="robots" content="noyaca" />
+
+  <meta property="og:url" content="https://cyberleninka.ru/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy" />
+  <meta property="og:site_name" content="КиберЛенинка" />
+  <meta property="og:title" content="СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ" />
+  <meta property="og:description" content="В работе рассматривается подход к созданию легко модифицируемых гибридных баз знаний на основе семантических сетей с базовой теоретико-множественной интерпретацией. Предложена семантическая модель баз знаний, включающая семейство онтологий верхнего уровня, обеспечивающих совместимость различных видов знаний. Отличительной особенностью модели является использование в качестве базового элемента не атомарных элементов семантической сети, а знаков фрагментов базы знаний, названных структурами. Предложенная модель позволяет обеспечить согласованность различных видов знаний в рамках базы знаний, а также возможность структурирования баз знаний по произвольному набору признаков. Кроме того, в работе рассмотрен метод разработки баз знаний, построенных на основе указанной модели, ориентированный на согласованную разработку базы знаний распределенным коллективом разработчиков. Отличительными особенностями метода являются его ориентация на повторное использование разработанных ранее компонентов баз знаний различной степени сложности, а также наличие формальной онтологии, описывающей деятельность разработчиков баз знаний в соответствии с методом. Предложенный метод реализован в виде системы поддержки коллективной разработки баз знаний, которая встраивается как типовая подсистема в каждую разрабатываемую систему и таким образом обеспечивает возможность разработки базы знаний непосредственно в процессе ее эксплуатации. Применение предложенных моделей, метода и средств позволяет обеспечить семантическую совместимость различных фрагментов, включаемых в базу знаний, а также сократить время, затрачиваемое на разработку баз знаний." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://cyberleninka.ru/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy/og" />
+  <meta property="og:image:width" content="1074" />
+  <meta property="og:image:height" content="480" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@CyberLeninka" />
+
+    
+
+<link rel="preconnect" href="https://yastatic.net">
+<link rel="preconnect" href="https://securepubads.g.doubleclick.net">
+<link rel="preconnect" href="https://exchange.buzzoola.com">
+<link rel="preconnect" href="https://pb.adriver.ru">
+<link rel="preconnect" href="https://ad.mail.ru">
+<link rel="preconnect" href="https://ads.betweendigital.com">
+<script src="https://yandex.ru/ads/system/header-bidding.js" async></script>
+<script>window.yaContextCb = window.yaContextCb || []</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>
+<script src="https://content.adriver.ru/AdRiverFPS.js" async></script>
+<script src="https://cdn.skcrtxr.com/roxot-wrapper/js/roxot-manager.js?pid=1f462bba-63b2-4d05-8a2c-12cb7f02b607" async></script>
+
+<script>
+const adfoxBiddersMap = {
+  "myTarget": "763128",
+  "betweenDigital": "793538",
+  "adriver": "776589",
+  "otm": "1460822",
+  "buzzoola": "769160",
+  "sape": "1697231",
+  "mediasniper": "2297743",
+  "mediatoday": "2365797",
+  "roxot": "2723510",
+  "gnezdo":"2930570",
+  "hybrid":"2994840",
+  "smi2":"3125554",
+  "link": "3389346",
+  "adfox_yandex_adplay-adv":"3294122",
+  "ohmybid": "3434190",
+  "videonow": "2930576"
+};
+
+var biddersCpmAdjustmentMap = {
+  'myTarget': 0.46,
+  'betweenDigital': 0.84,
+  'adriver': 0.79,
+  'otm': 0.87,
+  'buzzoola': 0.77,
+  'sape': 0.79,
+  'mediasniper': 0.79,
+  'mediatoday': 0.68,
+  'gnezdo': 0.92,
+  'hybrid': 0.92,
+  'smi2': 0.9
+};
+
+if (window.innerWidth >= 768) {
+
+  
+
+
+  adUnits = [
+    {
+      "code": "adfox_head",
+      "sizes": [[970,250],[300,250],[300,300],[970,90],[728,90]],
+      "bids": [
+        {"bidder": "myTarget", "params": {"placementId": 320990}},
+        {"bidder": "betweenDigital", "params": {"placementId": 2674177}},
+        {"bidder": "adriver", "params": {
+          "placementId": "20:cyberleninka_970x250",
+          "additional": {"ext": {"query": "custom=10=20&cid=" + localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm", "params": {"placementId": "911"}},
+        {"bidder": "buzzoola", "params": {"placementId": 1221042}},
+        {"bidder": "sape", "params": {"placementId": 821135}},
+        {"bidder": "mediasniper", "params": {"placementId": 360005}},
+        {"bidder": "roxot", "params": {"placementId": "51768c0a-c428-4776-a4ba-1025d94c29ad", "sendTargetRef": true}},
+        {"bidder": "gnezdo", "params": {"placementId": 353101}},
+        {"bidder": "hybrid", "params": {"placementId": "661fc2a34d506e1118632ce8"}},
+        {"bidder": "smi2", "params": {"placementId": "103126"}},
+        {"bidder": "link", "params": {"placementId": "cdf306abf7023052d3eb67588de05431"}},
+        {"bidder":"videonow","params":{"placementId":"16232754"}},
+        {"bidder": "ohmybid", "params": {"placementId": "HOdayBV9B8Q9L3FV"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side1",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320974}},
+        {"bidder":"betweenDigital","params":{"placementId":2673847}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder": "otm","params":{"placementId":"912"}},
+        {"bidder": "buzzoola","params":{"placementId":1221043}},
+        {"bidder": "sape","params":{"placementId":821136}},
+        {"bidder": "mediasniper","params":{"placementId":360006}},
+        {"bidder": "mediatoday","params":{"placementId":9682}},
+        {"bidder": "roxot","params":{"placementId":"d82943a0-d3d0-41b5-9ce9-ecf5c59a1c2e","sendTargetRef":true}},
+        {"bidder": "hybrid","params":{"placementId":"661fc2c67bc72ff858bdcfb4"}},
+        {"bidder": "smi2","params":{"placementId":"103131"}},
+        {"bidder": "adfox_yandex_adplay-adv","params":{"p1":"dgped","p2":"jdhb"}},
+        {"bidder":"link","params":{"placementId":"b98512a98211345da7923634e913ca47"}},
+        {"bidder":"videonow","params":{"placementId":"16233892"}},
+        {"bidder":"ohmybid","params":{"placementId":"zySZorOzKZhXjdDj"}}
+      ]
+    },
+
+    {
+      "code": "adfox_side2",
+      "sizes": [[300,600],[300,250],[300,300],[240,400],[240,600]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320975}},
+        {"bidder":"betweenDigital","params":{"placementId":2673848}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_240x400_side2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"913"}},
+        {"bidder":"buzzoola","params":{"placementId":1221044}},
+        {"bidder":"sape","params":{"placementId":821138}},
+        {"bidder":"mediasniper","params":{"placementId":360007}},
+        {"bidder":"mediatoday","params":{"placementId":9682}},
+        {"bidder":"roxot","params":{"placementId":"80dadf4c-5c8d-4bc3-b0e0-1328270a7d94","sendTargetRef":true}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2f54d506e1118632cea"}},
+        {"bidder":"smi2","params":{"placementId":"103132"}},
+        {"bidder":"link","params":{"placementId":"8232acc3e5e0ffb434bce7b63999dcca"}},
+        {"bidder":"videonow","params":{"placementId":"16234941"}},
+        {"bidder":"ohmybid","params":{"placementId":"NcqadnIaACfH7uWm"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320978}},
+        {"bidder":"betweenDigital","params":{"placementId":2673849}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"914"}},
+        {"bidder":"buzzoola","params":{"placementId":1221045}},
+        {"bidder":"sape","params":{"placementId":821140}},
+        {"bidder":"mediasniper","params":{"placementId":360008}},
+        {"bidder":"mediatoday","params":{"placementId":9675}},
+        {"bidder":"roxot","params":{"placementId":"a4d837bd-166d-4cb9-8210-34688740a4ef","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353095}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3157bc72ff858bdcfb6"}},
+        {"bidder":"smi2","params":{"placementId":"103133"}},
+        {"bidder":"adfox_yandex_adplay-adv","params":{"p1":"dgpec","p2":"jbzl"}},
+        {"bidder":"link","params":{"placementId":"0b21aa98d95dcb9bf6258692583009c0"}},
+        {"bidder":"ohmybid","params":{"placementId":"9bXBoQSn0JqFIuA8"}}
+      ]
+    },
+
+    {
+      "code": "adfox_top2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320979}},
+        {"bidder":"betweenDigital","params":{"placementId":2673850}},
+        {"bidder":"otm","params":{"placementId":"915"}},
+        {"bidder":"buzzoola","params":{"placementId":1221046}},
+        {"bidder":"sape","params":{"placementId":821142}},
+        {"bidder":"mediasniper","params":{"placementId":360009}},
+        {"bidder":"mediatoday","params":{"placementId":9676}},
+        {"bidder":"roxot","params":{"placementId":"8cc4e575-2379-4c53-9d3b-457a4abeabbc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353096}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3334d506e1118632cec"}},
+        {"bidder":"smi2","params":{"placementId":"103134"}},
+        {"bidder":"link","params":{"placementId":"aa4cde959439c223735f8c5d1272d9d6"}},
+        {"bidder":"videonow","params":{"placementId":"16235894"}},
+        {"bidder":"ohmybid","params":{"placementId":"Mniw5psCV5bYbDPP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320982}},
+        {"bidder":"betweenDigital","params":{"placementId":2673851}},
+        {"bidder":"otm","params":{"placementId":"916"}},
+        {"bidder":"buzzoola","params":{"placementId":1221047}},
+        {"bidder":"sape","params":{"placementId":821143}},
+        {"bidder":"mediasniper","params":{"placementId":360010}},
+        {"bidder":"mediatoday","params":{"placementId":9677}},
+        {"bidder":"roxot","params":{"placementId":"def97489-bf90-4dc2-b25d-6e98089bdbea","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353097}},
+        {"bidder":"hybrid","params":{"placementId":"661fc34d4d506e1118632cf6"}},
+        {"bidder":"smi2","params":{"placementId":"103135"}},
+        {"bidder":"link","params":{"placementId":"cc58da3f5040ed3f081281d234642f1b"}},
+        {"bidder":"videonow","params":{"placementId":"16617416"}},
+        {"bidder":"ohmybid","params":{"placementId":"hvP3ncZ9Z3IcN7kP"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320983}},
+        {"bidder":"betweenDigital","params":{"placementId":2673852}},
+        {"bidder":"otm","params":{"placementId":"917"}},
+        {"bidder":"buzzoola","params":{"placementId":1221048}},
+        {"bidder":"sape","params":{"placementId":821144}},
+        {"bidder":"mediasniper","params":{"placementId":360011}},
+        {"bidder":"mediatoday","params":{"placementId":9678}},
+        {"bidder":"roxot","params":{"placementId":"1253e1f2-f966-4c30-bb31-d73d70170b5e","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353098}},
+        {"bidder":"hybrid","params":{"placementId":"661fc59c4d506e1118632d08"}},
+        {"bidder":"smi2","params":{"placementId":"103136"}},
+        {"bidder":"link","params":{"placementId":"03db8f736f856b5a7989654cb20fb4b4"}},
+        {"bidder":"videonow","params":{"placementId":"16237809"}},
+        {"bidder":"ohmybid","params":{"placementId":"epg8ArJA41baCf0f"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320985}},
+        {"bidder":"betweenDigital","params":{"placementId":2673854}},
+        {"bidder":"otm","params":{"placementId":"918"}},
+        {"bidder":"buzzoola","params":{"placementId":1221049}},
+        {"bidder":"sape","params":{"placementId":821145}},
+        {"bidder":"mediasniper","params":{"placementId":360012}},
+        {"bidder":"mediatoday","params":{"placementId":9679}},
+        {"bidder":"roxot","params":{"placementId":"57ea14a5-a9dc-421d-8f05-7dbcf17e3619","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353099}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3817bc72ff858bdcfbe"}},
+        {"bidder":"smi2","params":{"placementId":"103137"}},
+        {"bidder":"link","params":{"placementId":"746ae63162e72a09439269ffb366a9f5"}},
+        {"bidder":"ohmybid","params":{"placementId":"Ybi2I2NcSMHFHAUL"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot2",
+      "sizes": [[300,250]],
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320988}},
+        {"bidder":"betweenDigital","params":{"placementId":2673853}},
+        {"bidder":"otm","params":{"placementId":"919"}},
+        {"bidder":"buzzoola","params":{"placementId":1221050}},
+        {"bidder":"sape","params":{"placementId":821146}},
+        {"bidder":"mediasniper","params":{"placementId":360013}},
+        {"bidder":"mediatoday","params":{"placementId":9680}},
+        {"bidder":"roxot","params":{"placementId":"10b6c096-8ccd-4d62-9e78-d7500399003d","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353100}},
+        {"bidder":"hybrid","params":{"placementId":"661fc3a24d506e1118632cf8"}},
+        {"bidder":"smi2","params":{"placementId":"103138"}},
+        {"bidder":"link","params":{"placementId":"412c7b3a30c7a86a40df78707a0effed"}},
+        {"bidder":"videonow","params":{"placementId":"16236896"}},
+        {"bidder":"ohmybid","params":{"placementId":"tf3WAI4nf1jZxl3p"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1200;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+
+
+
+
+
+} else {
+
+  adUnits = [
+    {
+      "code": "adfox_top1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320966}},
+        {"bidder":"betweenDigital","params":{"placementId":2673855}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_1",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"907"}},
+        {"bidder":"buzzoola","params":{"placementId":1221037}},
+        {"bidder":"sape","params":{"placementId":821190}},
+        {"bidder":"mediasniper","params":{"placementId":360001}},
+        {"bidder":"mediatoday","params":{"placementId":9671}},
+        {"bidder":"roxot","params":{"placementId":"2735e182-e1c2-422b-b7d3-b1ee1ecbb439","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353090}},
+        {"bidder":"hybrid","params":{"placementId":"661fc22c7bc72ff858bdcfb2"}},
+        {"bidder":"smi2","params":{"placementId":"103127"}},
+        {"bidder":"link","params":{"placementId":"317a18769d3b042bcd12d87c18153cdc"}},
+        {"bidder":"videonow","params":{"placementId":"3393503"}},
+        {"bidder":"ohmybid","params":{"placementId":"oqv6s4quummeiGOn"}}
+      ]
+    },
+
+    {
+      "code": "adfox_mid1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320968}},
+        {"bidder":"betweenDigital","params":{"placementId":2673856}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_2",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"908"}},
+        {"bidder":"buzzoola","params":{"placementId":1221039}},
+        {"bidder":"sape","params":{"placementId":821191}},
+        {"bidder":"mediasniper","params":{"placementId":360002}},
+        {"bidder":"mediatoday","params":{"placementId":9672}},
+        {"bidder":"roxot","params":{"placementId":"6e1adc14-1564-4bfb-9789-1f4b4caf9bb7","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353091}},
+        {"bidder":"hybrid","params":{"placementId":"661fc24e4d506e1118632ce2"}},
+        {"bidder":"smi2","params":{"placementId":"103128"}},
+        {"bidder":"link","params":{"placementId":"d194b3f2f2b4a8b0c899fbc4b2e475d0"}},
+        {
+          "bidder": "adfox_yandex_adplay-adv",
+          "params": {
+            "p1": "dkyya",
+            "p2": "jopb"
+          }
+        },
+        {"bidder":"videonow","params":{"placementId":"16229115"}},
+        {"bidder":"ohmybid","params":{"placementId":"YHowFqVl0va3sLxs"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot1",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320969}},
+        {"bidder":"betweenDigital","params":{"placementId":2673857}},
+        {"bidder":"adriver","params":{
+          "placementId":"20:cyberleninka_300x250mob_3",
+          "additional":{"ext":{"query":"custom=10=20&cid="+localStorage.getItem('adrcid')}}
+        }},
+        {"bidder":"otm","params":{"placementId":"909"}},
+        {"bidder":"buzzoola","params":{"placementId":1221040}},
+        {"bidder":"sape","params":{"placementId":821192}},
+        {"bidder":"mediasniper","params":{"placementId":360003}},
+        {"bidder":"mediatoday","params":{"placementId":9673}},
+        {"bidder":"roxot","params":{"placementId":"3a70251b-7720-4736-b3a6-ea209d5feedc","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353092}},
+        {"bidder":"hybrid","params":{"placementId":"661fc26d4d506e1118632ce4"}},
+        {"bidder":"smi2","params":{"placementId":"103129"}},
+        {"bidder":"link","params":{"placementId":"1565397ffd8f126ff093e1e81b9ad40f"}},
+        {"bidder":"videonow","params":{"placementId":"16230384"}},
+        {"bidder":"ohmybid","params":{"placementId":"BUVNSDdXEDKvWKcK"}}
+      ]
+    },
+
+    {
+      "code": "adfox_bot3",
+      "sizes": [[300,250],[300,300]],
+      "codeType": "combo",
+      "bids": [
+        {"bidder":"myTarget","params":{"placementId":320971}},
+        {"bidder":"betweenDigital","params":{"placementId":2673858}},
+        {"bidder":"otm","params":{"placementId":"910"}},
+        {"bidder":"buzzoola","params":{"placementId":1221041}},
+        {"bidder":"sape","params":{"placementId":821193}},
+        {"bidder":"mediasniper","params":{"placementId":360004}},
+        {"bidder":"mediatoday","params":{"placementId":9674}},
+        {"bidder":"roxot","params":{"placementId":"6ddc5b2a-3e9c-4917-b29e-a5a381a58063","sendTargetRef":true}},
+        {"bidder":"gnezdo","params":{"placementId":353093}},
+        {"bidder":"hybrid","params":{"placementId":"661fc2844d506e1118632ce6"}},
+        {"bidder":"smi2","params":{"placementId":"103130"}},
+        {"bidder":"link","params":{"placementId":"959a5bd2b2b6eb23343b893e24d8093f"}},
+        {"bidder":"videonow","params":{"placementId":"16231837"}},
+        {"bidder":"ohmybid","params":{"placementId":"RUR2bXlUyFsYdcHx"}}
+      ]
+    }
+  ];
+
+  var userTimeout = 1300;
+
+  var syncPixels = [
+    {
+      bidder: 'sape',
+      pixels: ['https://acint.net/cmatch/?dp=14&pi=1630222']
+    }
+  ];
+
+  window.YaHeaderBiddingSettings = {
+    biddersMap: adfoxBiddersMap,
+    adUnits: adUnits,
+    timeout: userTimeout,
+    syncPixels: syncPixels
+  };
+}
+</script>
+
+
+
+  <meta name="citation_title" content="СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ" />
+  
+    <meta name="citation_author" content="Гулякина Н.А." />
+  
+    <meta name="citation_author" content="Давыденко И.Т." />
+  
+
+	
+  
+	
+
+  <meta name="citation_publication_date" content="2020" />
+  <meta name="citation_journal_title" content="Программные продукты и системы" />
+  <meta name="citation_fulltext_html_url" content="https://cyberleninka.ru/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy" />
+  <meta name="citation_abstract_html_url" content="https://cyberleninka.ru/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy" />
+  <meta name="citation_pdf_url" content="https://cyberleninka.ru/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy/pdf" />
+  <meta name="citation_publisher" content="Закрытое акционерное общество Научно-исследовательский институт «Центрпрограммсистем»" />
+  <meta name="citation_issue" content="3" />
+  <meta name="citation_volume" content="33" />
+  <meta name="citation_issn" content="0236-235X" />
+  
+    <meta name="citation_eissn" content="2311-2735" />
+  
+  <meta name="citation_keywords" content="СЕМАНТИЧЕСКАЯ СЕТЬ, БАЗА ЗНАНИЙ, СТРУКТУРИЗАЦИЯ БАЗЫ ЗНАНИЙ, СОГЛАСОВАННАЯ РАЗРАБОТКА, ИНТЕЛЛЕКТУАЛЬНАЯ СИСТЕМА, МНОГОКРАТНО ИСПОЛЬЗУЕМЫЕ КОМПОНЕНТЫ БАЗ ЗНАНИЙ, SEMANTIC NETWORK, KNOWLEDGE BASE, KNOWLEDGEBASE STRUCTURING, COORDINATED DEVELOPMENT, INTELLIGENT SYSTEM, REUSABLE KNOWLEDGE BASE COMPONENTS" />
+  
+    <meta name="eprints.creators_name" content="Гулякина Н. А." />
+  
+    <meta name="eprints.creators_name" content="Давыденко И. Т." />
+  
+  <meta name="eprints.metadata_visibility" content="show" />
+  <meta name="eprints.ispublished" content="pub" />
+  <meta name="eprints.full_text_status" content="public" />
+  <meta name="eprints.type" content="article" />
+  <meta name="eprints.title" content="СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ" />
+  <meta name="eprints.date" content="2020" />
+  <meta name="eprints.date_type" content="published" />
+  <meta name="eprints.document_url" content="https://cyberleninka.ru/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy" />
+  <meta name="eprints.publication" content="Программные продукты и системы" />
+  <meta name="eprints.publisher" content="Закрытое акционерное общество Научно-исследовательский институт «Центрпрограммсистем»" />
+  <meta name="eprints.refereed" content="TRUE" />
+  <meta name="eprints.citation" content="Гулякина Н. А., Давыденко И. Т. СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ // Программные продукты и системы. 2020. Выпуск номер 3 том 33, С.420-429" />
+  <meta name="eprints.place_of_pub" content="Россия, Тверь" />
+  <meta name="eprints.number" content="3" />
+  <meta name="eprints.volume" content="33" />
+  <meta name="eprints.pagerange" content="420-429" />
+  <meta name="eprints.issn" content="0236-235X" />
+  <meta name="eprints.abstract" content="The paper discusses an approach to easily modifiable hybrid knowledge bases creating based on semantic networks with basic set-theoretic interpretation. The paper proposes a semantic model of knowledge bases, including a set of top-level ontologies that ensure the compatibility of various types of knowledge. A distinctive feature of the proposed model is the use as a basic element of the model of not atomic elements of the semantic network, but signs of knowledge base fragments, called structures. The proposed model provides the consistency of different types of knowledge within the knowledge base, as well as the ability to knowledge bases structuring according to an arbitrary set of features. In addition, the paper describes a method for knowledge bases development based on this model, focused on the concerted development of a knowledge base by a distributed team of developers. A distinctive feature of the method is its focus on the reuse of previously developed knowledge bases components of various complexity, as well as the presence of a formal ontology that describes the activities of the developers of knowledge bases in accordance with the method. The proposed method is implemented in the form of a system for the collective development of knowledge bases, which is embedded as a typical subsystem in each developed system and thus provides the possibility of developing a knowledge base directly during its operation. The use of the proposed models, methods, and tools allows ensuring semantic compatibility of various fragments included in the knowledge base, as well as reducing the time spent on the development of knowledge bases." />
+  
+    <meta name="eprints.eissn" content="2311-2735" />
+  
+  <meta name="eprints.keywords" content="СЕМАНТИЧЕСКАЯ СЕТЬ, БАЗА ЗНАНИЙ, СТРУКТУРИЗАЦИЯ БАЗЫ ЗНАНИЙ, СОГЛАСОВАННАЯ РАЗРАБОТКА, ИНТЕЛЛЕКТУАЛЬНАЯ СИСТЕМА, МНОГОКРАТНО ИСПОЛЬЗУЕМЫЕ КОМПОНЕНТЫ БАЗ ЗНАНИЙ, SEMANTIC NETWORK, KNOWLEDGE BASE, KNOWLEDGEBASE STRUCTURING, COORDINATED DEVELOPMENT, INTELLIGENT SYSTEM, REUSABLE KNOWLEDGE BASE COMPONENTS" />
+  
+  <meta name="eprints.abstract" content="В работе рассматривается подход к созданию легко модифицируемых гибридных баз знаний на основе семантических сетей с базовой теоретико-множественной интерпретацией. Предложена семантическая модель баз знаний, включающая семейство онтологий верхнего уровня, обеспечивающих совместимость различных видов знаний. Отличительной особенностью модели является использование в качестве базового элемента не атомарных элементов семантической сети, а знаков фрагментов базы знаний, названных структурами. Предложенная модель позволяет обеспечить согласованность различных видов знаний в рамках базы знаний, а также возможность структурирования баз знаний по произвольному набору признаков. Кроме того, в работе рассмотрен метод разработки баз знаний, построенных на основе указанной модели, ориентированный на согласованную разработку базы знаний распределенным коллективом разработчиков. Отличительными особенностями метода являются его ориентация на повторное использование разработанных ранее компонентов баз знаний различной степени сложности, а также наличие формальной онтологии, описывающей деятельность разработчиков баз знаний в соответствии с методом. Предложенный метод реализован в виде системы поддержки коллективной разработки баз знаний, которая встраивается как типовая подсистема в каждую разрабатываемую систему и таким образом обеспечивает возможность разработки базы знаний непосредственно в процессе ее эксплуатации. Применение предложенных моделей, метода и средств позволяет обеспечить семантическую совместимость различных фрагментов, включаемых в базу знаний, а также сократить время, затрачиваемое на разработку баз знаний." />
+  
+
+
+  </head>
+
+  <body id="body">
+    <div id="vk_api_transport"></div>
+    <div id="menu" style="height: 55px;"></div>
+
+    <div class="content" style="overflow: visible;">
+      <div class="main">
+        
+
+<span itemscope="itemscope" itemtype="http://schema.org/ScholarlyArticle">
+<div class="cover mobhide">
+  <a href="/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy/viewer"><img src="/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy/cover" alt="Научная статья на тему 'СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ'" itemprop="image" /><img class="cover-overlay" src ="/images/tsvg/view.svg" /></a>
+</div>
+<div>
+  <h1><i itemprop="headline">СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ</i> <span>Текст научной статьи по специальности &laquo;<i itemprop="articleSection">Компьютерные и информационные науки</i>&raquo;</span></h1>
+  <div class="infoblock authors visible">
+    <div id="article-authors" style="min-height: 35px;"></div>
+    <div class="top-cc" style="min-height: 20px;">
+    
+      <div class="statitem label-cc" title="Лицензия Creative Commons"><img src="/images/tsvg/cc-label.svg" />CC BY</div>
+    
+    
+      <div class="statitem views" title="Просмотры"><img src ="/images/tsvg/view.svg" />384</div><div class="statitem downloads" title="Загрузки"><img src ="/images/tsvg/download.svg" />72</div>
+    </div>
+  </div>
+
+  <div class="infoblock">
+    
+    <div id="article-controls" style="min-height: 118px;"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_top1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_top2"></div>
+        </div>
+        <div id="crt-4f158b60" style="width:720px;height:250px;" class="mobhide"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'top');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=top"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  <div class="infoblock">
+    <div class="half">
+			
+      <div class="title">Журнал<a href="https://scholar.google.com/citations?view_op=list_hcore&amp;venue=86zstumn9WsJ.2019&amp;hl=ru" class="scholar" target="_blank"><img src="/images/scholar.svg" /></a></div>
+      <span><a href="/journal/n/programmnye-produkty-i-sistemy">Программные продукты и системы</a></span>
+      <div class="labels">
+	      <div class="label year"><time itemprop="datePublished" datetime="2020">2020</time></div>
+        
+  <div class="label vak">ВАК</div>
+
+      </div>
+    </div>
+    <div class="half-right">
+      <div class="title">Область наук</div>
+      <ul>
+        <li><a href="/article/c/computer-and-information-sciences">Компьютерные и информационные науки</a></li>
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="infoblock visible">
+    <div class="full keywords">
+      <div class="title" >Ключевые слова</div>
+      <i itemprop="keywords">
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">СЕМАНТИЧЕСКАЯ СЕТЬ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">БАЗА ЗНАНИЙ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">СТРУКТУРИЗАЦИЯ БАЗЫ ЗНАНИЙ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">СОГЛАСОВАННАЯ РАЗРАБОТКА</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">ИНТЕЛЛЕКТУАЛЬНАЯ СИСТЕМА</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">МНОГОКРАТНО ИСПОЛЬЗУЕМЫЕ КОМПОНЕНТЫ БАЗ ЗНАНИЙ</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">SEMANTIC NETWORK</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">KNOWLEDGE BASE</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">KNOWLEDGEBASE STRUCTURING</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">COORDINATED DEVELOPMENT</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">INTELLIGENT SYSTEM</span> / 
+        
+          <span class="hl to-search" title="Найти все статьи с этим ключевым словом">REUSABLE KNOWLEDGE BASE COMPONENTS</span>
+        
+      </i>
+    </div>
+  </div>
+  
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>Аннотация <span>научной статьи по компьютерным и информационным наукам, автор научной работы — Гулякина Н. А., Давыденко И. Т.</span></h2>
+      <p itemprop="description">В работе рассматривается подход к созданию легко модифицируемых гибридных <span class="hl to-search">баз знаний</span> на основе <span class="hl to-search">семантических сетей</span> с базовой теоретико-множественной интерпретацией. Предложена семантическая модель <span class="hl to-search">баз знаний</span>, включающая семейство онтологий верхнего уровня, обеспечивающих совместимость различных видов знаний. Отличительной особенностью модели является использование в качестве базового элемента не атомарных элементов семантической сети, а знаков фрагментов <span class="hl to-search">базы знаний</span>, названных структурами. Предложенная модель позволяет обеспечить согласованность различных видов знаний в рамках <span class="hl to-search">базы знаний</span>, а также возможность структурирования <span class="hl to-search">баз знаний</span> по произвольному набору признаков. Кроме того, в работе рассмотрен метод разработки <span class="hl to-search">баз знаний</span>, построенных на основе указанной модели, ориентированный на <span class="hl to-search">согласованную разработку</span> <span class="hl to-search">базы знаний</span> распределенным коллективом разработчиков. Отличительными особенностями метода являются его ориентация на повторное использование разработанных ранее компонентов <span class="hl to-search">баз знаний</span> различной степени сложности, а также наличие формальной онтологии, описывающей деятельность разработчиков <span class="hl to-search">баз знаний</span> в соответствии с методом. Предложенный метод реализован в виде системы поддержки коллективной разработки <span class="hl to-search">баз знаний</span>, которая встраивается как типовая подсистема в каждую разрабатываемую систему и таким образом обеспечивает возможность разработки <span class="hl to-search">базы знаний</span> непосредственно в процессе ее эксплуатации. Применение предложенных моделей, метода и средств позволяет обеспечить семантическую совместимость различных фрагментов, включаемых в <span class="hl to-search">базу знаний</span>, а также сократить время, затрачиваемое на разработку <span class="hl to-search">баз знаний</span>.</p>
+    </div>
+  </div>
+  
+
+	
+	<div class="infoblock">
+		<div class="full">
+			<div style="font-size: 0; text-align: center; height: 350px;">
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+					<div id="adfox_mid1"></div>
+				</div>
+			        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+					<div id="adfox_mid2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'mid');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=mid"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+	<div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Похожие темы <span>научных работ по компьютерным и информационным наукам , автор научной работы — Гулякина Н. А., Давыденко И. Т.</span></h2>
+      <ul class="list">
+        
+        <li>
+          <a class="similar" href="/article/n/agentno-orientirovannye-modeli-metodika-i-sredstva-razrabotki-sovmestimyh-reshateley-zadach-intellektualnyh-sistem">
+            <div class="title">АГЕНТНО-ОРИЕНТИРОВАННЫЕ МОДЕЛИ, МЕТОДИКА И СРЕДСТВА РАЗРАБОТКИ СОВМЕСТИМЫХ РЕШАТЕЛЕЙ ЗАДАЧ ИНТЕЛЛЕКТУАЛЬНЫХ СИСТЕМ</div>
+            <span>2020 / Шункевич Д. В., Голенков В. В.</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/ontologicheskiy-podhod-k-obrabotke-tekstov-kitayskogo-yazyka">
+            <div class="title">Онтологический подход к обработке текстов китайского языка</div>
+            <span>2020 / Лунвэй Ц.</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/ontologicheskoe-proektirovanie-gibridnyh-semanticheski-sovmestimyh-intellektualnyh-sistem-na-osnove-smyslovogo-predstavleniya">
+            <div class="title">Онтологическое проектирование гибридных семантически совместимых интеллектуальных систем на основе смыслового представления знаний</div>
+            <span>2019 / Голенков В. В., Гулякина Н. А., Давыденко И. Т., Шункевич Д. В., Еремеев А. П.</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/integratsiya-iskusstvennyh-neyronnyh-setey-s-bazami-znaniy">
+            <div class="title">Интеграция искусственных нейронных сетей с базами знаний</div>
+            <span>2018 / Головко Владимир Адамович, Голенков Владимир Васильевич, Ивашенко Валерьян Петрович, Таберко Валерий Васильевич, Шаток Дмитрий Сергеевич, Крощенко Александр Александрович, Ковалёв Михаил Владимирович</span>
+          </a>
+        </li>
+        
+        <li>
+          <a class="similar" href="/article/n/primenenie-semanticheskih-tehnologiy-dlya-proektirovaniya-intellektualnyh-sistem-upravleniya-zhiznennym-tsiklom-produktsii">
+            <div class="title">Применение семантических технологий для проектирования интеллектуальных систем управления жизненным циклом продукции</div>
+            <span>2016 / Федотова Алена Валериевна, Давыденко Ирина Тимофеевна</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=similar">подбора литературы</a>.</span></div>
+    </div>
+  </div>
+
+  <div class="infoblock visible">
+    <div id="viewer-inline"></div>
+  </div>
+
+	
+  <div class="infoblock">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot1"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+  
+  <div class="infoblock">
+    <div class="full abstract">
+      <h2>SEMANTIC MODELS AND THE METHOD OF COORDINATED DEVELOPMENT OF KNOWLEDGE BASES</h2>
+      <p itemprop="description">The paper discusses an approach to easily modifiable hybrid knowledge bases creating based on semantic networks with basic set-theoretic interpretation. The paper proposes a semantic model of knowledge bases, including a set of top-level ontologies that ensure the compatibility of various types of knowledge. A distinctive feature of the proposed model is the use as a basic element of the model of not atomic elements of the semantic network, but signs of knowledge base fragments, called structures. The proposed model provides the consistency of different types of knowledge within the <span class="hl to-search">knowledge base</span>, as well as the ability to knowledge bases structuring according to an arbitrary set of features. In addition, the paper describes a method for knowledge bases development based on this model, focused on the concerted development of a <span class="hl to-search">knowledge base</span> by a distributed team of developers. A distinctive feature of the method is its focus on the reuse of previously developed knowledge bases components of various complexity, as well as the presence of a formal ontology that describes the activities of the developers of knowledge bases in accordance with the method. The proposed method is implemented in the form of a system for the collective development of knowledge bases, which is embedded as a typical subsystem in each developed system and thus provides the possibility of developing a <span class="hl to-search">knowledge base</span> directly during its operation. The use of the proposed models, methods, and tools allows ensuring semantic compatibility of various fragments included in the <span class="hl to-search">knowledge base</span>, as well as reducing the time spent on the development of knowledge bases.</p>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+      <h2 class="right-title">Текст научной работы <span>на тему «СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ»</span></h2>
+      <div class="ocr" itemprop="articleBody">
+        <div class="ocr-banner">
+          <div id="ad-sidebar" class="ad-adaptive"></div>
+        </div>
+				
+        <p>﻿УДК 004.822:004.89	Дата подачи статьи: 22.04.20</p>
+        <p>DOI: 10.15827/0236-235X. 131.420-429	2020. Т. 33. № 3. С. 420-429</p>
+        <p>Семантические модели и метод согласованной разработки баз знаний</p>
+        <p>Н.А. Гулякина 1, к.ф.-м.н.., доцент, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4c3d1c8cdc5cfcdcac5e4c6d7d1cdd68ac6dd">[email&#160;protected]</a> И.Т. Давыденко 1, к.т.н, доцент, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="412520373825242f2a2e0123323428336f2338">[email&#160;protected]</a></p>
+        <p>1 Белорусский государственный университет информатики и радиоэлектроники, г. Минск, 220013, Республика Беларусь</p>
+        <p>В работе рассматривается подход к созданию легко модифицируемых гибридных баз знаний на основе семантических сетей с базовой теоретико-множественной интерпретацией. Предложена семантическая модель баз знаний, включающая семейство онтологий верхнего уровня, обеспечивающих совместимость различных видов знаний.</p>
+        <p>Отличительной особенностью модели является использование в качестве базового элемента не атомарных элементов семантической сети, а знаков фрагментов базы знаний, названных структурами. Предложенная модель позволяет обеспечить согласованность различных видов знаний в рамках базы знаний, а также возможность структурирования баз знаний по произвольному набору признаков.</p>
+        <p>Кроме того, в работе рассмотрен метод разработки баз знаний, построенных на основе указанной модели, ориентированный на согласованную разработку базы знаний распределенным коллективом разработчиков. Отличительными особенностями метода являются его ориентация на повторное использование разработанных ранее компонентов баз знаний различной степени сложности, а также наличие формальной онтологии, описывающей деятельность разработчиков баз знаний в соответствии с методом.</p>
+        <p>Предложенный метод реализован в виде системы поддержки коллективной разработки баз знаний, которая встраивается как типовая подсистема в каждую разрабатываемую систему и таким образом обеспечивает возможность разработки базы знаний непосредственно в процессе ее эксплуатации.</p>
+        <p>Применение предложенных моделей, метода и средств позволяет обеспечить семантическую совместимость различных фрагментов, включаемых в базу знаний, а также сократить время, затрачиваемое на разработку баз знаний.</p>
+        <p>Ключевые слова: семантическая сеть, база знаний, структуризация базы знаний, согласованная разработка, интеллектуальная система, многократно используемые компоненты баз знаний.</p>
+        <p>Развитие информационных технологий привело к накоплению больших объемов разнородной слабоструктурированной информации. Для результативного использования этой информации при решении различного рода задач необходимо создавать базы знаний (БЗ), которые позволяют систематизировать хранимые в них знания, а также обеспечивают возможность эффективной работы с ними как компьютерной системы, так и человека. Появление БЗ обусловило возникновение специализированных моделей и языков представления знаний, а также программных средств, позволяющих разрабатывать БЗ, в том числе распределенными коллективами разработчиков. Объем и разнородность хранимой в базе информации требуют ее структуризации, то есть выделения в ней взаимосвязанных фрагментов с целью повышения эффективности ее обработки, а также для дидактических целей.</p>
+        <p>БЗ - ключевой компонент такого класса компьютерных систем, как системы, основан-</p>
+        <p>ные на знаниях, разработка которых является одним из перспективных направлений в области искусственного интеллекта [1]. Системы, основанные на знаниях, находят применение в самых различных областях человеческой деятельности - в медицине, автоматизации и управлении производством, обучении, средствах автоматизации проектирования и многих других [2].</p>
+        <p>В данной статье рассмотрены проблемы в области разработки БЗ с позиции обеспечения обучаемости систем, основанных на знаниях, как необходимом свойстве интеллектуальных систем. Для решения указанных проблем предложены семантическая модель БЗ, обеспечивающая согласованное использование различных видов знаний и моделей их представления, возможность представления многоуровневых метазнаний и структуризации БЗ, а также метод и инструментальные средства разработки БЗ, построенных на основе указанной модели.</p>
+        <p>Проблемы в области инженерии знаний</p>
+        <p>Расширение областей применения систем, основанных на знаниях, обусловило необходимость поддержки решения комплексных задач. Под комплексной будем понимать задачу, решение которой предполагает применение формализованных знаний различного вида и различных моделей их обработки, что, в свою очередь, требует обеспечения совместимости и интеграции используемых знаний, а также моделей их обработки.</p>
+        <p>На сегодняшний день основным подходом к реализации систем, способных решать комплексные задачи, является разработка гибридных систем, одной из главных проблем при создании которых является совместное использование различных видов знаний в интересах взаимокомпенсации недостатков и объединения преимуществ разнородных моделей для решения поставленной задачи [3]. Кроме того, использование различных видов знаний позволяет увеличить число классов решаемых задач по сравнению с системами, использующими ограниченный набор видов знаний. Такое увеличение достигается за счет комбинирования различных подходов при решении подзадач в рамках одной задачи, которое становится возможным благодаря унификации представления различных видов знаний в рамках одной системы. Как следствие, актуальной является задача разработки общей унифицированной формальной основы для представления различных видов знаний в рамках одной системы и обеспечения их совместного использования при решении комплексных задач. В рамках данной работы основное внимание уделяется обеспечению совместимости различных видов знаний, в том числе метазнаний, путем унификации представления различных видов знаний в рамках одной БЗ [4-8].</p>
+        <p>Настоящая работа посвящена решению задач, связанных с разработкой моделей, методов и средств создания БЗ компьютерных систем, способных решать комплексные задачи.</p>
+        <p>Несмотря на достигнутые успехи в области создания БЗ остаются актуальными следующие проблемы:</p>
+        <p>-	трудоемкость одновременного использования моделей представления различных видов знаний;</p>
+        <p>-	несовместимость уже разработанных компонентов БЗ приводит к необходимости повторной разработки уже существующих решений;</p>
+        <p>-	изменения, вносимые в БЗ, могут вызвать необходимость внесения существенных изменений в саму ее структуру, особенно в случае динамических БЗ;</p>
+        <p>-	имеющиеся вполне развитые средства создания БЗ не в полной мере обеспечивают комплексную поддержку (в том числе информационную) коллектива разработчиков на всех стадиях ее проектирования, а также не обладают достаточной гибкостью и расширяемостью;</p>
+        <p>-	существующие средства ориентированы, как правило, на какой-либо конкретный формат хранения знаний, что затрудняет перенос уже разработанной БЗ на другую платформу интерпретации модели.</p>
+        <p>Основной причиной указанных проблем является отсутствие унификации представления различных видов знаний, в том числе метазнаний, в рамках одной и той же БЗ, а также модели структуризации БЗ, позволяющей структурировать ее по различным аспектам одновременно.</p>
+        <p>Предлагаемый подход</p>
+        <p>Существующие реализации подходов к решению указанных выше проблем, как правило, направлены на решение какой-либо одной из них и не учитывают необходимости решения всех проблем в комплексе.</p>
+        <p>В основе подхода, предлагаемого в данной работе, лежат идеи построения систем на базе семантических сетей, предложенные в [9]. Эти идеи послужили базисом для создания технологии OSTIS [10], которая представляет собой комплекс моделей, средств и методов, предназначенных для разработки интеллектуальных систем, а также для постоянного обновления и совершенствования самой этой технологии. OSTIS базируется на применении в качестве способа кодирования информации унифицированных семантических сетей с базовой теоретико-множественной интерпретацией их элементов. Такой способ назван SC-кодом (Semantic Code) [9], а семантические сети, представленные в SC-коде, - sc-графами (sc-текстами или текстами SC-кода). Элементы таких сетей, представленных в SC-коде, будем называть sc-элементами, узлы таких сетей - sc-узлами, связи между ними - sc-коннекторами (sc-дугами, sc-ребрами). Для визуализации текстов SC-кода используются такие внешние языки, как SCg (Semantic Code graphical), SCn (Semantic Code natural) и SCs (Semantic Code</p>
+        <p>string) [10]. Модель какой-либо сущности, записанная средствами SC-кода, названа sc-моде-лью указанной сущности.</p>
+        <p>Для решения проблемы согласованного использования различных видов знаний в рамках БЗ, совместимости и гибкости баз, а также высоких трудозатрат и длительных сроков их создания предлагается разработать следующее.</p>
+        <p>•	Унифицированную семантическую модель БЗ, которая обеспечивает унификацию представления различных видов знаний и возможность использования широкого набора видов структуризации БЗ за счет внутреннего представления базы в памяти интеллектуальной системы в форме смыслового представления в виде формализованной семантической сети, а также выделения иерархической системы предметных областей и явного представления онтологий, описывающих семантику всех рассматриваемых в БЗ предметных областей и соответствующих им языков. Использование указанных принципов позволит обеспечить возможность согласованного использования различных видов знаний, совместимость разрабатываемых баз знаний между собой, а также их гибкость.</p>
+        <p>•	Метод согласованной разработки БЗ, построенных по указанной модели, основанный на формальной онтологии проектных действий разработчиков БЗ, реализующий компонентный подход и ориентированный на коллективную разработку баз. Такой метод позволит обеспечить корректность и согласованность проектной деятельности разработчиков непосредственно в процессе использования БЗ.</p>
+        <p>•	Библиотеку многократно используемых совместимых компонентов БЗ, включающую средства поиска компонентов на основе их спецификаций. Наличие этой библиотеки позволит существенно сократить трудозатраты на разработку БЗ за счет возможности повторного использования готовых компонентов.</p>
+        <p>•	Средства автоматизации деятельности разработчиков БЗ, а также их информационной поддержки, включающие систему автоматизации разработки БЗ и подсистему консультационного обслуживания разработчиков в рамках метасистемы IMS [10], реализующие предложенный метод и позволяющие осуществлять согласование, верификацию и редактирование фрагментов БЗ непосредственно в процессе ее использования. Наличие таких средств позволит снизить сроки создания БЗ и требования к их разработчикам. Указанные средства предполагается разрабатывать с использованием тех-</p>
+        <p>нологии OSTIS [10], что, в свою очередь, позволит обеспечить гибкость самих средств.</p>
+        <p>Семантическая модель БЗ</p>
+        <p>Для преобразования различного вида знаний, хранимых в памяти компьютерной системы, в единую, хорошо структурированную БЗ необходимо привести их к единому синтаксическому и семантическому фундаменту, основанному на некоторой универсальной онтологии представления. В данной работе в ее роли выступает формальная онтология sc-эле-ментов, в рамках которой уточняются типология сущностей, описываемых в БЗ, а также типология знаков, входящих в ее состав, которая отражает характер соотношения указанных знаков с текущим состоянием БЗ. Разработка такой онтологии позволяет описать в рамках единой БЗ синтаксические и семантические свойства sc-элементов, что, в свою очередь, обеспечивает свойство рефлексивности для систем, построенных на основе предлагаемого подхода. В частности, рассматриваемая онтология позволяет описывать свойства не только объектов внешнего мира, но и самих внутренних знаков ^с-элементов).</p>
+        <p>Существующие подходы к разработке БЗ основаны на рассмотрении в качестве объектов спецификации конкретных элементов БЗ (классов, экземпляров, отношений и др.). Однако при накоплении больших объемов информации возникает необходимость выделять целые фрагменты БЗ и иметь возможность их специфицировать, рассматривая как отдельные сущности. Это необходимо для обеспечения неограниченного перехода от знаний к метазнаниям. В рамках данной работы такой фрагмент БЗ назван структурой ^с-струкгурой). Формально структура трактуется как множество, элементами которого являются все sc-эле-менты, входящие в состав обозначаемого данной структурой фрагмента базы.</p>
+        <p>Понятие структуры является формальной основой для семантической модели БЗ и моделей ее структуризации в различных аспектах. В работах [11, 12] рассмотрены различные отношения, заданные на структурах.</p>
+        <p>На основе понятия структуры уточнено понятие знания как важнейшего вида сущностей, описываемых в БЗ. Наиболее часто используемыми видами знаний в рамках предлагаемой модели БЗ являются семантическая окрестность, фактографическое знание, сравнение, раздел БЗ, предметная область, онтология, за-</p>
+        <p>дача, программа, план, решение, утверждение, определение, рассуждение и др.</p>
+        <p>Формальное уточнение понятий структуры и знания позволяет обеспечить возможность неограниченного перехода от знаний к соответствующим им метазнаниям. Такое свойство достигается за счет возможности обозначать произвольный фрагмент БЗ одним sc-элементом и, соответственно, рассматривать его как единое целое, специфицировать его свойства и связи с другими фрагментами. В свою очередь, такая спецификация в дальнейшем может снова рассматриваться как объект формального описания.</p>
+        <p>Для спецификации отдельных сущностей в рамках БЗ вводится понятие семантической окрестности. Она представляет собой спецификацию некоторой сущности по определенному набору признаков, по сути являющуюся совокупностью метаинформации. Формально набор таких признаков определяется набором отношений и классов, которым принадлежит описываемая сущность, и служит основой для классификации семантических окрестностей. В общем случае набор признаков, специфицирующих сущности, принадлежащие некоторым классам, будет различен. Кроме того, часто возникает необходимость специфицировать одну и ту же сущность в различных аспектах и явно фиксировать эти аспекты в БЗ.</p>
+        <p>С точки зрения процесса разработки БЗ важнейшими видами знаний являются предметные области и онтологии. В рамках предлагаемого подхода они составляют основу для создания формальных средств описания различных видов знаний в БЗ, позволяющей сосредоточить внимание на определенном классе исследуемых сущностей и определенном семействе отношений, которые заданы на указанном классе. Для формальной спецификации (описания свойств) соответствующей предметной области, ориентированной на описание свойств и взаимосвязей понятий, входящих в состав указанной предметной области, используется такой вид знаний, как онтология.</p>
+        <p>В рамках предлагаемого подхода уточняется понятие онтологии и вводится их типология, основанная на выделенной типологии семантических окрестностей. Такой подход к выделению классов онтологий базируется на подходе к классификации онтологий в зависимости от набора используемых для описания свойств сущностей отношений.</p>
+        <p>С формальной точки зрения в рамках предлагаемой модели БЗ онтологию будем тракто-</p>
+        <p>вать как результат объединения семантических окрестностей одного вида. В зависимости от рассматриваемых свойств понятий предметной области, которые описываются в онтологии, то есть типа объединяемых семантических окрестностей, выделяют следующие типы онтологий: структурная спецификация предметной области, теоретико-множественная онтология, логическая онтология, терминологическая онтология, онтология задач и решений задач, онтология классов задач и способов решения задач и др. Более подробно данная типология рассмотрена в работах [11, 12].</p>
+        <p>Основной целью структуризации является разделение спецификации описываемого мира на части. Это позволяет при рассмотрении каждой из частей абстрагироваться от деталей, не существенных для решения текущей задачи, по аналогии с экспериментами в различных естественных науках.</p>
+        <p>С использованием рассмотренных ранее моделей разработана формальная модель структуризации БЗ:</p>
+        <p>Mstr = (STRs, STRc, STRr), где STRs - множество разделов БЗ; STRc - множество выделяемых классов разделов БЗ, определяемое набором признаков структуризации; STRR - множество отношений, специфицирующих разделы БЗ, в том числе декомпозицию разделов на подразделы. Подробнее данная модель рассмотрена в [11, 12].</p>
+        <p>Предложенная модель структуризации на основе выделения разделов и формирования их иерархии позволяет структурировать БЗ на основе произвольного набора признаков, то есть с различных точек зрения, при этом совмещая их в рамках одной БЗ.</p>
+        <p>На основе перечисленных результатов построена семантическая модель БЗ, удовлетворяющая перечисленным выше требованиям:</p>
+        <p>Mkb = (Ms, ONTr, ONThl, {Mstr 1,Mstri, ..., MsTRn}),</p>
+        <p>где Ms - множество структур, хранимых в БЗ; ONTR - онтология sc-элементов, являющаяся онтологией представления в рамках предлагаемого подхода; ONThl = {ONTstr, ONTk, ONTsn, ONTsd, ONTo} - набор онтологий верхнего уровня (ONTSTR - онтология предметной области структур, ONTK - онтология предметной области знаний, ONTSN - онтология предметной области семантических окрестностей, ONTsd - онтология предметной области предметных областей, ONTo - онтология предметной области онтологий); MsTRi - модель структуризации БЗ по i-му признаку.</p>
+        <p>Разрабатываемые при помощи предлагаемой модели БЗ обладают следующими основными достоинствами:</p>
+        <p>-	согласованное использование различных видов знаний за счет применения в качестве формальной основы для кодирования информации унифицированных семантических сетей с базовой теоретико-множественной интерпретацией, синтаксис и семантика которых уточняются в рамках онтологии sc-элементов;</p>
+        <p>-	возможность структуризации с точки зрения различных аспектов и описания в БЗ метазнаний за счет использования модели структуры, позволяющей рассматривать и специфицировать фрагмент БЗ как единое целое;</p>
+        <p>-	удобство обработки БЗ за счет возможности использования метаинформации в процессе обработки, а также локализации области поиска путей решения задач рамками одной или нескольких предметных областей, явно специфицируемых в БЗ;</p>
+        <p>-	легкость модификации БЗ за счет явной спецификации в ней предметных областей и их онтологий, что позволяет в процессе разработки и изменения БЗ локализовать те ее фрагменты, в которые также потребуется вносить изменения.</p>
+        <p>Метод и средства разработки БЗ</p>
+        <p>Разработка БЗ - трудоемкий и продолжительный процесс. Среди путей сокращения сроков создания БЗ основными являются обеспечение совместной разработки БЗ распределенным коллективом разработчиков, автоматизация их деятельности, а также повторное использование уже разработанных компонентов БЗ [13-18].</p>
+        <p>Однако полностью автоматизировать процесс разработки БЗ невозможно, поскольку некоторые этапы, например, формирование системы понятий, требуют согласованных усилий некоторого числа разработчиков и экспертов и носят субъективный характер.</p>
+        <p>Кроме того, в процессе эксплуатации любой системы, основанной на знаниях, постоянно возникает необходимость совершенствования ее БЗ: добавление новых знаний, удаление неактуальной информации, поиск и исправление ошибок и неточностей. Актуализация информации, хранящейся в БЗ, в соответствии с текущим состоянием описываемых предметных областей (в особенности динамических) может потребовать таких существенных изменений, как замена одной системы понятий на другую,</p>
+        <p>в том числе - введение новых понятий, исключение устаревших, переопределение имеющихся понятий и т.д. В связи с тем, что существующие в различных сферах применения систем, основанных на знаниях, стандарты, требования и технологии постоянно меняются, процесс эволюции БЗ должен осуществляться непрерывно непосредственно в процессе эксплуатации такой системы [18]. Подавляющее большинство средств разработки БЗ не обеспечивают такую возможность, разделяя при этом процессы разработки, совершенствования и эксплуатации БЗ систем, основанных на знаниях.</p>
+        <p>Библиотека многократно используемых компонентов БЗ. Для сокращения трудозатрат при разработке БЗ систем, основанных на знаниях, предлагается использовать уже разработанные фрагменты БЗ или БЗ каких-либо систем целиком. Для организации хранения и поиска таких компонентов в рамках данной работы предложена библиотека многократно используемых компонентов БЗ, входящая в состав метасистемы IMS [10].</p>
+        <p>Данная библиотека включает множество компонентов различного уровня сложности, средства их спецификации и средства автоматизации поиска компонентов на основе спецификаций. Каждый многократно используемый компонент БЗ представляет собой структуру и имеет формальную спецификацию, то есть некоторую семантическую окрестность, характеризующую данный компонент. На основе формальной спецификации осуществляются поиск подходящего компонента в библиотеке, сравнение его с другими компонентами и т.д.</p>
+        <p>Средства автоматизации поиска компонентов включают программные средства поиска зависимостей между компонентами, поиска компонентов, в рамках которых описываются указываемые понятия, а также поиска компонентов по фрагменту их спецификации и др. Подробнее компонентная разработка БЗ на основе технологии OSTIS рассмотрена в [19].</p>
+        <p>Метод согласованной разработки БЗ. При разработке БЗ необходимо на каждом этапе обеспечивать семантическую совместимость БЗ и их компонентов, то есть все используемые понятия должны одинаково трактоваться в различных компонентах. Данная задача особенно актуальна в условиях коллективной разработки, а также в ситуациях, когда система используемых понятий изменяется. Для обеспечения такой совместимости необходимо использовать онтологии, а также осуществлять</p>
+        <p>фиксацию протоколов согласованных изменений в БЗ.</p>
+        <p>Для решения указанных проблем предлагается метод создания БЗ, основанный на формальной модели проектной деятельности различных разработчиков БЗ, каждый из которых может выполнять определенную роль в процессе разработки. Построение модели и выделение классов таких действий позволяют автоматизировать процесс коллективной разработки, а также минимизировать накладные расходы на согласование деятельности различных разработчиков. Основное внимание в предложенном методе уделяется процессам согласования трактовки понятий в рамках создаваемой БЗ. Данный метод предполагает два основных этапа - создание стартовой версии ostis-системы (в том числе ее БЗ) и этап непосредственной разработки БЗ (рис. 1).</p>
+        <p>Процесс создания и редактирования БЗ ostis-системы по сути сводится к формированию разработчиками предложений по редактированию того или иного раздела БЗ и последующему рассмотрению этих предложений ее администраторами. Кроме того, предполагается, что в случае необходимости для верификации поступающих предложений по редактированию БЗ могут привлекаться эксперты, а управление процессом разработки осуществляется менеджерами соответствующих проектов по</p>
+        <p>разработке БЗ (рис. 2). Такой подход обеспечивает широкие возможности автоматизации процесса создания БЗ, а также ее последующего анализа и совершенствования.</p>
+        <p>Разработанный метод согласованного построения и модификации БЗ на основе формальной онтологии проектной деятельности с применением многократно используемых компонентов позволяет обеспечить корректность и согласованность проектной деятельности разработчиков непосредственно в процессе использования БЗ.</p>
+        <p>Рассмотренный метод реализован в виде соответствующих программных средств, более подробно рассмотренных в работах [12, 19]. Структура программных средств поддержки коллективной разработки гибридных БЗ представлена на рисунке 3. Особенностью рассмотренных средств является их реализация на основе технологии OSTIS, что позволяет обеспечить легкость добавления новой функциональности за счет обеспечения совместимости всех компонентов системы.</p>
+        <p>Заключение</p>
+        <p>Предложенные модели, метод и инструментальные средства были использованы при разработке прототипа системы автоматизации предприятий рецептурного производства [20],</p>
+        <p>Формирование структуры разделов БЗ</p>
+        <p>Выявление описываемых предметных областей</p>
+        <p>/ Построение иерархической системы Л V описываемых предметных областей у</p>
+        <p>/&#39;&#39;Построение иерархии разделов БЗ~\</p>
+        <p>в рамках ее предметной части,</p>
+        <p>I учитывающей иерархию предметных I \__областей__У</p>
+        <p>Сформирование стартовой версии \ ostis-системы	у</p>
+        <p>Формирование начальной структуры БЗ</p>
+        <p>f Выявление компонентов БЗ, I которые могут быть заимствованы \__из библиотеки</p>
+        <p>Формирование проектных заданий на разработку недостающих фрагментов БЗ</p>
+        <p>Разработка и согласование фрагментов БЗ</p>
+        <p>Верификация и отладка БЗ</p>
+        <p>I Семантическая I модель гибридной БЗ</p>
+        <p>Библиотека многократно</p>
+        <p>используемых I компонентов БЗ</p>
+        <p>^ Модель деятельности разработчиков БЗ</p>
+        <p>Средства спецификации I предложений</p>
+        <p>Способ внесения изменений в БЗ</p>
+        <p>Средства спецификации переходных</p>
+        <p>процессов эволюции БЗ</p>
+        <p>Средства спецификации противоречий и неполноты I в БЗ</p>
+        <p>Рис. 1. Метод согласованного построения БЗ Fig. 1. Method for coordinated databases build</p>
+        <p>Рис. 2. Механизм согласования фрагментов БЗ Fig. 2. The mechanism of coordination of database fragments</p>
+        <p>Библиотека многократно используемых компонентов БЗ</p><div class="bibloid_serp bibloid_serp_ocr"><i>i</i><span>Не можете найти то, что вам нужно? Попробуйте сервис <a target="_blank" onclick="ga('send', 'event', 'user', 'b_ocr_click');" href="https://bibloid.ru/?utm_source=cyberleninka.ru&amp;utm_medium=article&amp;utm_campaign=ocr">подбора литературы</a>.</span></div>
+        <p>M Vi</p>
+        <p>Система поддержки коллективной разработки гибридных БЗ</p>
+        <p>-------.1 г,-----------,1Г</p>
+        <p>Ядро БЗ</p>
+        <p>Онтология проблемных фрагментов БЗ</p>
+        <p>Онтология деятельности разработчиков БЗ</p>
+        <p>Онтология ситуаций и событий в sc-памяти</p>
+        <p>МОЗ СПБЗ</p>
+        <p>Агенты автоматизации деятельности инженеров БЗ</p>
+        <p>Агенты автоматизации деятельности администраторов БЗ</p>
+        <p>Агенты автоматизации деятельности _менеджеров БЗ_</p>
+        <p>Агенты автоматизации деятельности экспертов БЗ</p>
+        <p>Агенты редактирования БЗ</p>
+        <p>Агенты верификации БЗ</p>
+        <p>Агенты расчета характеристик БЗ</p>
+        <p>Набор интерфейсных</p>
+        <p>команд для инженера, администратора, менеджера и эксперта БЗ</p>
+        <p>3ZËL</p>
+        <p>sc-память</p>
+        <p>Разрабатываемая ИС</p>
+        <p>Разработчик БЗ</p>
+        <p>Рис. 3. Средства поддержки коллективной разработки гибридных БЗ Fig. 3. Tools to support the collective development of hybrid knowledge base</p>
+        <p>при разработке БЗ некоторых систем, в частности, метасистемы IMS, а также ряда прикладных интеллектуальных справочных систем по</p>
+        <p>различным предметным областям, таким как геометрия, дискретная математика, числовые модели, химия.</p>
+        <p>Работа выполнена при поддержке БРФФИ-РФФИ, проект № Ф18Р-220.</p>
+        <p>Литература</p>
+        <p>1.	Гаврилова Т.А., Кудрявцев Д.В., Муромцев Д.И. Инженерия знаний: модели и методы. СПб: Лань, 2016. 324 с.</p>
+        <p>2.	Alor-Hernandez G., Valencia-Garcia R. (Eds.). Current Trends on Knowledge-Based Systems. Springer, 2017, 290 p. DOI: 10.1007/978-3-319-51905-0_1.</p>
+        <p>3.	Колесников А.В., Кириков И.А., Листопад С.В. Гибридные интеллектуальные системы с самоорганизацией: координация, согласованность, спор. М.: Изд-во ИПИ РАН, 2014. 189 с.</p>
+        <p>4.	Валькман Ю.Р., Гриценко В.И., Рыхальский А.Ю. Модельно-параметрическое пространство. Теория и приложение. Киев: Наукова думка, 2010. 235 с.</p>
+        <p>5.	Загорулько Ю.А. О концепции интегрированной модели представления знаний // Изв. ТПУ. 2013. Т. 322. № 5. С. 98-103.</p>
+        <p>6.	Клещев А.С. Семантические порождающие модели. Общая точка зрения на фреймы и продукции в экспертных системах. Владивосток: Изд-во ИАПУ, 1986. 39 с.</p>
+        <p>7.	Рубашкин В.Ш. Онтологическая семантика. Знания. Онтологии. Онтологически ориентированные методы информационного анализа текстов. М.: Физматлит, 2012. 348 с.</p>
+        <p>8.	Щедровицкий Г.П. Синтез знаний: проблемы и методы. В кн.: На пути к теории научного знания; [под ред. В.И. Корюкина]. М.: Наука, 1984. 199 с.</p>
+        <p>9.	Голенков В.В. Графодинамические модели и методы параллельной асинхронной переработки информации в интеллектуальных системах: автореф. дис. ... д-ра техн. наук. Минск, 1996.</p>
+        <p>10.	Метасистема IMS. URL: http:// ims.ostis.net (дата обращения: 20.04.2020).</p>
+        <p>11.	Давыденко И.Т. Семантическая модель коллективного проектирования баз знаний // Открытые семантические технологии проектирования интеллектуальных систем: сб. тр. конф. Минск. 2016. C. 107-114.</p>
+        <p>12.	Davydenko I.T. Ontology-based knowledge base design. Open Semantic Technologies for Intelligent Systems, 2017, pp. 57-72.</p>
+        <p>13.	Ефименко И.В., Хорошевский В.Ф. Онтологическое моделирование экономики предприятий и отраслей современной России. Ч. 1. Онтологическое моделирование: подходы, модели, методы, средства, решения. М., 2011. 76 с.</p>
+        <p>14.	Esanakula J.R., Sridhar C.N.V., Rangadu V.P. Knowledge based engineering: Notion, approaches and future trends. American Journal of Intelligent Systems, 2015, vol. 5, no. 1, pp. 1-17. DOI: 10.5923/j.ajis. 20150501.01.</p>
+        <p>15.	Wielinga B.J., Schreiber A.T. Towards Very Large Knowledge Bases: Knowledge Building &amp; Knowledge Sharing. IOS Press, 1994, pp. 110-120.</p>
+        <p>16.	Hartung R., Hakansson A. Using meta-agents to reason with multiple ontologies. KES-AMSTA, Springer-Verlag, Berlin Heidelberg, 2008, vol. 4953, pp. 261-270.</p>
+        <p>17.	Debruyne С., De Leenheer P., Meersman R. On the move to meaningful Internet systems. Proc. Workshops OTM-2009, Heidelberg, Springer, 2009, pp. 1147-1164.</p>
+        <p>18.	Лапшин В.А. Онтологии в компьютерных системах. М.: Науч. мир, 2010. 222 с.</p>
+        <p>19.	Golenkov V., Shunkevich D., Davydenko I., Grakova N. Principles of organization and automation of the semantic computer systems development. Open Semantic Technologies for Intelligent Systems, 2019, pp. 53-90.</p>
+        <p>20.	Golenkov V.V., Rusetski K.V., Shunkevich D.V., Davydenko I.T., Zakharov V.V., Ivashenko V.P., Koronchik D.N., Taberko V.V., Ivanyuk D.S. Ontology-based design of batch manufacturing enterprises. Open Semantic Technologies for Intelligent Systems, 2017, рр. 265-280.</p>
+        <p>Software &amp; Systems	Received 22.04.20</p>
+        <p>DOI: 10.15827/0236-235X. 131.420-429	2020, vol. 33, no. 3, pp. 420-429</p>
+        <p>Semantic models and the method of coordinated development of knowledge bases</p>
+        <p>N.A. Guliakina Ph.D. (Physics and Mathematics), Associate Professor, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6106140d08000a080f002103121408134f0318">[email&#160;protected]</a> I.T. Davydenko l, Ph.D. (Informatics), Associate Professor, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="640005121d00010a0f0b240617110d164a061d">[email&#160;protected]</a></p>
+        <p>1 Belarussian State University Informatics and Radioelectronics, Minsk, 220013, Republic of Belarus</p>
+        <p>Abstract. The paper discusses an approach to easily modifiable hybrid knowledge bases creating based on semantic networks with basic set-theoretic interpretation. The paper proposes a semantic model of knowledge bases, including a set of top-level ontologies that ensure the compatibility of various types of knowledge.</p>
+        <p>A distinctive feature of the proposed model is the use as a basic element of the model of not atomic elements of the semantic network, but signs of knowledge base fragments, called structures. The proposed model provides the consistency of different types of knowledge within the knowledge base, as well as the ability to knowledge bases structuring according to an arbitrary set of features.</p>
+        <p>In addition, the paper describes a method for knowledge bases development based on this model, focused on the concerted development of a knowledge base by a distributed team of developers. A distinctive feature of the method is its focus on the reuse of previously developed knowledge bases components of various complexity, as well as the presence of a formal ontology that describes the activities of the developers of knowledge bases in accordance with the method.</p>
+        <p>The proposed method is implemented in the form of a system for the collective development of knowledge bases, which is embedded as a typical subsystem in each developed system and thus provides the possibility of developing a knowledge base directly during its operation.</p>
+        <p>The use of the proposed models, methods, and tools allows ensuring semantic compatibility of various fragments included in the knowledge base, as well as reducing the time spent on the development of knowledge bases.</p>
+        <p>Keywords: semantic network, knowledgebase, knowledgebase structuring, coordinated development, intelligent system, reusable knowledge base components.</p>
+        <p>Acknowledgements. The reported study was funded by BRFFR-RFBR according to the research project no. 018P-220.</p>
+        <p>References</p>
+        <p>1.	Gavrilova T.A., Kudryavtsev D.V., Muromtsev D.I. Knowledge Engineering: Models and Methods. St. Petersburg, 2016, 324 p. (in Russ.).</p>
+        <p>2.	Alor-Hernandez G., Valencia-Garcia R. (Eds.). Current Trends on Knowledge-Based Systems. Springer, 2017, 290 p. DOI: 10.1007/978-3-319-51905-0_1.</p>
+        <p>3.	Kolesnikov A.V., Kirikov I.A., Listopad S.V. Hybrid Intelligent Systems with Self-Organization: Coordination, Consistency, Dispute. Moscow, 2014, 189 p. (in Russ.).</p>
+        <p>4.	Valkman Yu.R., Gritsenko V.I., Rykhalskiy A.Yu. Model-Parametric Space. Theory and Application. Kiev, 2010, 235 p. (in Russ.).</p>
+        <p>5.	Zagorulko Yu.A. On the concept of an integrated knowledge representation model. Bull. of the Tomsk Polytech. Univ., 2013, vol. 322, no. 5, pp. 98-103 (in Russ.).</p>
+        <p>6.	Kleshchev A.S. Semantic Generative Models. General View of Frames and Products in Expert Systems. Vladivostok, 1986, 39 p. (in Russ.).</p>
+        <p>7.	Rubashkin V.Sh. Ontological Semantics. Knowledge. Ontologies. Ontologically Oriented Methods of Text Information Analysis. Moscow, 2012, 348 p. (in Russ.).</p>
+        <p>8.	Shchedrovitsky G.P. The synthesis of knowledge: problems and methods. In: Towards a Theory of Scientific Knowledge. Moscow, 1984, 199 p. (in Russ.).</p>
+        <p>9.	Golenkov V.V. Graph-dynamic models and methods of parallel asynchronous processing of information in intelligent systems: Thes. Ph.D., Minsk, 1996.</p>
+        <p>10.	Metasystem IMS. Available at: http://ims.ostis.net (accessed April 20, 2020).</p>
+        <p>11.	Davydenko I.T. The semantic model of knowledge bases collective design. Proc. Open Semantic Technologies for Intelligent Systems, Minsk, 2016, pp. 107-114.</p>
+        <p>12.	Davydenko I.T. Ontology-based knowledge base design. Open Semantic Technologies for Intelligent Systems, 2017, pp. 57-72, pp. 57-72.</p>
+        <p>13.	Efimenko I.V., Khoroshevsky V.F. Ontological modeling of the economics of enterprises and branches of modern Russia. Pt. 1. Ontological Modeling: Approaches, Models, Methods, Means. Moscow, 2011, 76 p. (in Russ.).</p>
+        <p>14.	Esanakula J.R., Sridhar C.N.V., Rangadu V.P. Knowledge based engineering: Notion, approaches and future trends. American Journal of Intelligent Systems, 2015, vol. 5, no. 1, pp. 1-17. DOI: 10.5923/j.ajis. 20150501.01.</p>
+        <p>15.	Wielinga B.J., Schreiber A.T. Towards Very Large Knowledge Bases: Knowledge Building &amp; Knowledge Sharing. IOS Press, 1994, pp. 110-120.</p>
+        <p>16.	Hartung R., Hakansson A. Using Meta-Agents to Reason with Multiple Ontologies. KES-AMSTA, Springer-Verlag Berlin Heidelberg, 2008, vol. 4953, pp. 261-270.</p>
+        <p>17.	Debruyne C., de Leenheer P., Meersman R. On the move to meaningful Internet systems. Proc. Workshops OTM-2009, Heidelberg, Springer, 2009, pp. 1147-1164.</p>
+        <p>18.	Lapshin V.A. Ontologies in Computer Systems. Moscow, 2010, 222 p. (in Russ.).</p>
+        <p>19.	Golenkov V., Shunkevich D., Davydenko I., Grakova N. Principles of organization and automation of the semantic computer systems development. Open Semantic Technologies for Intelligent Systems, 2019, pp. 53-90.</p>
+        <p>20.	Golenkov V.V., Rusetski K.V., Shunkevich D.V., Davydenko I.T., Zakharov V.V., Ivashenko V.P., Koronchik D.N., Taberko V.V., Ivanyuk D.S. Ontology-based design of batch manufacturing enterprises. Open Semantic Technologies for Intelligent Systems, 2017, pp. 265-280.</p>
+        <p>Для цитирования</p>
+        <p>Гулякина Н.А., Давыденко И.Т. Семантические модели и метод согласованной разработки баз знаний // Программные продукты и системы. 2020. Т. 33. № 3. С. 420-429. DOI: 10.15827/0236-235X. 131.420-429.</p>
+        <p>For citation</p>
+        <p>Guliakina N.A., Davydenko I.T. Semantic models and the method of coordinated development of knowledge bases. Software &amp; Systems, 2020, vol. 33, no. 3, pp. 420-429 (in Russ.). DOI: 10.15827/0236-235X. 131.420-429.</p></div>
+    </div>
+  </div>
+
+	
+  <div class="infoblock visible">
+    <div class="full">
+      <div style="font-size: 0; text-align: center; height: 350px;">
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; max-width: 310px;">
+          <div id="adfox_bot3"></div>
+        </div>
+        <div style="display: inline-flex; vertical-align: top; text-align: center; justify-content: center; margin-left: 50px; max-width: 310px;">
+          <div id="adfox_bot4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="infoblock visible">
+    <div class="full">
+       <div class="bibloid_serp bibloid_serp_ann">
+         <i>i</i>
+         <span>Надоели баннеры? Вы всегда можете
+           <a
+            onclick="window.__cl_f.gaEvent('donate', 'click', 'bot2');"
+            href="/donate?utm_source=cyberleninka.ru&utm_medium=article&utm_campaign=bot2"
+           >отключить рекламу</a>.</span>
+       </div>
+    </div>
+  </div>
+
+	
+
+</div>
+</span>
+
+
+<div class="left-banner" style="width: 300px; margin-left: -320px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-left" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side1"></div>
+    <div id="crt-4f158390" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+<div class="right-banner" style="margin-left: 740px; height: 4096px; display: flex; justify-content: space-around; align-items: flex-start;">
+  <div id="ad-right" class="ad-adaptive" style="position: -webkit-sticky; position: sticky; top: 40px; background: transparent; max-width: 310px;">
+    <div id="adfox_side2"></div>
+    <div id="crt-4f158390-1" style="width:300px;height:600px;" class="mobhide"></div>
+  </div>
+</div>
+
+
+
+
+        <div class="footer">
+          <hr />
+          <div class="half">
+            <a href="/terms.html" target="_blank">Пользовательское соглашение</a>
+            <a href="/policy.html" target="_blank">Политика конфиденциальности</a>
+          </div>
+          <div class="half-right">
+            <a style="margin-top: 5px;" class="openscience" href="http://open-science.ru/" target="_blank"><img src="/images/openscience.svg" alt="Открытая наука" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="/app.js?2862416399" defer></script>
+    
+    <script type="text/javascript">
+      
+
+      window.__cl = function (f) {
+        if (!window.__cl_callbacks) {
+          window.__cl_callbacks = [];
+        }
+        window.__cl_callbacks.push(f);
+      };
+
+      window.__cl(function(app) {
+        var app = app.element(app.elm.Menu, 'menu', { user: window.__cl_user, id: "", path: "/article/n/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy" });
+        if (app == null) { return; }
+        window.notify.login = function() {
+          app.ports.showLoginSub.send();
+        }
+      });
+      window.__cl(function(app) {
+        app.element(app.elm.Notification.Persist, 'notification-persist', {
+          cookie: document.cookie
+        });
+      })
+    </script>
+
+    
+  
+  <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = 'https://vk.com/rtrg?p=VK-RTRG-113217-3vhqF';</script>
+  <script type="text/javascript">
+    (window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=pBktsqObaAtvToEtTxQbb/cxSGdswTMQ5wcdtediEFrGEy1Rbzr/IMae3Notd2g/GdggCzMzIdcwjWAsDf7M*I1hGYLGK2Uho4KO3yct6a3PDEHu/PU3m87/qEKB5u005s5BZOxtV0KGfmxRfV5X4n3kmNOYtnudE89WXjBuKsQ-';
+  </script>
+  
+
+
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(15765706, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/15765706" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+  
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-33095299-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+
+    
+
+<script>
+  var adfox = function(id, params) {
+        window.yaContextCb.push(()=>{
+            Ya.adfoxCode.create({
+              ownerId: 254948,
+              containerId: id,
+              params: params
+            });
+          });
+  }
+
+  adfox('adfox_bot3', {
+    pp: 'nol',
+    ps: 'czgi',
+    p2: 'ganf',
+    puid1: ''
+  });
+  if (window.innerWidth >= 768) {
+    adfox('adfox_top1', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_top2', {
+        pp: 'noj',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid1', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot1', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_mid2', {
+        pp: 'nok',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot2', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+    adfox('adfox_bot4', {
+        pp: 'nol',
+        ps: 'czgi',
+        p2: 'ganf',
+        puid1: ''
+    });
+  } else {
+      adfox('adfox_top1', {
+          pp: 'noj',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_mid1', {
+          pp: 'nok',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+      adfox('adfox_bot1', {
+          pp: 'nol',
+          ps: 'czgi',
+          p2: 'fwbj',
+          puid1: ''
+      });
+  }
+  if (window.innerWidth >= 1360) {
+    adfox('adfox_side1',{
+      pp: 'noj',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+    adfox('adfox_side2', {
+      pp: 'nok',
+      ps: 'czgi',
+      p2: 'fvyf',
+      puid1: ''
+    });
+  }
+</script>
+
+
+<script type="text/javascript">
+window.__cl(function(app) {
+  app.element(app.elm.Viewer.Inline, "viewer-inline", {
+    id:  18735373 ,
+    pages:  10 ,
+    link: "semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy",
+    doi: ""
+  })
+  var authors = app.element(app.elm.Article.Authors, "article-authors", {
+    is_author:  false ,
+    authors: [{"id":24578502,"name":"Гулякина Н.А.","link":"","status":""},{"id":24578503,"name":"Давыденко И.Т.","link":"","status":""}] || [],
+    user: window.__cl_user
+  });
+  var controls = app.element(app.elm.Article.Controls, "article-controls", {
+    quotes: {
+      gost_electronic: "Гулякина Н. А., Давыденко И. Т. СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ \/\/ Программные продукты и системы. 2020. №3. URL: https:\/\/cyberleninka.ru\/article\/n\/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy (дата обращения: 28.09.2026).",
+      gost_print: "Гулякина Н. А., Давыденко И. Т. СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ \/\/ Программные продукты и системы. 2020. №3. С.420-429",
+      wiki: "{{статья|автор=Гулякина Н. А., Давыденко И. Т.|заглавие=СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ|издание=Программные продукты и системы|год=2020|ссылка=https:\/\/cyberleninka.ru\/article\/n\/semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy|номер=3}}",
+      apa: "Гулякина Н.А., \u0026 Давыденко И.Т. (2020). СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ. Программные продукты и системы, 33 (3), 420-429.",
+      ama: "Гулякина Н.А., Давыденко И.Т.. СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ. Программные продукты и системы.  2020;33(3):420-429.",
+      mla: "Гулякина Н.А.,  and Давыденко И.Т.. \u0022СЕМАНТИЧЕСКИЕ МОДЕЛИ И МЕТОД СОГЛАСОВАННОЙ РАЗРАБОТКИ БАЗ ЗНАНИЙ\u0022 Программные продукты и системы, vol. 33, no. 3, 2020, pp. 420-429."
+    },
+    pages:  10 ,
+    id:  18735373 ,
+    link: "semanticheskie-modeli-i-metod-soglasovannoy-razrabotki-baz-znaniy",
+    doi: "",
+    authors: [{"id":24578502,"name":"Гулякина Н.А.","link":"","status":""},{"id":24578503,"name":"Давыденко И.Т.","link":"","status":""}] || [],
+    likes: {"likes":"0","dislikes":"0","user":0},
+    user: window.__cl_user
+  });
+
+  var claim = document.getElementById('claim')
+  if (claim) {
+    claim.onclick = function(e) {
+      e.preventDefault();
+      controls.ports.claim.send(true);
+    }
+  }
+
+  var searchFromSelector = function(sel) {
+    var els = document.querySelectorAll(sel);
+    els.forEach(function(el) {
+      var t = el.innerText;
+      el.onclick = function(e) {
+        e.preventDefault();
+        window.location.href = "/search?q=" + encodeURIComponent(t);
+      }
+    });
+  }
+  searchFromSelector(".to-search");
+});
+</script>
+
+
+    <div id="notification-flash"></div>
+    <div class="info"><div id="notification-persist"></div></div>
+  </body>
+</html>

@@ -1,0 +1,245 @@
+// Понятия предметной области автоматического реферирования документов.
+
+concept_text_document
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [текстовый документ]
+    (* <- lang_ru;; *);
+    [text document]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Документ, содержание которого представлено текстом на естественном языке.
+     Текст документа связывается с документом отношением текст документа*;
+     язык текста задаётся принадлежностью ссылки языку (lang_ru, lang_de).]
+    (* <- lang_ru;; *);;
+
+concept_test_collection_document
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [документ тестовой коллекции]
+    (* <- lang_ru;; *);
+    [test collection document]
+    (* <- lang_en;; *);
+<= nrel_inclusion:
+    concept_text_document;
+=> nrel_note:
+    [Текстовый документ, входящий в базу документов DB. По документам тестовой коллекции
+     того же языка вычисляются количество документов |DB| и документная частота df(t)
+     термина, используемые в весе термина w(t, D).]
+    (* <- lang_ru;; *);;
+
+concept_scientific_article_on_computer_science
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [научная статья по computer science]
+    (* <- lang_ru;; *);
+    [scientific article on computer science]
+    (* <- lang_en;; *);
+<= nrel_inclusion:
+    concept_text_document;
+=> nrel_note:
+    [Текстовый документ, излагающий результаты исследования в области информатики и
+     вычислительной техники. Первая предметная область варианта 4.]
+    (* <- lang_ru;; *);;
+
+concept_essay_on_literature
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [сочинение по литературе]
+    (* <- lang_ru;; *);
+    [essay on literature]
+    (* <- lang_en;; *);
+<= nrel_inclusion:
+    concept_text_document;
+=> nrel_note:
+    [Текстовый документ, посвящённый разбору литературного произведения: истории
+     создания, сюжета, образов персонажей, художественных особенностей и восприятия.
+     Вторая предметная область варианта 4.]
+    (* <- lang_ru;; *);;
+
+concept_sentence
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [предложение]
+    (* <- lang_ru;; *);
+    [sentence]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Фрагмент текста документа от начала предложения до знака его окончания.
+     Предложение реферата представляется sc-ссылкой с текстом предложения; номер
+     предложения в документе и его весовые коэффициенты задаются числовыми
+     sc-ссылками.]
+    (* <- lang_ru;; *);;
+
+concept_summary
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [реферат]
+    (* <- lang_ru;; *);
+    [summary]
+    (* <- lang_en;; *);
+<- rrel_key_sc_element:
+    ...
+    (*
+    => nrel_main_idtf:
+        [Опр. (реферат)]
+        (* <- lang_ru;; *);;
+    <- definition;;
+    <= nrel_sc_text_translation:
+        ...
+        (*
+        -> rrel_example:
+            [Реферат — сжатое представление текстового документа, позволяющее пользователю
+             понять основное содержание документа без его чтения. Реферат, построенный
+             системой, состоит из двух разделов: классического реферата и реферата в виде
+             списка ключевых слов.]
+            (* <- lang_ru;; *);;
+        *);;
+    <= nrel_using_constants: {
+        concept_text_document;
+        concept_classic_summary;
+        concept_keyword_summary
+    };;
+    *);;
+
+concept_classic_summary
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [классический реферат]
+    (* <- lang_ru;; *);
+    [classic summary]
+    (* <- lang_en;; *);
+<- rrel_key_sc_element:
+    ...
+    (*
+    => nrel_main_idtf:
+        [Опр. (классический реферат)]
+        (* <- lang_ru;; *);;
+    <- definition;;
+    <= nrel_sc_text_translation:
+        ...
+        (*
+        -> rrel_example:
+            [Классический реферат — упорядоченное множество наиболее информативных
+             предложений документа, выбранных методом sentence extraction и расположенных
+             в той последовательности, в которой они идут в тексте. Порядок задаётся
+             ролями rrel_1, rrel_2 и так далее.]
+            (* <- lang_ru;; *);;
+        *);;
+    <= nrel_using_constants: {
+        concept_sentence;
+        sentence_extraction
+    };;
+    *);;
+
+concept_keyword_summary
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [реферат в виде списка ключевых слов]
+    (* <- lang_ru;; *);
+    [keyword summary]
+    (* <- lang_en;; *);
+<- rrel_key_sc_element:
+    ...
+    (*
+    => nrel_main_idtf:
+        [Опр. (реферат в виде списка ключевых слов)]
+        (* <- lang_ru;; *);;
+    <- definition;;
+    <= nrel_sc_text_translation:
+        ...
+        (*
+        -> rrel_example:
+            [Реферат в виде списка ключевых слов — иерархический список наиболее
+             информативных слов и именных групп документа. Верхний уровень образуют
+             ключевые слова, им подчиняются содержащие их словосочетания (отношение
+             подчинённый ключевой термин*).]
+            (* <- lang_ru;; *);;
+        *);;
+    <= nrel_using_constants: {
+        concept_keyword;
+        concept_key_phrase;
+        nrel_subordinate_key_term
+    };;
+    *);;
+
+concept_key_term
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [ключевой термин]
+    (* <- lang_ru;; *);
+    [key term]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Слово или словосочетание, включённое хотя бы в один реферат в виде списка
+     ключевых слов. Ключевой термин — общий для всех документов: реферат разных
+     документов, содержащих одно и то же понятие, указывает на один и тот же узел.]
+    (* <- lang_ru;; *);;
+
+concept_keyword
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [ключевое слово]
+    (* <- lang_ru;; *);
+    [keyword]
+    (* <- lang_en;; *);
+<= nrel_inclusion:
+    concept_key_term;
+=> nrel_note:
+    [Ключевой термин из одного слова: существительное с наибольшей значимостью
+     tf(t, D) · log(|DB| / df(t)) в документе.]
+    (* <- lang_ru;; *);;
+
+concept_key_phrase
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [ключевое словосочетание]
+    (* <- lang_ru;; *);
+    [key phrase]
+    (* <- lang_en;; *);
+<= nrel_inclusion:
+    concept_key_term;
+=> nrel_note:
+    [Ключевой термин — именная группа: прилагательное и существительное,
+     существительное с зависимым существительным в родительном падеже, имя человека
+     или немецкое сложное слово, содержащее ключевое слово.]
+    (* <- lang_ru;; *);;
+
+concept_summarization_method
+<- sc_node_class;
+<- class;
+=> nrel_main_idtf:
+    [метод автоматического реферирования]
+    (* <- lang_ru;; *);
+    [summarization method]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Способ построения реферата документа по его тексту.]
+    (* <- lang_ru;; *);;
+
+sentence_extraction
+<- concept_summarization_method;
+=> nrel_main_idtf:
+    [метод sentence extraction]
+    (* <- lang_ru;; *);
+    [sentence extraction]
+    (* <- lang_en;; *);
+=> nrel_note:
+    [Метод построения классического реферата выбором предложений исходного текста.
+     Вес термина: w(t, D) = 0,5 · (1 + tf(t, D) / tf_max(D)) · log(|DB| / df(t)).
+     Оценка предложения: Score(S) = сумма tf(t, S) · w(t, D) по терминам предложения.
+     Положение в документе: Posd(S) = 1 − BD(S) / |D|; в абзаце: Posp(S) = 1 − BP(S) / |P|.
+     Вес предложения — произведение Score · Posd · Posp. В реферат выбираются предложения
+     с наибольшим весом в порядке их следования в тексте.]
+    (* <- lang_ru;; *);;

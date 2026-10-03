@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Реферат: {{ page.title }}</title>
+  <link rel="stylesheet" href="{{ static_url('style.css') }}">
+</head>
+<body class="print-page">
+<div class="print-actions no-print">
+  <button onclick="window.print()">Печать</button>
+  <a href="{{ page.base }}?n={{ summary.requested }}">← к реферату</a>
+  <span class="note">В диалоге печати можно выбрать «Сохранить как PDF».</span>
+</div>
+{% include "summary_paper.html" %}
+</body>
+</html>
