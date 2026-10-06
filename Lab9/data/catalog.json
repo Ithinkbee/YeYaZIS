@@ -1,0 +1,225 @@
+{
+ "domain": "Сочинения по литературе",
+ "note": "Тексты о литературных произведениях из немецкой и русской Википедии (CC BY-SA 4.0); те же, что в коллекции работы № 3, вводные разделы статей удалены.",
+ "essays": [
+  {
+   "id": "de-lit-raeuber",
+   "file": "de-lit-raeuber.txt",
+   "language": "de",
+   "title": "Die Räuber",
+   "author": "Friedrich Schiller",
+   "year": "1781",
+   "about": "Drama von Friedrich Schiller aus dem Jahr 1781",
+   "about_ru": "драма Фридриха Шиллера, 1781 год",
+   "title_ru": "Разбойники",
+   "aliases": [
+    "die räuber",
+    "räuber",
+    "schiller",
+    "karl moor"
+   ],
+   "source": {
+    "site": "Википедия (de.wikipedia.org)",
+    "url": "https://de.wikipedia.org/wiki/Die_R%C3%A4uber",
+    "revision": 270809530,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "de-lit-werther",
+   "file": "de-lit-werther.txt",
+   "language": "de",
+   "title": "Die Leiden des jungen Werthers",
+   "author": "Johann Wolfgang von Goethe",
+   "year": "1774",
+   "about": "Briefroman von Johann Wolfgang von Goethe aus dem Jahr 1774",
+   "about_ru": "роман в письмах Иоганна Вольфганга Гёте, 1774 год",
+   "title_ru": "Страдания юного Вертера",
+   "aliases": [
+    "die leiden des jungen werthers",
+    "werther",
+    "werthers",
+    "goethe"
+   ],
+   "source": {
+    "site": "Википедия (de.wikipedia.org)",
+    "url": "https://de.wikipedia.org/wiki/Die_Leiden_des_jungen_Werthers",
+    "revision": 269564156,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "de-lit-effi",
+   "file": "de-lit-effi.txt",
+   "language": "de",
+   "title": "Effi Briest",
+   "author": "Theodor Fontane",
+   "year": "1895",
+   "about": "Roman von Theodor Fontane aus dem Jahr 1895",
+   "about_ru": "роман Теодора Фонтане, 1895 год",
+   "title_ru": "Эффи Брист",
+   "aliases": [
+    "effi briest",
+    "effi",
+    "briest",
+    "fontane"
+   ],
+   "source": {
+    "site": "Википедия (de.wikipedia.org)",
+    "url": "https://de.wikipedia.org/wiki/Effi_Briest",
+    "revision": 270824476,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "de-lit-verwandlung",
+   "file": "de-lit-verwandlung.txt",
+   "language": "de",
+   "title": "Die Verwandlung",
+   "author": "Franz Kafka",
+   "year": "1915",
+   "about": "Erzählung von Franz Kafka aus dem Jahr 1915",
+   "about_ru": "повесть Франца Кафки, 1915 год",
+   "title_ru": "Превращение",
+   "aliases": [
+    "die verwandlung",
+    "verwandlung",
+    "kafka",
+    "gregor samsa"
+   ],
+   "source": {
+    "site": "Википедия (de.wikipedia.org)",
+    "url": "https://de.wikipedia.org/wiki/Die_Verwandlung",
+    "revision": 269264511,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "de-lit-westen",
+   "file": "de-lit-westen.txt",
+   "language": "de",
+   "title": "Im Westen nichts Neues",
+   "author": "Erich Maria Remarque",
+   "year": "1929",
+   "about": "Roman von Erich Maria Remarque aus dem Jahr 1929",
+   "about_ru": "роман Эриха Марии Ремарка, 1929 год",
+   "title_ru": "На Западном фронте без перемен",
+   "aliases": [
+    "im westen nichts neues",
+    "westen",
+    "remarque"
+   ],
+   "source": {
+    "site": "Википедия (de.wikipedia.org)",
+    "url": "https://de.wikipedia.org/wiki/Im_Westen_nichts_Neues",
+    "revision": 266492848,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "ru-lit-onegin",
+   "file": "ru-lit-onegin.txt",
+   "language": "ru",
+   "title": "Евгений Онегин",
+   "author": "Александр Пушкин",
+   "year": "1823–1831",
+   "about": "роман в стихах Александра Пушкина, написан в 1823–1831 годах",
+   "aliases": [
+    "евгений онегин",
+    "онегин",
+    "пушкин"
+   ],
+   "source": {
+    "site": "Википедия (ru.wikipedia.org)",
+    "url": "https://ru.wikipedia.org/wiki/%D0%95%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B9_%D0%9E%D0%BD%D0%B5%D0%B3%D0%B8%D0%BD",
+    "revision": 154475369,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "ru-lit-woe",
+   "file": "ru-lit-woe.txt",
+   "language": "ru",
+   "title": "Горе от ума",
+   "author": "Александр Грибоедов",
+   "year": "1824",
+   "about": "комедия в стихах Александра Грибоедова, 1824 год",
+   "aliases": [
+    "горе от ума",
+    "горе",
+    "грибоедов",
+    "чацкий"
+   ],
+   "source": {
+    "site": "Википедия (ru.wikipedia.org)",
+    "url": "https://ru.wikipedia.org/wiki/%D0%93%D0%BE%D1%80%D0%B5_%D0%BE%D1%82_%D1%83%D0%BC%D0%B0",
+    "revision": 155191081,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "ru-lit-souls",
+   "file": "ru-lit-souls.txt",
+   "language": "ru",
+   "title": "Мёртвые души",
+   "author": "Николай Гоголь",
+   "year": "1842",
+   "about": "поэма Николая Гоголя, 1842 год",
+   "aliases": [
+    "мёртвые души",
+    "души",
+    "гоголь",
+    "чичиков"
+   ],
+   "source": {
+    "site": "Википедия (ru.wikipedia.org)",
+    "url": "https://ru.wikipedia.org/wiki/%D0%9C%D1%91%D1%80%D1%82%D0%B2%D1%8B%D0%B5_%D0%B4%D1%83%D1%88%D0%B8",
+    "revision": 154846036,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "ru-lit-crime",
+   "file": "ru-lit-crime.txt",
+   "language": "ru",
+   "title": "Преступление и наказание",
+   "author": "Фёдор Достоевский",
+   "year": "1866",
+   "about": "роман Фёдора Достоевского, 1866 год",
+   "aliases": [
+    "преступление и наказание",
+    "преступление",
+    "наказание",
+    "достоевский",
+    "раскольников"
+   ],
+   "source": {
+    "site": "Википедия (ru.wikipedia.org)",
+    "url": "https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%B5%D1%81%D1%82%D1%83%D0%BF%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B8_%D0%BD%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D0%BD%D0%B8%D0%B5",
+    "revision": 154292429,
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "ru-lit-master",
+   "file": "ru-lit-master.txt",
+   "language": "ru",
+   "title": "Мастер и Маргарита",
+   "author": "Михаил Булгаков",
+   "year": "1928–1940",
+   "about": "роман Михаила Булгакова, написан в 1928–1940 годах",
+   "aliases": [
+    "мастер и маргарита",
+    "мастер",
+    "маргарита",
+    "булгаков"
+   ],
+   "source": {
+    "site": "Википедия (ru.wikipedia.org)",
+    "url": "https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%81%D1%82%D0%B5%D1%80_%D0%B8_%D0%9C%D0%B0%D1%80%D0%B3%D0%B0%D1%80%D0%B8%D1%82%D0%B0",
+    "revision": 155323051,
+    "license": "CC BY-SA 4.0"
+   }
+  }
+ ]
+}

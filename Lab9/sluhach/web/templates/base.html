@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}«{{ app_name }}» — распознавание речи и голосовое управление{% endblock %}</title>
+  <link rel="stylesheet" href="{{ static_url('style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎙️</text></svg>">
+</head>
+{# is-admin ставится, когда в этом браузере вошёл администратор: тогда видны пункт
+   меню «Тайник» и кнопка выхода. Класс только показывает ссылки — сами пасхалки
+   сервер отдаёт лишь по ключу сеанса. #}
+<body class="{% if companion_enabled %}has-companion{% endif %}{% if is_admin %} is-admin{% endif %}">
+
+<header class="top">
+  <a class="brand" href="/">
+    <span class="brand-mark">С</span>
+    <span>
+      <b>{{ app_name }}</b>
+      <small>распознавание речи и голосовое управление</small>
+    </span>
+  </a>
+  <nav>
+    <a href="/" {% if active == 'console' %}class="active"{% endif %}>Пульт</a>
+    <a href="/operations" {% if active == 'operations' %}class="active"{% endif %}>Операции</a>
+    <a href="/evaluation" {% if active == 'evaluation' %}class="active"{% endif %}>Проверка</a>
+    {% if companion_enabled %}
+    <a href="/walk" {% if active == 'walk' %}class="active"{% endif %}>Прогулка с {{ companion_instrumental }}</a>
+    {% endif %}
+    <a href="/help" {% if active == 'help' %}class="active"{% endif %}>Справка</a>
+    <a href="/admin" class="admin-only nav-secret" data-admin-open title="Фразы-пасхалки">Тайник</a>
+  </nav>
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <span>«{{ app_name }}» {{ version }} · лабораторная работа № {{ lab_number }}, вариант {{ variant }}</span>
+  <span>немецкий / русский · система анализа речи · сочинения по литературе</span>
+  <span class="admin-entry"><a href="/admin" data-admin-open>Вход администратора</a></span>
+  <span class="admin-only">Вы вошли как администратор ·
+    <a href="/admin" data-admin-open>тайник</a> ·
+    <button type="button" class="link-button" data-admin-logout>выйти</button></span>
+</footer>
+
+{% if companion_enabled %}
+{# Пафнутий из прошлых работ, в новом облике. Фигуру строит pafnuty.js: у паука
+   подвижные ноги, и готовой картинкой его не нарисовать. #}
+<div id="companion" class="companion" title="{{ companion_name }} слушает"{% if companion_speaks %} data-speaks="1"{% endif %}>
+  <div class="companion-figure" id="companion-figure"></div>
+  <div class="companion-bubble" id="companion-bubble">{{ companion_line }}</div>
+</div>
+{% endif %}
+
+{# Тайник: окно администратора с фразами-пасхалками. Обычно оно скрыто, а
+   открывшему его без входа показывает только вопрос об имени и пароле: сами
+   фразы сервер отдаёт после проверки. Открывается ссылкой «Вход
+   администратора» внизу страницы, адресом /admin, пятью щелчками по пауку
+   или Ctrl+Alt+P. #}
+<dialog id="secret" class="secret" aria-labelledby="secret-title">
+  <button type="button" class="ghost small-button secret-close" id="secret-close" title="Закрыть">✕</button>
+  <h2 id="secret-title" data-login="Вход администратора"
+      data-open="Тайник{% if companion_enabled %} {{ companion_genitive }}{% endif %}">Вход администратора</h2>
+
+  <div id="secret-login">
+    <p class="note">Администратор задаёт фразы-пасхалки: ключевые фразы и ответы на них. Имя и пароль
+      администратора задаются при запуске системы.</p>
+    <form id="secret-login-form" class="secret-login">
+      <label>Имя
+        <input type="text" id="secret-name" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="100"></label>
+      <label>Пароль
+        <input type="password" id="secret-password" autocomplete="current-password" maxlength="200"></label>
+      <button type="submit">Войти</button>
+    </form>
+    <p class="secret-error" id="secret-login-error"></p>
+  </div>
+
+  <div id="secret-body" hidden>
+    <p class="note">Фразы-пасхалки. Услышав ключевую фразу, система не повторяет её вслух, а произносит ответ.
+      Фраза узнаётся и без знаков препинания, и с небольшой ошибкой распознавания; язык определяется по
+      алфавиту.</p>
+    <p class="secret-empty" id="secret-empty" hidden>Пасхалок пока нет.</p>
+    <table class="grid secret-table" id="secret-table">
+      <thead><tr><th></th><th>Ключевая фраза</th><th>Фраза-ответ</th><th></th></tr></thead>
+      <tbody id="secret-rows"></tbody>
+    </table>
+    <form id="secret-add" class="secret-row">
+      {# примеры в подсказках — не из настоящих пасхалок: разметку видит и обычный пользователь #}
+      <input type="text" id="secret-key" placeholder="Ключевая фраза: Кто живёт в углу?" maxlength="{{ config.MAX_EGG_KEY_CHARS }}">
+      <input type="text" id="secret-answer" placeholder="Фраза-ответ: Тот, кто всё слышит" maxlength="{{ config.MAX_EGG_ANSWER_CHARS }}">
+      <button type="submit">Добавить</button>
+    </form>
+    <p class="secret-error" id="secret-error"></p>
+    <form id="secret-probe-form" class="secret-row">
+      <input type="text" id="secret-probe" placeholder="Проверить: что система услышит в этой фразе">
+      <button type="submit" class="ghost">Проверить</button>
+    </form>
+    <p class="note" id="secret-probe-result"></p>
+    <p class="secret-foot">
+      <span class="note">Вы вошли как администратор. Пасхалки хранятся в файле <code>data/eggs.json</code> и
+        действуют сразу.</span>
+      <button type="button" class="ghost small-button" data-admin-logout>Выйти</button>
+    </p>
+  </div>
+</dialog>
+
+<script>window.SLUHACH = {{ client_config()|tojson }};</script>
+{% if companion_enabled %}<script src="{{ static_url('pafnuty.js') }}"></script>{% endif %}
+<script src="{{ static_url('app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

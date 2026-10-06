@@ -1,0 +1,50 @@
+[
+ {
+  "file": "de-open.wav",
+  "language": "de",
+  "voice": "Hedda",
+  "text": "Öffne den Aufsatz über die Räuber"
+ },
+ {
+  "file": "de-read.wav",
+  "language": "de",
+  "voice": "Stefan",
+  "text": "Lies vor"
+ },
+ {
+  "file": "de-count.wav",
+  "language": "de",
+  "voice": "Katja",
+  "text": "Wie viele Wörter hat der Aufsatz"
+ },
+ {
+  "file": "de-egg.wav",
+  "language": "de",
+  "voice": "Stefan",
+  "text": "Wie viel kostet ein Elefant"
+ },
+ {
+  "file": "ru-open.wav",
+  "language": "ru",
+  "voice": "Irina",
+  "text": "Открой сочинение про Евгения Онегина"
+ },
+ {
+  "file": "ru-next.wav",
+  "language": "ru",
+  "voice": "Irina",
+  "text": "Читай дальше"
+ },
+ {
+  "file": "ru-find.wav",
+  "language": "ru",
+  "voice": "Pavel",
+  "text": "Найди слово дуэль"
+ },
+ {
+  "file": "ru-egg.wav",
+  "language": "ru",
+  "voice": "Pavel",
+  "text": "Сколько стоит слон"
+ }
+]

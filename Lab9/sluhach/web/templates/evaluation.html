@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% block title %}Проверка — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Проверка распознавания и реакции</h1>
+<p class="lead">Проверочные фразы — все команды всех операций, предложения из сочинений по литературе и
+  ключевые фразы-пасхалки — озвучены синтезатором речи Windows несколькими голосами. Каждая запись дополнена
+  тишиной и шумом и проходит тот же путь, что звук с микрофона: детектор речи, потоковое распознавание,
+  выбор операции. Те же показатели можно получить и для своего голоса.</p>
+
+<section class="block selftest" id="selftest">
+  <div class="block-head">
+    <h2>Проверка своим голосом</h2>
+    <span class="switch" id="selftest-language">
+      {% for code in config.LANGUAGE_CODES %}
+      <button type="button" data-language="{{ code }}" title="{{ language_name(code) }}">{{ config.LANGUAGES[code][1] }}</button>
+      {% endfor %}
+    </span>
+  </div>
+  <p class="note">Числа на этой странице получены на синтезированной речи. Здесь фразы из того же набора читаете
+    вы: {{ selftest.COMMANDS }} команд и {{ selftest.SENTENCES }} предложения из сочинений. Система слушает микрофон
+    тем же путём, что на пульте (Vosk), и считает для вашего голоса те же показатели. Читайте фразу без долгих
+    пауз: пауза длиннее {{ (selftest.PAUSE_MS / 1000)|num(1) }} с считается её концом.</p>
+  <div class="banner warn-banner" id="selftest-banner" hidden></div>
+
+  <div class="selftest-stage" id="selftest-stage" data-state="idle" hidden>
+    <div class="selftest-top">
+      <span class="selftest-count" id="selftest-count"></span>
+      <span class="selftest-kind" id="selftest-kind"></span>
+      <div class="meter" title="уровень сигнала с микрофона"><div class="meter-fill" id="selftest-meter"></div></div>
+      <span class="selftest-state" id="selftest-state"></span>
+    </div>
+    <p class="selftest-phrase" id="selftest-phrase"></p>
+    <p class="selftest-heard" id="selftest-heard"></p>
+    <div class="selftest-buttons">
+      <button type="button" id="selftest-next" hidden>Дальше</button>
+      <button type="button" class="ghost" id="selftest-again" hidden>Прочитать ещё раз</button>
+      <button type="button" class="ghost" id="selftest-skip">Пропустить</button>
+      <button type="button" class="ghost" id="selftest-stop">Закончить</button>
+    </div>
+  </div>
+
+  <div id="selftest-result" hidden></div>
+
+  <div class="selftest-buttons" id="selftest-idle">
+    <button type="button" id="selftest-start">Начать проверку</button>
+    <span class="note" id="selftest-note"></span>
+  </div>
+</section>
+<script type="application/json" id="selftest-data">{{ selftest_boot|tojson }}</script>
+
+{% if not data %}
+<div class="banner warn-banner">Проверка ещё не выполнялась. Запустите её (нужны Windows с голосами немецкого и
+  русского языков и скачанные модели Vosk):
+  <pre>python tools/evaluate.py</pre>
+  Она озвучит фразы, прогонит их через систему и сохранит результаты в <code>report/evaluation.json</code>.</div>
+{% else %}
+{% set conditions = ['clean', 'snr20', 'snr10', 'snr5'] %}
+{% set condition_names = {'clean': 'без шума', 'snr20': 'шум, 20 дБ', 'snr10': 'шум, 10 дБ', 'snr5': 'шум, 5 дБ'} %}
+{% set kind_names = {'command': 'Команды', 'sentence': 'Предложения из сочинений', 'egg': 'Фразы-пасхалки'} %}
+{% set scopes = {'de': 'немецкий', 'ru': 'русский', 'all': 'оба языка'} %}
+
+<p class="note">Последняя проверка: {{ data.created }}, заняла {{ data.elapsed_ms|ms }}. Записей: {{ data.recordings|num }},
+  испытаний (запись × условие): {{ data.trials|num }}. Полная выгрузка — <code>report/evaluation.json</code>;
+  пересчитать — <code>python tools/evaluate.py</code>.</p>
+
+<div class="cards">
+  {% for code in config.LANGUAGE_CODES if data.phrases[code] %}
+  <div class="card">
+    <h3>Фразы, {{ language_name(code) }}</h3>
+    <span class="big">{{ data.phrases[code].values()|sum }}</span>
+    <p class="note">команд — {{ data.phrases[code].command or 0 }}, предложений — {{ data.phrases[code].sentence or 0 }},
+      пасхалок — {{ data.phrases[code].egg or 0 }}; модель {{ data.models[code] }}</p>
+  </div>
+  {% endfor %}
+  <div class="card">
+    <h3>Голоса</h3>
+    <span class="big">{% for code in config.LANGUAGE_CODES %}{{ data.voices[code]|length }}{% if not loop.last %} + {% endif %}{% endfor %}</span>
+    <p class="note">{% for code in config.LANGUAGE_CODES %}{{ language_name(code) }}:
+      {% for voice in data.voices[code] %}{{ voice.speaker }} ({{ voice.gender }}){% if not loop.last %}, {% endif %}{% endfor %}{% if not loop.last %};{% endif %}
+      {% endfor %}</p>
+  </div>
+</div>
+
+<h2>Что измеряется</h2>
+<div class="prose">
+  <dl>
+    <dt>WER — доля ошибок в словах</dt>
+    <dd>(замены + пропуски + вставки) / число слов эталона. Слова сравниваются после приведения к одному виду:
+      строчные буквы, без знаков препинания.</dd>
+    <dt>Верная реакция</dt>
+    <dd>Реакция на распознанную фразу та же, что на её эталонный текст: та же операция с тем же итогом (то же
+      сочинение, абзац, язык, найденное слово). Главная мера для команд: фраза может распознаться с ошибкой в
+      букве и всё равно выполниться верно.</dd>
+    <dt>Замечено</dt>
+    <dd>Детектор речи открыл фразу, и распознаватель нашёл в ней слова. В сильном шуме речь перестаёт
+      выделяться над порогом, и фраза пропускается целиком.</dd>
+    <dt>Ложное срабатывание</dt>
+    <dd>Предложение из сочинения — не команда — вызвало операцию.</dd>
+  </dl>
+</div>
+
+{% for kind in ['command', 'sentence', 'egg'] %}
+{% set first = data.groups.get('all', {}).get(kind) %}
+{% if first %}
+<h2>{{ kind_names[kind] }}</h2>
+<table class="grid">
+  <thead>
+    <tr>
+      <th>Язык</th><th>Условие</th><th class="num">Испытаний</th><th class="num">WER</th>
+      <th class="num">Дословно</th><th class="num">{{ 'Верная реакция' if kind != 'sentence' else 'Повторено без операции' }}</th>
+      <th class="num">Замечено</th>{% if kind == 'sentence' %}<th class="num">Ложные срабатывания</th>{% endif %}
+      <th class="num">Уверенность</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for scope, scope_name in scopes.items() %}
+    {% set rows = data.groups.get(scope, {}).get(kind) %}
+    {% if rows %}
+    {% for condition in conditions if rows[condition] %}
+    {% set row = rows[condition] %}
+    <tr class="{% if scope == 'all' %}row-best{% endif %}">
+      <td>{% if loop.first %}{{ scope_name }}{% endif %}</td>
+      <td>{{ condition_names[condition] }}</td>
+      <td class="num">{{ row.trials }}</td>
+      <td class="num">{{ row.wer|pct }}</td>
+      <td class="num">{{ row.exact|pct }}</td>
+      <td class="num"><span class="bar-track"><span class="bar" style="width: {{ (row.reaction * 100)|round(1) }}%"></span></span>{{ row.reaction|pct }}</td>
+      <td class="num">{{ row.detected|pct }}</td>
+      {% if kind == 'sentence' %}<td class="num">{{ row.false_alarm|pct }}</td>{% endif %}
+      <td class="num">{{ row.confidence|num(2) }}</td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endfor %}
+
+<h2>Команды по голосам</h2>
+<table class="grid narrow-table">
+  <thead>
+    <tr><th>Язык</th><th>Голос</th>{% for condition in conditions %}<th class="num">{{ condition_names[condition] }}</th>{% endfor %}</tr>
+  </thead>
+  <tbody>
+    {% for code in config.LANGUAGE_CODES %}
+    {% for voice, rows in (data.by_voice.get(code) or {}).items() %}
+    <tr>
+      <td>{% if loop.first %}{{ language_name(code) }}{% endif %}</td>
+      <td>{{ voice }}</td>
+      {% for condition in conditions %}<td class="num">{{ rows[condition].reaction|pct if rows[condition] else '—' }}</td>{% endfor %}
+    </tr>
+    {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+<p class="note">Доля верных реакций на команды.</p>
+
+<h2>Команды по операциям</h2>
+<table class="grid">
+  <thead>
+    <tr><th>Операция</th>
+      {% for code in config.LANGUAGE_CODES %}{% for condition in ['clean', 'snr10'] %}
+      <th class="num">{{ language_name(code)[:3] }}., {{ condition_names[condition] }}</th>
+      {% endfor %}{% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for op in operations %}
+    <tr>
+      <td>{{ op.title }}</td>
+      {% for code in config.LANGUAGE_CODES %}{% for condition in ['clean', 'snr10'] %}
+      {% set row = (data.by_operation.get(code) or {}).get(op.id, {}).get(condition) %}
+      <td class="num {% if row and row.reaction < 0.8 %}bad{% endif %}">{{ row.reaction|pct if row else '—' }}</td>
+      {% endfor %}{% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="note">Доля верных реакций; красным — операции, которые выполняются верно реже чем в четырёх случаях из
+  пяти.</p>
+
+<h2>Время</h2>
+<table class="grid narrow-table">
+  <thead><tr><th>Язык</th><th class="num">Распознавание фразы</th><th class="num">Отношение ко времени звучания</th></tr></thead>
+  <tbody>
+    {% for code in config.LANGUAGE_CODES %}
+    {% set row = (data.groups.get(code) or {}).get('command', {}).get('clean') %}
+    {% set long = (data.groups.get(code) or {}).get('sentence', {}).get('clean') %}
+    {% if row %}
+    <tr><td>{{ language_name(code) }}, команды</td><td class="num">{{ row.recognition_ms|ms }}</td>
+      <td class="num">{{ row.rtf|num(2) }}</td></tr>
+    {% endif %}
+    {% if long %}
+    <tr><td>{{ language_name(code) }}, предложения</td><td class="num">{{ long.recognition_ms|ms }}</td>
+      <td class="num">{{ long.rtf|num(2) }}</td></tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+<p class="note">Отношение меньше единицы значит, что распознавание идёт быстрее речи: текст готов к концу фразы.
+  Выбор операции занимает меньше миллисекунды. К этому времени на пульте добавляется пауза, по которой
+  определяется конец фразы ({{ config.VAD_END_SILENCE_MS }} мс).</p>
+
+{% if data.mistakes %}
+<h2>Что распознаётся с ошибкой</h2>
+<table class="grid">
+  <thead><tr><th>Язык</th><th>Сказано</th><th>Услышано</th><th>Голоса</th><th>Реакция</th></tr></thead>
+  <tbody>
+    {% for item in data.mistakes[:40] %}
+    <tr>
+      <td><span class="tag tag-{{ item.language }}">{{ language_name(item.language) }}</span></td>
+      <td>{{ item.said }}</td>
+      <td>{{ item.heard or '— ничего —' }}</td>
+      <td class="small muted">{{ item.voices|join(', ') }}</td>
+      <td class="{{ 'ok' if item.reaction_ok else 'bad' }}">{{ 'верная' if item.reaction_ok else 'неверная' }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="note">Команды, распознанные без шума не дословно{% if data.mistakes|length > 40 %} (первые 40 из
+  {{ data.mistakes|length }}){% endif %}. «Верная» реакция — нечёткое сопоставление исправило ошибку распознавателя.</p>
+{% endif %}
+
+{% for image in images %}
+<div class="figure"><img src="/report/{{ image }}" alt="{{ image }}"></div>
+{% endfor %}
+
+<h2>Чего эта проверка не показывает</h2>
+<div class="prose">
+  <p>Синтезированная речь ровнее живой: у неё нет оговорок, акцента, эха комнаты и дешёвого микрофона, а
+    белый шум проще настоящего — разговоров и музыки. Поэтому числа выше — верхняя оценка; с микрофона ошибок
+    будет больше. Зато проверка повторима: её можно запустить заново после любой правки и сравнить числа.</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('mic.js') }}"></script>
+<script src="{{ static_url('selftest.js') }}"></script>
+{% endblock %}

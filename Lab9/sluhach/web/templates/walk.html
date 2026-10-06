@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Прогулка с {{ companion_instrumental }} — «{{ app_name }}»{% endblock %}
+{% block content %}
+<div id="walk">
+<h1>Прогулка с {{ companion_instrumental }}</h1>
+<p class="lead">{{ companion_name }} идёт по карте и слушается голоса: пока слышит его — шагает, а от громкого звука
+  подпрыгивает от неожиданности. Проведите его до финиша мимо воды и оврагов. Слов игра не распознаёт — ей нужна
+  только громкость, так что говорить можно что угодно и на любом языке.</p>
+
+<section id="walk-intro" class="walk-intro">
+  <div>
+    <div class="block">
+      <h2>Правила</h2>
+      <ul class="walk-rules">
+        <li><b>Тихий голос — шаг.</b> Паук идёт вперёд, пока слышит голос. Замолчали — остановился.</li>
+        <li><b>Громкий голос — прыжок.</b> От громкого звука паук подпрыгивает, и чем громче звук, тем выше и
+          дальше. Пугается он один раз: чтобы прыгнуть снова, нужно сначала стихнуть.</li>
+        <li><b>В полёте не молчите.</b> Вперёд паук летит, только пока звучит голос; замолчите — упадёт почти
+          отвесно. Так прыжок можно укоротить.</li>
+        <li><b>Вода</b> — через неё только прыжком. Искупавшись, паук возвращается к последней метке (флажку) или
+          в начало карты.</li>
+        <li><b>Овраг</b> не страшен, но шагом из него не выйти — нужен прыжок. Так же и с высокой ступенькой.</li>
+        <li><b>Звёзды</b> на финише: три — ни разу не искупался, две — не больше двух раз, одна — дошёл.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h2>Карты</h2>
+      <div class="walk-levels" id="walk-levels"></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Голос</h2>
+    <p class="note" id="mic-note">Включите микрофон: паук секунду послушает тишину, потом попросит сказать что-нибудь
+      вполголоса — и сам расставит два порога: с какой громкости идти и с какой прыгать. Без микрофона он слушается
+      клавиш: → — идти, пробел — прыгать.</p>
+    <div class="voice-panel">
+      <div class="voice-meter" id="voice-meter" title="громкость: красная зона — прыжок, зелёная — шаг">
+        <div class="voice-meter-fill" id="voice-meter-fill"></div>
+      </div>
+      <div class="voice-controls">
+        <div>
+          <button type="button" id="mic-toggle">Включить микрофон</button>
+          <button type="button" class="ghost" id="mic-listen" disabled>Настроить заново</button>
+        </div>
+        <div class="voice-state" id="voice-state">микрофон выключен</div>
+        <label class="settings-row">Идти — от
+          <input type="range" id="quiet-threshold" min="-60" max="-12" step="1"><output id="quiet-value"></output></label>
+        <label class="settings-row">Прыгать — от
+          <input type="range" id="loud-threshold" min="-50" max="-3" step="1"><output id="loud-value"></output></label>
+        <p class="note">Столбик показывает громкость. Скажите что-нибудь вполголоса — он должен зайти в зелёную
+          зону; крикните — в красную. Если паук идёт от шума комнаты, поднимите первый порог; если прыгает от
+          обычной речи — второй.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="walk-play" hidden>
+  <div class="walk-hud">
+    <b id="hud-name"></b>
+    <span>время <b id="hud-time">0:00,0</b></span>
+    <span>купаний <b id="hud-falls">0</b></span>
+    <span>лучшее <b id="hud-best">—</b></span>
+    <span class="walk-progress" title="путь до финиша"><i id="hud-progress"></i></span>
+  </div>
+
+  <div class="stage" id="stage">
+    <canvas id="stage-back"></canvas>
+    <div class="hero" id="hero"></div>
+    <canvas id="stage-front" class="stage-front"></canvas>
+    <div class="stage-meter" id="stage-meter" title="громкость: красная зона — прыжок, зелёная — шаг"><i id="stage-meter-fill"></i></div>
+    <div class="hero-bubble" id="hero-bubble" role="status"></div>
+    <div class="stage-hint" id="stage-hint"></div>
+    <div class="stage-result" id="stage-result" hidden>
+      <div class="result-card">
+        <div class="stars" id="result-stars"></div>
+        <h2 id="result-title"></h2>
+        <p id="result-text"></p>
+        <p>
+          <button type="button" id="result-next">Следующая карта</button>
+          <button type="button" class="ghost" id="result-again">Ещё раз</button>
+          <button type="button" class="ghost" id="result-leave">К выбору карты</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="walk-controls">
+    <button type="button" class="ghost small-button" id="walk-pause">Пауза</button>
+    <button type="button" class="ghost small-button" id="walk-restart">Заново</button>
+    <button type="button" class="ghost small-button" id="walk-leave">К выбору карты</button>
+    <span class="note">P — пауза. Клавиши → и пробел заменяют тихий и громкий голос.</span>
+  </div>
+</section>
+</div>
+
+<script type="application/json" id="walk-lines">{{ lines|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('mic.js') }}"></script>
+<script src="{{ static_url('walk.js') }}"></script>
+{% endblock %}

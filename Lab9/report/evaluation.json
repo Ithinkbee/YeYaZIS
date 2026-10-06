@@ -1,0 +1,3576 @@
+{
+ "created": "06.10.2026 02:05",
+ "elapsed_ms": 237632.07940000575,
+ "phrases": {
+  "de": {
+   "command": 80,
+   "sentence": 37,
+   "egg": 1
+  },
+  "ru": {
+   "command": 79,
+   "sentence": 39,
+   "egg": 1
+  }
+ },
+ "voices": {
+  "de": [
+   {
+    "name": "Microsoft Hedda Desktop",
+    "speaker": "Hedda",
+    "gender": "женский"
+   },
+   {
+    "name": "Microsoft Katja",
+    "speaker": "Katja",
+    "gender": "женский"
+   },
+   {
+    "name": "Microsoft Stefan",
+    "speaker": "Stefan",
+    "gender": "мужской"
+   }
+  ],
+  "ru": [
+   {
+    "name": "Microsoft Irina Desktop",
+    "speaker": "Irina",
+    "gender": "женский"
+   },
+   {
+    "name": "Microsoft Pavel",
+    "speaker": "Pavel",
+    "gender": "мужской"
+   }
+  ]
+ },
+ "recordings": 592,
+ "trials": 2368,
+ "models": {
+  "de": "vosk-model-small-de-0.15",
+  "ru": "vosk-model-small-ru-0.22"
+ },
+ "groups": {
+  "de": {
+   "command": {
+    "clean": {
+     "trials": 240,
+     "wer": 0.07133058984910837,
+     "exact": 0.8333333333333334,
+     "reaction": 0.9625,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9594166666666667,
+     "rtf": 0.1636140254003314,
+     "recognition_ms": 222.22875000000013
+    },
+    "snr20": {
+     "trials": 240,
+     "wer": 0.10150891632373114,
+     "exact": 0.7625,
+     "reaction": 0.9333333333333333,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9602249999999998,
+     "rtf": 0.175403848671292,
+     "recognition_ms": 223.31833333333324
+    },
+    "snr10": {
+     "trials": 240,
+     "wer": 0.2345679012345679,
+     "exact": 0.5333333333333333,
+     "reaction": 0.7541666666666667,
+     "detected": 0.9916666666666667,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8737352941176474,
+     "rtf": 0.21147314064405082,
+     "recognition_ms": 245.7141666666667
+    },
+    "snr5": {
+     "trials": 240,
+     "wer": 0.850480109739369,
+     "exact": 0.0625,
+     "reaction": 0.15416666666666667,
+     "detected": 0.2916666666666667,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7486142857142859,
+     "rtf": 0.29013931034482754,
+     "recognition_ms": 87.64624999999998
+    }
+   },
+   "sentence": {
+    "clean": {
+     "trials": 111,
+     "wer": 0.0924170616113744,
+     "exact": 0.4774774774774775,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9694054054054054,
+     "rtf": 0.10293969186725431,
+     "recognition_ms": 492.3855855855856
+    },
+    "snr20": {
+     "trials": 111,
+     "wer": 0.11848341232227488,
+     "exact": 0.36936936936936937,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9522432432432429,
+     "rtf": 0.10683759039852285,
+     "recognition_ms": 500.4234234234234
+    },
+    "snr10": {
+     "trials": 111,
+     "wer": 0.19194312796208532,
+     "exact": 0.16216216216216217,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.07207207207207207,
+     "false_alarm": 0.0,
+     "confidence": 0.9184594594594594,
+     "rtf": 0.12487488544447539,
+     "recognition_ms": 564.6819819819817
+    },
+    "snr5": {
+     "trials": 111,
+     "wer": 0.7203791469194313,
+     "exact": 0.05405405405405406,
+     "reaction": 0.45045045045045046,
+     "detected": 0.45045045045045046,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8729399999999998,
+     "rtf": 0.16188726305287668,
+     "recognition_ms": 263.13243243243255
+    }
+   },
+   "egg": {
+    "clean": {
+     "trials": 3,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.19400332225913622,
+     "recognition_ms": 389.3
+    },
+    "snr20": {
+     "trials": 3,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.969,
+     "rtf": 0.22381625441696112,
+     "recognition_ms": 422.26666666666665
+    },
+    "snr10": {
+     "trials": 3,
+     "wer": 0.13333333333333333,
+     "exact": 0.6666666666666666,
+     "reaction": 0.6666666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9663333333333334,
+     "rtf": 0.2418301886792453,
+     "recognition_ms": 427.23333333333335
+    },
+    "snr5": {
+     "trials": 3,
+     "wer": 0.13333333333333333,
+     "exact": 0.6666666666666666,
+     "reaction": 0.6666666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9676666666666667,
+     "rtf": 0.3647368421052632,
+     "recognition_ms": 508.20000000000005
+    }
+   }
+  },
+  "all": {
+   "command": {
+    "clean": {
+     "trials": 398,
+     "wer": 0.11011638316920322,
+     "exact": 0.7562814070351759,
+     "reaction": 0.9698492462311558,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9398291457286432,
+     "rtf": 0.19241186539442057,
+     "recognition_ms": 265.4896984924623
+    },
+    "snr20": {
+     "trials": 398,
+     "wer": 0.13249776186213072,
+     "exact": 0.7135678391959799,
+     "reaction": 0.9472361809045227,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.933371859296482,
+     "rtf": 0.20150113430999333,
+     "recognition_ms": 263.3386934673365
+    },
+    "snr10": {
+     "trials": 398,
+     "wer": 0.23903312444046554,
+     "exact": 0.5452261306532663,
+     "reaction": 0.8090452261306532,
+     "detected": 0.9874371859296482,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8671195928753181,
+     "rtf": 0.23384373663958957,
+     "recognition_ms": 274.85452261306534
+    },
+    "snr5": {
+     "trials": 398,
+     "wer": 0.8084153983885407,
+     "exact": 0.10552763819095477,
+     "reaction": 0.20854271356783918,
+     "detected": 0.3316582914572864,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7605454545454547,
+     "rtf": 0.3038432624113475,
+     "recognition_ms": 107.64296482412061
+    }
+   },
+   "sentence": {
+    "clean": {
+     "trials": 189,
+     "wer": 0.12079207920792079,
+     "exact": 0.43386243386243384,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9507142857142854,
+     "rtf": 0.11433100627449304,
+     "recognition_ms": 564.9645502645504
+    },
+    "snr20": {
+     "trials": 189,
+     "wer": 0.14603960396039603,
+     "exact": 0.32275132275132273,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9368042328042325,
+     "rtf": 0.11771315296475399,
+     "recognition_ms": 571.8243386243382
+    },
+    "snr10": {
+     "trials": 189,
+     "wer": 0.21831683168316832,
+     "exact": 0.15873015873015872,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.042328042328042326,
+     "false_alarm": 0.0,
+     "confidence": 0.9058783068783062,
+     "rtf": 0.13263202247191008,
+     "recognition_ms": 624.5634920634919
+    },
+    "snr5": {
+     "trials": 189,
+     "wer": 0.7277227722772277,
+     "exact": 0.037037037037037035,
+     "reaction": 0.4497354497354497,
+     "detected": 0.4497354497354497,
+     "split": 0.005291005291005291,
+     "false_alarm": 0.0,
+     "confidence": 0.8594176470588235,
+     "rtf": 0.16851145038167945,
+     "recognition_ms": 296.66931216931226
+    }
+   },
+   "egg": {
+    "clean": {
+     "trials": 5,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.23490131578947365,
+     "recognition_ms": 428.4599999999999
+    },
+    "snr20": {
+     "trials": 5,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9814,
+     "rtf": 0.2663380281690141,
+     "recognition_ms": 453.84
+    },
+    "snr10": {
+     "trials": 5,
+     "wer": 0.09523809523809523,
+     "exact": 0.8,
+     "reaction": 0.8,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9798,
+     "rtf": 0.2916879795396419,
+     "recognition_ms": 456.19999999999993
+    },
+    "snr5": {
+     "trials": 5,
+     "wer": 0.2857142857142857,
+     "exact": 0.4,
+     "reaction": 0.6,
+     "detected": 0.8,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9335,
+     "rtf": 0.3593065693430657,
+     "recognition_ms": 393.8
+    }
+   }
+  },
+  "ru": {
+   "command": {
+    "clean": {
+     "trials": 158,
+     "wer": 0.18298969072164947,
+     "exact": 0.6392405063291139,
+     "reaction": 0.9810126582278481,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9100759493670885,
+     "rtf": 0.23447441527018548,
+     "recognition_ms": 331.2025316455696
+    },
+    "snr20": {
+     "trials": 158,
+     "wer": 0.19072164948453607,
+     "exact": 0.6392405063291139,
+     "reaction": 0.9683544303797469,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8925822784810128,
+     "rtf": 0.2386634355485132,
+     "recognition_ms": 324.1291139240504
+    },
+    "snr10": {
+     "trials": 158,
+     "wer": 0.24742268041237114,
+     "exact": 0.5632911392405063,
+     "reaction": 0.8924050632911392,
+     "detected": 0.9810126582278481,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8569612903225808,
+     "rtf": 0.2668609082248334,
+     "recognition_ms": 319.11835443037984
+    },
+    "snr5": {
+     "trials": 158,
+     "wer": 0.729381443298969,
+     "exact": 0.17088607594936708,
+     "reaction": 0.2911392405063291,
+     "detected": 0.3924050632911392,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.774016129032258,
+     "rtf": 0.3183474452554745,
+     "recognition_ms": 138.01772151898737
+    }
+   },
+   "sentence": {
+    "clean": {
+     "trials": 78,
+     "wer": 0.16843501326259946,
+     "exact": 0.3717948717948718,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9241153846153848,
+     "rtf": 0.12933870967741934,
+     "recognition_ms": 668.2499999999999
+    },
+    "snr20": {
+     "trials": 78,
+     "wer": 0.19230769230769232,
+     "exact": 0.2564102564102564,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9148333333333333,
+     "rtf": 0.13191310899045708,
+     "recognition_ms": 673.4333333333335
+    },
+    "snr10": {
+     "trials": 78,
+     "wer": 0.2625994694960212,
+     "exact": 0.15384615384615385,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.887974358974359,
+     "rtf": 0.1426655671803329,
+     "recognition_ms": 709.779487179487
+    },
+    "snr5": {
+     "trials": 78,
+     "wer": 0.7400530503978779,
+     "exact": 0.01282051282051282,
+     "reaction": 0.44871794871794873,
+     "detected": 0.44871794871794873,
+     "split": 0.01282051282051282,
+     "false_alarm": 0.0,
+     "confidence": 0.8401000000000001,
+     "rtf": 0.17635766806722694,
+     "recognition_ms": 344.3948717948719
+    }
+   },
+   "egg": {
+    "clean": {
+     "trials": 2,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.3143225806451613,
+     "recognition_ms": 487.2
+    },
+    "snr20": {
+     "trials": 2,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.35048951048951055,
+     "recognition_ms": 501.20000000000005
+    },
+    "snr10": {
+     "trials": 2,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.39654761904761904,
+     "recognition_ms": 499.65
+    },
+    "snr5": {
+     "trials": 2,
+     "wer": 0.6666666666666666,
+     "exact": 0.0,
+     "reaction": 0.5,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.831,
+     "rtf": 0.34184615384615386,
+     "recognition_ms": 222.2
+    }
+   }
+  }
+ },
+ "by_voice": {
+  "de": {
+   "Hedda": {
+    "clean": {
+     "trials": 80,
+     "wer": 0.06995884773662552,
+     "exact": 0.8375,
+     "reaction": 0.9625,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9551250000000001,
+     "rtf": 0.16680417214809243,
+     "recognition_ms": 221.89124999999996
+    },
+    "snr20": {
+     "trials": 80,
+     "wer": 0.09465020576131687,
+     "exact": 0.775,
+     "reaction": 0.95,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9611375000000001,
+     "rtf": 0.17831468673718473,
+     "recognition_ms": 219.14875
+    },
+    "snr10": {
+     "trials": 80,
+     "wer": 0.36213991769547327,
+     "exact": 0.3625,
+     "reaction": 0.65,
+     "detected": 0.9875,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8387974683544303,
+     "rtf": 0.2273734177215189,
+     "recognition_ms": 251.4749999999999
+    },
+    "snr5": {
+     "trials": 80,
+     "wer": 0.8930041152263375,
+     "exact": 0.0,
+     "reaction": 0.125,
+     "detected": 0.25,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6995000000000001,
+     "rtf": 0.290896614821592,
+     "recognition_ms": 79.48750000000001
+    }
+   },
+   "Katja": {
+    "clean": {
+     "trials": 80,
+     "wer": 0.06584362139917696,
+     "exact": 0.8375,
+     "reaction": 0.9625,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9597500000000002,
+     "rtf": 0.16668635170603674,
+     "recognition_ms": 222.27624999999998
+    },
+    "snr20": {
+     "trials": 80,
+     "wer": 0.11934156378600823,
+     "exact": 0.725,
+     "reaction": 0.8875,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9548250000000001,
+     "rtf": 0.181499394184168,
+     "recognition_ms": 224.69624999999996
+    },
+    "snr10": {
+     "trials": 80,
+     "wer": 0.2551440329218107,
+     "exact": 0.425,
+     "reaction": 0.6625,
+     "detected": 0.9875,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8364683544303798,
+     "rtf": 0.2235052117986249,
+     "recognition_ms": 251.9462499999999
+    },
+    "snr5": {
+     "trials": 80,
+     "wer": 0.831275720164609,
+     "exact": 0.05,
+     "reaction": 0.175,
+     "detected": 0.425,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7033529411764705,
+     "rtf": 0.33053695514845227,
+     "recognition_ms": 130.81
+    }
+   },
+   "Stefan": {
+    "clean": {
+     "trials": 80,
+     "wer": 0.07818930041152264,
+     "exact": 0.825,
+     "reaction": 0.9625,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9633750000000001,
+     "rtf": 0.15770287030474842,
+     "recognition_ms": 222.51875
+    },
+    "snr20": {
+     "trials": 80,
+     "wer": 0.09053497942386832,
+     "exact": 0.7875,
+     "reaction": 0.9625,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9647125000000001,
+     "rtf": 0.16717929759704248,
+     "recognition_ms": 226.10999999999996
+    },
+    "snr10": {
+     "trials": 80,
+     "wer": 0.08641975308641975,
+     "exact": 0.8125,
+     "reaction": 0.95,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9450375,
+     "rtf": 0.18660379241516967,
+     "recognition_ms": 233.72125
+    },
+    "snr5": {
+     "trials": 80,
+     "wer": 0.8271604938271605,
+     "exact": 0.1375,
+     "reaction": 0.1625,
+     "detected": 0.2,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9061875,
+     "rtf": 0.22188092729188622,
+     "recognition_ms": 52.64125
+    }
+   }
+  },
+  "ru": {
+   "Irina": {
+    "clean": {
+     "trials": 79,
+     "wer": 0.15463917525773196,
+     "exact": 0.6708860759493671,
+     "reaction": 0.9873417721518988,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9054177215189873,
+     "rtf": 0.22344348415522802,
+     "recognition_ms": 333.807594936709
+    },
+    "snr20": {
+     "trials": 79,
+     "wer": 0.18556701030927836,
+     "exact": 0.6329113924050633,
+     "reaction": 0.9620253164556962,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8845063291139241,
+     "rtf": 0.2278169263456091,
+     "recognition_ms": 325.74936708860764
+    },
+    "snr10": {
+     "trials": 79,
+     "wer": 0.27835051546391754,
+     "exact": 0.5063291139240507,
+     "reaction": 0.8481012658227848,
+     "detected": 0.9873417721518988,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8507179487179488,
+     "rtf": 0.25006560908734826,
+     "recognition_ms": 323.24936708860764
+    },
+    "snr5": {
+     "trials": 79,
+     "wer": 0.8092783505154639,
+     "exact": 0.12658227848101267,
+     "reaction": 0.26582278481012656,
+     "detected": 0.379746835443038,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7142666666666667,
+     "rtf": 0.30200759789596726,
+     "recognition_ms": 130.81898734177213
+    }
+   },
+   "Pavel": {
+    "clean": {
+     "trials": 79,
+     "wer": 0.211340206185567,
+     "exact": 0.6075949367088608,
+     "reaction": 0.9746835443037974,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.91473417721519,
+     "rtf": 0.2468543172308863,
+     "recognition_ms": 328.5974683544304
+    },
+    "snr20": {
+     "trials": 79,
+     "wer": 0.1958762886597938,
+     "exact": 0.6455696202531646,
+     "reaction": 0.9746835443037974,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9006582278481015,
+     "rtf": 0.25072033064357413,
+     "recognition_ms": 322.5088607594937
+    },
+    "snr10": {
+     "trials": 79,
+     "wer": 0.21649484536082475,
+     "exact": 0.620253164556962,
+     "reaction": 0.9367088607594937,
+     "detected": 0.9746835443037974,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8632857142857144,
+     "rtf": 0.2866159870997466,
+     "recognition_ms": 314.9873417721519
+    },
+    "snr5": {
+     "trials": 79,
+     "wer": 0.6494845360824743,
+     "exact": 0.21518987341772153,
+     "reaction": 0.31645569620253167,
+     "detected": 0.4050632911392405,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8300312500000001,
+     "rtf": 0.33465869311551927,
+     "recognition_ms": 145.21645569620253
+    }
+   }
+  }
+ },
+ "by_operation": {
+  "de": {
+   "list": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.1533191489361702,
+     "recognition_ms": 240.20000000000002
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9918888888888888,
+     "rtf": 0.16798350824587704,
+     "recognition_ms": 248.98888888888885
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.16666666666666666,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9254444444444445,
+     "rtf": 0.19922222222222222,
+     "recognition_ms": 278.9111111111111
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.9,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.3333333333333333,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.638,
+     "rtf": 0.28606741573033706,
+     "recognition_ms": 113.15555555555554
+    }
+   },
+   "open": {
+    "clean": {
+     "trials": 51,
+     "wer": 0.08571428571428572,
+     "exact": 0.7647058823529411,
+     "reaction": 0.8823529411764706,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9790784313725491,
+     "rtf": 0.14518876506709116,
+     "recognition_ms": 250.35098039215677
+    },
+    "snr20": {
+     "trials": 51,
+     "wer": 0.10476190476190476,
+     "exact": 0.6862745098039216,
+     "reaction": 0.8431372549019608,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9656470588235294,
+     "rtf": 0.1573360946745562,
+     "recognition_ms": 260.6843137254902
+    },
+    "snr10": {
+     "trials": 51,
+     "wer": 0.2619047619047619,
+     "exact": 0.43137254901960786,
+     "reaction": 0.5882352941176471,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9061764705882352,
+     "rtf": 0.19592085235920853,
+     "recognition_ms": 302.8705882352941
+    },
+    "snr5": {
+     "trials": 51,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.0196078431372549,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.626,
+     "rtf": 0.45790697674418607,
+     "recognition_ms": 7.7215686274509805
+    }
+   },
+   "next_essay": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.06666666666666667,
+     "exact": 0.8333333333333334,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9356666666666666,
+     "rtf": 0.16412322274881516,
+     "recognition_ms": 230.86666666666667
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.2,
+     "exact": 0.5,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9233333333333333,
+     "rtf": 0.16443181818181818,
+     "recognition_ms": 217.04999999999998
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.4666666666666667,
+     "exact": 0.16666666666666666,
+     "reaction": 0.5,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8221666666666668,
+     "rtf": 0.18869565217391301,
+     "recognition_ms": 231.4666666666666
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.7333333333333333,
+     "exact": 0.16666666666666666,
+     "reaction": 0.16666666666666666,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7366666666666667,
+     "rtf": 0.2877096774193548,
+     "recognition_ms": 148.65
+    }
+   },
+   "prev_essay": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.06666666666666667,
+     "exact": 0.8333333333333334,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9249999999999999,
+     "rtf": 0.1510985626283368,
+     "recognition_ms": 245.2833333333334
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9255,
+     "rtf": 0.14776548672566372,
+     "recognition_ms": 222.63333333333333
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.26666666666666666,
+     "exact": 0.5,
+     "reaction": 0.6666666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7701666666666668,
+     "rtf": 0.17625890736342043,
+     "recognition_ms": 247.35
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.3333333333333333,
+     "exact": 0.16666666666666666,
+     "reaction": 0.6666666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.766,
+     "rtf": 0.23313019390581716,
+     "recognition_ms": 280.5333333333333
+    }
+   },
+   "close": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.16613486842105263,
+     "recognition_ms": 224.46666666666667
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.16899653979238752,
+     "recognition_ms": 217.06666666666663
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.20833333333333334,
+     "exact": 0.5555555555555556,
+     "reaction": 0.7777777777777778,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8684444444444445,
+     "rtf": 0.20316568047337277,
+     "recognition_ms": 228.89999999999998
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.7916666666666666,
+     "exact": 0.1111111111111111,
+     "reaction": 0.2222222222222222,
+     "detected": 0.5555555555555556,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.884,
+     "rtf": 0.24064453125,
+     "recognition_ms": 136.89999999999998
+    }
+   },
+   "read": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.3333333333333333,
+     "exact": 0.3333333333333333,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8696666666666666,
+     "rtf": 0.1999892008639309,
+     "recognition_ms": 205.76666666666668
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.3333333333333333,
+     "exact": 0.3333333333333333,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8614444444444443,
+     "rtf": 0.21488179669030733,
+     "recognition_ms": 201.98888888888888
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.4444444444444444,
+     "exact": 0.2222222222222222,
+     "reaction": 0.8888888888888888,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.802888888888889,
+     "rtf": 0.2574074074074074,
+     "recognition_ms": 216.22222222222223
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.9444444444444444,
+     "exact": 0.0,
+     "reaction": 0.1111111111111111,
+     "detected": 0.2222222222222222,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6365000000000001,
+     "rtf": 0.531,
+     "recognition_ms": 64.9
+    }
+   },
+   "next": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.06666666666666667,
+     "exact": 0.8888888888888888,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9562222222222222,
+     "rtf": 0.19062222222222222,
+     "recognition_ms": 190.6222222222222
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.13333333333333333,
+     "exact": 0.7777777777777778,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9614444444444445,
+     "rtf": 0.20005896226415093,
+     "recognition_ms": 188.49999999999997
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.26666666666666666,
+     "exact": 0.5555555555555556,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8714444444444445,
+     "rtf": 0.22951570680628272,
+     "recognition_ms": 194.83333333333334
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.1111111111111111,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.44537037037037036,
+     "recognition_ms": 26.72222222222222
+    }
+   },
+   "back": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9318333333333332,
+     "rtf": 0.18241590214067277,
+     "recognition_ms": 198.83333333333334
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9483333333333334,
+     "rtf": 0.18674657534246575,
+     "recognition_ms": 181.76666666666665
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.2222222222222222,
+     "exact": 0.6666666666666666,
+     "reaction": 0.8333333333333334,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9093333333333332,
+     "rtf": 0.2398846153846154,
+     "recognition_ms": 207.9
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.5555555555555556,
+     "exact": 0.16666666666666666,
+     "reaction": 0.5,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7356666666666666,
+     "rtf": 0.22418478260869565,
+     "recognition_ms": 137.5
+    }
+   },
+   "start": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9828888888888889,
+     "rtf": 0.17965957446808511,
+     "recognition_ms": 187.64444444444445
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.985888888888889,
+     "rtf": 0.19740521327014218,
+     "recognition_ms": 185.1222222222222
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9752222222222223,
+     "rtf": 0.2342071611253197,
+     "recognition_ms": 203.5
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.8888888888888888,
+     "exact": 0.0,
+     "reaction": 0.1111111111111111,
+     "detected": 0.2222222222222222,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.5795,
+     "rtf": 0.37705479452054796,
+     "recognition_ms": 61.166666666666664
+    }
+   },
+   "goto": {
+    "clean": {
+     "trials": 15,
+     "wer": 0.058823529411764705,
+     "exact": 0.8666666666666667,
+     "reaction": 0.9333333333333333,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9437333333333334,
+     "rtf": 0.14762345679012348,
+     "recognition_ms": 223.20666666666668
+    },
+    "snr20": {
+     "trials": 15,
+     "wer": 0.0784313725490196,
+     "exact": 0.8,
+     "reaction": 0.8666666666666667,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9768,
+     "rtf": 0.16724187380497132,
+     "recognition_ms": 233.2466666666667
+    },
+    "snr10": {
+     "trials": 15,
+     "wer": 0.29411764705882354,
+     "exact": 0.4666666666666667,
+     "reaction": 0.5333333333333333,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8762,
+     "rtf": 0.20338399189463016,
+     "recognition_ms": 267.6533333333333
+    },
+    "snr5": {
+     "trials": 15,
+     "wer": 0.6470588235294118,
+     "exact": 0.13333333333333333,
+     "reaction": 0.26666666666666666,
+     "detected": 0.6,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7981111111111111,
+     "rtf": 0.24563451776649747,
+     "recognition_ms": 193.56
+    }
+   },
+   "info": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.05128205128205128,
+     "exact": 0.7777777777777778,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9192222222222222,
+     "rtf": 0.1543593314763231,
+     "recognition_ms": 246.2888888888889
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.10256410256410256,
+     "exact": 0.5555555555555556,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9287777777777778,
+     "rtf": 0.1635958395245171,
+     "recognition_ms": 244.66666666666666
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.1794871794871795,
+     "exact": 0.4444444444444444,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8894444444444444,
+     "rtf": 0.18911671924290216,
+     "recognition_ms": 266.4444444444444
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.7692307692307693,
+     "exact": 0.1111111111111111,
+     "reaction": 0.2222222222222222,
+     "detected": 0.3333333333333333,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7883333333333332,
+     "rtf": 0.3642123287671233,
+     "recognition_ms": 118.16666666666667
+    }
+   },
+   "count": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.09523809523809523,
+     "exact": 0.7777777777777778,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8685555555555555,
+     "rtf": 0.14989276139410185,
+     "recognition_ms": 248.48888888888885
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.19047619047619047,
+     "exact": 0.5555555555555556,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8975555555555554,
+     "rtf": 0.1594452347083926,
+     "recognition_ms": 249.0888888888889
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.16666666666666666,
+     "exact": 0.4444444444444444,
+     "reaction": 0.8888888888888888,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8132222222222222,
+     "rtf": 0.200346687211094,
+     "recognition_ms": 288.94444444444446
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.5714285714285714,
+     "exact": 0.0,
+     "reaction": 0.5555555555555556,
+     "detected": 0.7777777777777778,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7215714285714284,
+     "rtf": 0.2917136150234742,
+     "recognition_ms": 276.15555555555557
+    }
+   },
+   "find": {
+    "clean": {
+     "trials": 15,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9919333333333333,
+     "rtf": 0.1689573679332716,
+     "recognition_ms": 243.07333333333338
+    },
+    "snr20": {
+     "trials": 15,
+     "wer": 0.018518518518518517,
+     "exact": 0.9333333333333333,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9811333333333334,
+     "rtf": 0.17806274900398403,
+     "recognition_ms": 238.36666666666665
+    },
+    "snr10": {
+     "trials": 15,
+     "wer": 0.07407407407407407,
+     "exact": 0.8,
+     "reaction": 0.9333333333333333,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8792000000000001,
+     "rtf": 0.2031926406926407,
+     "recognition_ms": 250.33333333333334
+    },
+    "snr5": {
+     "trials": 15,
+     "wer": 0.9074074074074074,
+     "exact": 0.06666666666666667,
+     "reaction": 0.13333333333333333,
+     "detected": 0.2,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7393333333333333,
+     "rtf": 0.3661940298507463,
+     "recognition_ms": 65.42666666666668
+    }
+   },
+   "where": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9722222222222222,
+     "rtf": 0.17690578158458245,
+     "recognition_ms": 183.58888888888887
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.08333333333333333,
+     "exact": 0.8888888888888888,
+     "reaction": 0.8888888888888888,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9369999999999999,
+     "rtf": 0.19204651162790698,
+     "recognition_ms": 183.51111111111112
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.2916666666666667,
+     "exact": 0.4444444444444444,
+     "reaction": 0.6666666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7817777777777778,
+     "rtf": 0.2568230563002681,
+     "recognition_ms": 212.87777777777777
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.75,
+     "exact": 0.2222222222222222,
+     "reaction": 0.3333333333333333,
+     "detected": 0.4444444444444444,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.601,
+     "rtf": 0.25474842767295597,
+     "recognition_ms": 90.01111111111112
+    }
+   },
+   "help": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.041666666666666664,
+     "exact": 0.8888888888888888,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9755555555555555,
+     "rtf": 0.16990458015267174,
+     "recognition_ms": 197.8444444444444
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.08333333333333333,
+     "exact": 0.8888888888888888,
+     "reaction": 0.8888888888888888,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9513333333333335,
+     "rtf": 0.18114197530864196,
+     "recognition_ms": 195.63333333333333
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.20833333333333334,
+     "exact": 0.6666666666666666,
+     "reaction": 0.7777777777777778,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8252222222222222,
+     "rtf": 0.22209354120267263,
+     "recognition_ms": 221.60000000000002
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.7916666666666666,
+     "exact": 0.1111111111111111,
+     "reaction": 0.1111111111111111,
+     "detected": 0.4444444444444444,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.772,
+     "rtf": 0.2927477477477478,
+     "recognition_ms": 144.42222222222225
+    }
+   },
+   "language": {
+    "clean": {
+     "trials": 12,
+     "wer": 0.14814814814814814,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9867500000000001,
+     "rtf": 0.18161290322580648,
+     "recognition_ms": 215.8166666666667
+    },
+    "snr20": {
+     "trials": 12,
+     "wer": 0.1111111111111111,
+     "exact": 0.75,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9901666666666666,
+     "rtf": 0.18940579710144928,
+     "recognition_ms": 217.8166666666667
+    },
+    "snr10": {
+     "trials": 12,
+     "wer": 0.18518518518518517,
+     "exact": 0.6666666666666666,
+     "reaction": 0.9166666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9485000000000001,
+     "rtf": 0.21273322422258595,
+     "recognition_ms": 216.63333333333335
+    },
+    "snr5": {
+     "trials": 12,
+     "wer": 0.8148148148148148,
+     "exact": 0.16666666666666666,
+     "reaction": 0.25,
+     "detected": 0.4166666666666667,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7006,
+     "rtf": 0.3125,
+     "recognition_ms": 109.375
+    }
+   },
+   "repeat": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.17088181818181816,
+     "recognition_ms": 208.85555555555553
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9805555555555555,
+     "rtf": 0.19065686274509805,
+     "recognition_ms": 216.07777777777778
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.16666666666666666,
+     "exact": 0.6666666666666666,
+     "reaction": 0.8888888888888888,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8843333333333335,
+     "rtf": 0.22375831485587583,
+     "recognition_ms": 224.25555555555556
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 0.1111111111111111,
+     "detected": 0.2222222222222222,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8295,
+     "rtf": 0.29005494505494506,
+     "recognition_ms": 58.65555555555555
+    }
+   },
+   "time": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.2222222222222222,
+     "exact": 0.5,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.1638833746898263,
+     "recognition_ms": 220.15
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.2962962962962963,
+     "exact": 0.3333333333333333,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9918333333333335,
+     "rtf": 0.17389627659574466,
+     "recognition_ms": 217.94999999999996
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.4074074074074074,
+     "exact": 0.16666666666666666,
+     "reaction": 0.6666666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9201666666666667,
+     "rtf": 0.2316618497109827,
+     "recognition_ms": 267.18333333333334
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.8148148148148148,
+     "exact": 0.0,
+     "reaction": 0.16666666666666666,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8603333333333333,
+     "rtf": 0.3855514705882353,
+     "recognition_ms": 174.78333333333333
+    }
+   },
+   "stop": {
+    "clean": {
+     "trials": 15,
+     "wer": 0.09523809523809523,
+     "exact": 0.8666666666666667,
+     "reaction": 0.8666666666666667,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8833333333333333,
+     "rtf": 0.23866847826086962,
+     "recognition_ms": 175.66000000000003
+    },
+    "snr20": {
+     "trials": 15,
+     "wer": 0.2857142857142857,
+     "exact": 0.6,
+     "reaction": 0.7333333333333333,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9504,
+     "rtf": 0.27184713375796177,
+     "recognition_ms": 170.71999999999997
+    },
+    "snr10": {
+     "trials": 15,
+     "wer": 0.5238095238095238,
+     "exact": 0.4,
+     "reaction": 0.4666666666666667,
+     "detected": 0.8666666666666667,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7137692307692307,
+     "rtf": 0.3032436260623229,
+     "recognition_ms": 142.72666666666663
+    },
+    "snr5": {
+     "trials": 15,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.0,
+     "rtf": null,
+     "recognition_ms": 0.0
+    }
+   },
+   "sleep": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.14285714285714285,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9496666666666668,
+     "rtf": 0.18122287968441814,
+     "recognition_ms": 204.17777777777778
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.14285714285714285,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9446666666666665,
+     "rtf": 0.2037037037037037,
+     "recognition_ms": 207.77777777777777
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.23809523809523808,
+     "exact": 0.5555555555555556,
+     "reaction": 0.7777777777777778,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8391111111111109,
+     "rtf": 0.2564302884615385,
+     "recognition_ms": 237.05555555555554
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.0,
+     "rtf": null,
+     "recognition_ms": 0.0
+    }
+   },
+   "game": {
+    "clean": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.1677469670710572,
+     "recognition_ms": 215.0888888888889
+    },
+    "snr20": {
+     "trials": 9,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.17881125226860253,
+     "recognition_ms": 218.94444444444446
+    },
+    "snr10": {
+     "trials": 9,
+     "wer": 0.037037037037037035,
+     "exact": 0.8888888888888888,
+     "reaction": 0.8888888888888888,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9913333333333334,
+     "rtf": 0.22605095541401274,
+     "recognition_ms": 236.60000000000002
+    },
+    "snr5": {
+     "trials": 9,
+     "wer": 0.6666666666666666,
+     "exact": 0.2222222222222222,
+     "reaction": 0.3333333333333333,
+     "detected": 0.4444444444444444,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7365,
+     "rtf": 0.3322752808988764,
+     "recognition_ms": 131.43333333333334
+    }
+   }
+  },
+  "ru": {
+   "list": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9189999999999999,
+     "rtf": 0.20478527607361963,
+     "recognition_ms": 333.8
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8851666666666665,
+     "rtf": 0.20677453027139875,
+     "recognition_ms": 330.15000000000003
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8483333333333333,
+     "rtf": 0.2460235294117647,
+     "recognition_ms": 348.5333333333333
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.35714285714285715,
+     "exact": 0.6666666666666666,
+     "reaction": 0.6666666666666666,
+     "detected": 0.6666666666666666,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.80725,
+     "rtf": 0.32876712328767127,
+     "recognition_ms": 240.00000000000003
+    }
+   },
+   "open": {
+    "clean": {
+     "trials": 32,
+     "wer": 0.2830188679245283,
+     "exact": 0.1875,
+     "reaction": 0.96875,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8639374999999999,
+     "rtf": 0.19026428807400067,
+     "recognition_ms": 359.95625
+    },
+    "snr20": {
+     "trials": 32,
+     "wer": 0.2830188679245283,
+     "exact": 0.21875,
+     "reaction": 0.96875,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8525312500000002,
+     "rtf": 0.1932501685772084,
+     "recognition_ms": 358.23750000000007
+    },
+    "snr10": {
+     "trials": 32,
+     "wer": 0.29245283018867924,
+     "exact": 0.3125,
+     "reaction": 0.90625,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8247499999999999,
+     "rtf": 0.22067526555386946,
+     "recognition_ms": 363.56249999999994
+    },
+    "snr5": {
+     "trials": 32,
+     "wer": 0.6132075471698113,
+     "exact": 0.21875,
+     "reaction": 0.40625,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7823124999999999,
+     "rtf": 0.2625172413793103,
+     "recognition_ms": 190.325
+    }
+   },
+   "next_essay": {
+    "clean": {
+     "trials": 4,
+     "wer": 0.625,
+     "exact": 0.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.71025,
+     "rtf": 0.20267441860465119,
+     "recognition_ms": 348.6
+    },
+    "snr20": {
+     "trials": 4,
+     "wer": 0.75,
+     "exact": 0.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6795,
+     "rtf": 0.20884272997032644,
+     "recognition_ms": 351.90000000000003
+    },
+    "snr10": {
+     "trials": 4,
+     "wer": 0.75,
+     "exact": 0.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6014999999999999,
+     "rtf": 0.2435333333333333,
+     "recognition_ms": 365.29999999999995
+    },
+    "snr5": {
+     "trials": 4,
+     "wer": 0.875,
+     "exact": 0.0,
+     "reaction": 0.5,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.4455,
+     "rtf": 0.26151079136690647,
+     "recognition_ms": 181.75
+    }
+   },
+   "prev_essay": {
+    "clean": {
+     "trials": 2,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6275,
+     "rtf": 0.19936111111111113,
+     "recognition_ms": 358.85
+    },
+    "snr20": {
+     "trials": 2,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.49649999999999994,
+     "rtf": 0.18803977272727276,
+     "recognition_ms": 330.95000000000005
+    },
+    "snr10": {
+     "trials": 2,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6575,
+     "rtf": 0.2638157894736842,
+     "recognition_ms": 401.0
+    },
+    "snr5": {
+     "trials": 2,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.0,
+     "rtf": null,
+     "recognition_ms": 0.0
+    }
+   },
+   "close": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.14285714285714285,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9620000000000001,
+     "rtf": 0.2577296587926509,
+     "recognition_ms": 327.31666666666666
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.14285714285714285,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8965,
+     "rtf": 0.2682085561497326,
+     "recognition_ms": 334.3666666666666
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.14285714285714285,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8863333333333333,
+     "rtf": 0.31890769230769234,
+     "recognition_ms": 345.48333333333335
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.7142857142857143,
+     "exact": 0.16666666666666666,
+     "reaction": 0.3333333333333333,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.807,
+     "rtf": 0.396231884057971,
+     "recognition_ms": 182.26666666666665
+    }
+   },
+   "read": {
+    "clean": {
+     "trials": 8,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.29894348894348893,
+     "recognition_ms": 304.175
+    },
+    "snr20": {
+     "trials": 8,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.97225,
+     "rtf": 0.3136082474226804,
+     "recognition_ms": 304.2
+    },
+    "snr10": {
+     "trials": 8,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.93525,
+     "rtf": 0.34590214067278285,
+     "recognition_ms": 282.775
+    },
+    "snr5": {
+     "trials": 8,
+     "wer": 0.8333333333333334,
+     "exact": 0.125,
+     "reaction": 0.125,
+     "detected": 0.125,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.48621212121212115,
+     "recognition_ms": 40.1125
+    }
+   },
+   "next": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9811666666666667,
+     "rtf": 0.2595325779036827,
+     "recognition_ms": 305.3833333333333
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.1,
+     "exact": 0.8333333333333334,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9424999999999999,
+     "rtf": 0.2636111111111111,
+     "recognition_ms": 300.51666666666665
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.1,
+     "exact": 0.8333333333333334,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9431666666666666,
+     "rtf": 0.3216725978647687,
+     "recognition_ms": 301.3
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.4,
+     "exact": 0.5,
+     "reaction": 0.6666666666666666,
+     "detected": 0.6666666666666666,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.898,
+     "rtf": 0.3499453551912568,
+     "recognition_ms": 213.46666666666667
+    }
+   },
+   "back": {
+    "clean": {
+     "trials": 4,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.271431718061674,
+     "recognition_ms": 308.075
+    },
+    "snr20": {
+     "trials": 4,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.27111111111111114,
+     "recognition_ms": 280.6
+    },
+    "snr10": {
+     "trials": 4,
+     "wer": 0.3333333333333333,
+     "exact": 0.75,
+     "reaction": 0.75,
+     "detected": 0.75,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.2841666666666666,
+     "recognition_ms": 179.02499999999998
+    },
+    "snr5": {
+     "trials": 4,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.0,
+     "rtf": null,
+     "recognition_ms": 0.0
+    }
+   },
+   "start": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.5833333333333334,
+     "exact": 0.16666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8436666666666667,
+     "rtf": 0.2859677419354839,
+     "recognition_ms": 295.50000000000006
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.5,
+     "exact": 0.3333333333333333,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8236666666666667,
+     "rtf": 0.30412162162162154,
+     "recognition_ms": 300.0666666666666
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.5833333333333334,
+     "exact": 0.3333333333333333,
+     "reaction": 0.8333333333333334,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8035,
+     "rtf": 0.34512195121951217,
+     "recognition_ms": 282.99999999999994
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.75,
+     "exact": 0.16666666666666666,
+     "reaction": 0.5,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7156666666666668,
+     "rtf": 0.39495726495726496,
+     "recognition_ms": 154.03333333333333
+    }
+   },
+   "goto": {
+    "clean": {
+     "trials": 10,
+     "wer": 0.35294117647058826,
+     "exact": 0.2,
+     "reaction": 0.8,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8214,
+     "rtf": 0.20989208633093523,
+     "recognition_ms": 350.09999999999997
+    },
+    "snr20": {
+     "trials": 10,
+     "wer": 0.2647058823529412,
+     "exact": 0.4,
+     "reaction": 0.8,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8155000000000001,
+     "rtf": 0.20449257425742573,
+     "recognition_ms": 330.46
+    },
+    "snr10": {
+     "trials": 10,
+     "wer": 0.3235294117647059,
+     "exact": 0.0,
+     "reaction": 0.7,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8024999999999999,
+     "rtf": 0.20584868421052632,
+     "recognition_ms": 312.89
+    },
+    "snr5": {
+     "trials": 10,
+     "wer": 0.9117647058823529,
+     "exact": 0.0,
+     "reaction": 0.1,
+     "detected": 0.3,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6766666666666667,
+     "rtf": 0.33828313253012043,
+     "recognition_ms": 112.30999999999999
+    }
+   },
+   "info": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.25,
+     "exact": 0.3333333333333333,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8243333333333335,
+     "rtf": 0.21101626016260158,
+     "recognition_ms": 346.0666666666666
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.35,
+     "exact": 0.16666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8228333333333334,
+     "rtf": 0.22161490683229815,
+     "recognition_ms": 356.8
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.3,
+     "exact": 0.16666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8079999999999999,
+     "rtf": 0.24428571428571427,
+     "recognition_ms": 359.09999999999997
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.6,
+     "exact": 0.16666666666666666,
+     "reaction": 0.5,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8059999999999999,
+     "rtf": 0.29904255319148937,
+     "recognition_ms": 187.4
+    }
+   },
+   "count": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0625,
+     "exact": 0.8333333333333334,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9148333333333335,
+     "rtf": 0.2269483568075117,
+     "recognition_ms": 322.2666666666666
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.0625,
+     "exact": 0.8333333333333334,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8935,
+     "rtf": 0.24136246786632393,
+     "recognition_ms": 312.9666666666667
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.25,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8196666666666667,
+     "rtf": 0.2523931623931624,
+     "recognition_ms": 295.3
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.8125,
+     "exact": 0.0,
+     "reaction": 0.5,
+     "detected": 0.6666666666666666,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.61175,
+     "rtf": 0.306822429906542,
+     "recognition_ms": 218.86666666666665
+    }
+   },
+   "find": {
+    "clean": {
+     "trials": 10,
+     "wer": 0.11538461538461539,
+     "exact": 0.7,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9042,
+     "rtf": 0.23456072351421192,
+     "recognition_ms": 363.1
+    },
+    "snr20": {
+     "trials": 10,
+     "wer": 0.07692307692307693,
+     "exact": 0.8,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9128999999999999,
+     "rtf": 0.25316804407713495,
+     "recognition_ms": 367.59999999999997
+    },
+    "snr10": {
+     "trials": 10,
+     "wer": 0.4230769230769231,
+     "exact": 0.4,
+     "reaction": 0.7,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8323,
+     "rtf": 0.246943231441048,
+     "recognition_ms": 339.29999999999995
+    },
+    "snr5": {
+     "trials": 10,
+     "wer": 0.8461538461538461,
+     "exact": 0.0,
+     "reaction": 0.1,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6374000000000001,
+     "rtf": 0.3278623188405797,
+     "recognition_ms": 180.98
+    }
+   },
+   "where": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.941,
+     "rtf": 0.3042669172932331,
+     "recognition_ms": 269.7833333333333
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.25,
+     "exact": 0.6666666666666666,
+     "reaction": 0.8333333333333334,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7943333333333333,
+     "rtf": 0.2494552529182879,
+     "recognition_ms": 213.69999999999996
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.3333333333333333,
+     "exact": 0.5,
+     "reaction": 0.6666666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.6806666666666668,
+     "rtf": 0.3792079207920792,
+     "recognition_ms": 255.33333333333334
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 1.0833333333333333,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.16666666666666666,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.408,
+     "rtf": 0.43680555555555556,
+     "recognition_ms": 52.416666666666664
+    }
+   },
+   "help": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.28330508474576266,
+     "recognition_ms": 334.29999999999995
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.27839650145772593,
+     "recognition_ms": 318.3
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9881666666666667,
+     "rtf": 0.3180345911949686,
+     "recognition_ms": 337.11666666666673
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.8571428571428571,
+     "exact": 0.16666666666666666,
+     "reaction": 0.16666666666666666,
+     "detected": 0.3333333333333333,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7925,
+     "rtf": 0.5350961538461538,
+     "recognition_ms": 92.75
+    }
+   },
+   "language": {
+    "clean": {
+     "trials": 8,
+     "wer": 0.038461538461538464,
+     "exact": 0.875,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.958125,
+     "rtf": 0.2352635914332784,
+     "recognition_ms": 357.0125
+    },
+    "snr20": {
+     "trials": 8,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.91925,
+     "rtf": 0.23991408934707903,
+     "recognition_ms": 349.075
+    },
+    "snr10": {
+     "trials": 8,
+     "wer": 0.07692307692307693,
+     "exact": 0.75,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.930125,
+     "rtf": 0.26741541353383463,
+     "recognition_ms": 355.6625000000001
+    },
+    "snr5": {
+     "trials": 8,
+     "wer": 0.7692307692307693,
+     "exact": 0.125,
+     "reaction": 0.125,
+     "detected": 0.25,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.95,
+     "rtf": 0.540390625,
+     "recognition_ms": 86.4625
+    }
+   },
+   "repeat": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.1,
+     "exact": 0.8333333333333334,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8516666666666666,
+     "rtf": 0.30585034013605444,
+     "recognition_ms": 299.73333333333335
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.2,
+     "exact": 0.6666666666666666,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9265,
+     "rtf": 0.3196350364963504,
+     "recognition_ms": 291.93333333333334
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.3,
+     "exact": 0.5,
+     "reaction": 0.6666666666666666,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.7281666666666666,
+     "rtf": 0.39887931034482754,
+     "recognition_ms": 308.46666666666664
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 1.2,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.16666666666666666,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.545,
+     "rtf": 0.5491891891891891,
+     "recognition_ms": 67.73333333333333
+    }
+   },
+   "time": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.24476303317535542,
+     "recognition_ms": 344.29999999999995
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.26087563451776646,
+     "recognition_ms": 342.6166666666666
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.2699722222222222,
+     "recognition_ms": 323.9666666666667
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.2857142857142857,
+     "exact": 0.6666666666666666,
+     "reaction": 0.6666666666666666,
+     "detected": 0.6666666666666666,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.29711790393013104,
+     "recognition_ms": 226.80000000000004
+    }
+   },
+   "stop": {
+    "clean": {
+     "trials": 8,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9628749999999999,
+     "rtf": 0.34966876971608835,
+     "recognition_ms": 277.1125
+    },
+    "snr20": {
+     "trials": 8,
+     "wer": 0.125,
+     "exact": 0.875,
+     "reaction": 0.875,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.96375,
+     "rtf": 0.35643369175627243,
+     "recognition_ms": 248.6125
+    },
+    "snr10": {
+     "trials": 8,
+     "wer": 0.25,
+     "exact": 0.75,
+     "reaction": 0.75,
+     "detected": 0.75,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.9015,
+     "rtf": 0.45113756613756606,
+     "recognition_ms": 213.16249999999997
+    },
+    "snr5": {
+     "trials": 8,
+     "wer": 0.875,
+     "exact": 0.125,
+     "reaction": 0.125,
+     "detected": 0.125,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.5166666666666667,
+     "recognition_ms": 46.5
+    }
+   },
+   "sleep": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.28308777429467086,
+     "recognition_ms": 301.0166666666667
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.3024516129032258,
+     "recognition_ms": 312.53333333333336
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.3073263888888889,
+     "recognition_ms": 295.03333333333336
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 1.0,
+     "exact": 0.0,
+     "reaction": 0.0,
+     "detected": 0.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.0,
+     "rtf": null,
+     "recognition_ms": 0.0
+    }
+   },
+   "game": {
+    "clean": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.29044642857142855,
+     "recognition_ms": 325.29999999999995
+    },
+    "snr20": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.2942789968652038,
+     "recognition_ms": 312.9166666666667
+    },
+    "snr10": {
+     "trials": 6,
+     "wer": 0.0,
+     "exact": 1.0,
+     "reaction": 1.0,
+     "detected": 1.0,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 1.0,
+     "rtf": 0.32656133828996287,
+     "recognition_ms": 292.81666666666666
+    },
+    "snr5": {
+     "trials": 6,
+     "wer": 0.5833333333333334,
+     "exact": 0.3333333333333333,
+     "reaction": 0.3333333333333333,
+     "detected": 0.5,
+     "split": 0.0,
+     "false_alarm": 0.0,
+     "confidence": 0.8906666666666667,
+     "rtf": 0.31068840579710144,
+     "recognition_ms": 142.91666666666666
+    }
+   }
+  }
+ },
+ "mistakes": [
+  {
+   "language": "de",
+   "operation": "goto",
+   "said": "absatz zwölf",
+   "heard": "abseits zwölf",
+   "voices": [
+    "Katja"
+   ],
+   "reaction_ok": false
+  },
+  {
+   "language": "de",
+   "operation": "stop",
+   "said": "stopp",
+   "heard": "staub",
+   "voices": [
+    "Hedda",
+    "Stefan"
+   ],
+   "reaction_ok": false
+  },
+  {
+   "language": "de",
+   "operation": "open",
+   "said": "öffne den aufsatz über effi",
+   "heard": "öffne den aufsatz über f e",
+   "voices": [
+    "Hedda",
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": false
+  },
+  {
+   "language": "de",
+   "operation": "open",
+   "said": "öffne über effi",
+   "heard": "öffne über f e",
+   "voices": [
+    "Hedda",
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": false
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой про онегин",
+   "heard": "открой про не ген",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": false
+  },
+  {
+   "language": "ru",
+   "operation": "goto",
+   "said": "перейди к абзацу семь",
+   "heard": "перейди к абзаца восемь",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": false
+  },
+  {
+   "language": "de",
+   "operation": "info",
+   "said": "erzähl über den aufsatz",
+   "heard": "erzählen über den aufsatz",
+   "voices": [
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "goto",
+   "said": "gehe zu absatz sieben",
+   "heard": "gehe zu absatz sie bin",
+   "voices": [
+    "Hedda"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "sleep",
+   "said": "hör nicht zu",
+   "heard": "höhe nicht zu",
+   "voices": [
+    "Hedda"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "sleep",
+   "said": "hör nicht zu",
+   "heard": "höher nicht zu",
+   "voices": [
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "read",
+   "said": "lies den absatz",
+   "heard": "ließ den absatz",
+   "voices": [
+    "Hedda",
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "read",
+   "said": "lies vor",
+   "heard": "ließ vor",
+   "voices": [
+    "Hedda",
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "next",
+   "said": "nächster absatz",
+   "heard": "nächste absatz",
+   "voices": [
+    "Hedda"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "next_essay",
+   "said": "nächster aufsatz",
+   "heard": "nächste aufsatz",
+   "voices": [
+    "Hedda"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "language",
+   "said": "sprich deutsch",
+   "heard": "spricht deutsch",
+   "voices": [
+    "Hedda",
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "prev_essay",
+   "said": "vorheriger aufsatz",
+   "heard": "vorherige aufsatz",
+   "voices": [
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "language",
+   "said": "wechsle zu deutsch",
+   "heard": "wechsel zu deutsch",
+   "voices": [
+    "Katja"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "help",
+   "said": "welche befehle gibt es",
+   "heard": "welcher befehle gibt es",
+   "voices": [
+    "Katja"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "time",
+   "said": "wie viel uhr ist es",
+   "heard": "wieviel uhr ist es",
+   "voices": [
+    "Hedda",
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "count",
+   "said": "wie viele wörter",
+   "heard": "wieviele wörter",
+   "voices": [
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "count",
+   "said": "wie viele wörter hat der aufsatz",
+   "heard": "wieviele wörter hat der aufsatz",
+   "voices": [
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "open",
+   "said": "zeige den aufsatz über werther",
+   "heard": "zeige den aufsatz über werte",
+   "voices": [
+    "Hedda"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "open",
+   "said": "zeige den aufsatz über werther",
+   "heard": "zeige den aufsatz über wärter",
+   "voices": [
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "open",
+   "said": "öffne den aufsatz über werther",
+   "heard": "öffne den aufsatz über werte",
+   "voices": [
+    "Hedda"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "de",
+   "operation": "open",
+   "said": "öffne den aufsatz über werther",
+   "heard": "öffne den aufsatz über wärter",
+   "voices": [
+    "Katja",
+    "Stefan"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "goto",
+   "said": "абзац двенадцать",
+   "heard": "абзаца двенадцать",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "goto",
+   "said": "абзац номер семь",
+   "heard": "абзаца номер семь",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "start",
+   "said": "в начало",
+   "heard": "в начала",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "language",
+   "said": "говори по-немецки",
+   "heard": "говорит по-немецки",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "next_essay",
+   "said": "другое сочинение",
+   "heard": "другое сочинении",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "next_essay",
+   "said": "другое сочинение",
+   "heard": "другое сочинений",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "close",
+   "said": "закрой сочинение",
+   "heard": "закрой сочинении",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "close",
+   "said": "закрой сочинение",
+   "heard": "закрой сочинений",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "find",
+   "said": "найди слово Фамусов",
+   "heard": "найди слова фамусов",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "find",
+   "said": "найди слово романа",
+   "heard": "найди слова романа",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "info",
+   "said": "о чём сочинение",
+   "heard": "о чем сочинении",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "info",
+   "said": "о чём сочинение",
+   "heard": "а чем сочинении",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение два",
+   "heard": "открой сочинении два",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение один",
+   "heard": "открой сочинении один",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение один",
+   "heard": "открой сочинений один",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение про горе",
+   "heard": "открой сочинении про горе",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение про души",
+   "heard": "открой сочинении про души",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение про души",
+   "heard": "открой сочинении про душе",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение про мастер",
+   "heard": "открой сочинении про мастер",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение про онегин",
+   "heard": "открой сочинении про онегин",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение про преступление",
+   "heard": "открой сочинении про преступление",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение про преступление",
+   "heard": "открой сочинении про преступления",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение пять",
+   "heard": "открой сочинении пять",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение три",
+   "heard": "открой сочинении три",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "открой сочинение четыре",
+   "heard": "открой сочинении четыре",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "start",
+   "said": "первый абзац",
+   "heard": "первые абзац",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "goto",
+   "said": "перейди к абзацу двенадцать",
+   "heard": "перейди к абзаца двенадцать",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "goto",
+   "said": "перейди к абзацу двенадцать",
+   "heard": "перейди к абзацев двенадцать",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "goto",
+   "said": "перейди к абзацу три",
+   "heard": "перейди к абзацы у три",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "goto",
+   "said": "перейди к абзацу три",
+   "heard": "перейди к абзаца у три",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "repeat",
+   "said": "повтори ответ",
+   "heard": "повторе ответ",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "покажи сочинение два",
+   "heard": "покажи сочинении два",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "покажи сочинение про души",
+   "heard": "покажи сочинении про души",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "покажи сочинение про души",
+   "heard": "покажи сочинении про душе",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "open",
+   "said": "покажи сочинение пять",
+   "heard": "покажи сочинении пять",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "prev_essay",
+   "said": "предыдущее сочинение",
+   "heard": "предыдущая сочинении",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "start",
+   "said": "с начала",
+   "heard": "сначала",
+   "voices": [
+    "Irina",
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "count",
+   "said": "сколько слов в сочинении",
+   "heard": "сколько слов в сочинений",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "next_essay",
+   "said": "следующее сочинение",
+   "heard": "следующее сочинении",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "next_essay",
+   "said": "следующее сочинение",
+   "heard": "следующие сочинений",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "info",
+   "said": "что это за сочинение",
+   "heard": "что это за сочинении",
+   "voices": [
+    "Irina"
+   ],
+   "reaction_ok": true
+  },
+  {
+   "language": "ru",
+   "operation": "info",
+   "said": "что это за сочинение",
+   "heard": "что это за сочинений",
+   "voices": [
+    "Pavel"
+   ],
+   "reaction_ok": true
+  }
+ ],
+ "false_alarms": []
+}

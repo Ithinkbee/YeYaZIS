@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Операции — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Операции</h1>
+<p class="lead">Список операций, на которые система реагирует. Здесь он задаётся: операцию можно выключить —
+  тогда система перестанет на неё откликаться — и можно переписать фразы, которыми она вызывается, отдельно для
+  немецкого и русского языков. Одна строка — одна фраза.</p>
+
+{% if saved %}<div class="banner good">Список операций сохранён и уже действует.</div>{% endif %}
+{% if was_reset %}<div class="banner good">Список операций возвращён к исходному.</div>{% endif %}
+{% if errors %}
+<div class="banner error"><b>Не сохранено.</b> Исправьте:
+  <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+<div class="cards">
+  <div class="card">
+    <h3>Операций включено</h3>
+    <span class="big">{{ enabled }} из {{ entries|length }}</span>
+    <p class="note">выключенная операция не выполняется, даже если её фраза распознана</p>
+  </div>
+  <div class="card">
+    <h3>Как фраза находит операцию</h3>
+    <span class="big">≥ {{ (config.MATCH_THRESHOLD * 100)|int }} %</span>
+    <p class="note">сходства с фразой по расстоянию Левенштейна: «ließ vor» вместо «lies vor» — всё ещё та же
+      команда</p>
+  </div>
+  <div class="card">
+    <h3>Параметр</h3>
+    <span class="big"><code>{имя}</code></span>
+    <p class="note">в конце фразы — место для номера, названия или слова; всё сказанное после слов команды
+      становится параметром</p>
+  </div>
+</div>
+
+<form method="post" action="/operations">
+  <table class="grid ops-table">
+    <thead>
+      <tr>
+        <th>Вкл.</th><th>Операция и реакция системы</th>
+        {% for code in config.LANGUAGE_CODES %}
+        <th>Фразы — {{ language_name(code) }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for group, title in groups.items() %}
+      <tr class="row-group"><td colspan="{{ 2 + config.LANGUAGE_CODES|length }}">{{ title }}</td></tr>
+      {% for entry in entries if entry.operation.group == group %}
+      {% set op = entry.operation %}
+      {% set change = form[op.id] if form else None %}
+      {% set on = change.enabled if change else entry.enabled %}
+      <tr class="{% if not on %}is-off{% endif %}">
+        <td><input type="checkbox" name="enabled-{{ op.id }}" {% if on %}checked{% endif %}
+                   aria-label="включить операцию «{{ op.title }}»"></td>
+        <td>
+          <div class="op-title">{{ op.title }}</div>
+          <div class="op-text">Система {{ op.description }}.
+            {% if op.slot %}Параметр <code>{{ '{' ~ op.slot ~ '}' }}</code> — {{ op.hint('ru') }}.{% endif %}
+            {% if op.needs_essay %}Нужно открытое сочинение.{% endif %}
+            {% if entry.customized and not form %}<br><span class="tag tag-ru">фразы изменены</span>{% endif %}
+          </div>
+        </td>
+        {% for code in config.LANGUAGE_CODES %}
+        <td>
+          <textarea name="phrases-{{ op.id }}-{{ code }}" rows="{{ [entry.texts(code)|length, 2]|max + 1 }}"
+                    lang="{{ code }}" spellcheck="false" wrap="off"
+                    aria-label="фразы операции «{{ op.title }}», {{ language_name(code) }}">{{ (change.phrases[code] if change else entry.texts(code))|join('\n') }}</textarea>
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="ops-actions">
+    <button type="submit">Сохранить список</button>
+    <span class="note">Изменения действуют сразу, перезапускать систему не нужно.</span>
+  </div>
+</form>
+
+<form method="post" action="/operations/reset" class="inline">
+  <button type="submit" class="ghost">Вернуть исходный список</button>
+</form>
+
+<h2>Что делает система, услышав фразу</h2>
+<div class="prose">
+  <ol>
+    <li>Сверяет фразу с <b>ключевыми фразами</b>, которые задал администратор: если одна из них прозвучала,
+      система произносит заготовленный ответ.</li>
+    <li>Иначе ищет среди включённых <b>операций</b> ту, чья фраза похожа на услышанную не меньше чем на
+      {{ (config.MATCH_THRESHOLD * 100)|int }} %, выполняет её и сообщает результат.</li>
+    <li>Иначе <b>повторяет</b> услышанное вслух: операции для этих слов нет.</li>
+  </ol>
+  <p>Обращение и слова вежливости — «{{ companion_name }}», «пожалуйста», „bitte“ — на выбор операции не влияют.
+    Короткие команды из четырёх-пяти букв («стоп», „halt“) должны прозвучать точно: одна ошибка в них — уже другое
+    слово.</p>
+</div>
+{% endblock %}
