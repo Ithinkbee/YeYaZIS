@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+~$*.docx
+report/_crop/
+
+# рабочая база словаря строится из data/lexicon/*.tsv при первом запуске
+data/dictionary.sqlite
+data/dictionary.sqlite-journal
+
+# корпуса Universal Dependencies и словарь Ding скачиваются сценариями
+data/treebank/
+data/external/

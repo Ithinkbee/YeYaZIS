@@ -1,0 +1,390 @@
+# Обороты — сочетания, которые переводятся целиком (методичка: «более сложные единицы – обороты»).
+# Столбцы: en	pos	de	gender	plural	extra	domain
+# Существительные-сочетания: последнее английское слово сравнивается по лемме (operating systems → operating system).
+# Глагольные обороты: первое слово — по лемме, остальные — частица (carry out), предлог (depend on)
+# или дополнение (take place). «neuronal* Netz» — прилагательное склоняется; «Stand~ der Technik» — склоняется «Stand».
+# --- составные термины computer science ---
+operating system	NOUN	Betriebssystem	n	Betriebssysteme
+real-time operating system	NOUN	Echtzeitbetriebssystem	n	Echtzeitbetriebssysteme
+computer science	NOUN	Informatik	f	-
+computer program	NOUN	Computerprogramm	n	Computerprogramme
+computer code	NOUN	Computercode	m	Computercodes
+computer language	NOUN	Computersprache	f	Computersprachen
+computer system	NOUN	Computersystem	n	Computersysteme
+computer security	NOUN	Computersicherheit	f	-
+computer hardware	NOUN	Computerhardware	f	-
+computer network	NOUN	Computernetzwerk	n	Computernetzwerke
+source code	NOUN	Quellcode	m	Quellcodes
+source language	NOUN	Quellsprache	f	Quellsprachen
+source program	NOUN	Quellprogramm	n	Quellprogramme
+target language	NOUN	Zielsprache	f	Zielsprachen
+target program	NOUN	Zielprogramm	n	Zielprogramme
+target output	NOUN	Zielausgabe	f	Zielausgaben
+source input	NOUN	Quelleingabe	f	Quelleingaben
+machine code	NOUN	Maschinencode	m	Maschinencodes
+object code	NOUN	Objektcode	m	Objektcodes
+assembly language	NOUN	Assemblersprache	f	Assemblersprachen
+programming language	NOUN	Programmiersprache	f	Programmiersprachen
+high-level programming language	NOUN	höher* Programmiersprache	f	Programmiersprachen
+low-level programming language	NOUN	maschinennah* Programmiersprache	f	Programmiersprachen
+high-level language	NOUN	höher* Programmiersprache	f	Programmiersprachen		cs
+low-level language	NOUN	maschinennah* Programmiersprache	f	Programmiersprachen		cs
+executable program	NOUN	ausführbar* Programm	n	Programme
+central processing unit	NOUN	Hauptprozessor	m	Hauptprozessoren
+lexical analysis	NOUN	lexikalisch* Analyse	f	Analysen
+semantic analysis	NOUN	semantisch* Analyse	f	Analysen
+syntax analysis	NOUN	Syntaxanalyse	f	Syntaxanalysen
+intermediate representation	NOUN	Zwischendarstellung	f	Zwischendarstellungen
+code optimization	NOUN	Codeoptimierung	f	Codeoptimierungen
+code generation	NOUN	Codeerzeugung	f	-
+compiler construction	NOUN	Compilerbau	m	-
+compiler design	NOUN	Compilerentwurf	m	Compilerentwürfe
+compiler correctness	NOUN	Korrektheit~ des Compilers	f	-
+front end	NOUN	Frontend	n	Frontends
+back end	NOUN	Backend	n	Backends
+middle end	NOUN	Middle-End	n	Middle-Ends
+memory management	NOUN	Speicherverwaltung	f	-
+virtual memory	NOUN	virtuell* Speicher	m	Speicher
+main memory	NOUN	Hauptspeicher	m	Hauptspeicher
+file system	NOUN	Dateisystem	n	Dateisysteme
+user interface	NOUN	Benutzeroberfläche	f	Benutzeroberflächen
+application program	NOUN	Anwendungsprogramm	n	Anwendungsprogramme
+application software	NOUN	Anwendungssoftware	f	-
+system software	NOUN	Systemsoftware	f	-
+system call	NOUN	Systemaufruf	m	Systemaufrufe
+address space	NOUN	Adressraum	m	Adressräume
+time-sharing	NOUN	Timesharing	n	-
+time sharing	NOUN	Timesharing	n	-
+neural network	NOUN	neuronal* Netz	n	Netze
+artificial neural network	NOUN	künstlich* neuronal* Netz	n	Netze
+convolutional neural network	NOUN	faltend* neuronal* Netz	n	Netze
+recurrent neural network	NOUN	rekurrent* neuronal* Netz	n	Netze
+artificial intelligence	NOUN	künstlich* Intelligenz	f	-
+machine learning	NOUN	maschinell* Lernen	n	-
+deep learning	NOUN	Deep Learning	n	-
+machine translation	NOUN	maschinell* Übersetzung	f	Übersetzungen
+rule-based machine translation	NOUN	regelbasiert* maschinell* Übersetzung	f	Übersetzungen
+statistical machine translation	NOUN	statistisch* maschinell* Übersetzung	f	Übersetzungen
+neural machine translation	NOUN	neuronal* maschinell* Übersetzung	f	Übersetzungen
+example-based machine translation	NOUN	beispielbasiert* maschinell* Übersetzung	f	Übersetzungen
+transfer-based machine translation	NOUN	transferbasiert* maschinell* Übersetzung	f	Übersetzungen
+natural language	NOUN	natürlich* Sprache	f	Sprachen
+natural language processing	NOUN	Verarbeitung~ natürlicher Sprache	f	-
+language model	NOUN	Sprachmodell	n	Sprachmodelle
+large language model	NOUN	groß* Sprachmodell	n	Sprachmodelle
+training data	NOUN	Trainingsdaten	pl	Trainingsdaten
+training set	NOUN	Trainingsmenge	f	Trainingsmengen
+loss function	NOUN	Verlustfunktion	f	Verlustfunktionen
+cost function	NOUN	Kostenfunktion	f	Kostenfunktionen
+learning rate	NOUN	Lernrate	f	Lernraten
+activation function	NOUN	Aktivierungsfunktion	f	Aktivierungsfunktionen
+hidden layer	NOUN	verborgen* Schicht	f	Schichten
+input layer	NOUN	Eingabeschicht	f	Eingabeschichten
+output layer	NOUN	Ausgabeschicht	f	Ausgabeschichten
+data set	NOUN	Datensatz	m	Datensätze
+data structure	NOUN	Datenstruktur	f	Datenstrukturen
+data integrity	NOUN	Datenintegrität	f	-
+information security	NOUN	Informationssicherheit	f	-
+information technology	NOUN	Informationstechnik	f	-
+information system	NOUN	Informationssystem	n	Informationssysteme
+access control	NOUN	Zugriffskontrolle	f	Zugriffskontrollen
+risk management	NOUN	Risikomanagement	n	-
+security awareness	NOUN	Sicherheitsbewusstsein	n	-
+security control	NOUN	Sicherheitsmaßnahme	f	Sicherheitsmaßnahmen
+denial of service	NOUN	Dienstverweigerung	f	-
+denial-of-service attack	NOUN	Denial-of-Service-Angriff	m	Denial-of-Service-Angriffe
+defense in depth	NOUN	gestaffelt* Verteidigung	f	-
+defence in depth	NOUN	gestaffelt* Verteidigung	f	-
+search engine	NOUN	Suchmaschine	f	Suchmaschinen
+web page	NOUN	Webseite	f	Webseiten
+web browser	NOUN	Webbrowser	m	Webbrowser
+semantic web	NOUN	Semantisch* Web	n	-
+world wide web	NOUN	World Wide Web	n	-
+linked data	NOUN	Linked Data	pl	Linked Data
+knowledge base	NOUN	Wissensbasis	f	Wissensbasen
+markup language	NOUN	Auszeichnungssprache	f	Auszeichnungssprachen
+graph database	NOUN	Graphdatenbank	f	Graphdatenbanken
+plain text	NOUN	Klartext	m	Klartexte
+smart phone	NOUN	Smartphone	n	Smartphones
+flash drive	NOUN	USB-Stick	m	USB-Sticks
+usb stick	NOUN	USB-Stick	m	USB-Sticks
+hard disk	NOUN	Festplatte	f	Festplatten
+open source	NOUN	Open Source	f	-
+state of the art	NOUN	Stand~ der Technik	m	-
+point of view	NOUN	Sichtweise	f	Sichtweisen
+computing power	NOUN	Rechenleistung	f	-
+processing power	NOUN	Rechenleistung	f	-
+# --- литературоведение ---
+american dream	NOUN	amerikanisch* Traum	m	Träume
+upper class	NOUN	Oberschicht	f	Oberschichten
+middle class	NOUN	Mittelschicht	f	Mittelschichten
+working class	NOUN	Arbeiterklasse	f	Arbeiterklassen
+social class	NOUN	sozial* Klasse	f	Klassen
+free will	NOUN	frei* Wille	m	-	weak;gen=Willens
+human nature	NOUN	menschlich* Natur	f	-
+last rites	NOUN	Sterbesakramente	pl	Sterbesakramente
+revenge tragedy	NOUN	Rachetragödie	f	Rachetragödien
+gothic novel	NOUN	Schauerroman	m	Schauerromane
+first-person narrative	NOUN	Ich-Erzählung	f	Ich-Erzählungen
+literary criticism	NOUN	Literaturkritik	f	-
+literary critic	NOUN	Literaturkritiker	m	Literaturkritiker
+main character	NOUN	Hauptfigur	f	Hauptfiguren
+dust jacket	NOUN	Schutzumschlag	m	Schutzumschläge
+free indirect speech	NOUN	erlebt* Rede	f	-
+family name	NOUN	Familienname	m	Familiennamen	weak;gen=Familiennamens
+human being	NOUN	Mensch	m	Menschen	weak
+love story	NOUN	Liebesgeschichte	f	Liebesgeschichten
+love affair	NOUN	Liebesaffäre	f	Liebesaffären
+civil justice	NOUN	weltlich* Gerechtigkeit	f	-
+civil war	NOUN	Bürgerkrieg	m	Bürgerkriege
+world war	NOUN	Weltkrieg	m	Weltkriege
+mass surveillance	NOUN	Massenüberwachung	f	-
+totalitarian state	NOUN	totalitär* Staat	m	Staaten
+coming of age	NOUN	Erwachsenwerden	n	-
+# --- наречные обороты ---
+for example	ADV	zum Beispiel
+for instance	ADV	zum Beispiel
+in fact	ADV	tatsächlich
+in particular	ADV	insbesondere
+in addition	ADV	außerdem			sent
+at least	ADV	zumindest
+at the same time	ADV	gleichzeitig
+on the other hand	ADV	andererseits			sent
+on the one hand	ADV	einerseits			sent
+as a result	ADV	infolgedessen			sent
+in other words	ADV	mit anderen Worten			sent
+of course	ADV	natürlich
+in general	ADV	im Allgemeinen
+in practice	ADV	in der Praxis
+in theory	ADV	theoretisch
+in contrast	ADV	im Gegensatz dazu			sent
+as well	ADV	auch
+so far	ADV	bisher
+and so on	ADV	und so weiter
+and so forth	ADV	und so weiter
+from scratch	ADV	von Grund auf
+more or less	ADV	mehr oder weniger
+not only	ADV	nicht nur
+in turn	ADV	wiederum
+in the end	ADV	am Ende
+at first	ADV	zunächst
+at last	ADV	endlich
+at all	ADV	überhaupt
+above all	ADV	vor allem
+after all	ADV	schließlich
+once again	ADV	erneut
+even more	ADV	noch mehr
+at once	ADV	sofort
+over time	ADV	mit der Zeit
+by default	ADV	standardmäßig
+in total	ADV	insgesamt
+in short	ADV	kurz gesagt			sent
+in summary	ADV	zusammenfassend			sent
+in essence	ADV	im Wesentlichen
+in part	ADV	teilweise
+for the most part	ADV	größtenteils
+to some extent	ADV	in gewissem Maße
+in a sense	ADV	in gewissem Sinne
+in this way	ADV	auf diese Weise
+in the same way	ADV	auf dieselbe Weise
+up to date	ADV	auf dem neuesten Stand
+into german	ADV	ins Deutsche
+into english	ADV	ins Englische
+into french	ADV	ins Französische
+into russian	ADV	ins Russische
+# --- составные предлоги ---
+because of	ADP	wegen			case=G
+instead of	ADP	statt			case=G
+according to	ADP	laut			case=D
+due to	ADP	aufgrund			case=G
+in front of	ADP	vor			case=D
+next to	ADP	neben			case=D
+out of	ADP	aus			case=D
+such as	ADP	wie			case=N
+in addition to	ADP	zusätzlich zu			case=D
+apart from	ADP	abgesehen von			case=D
+aside from	ADP	abgesehen von			case=D
+in terms of	ADP	hinsichtlich			case=G
+with respect to	ADP	in Bezug auf			case=A
+with regard to	ADP	in Bezug auf			case=A
+in spite of	ADP	trotz			case=G
+on behalf of	ADP	im Namen			case=G
+by means of	ADP	mittels			case=G
+prior to	ADP	vor			case=D
+up to	ADP	bis zu			case=D
+compared to	ADP	im Vergleich zu			case=D
+compared with	ADP	im Vergleich zu			case=D
+in contrast to	ADP	im Gegensatz zu			case=D
+in comparison with	ADP	im Vergleich zu			case=D
+as opposed to	ADP	im Gegensatz zu			case=D
+together with	ADP	zusammen mit			case=D
+along with	ADP	zusammen mit			case=D
+as well as	CCONJ	sowie
+rather than	CCONJ	statt
+but also	CCONJ	sondern auch
+in the wake of	ADP	im Zuge			case=G
+in the form of	ADP	in Form			case=G
+in the case of	ADP	im Fall			case=G
+at the end of	ADP	am Ende			case=G
+at the beginning of	ADP	am Anfang			case=G
+in the middle of	ADP	mitten in			case=D
+as a result of	ADP	infolge			case=G
+on the basis of	ADP	auf der Grundlage			case=G
+in the context of	ADP	im Rahmen			case=G
+in favour of	ADP	zugunsten			case=G
+in favor of	ADP	zugunsten			case=G
+in charge of	ADP	verantwortlich für			case=A
+regardless of	ADP	unabhängig von			case=D
+irrespective of	ADP	unabhängig von			case=D
+thanks to	ADP	dank			case=D
+close to	ADP	nahe			case=D
+far from	ADP	weit entfernt von			case=D
+# --- составные союзы ---
+even though	SCONJ	obwohl			sub
+even if	SCONJ	selbst wenn			sub
+as if	SCONJ	als ob			sub
+as though	SCONJ	als ob			sub
+so that	SCONJ	sodass			sub
+such that	SCONJ	sodass			sub
+in order that	SCONJ	damit			sub
+as soon as	SCONJ	sobald			sub
+as long as	SCONJ	solange			sub
+provided that	SCONJ	vorausgesetzt, dass			sub
+given that	SCONJ	da			sub
+now that	SCONJ	da			sub
+in order to	SCONJ	um			inf
+so as to	SCONJ	um			inf
+# --- фразовые и предложные глаголы ---
+carry out	VERB	durch|führen
+make up	VERB	aus|machen
+find out	VERB	heraus|finden
+point out	VERB	hin|weisen			prep=auf+A;ccomp=darauf hin|weisen
+set up	VERB	ein|richten
+break down	VERB	zerlegen
+build up	VERB	auf|bauen
+bring about	VERB	herbei|führen
+come up	VERB	auf|kommen			aux=sein
+give up	VERB	auf|geben
+go on	VERB	weiter|gehen			aux=sein
+look up	VERB	nach|schlagen
+pick up	VERB	auf|nehmen
+put forward	VERB	vor|bringen
+shut down	VERB	herunter|fahren
+sum up	VERB	zusammen|fassen
+take over	VERB	übernehmen
+take up	VERB	auf|greifen
+track down	VERB	auf|spüren
+turn out	VERB	sich heraus|stellen
+work out	VERB	aus|arbeiten
+deal with	VERB	sich befassen			prep=mit+D
+depend on	VERB	ab|hängen			prep=von+D
+consist of	VERB	bestehen			prep=aus+D
+consist in	VERB	bestehen			prep=in+D
+focus on	VERB	sich konzentrieren			prep=auf+A
+rely on	VERB	sich verlassen			prep=auf+A
+refer to	VERB	sich beziehen			prep=auf+A
+lead to	VERB	führen			prep=zu+D
+belong to	VERB	gehören			prep=zu+D
+result in	VERB	führen			prep=zu+D
+result from	VERB	sich ergeben			prep=aus+D
+apply to	VERB	gelten			prep=für+A;noobj
+look at	VERB	betrachten			prep=+A
+look for	VERB	suchen			prep=+A
+search for	VERB	suchen			prep=nach+D
+wait for	VERB	warten			prep=auf+A
+think of	VERB	denken			prep=an+A
+think about	VERB	nach|denken			prep=über+A
+talk about	VERB	sprechen			prep=über+A
+write about	VERB	schreiben			prep=über+A
+care about	VERB	sich kümmern			prep=um+A
+draw from	VERB	schöpfen			prep=aus+D
+draw on	VERB	zurück|greifen			prep=auf+A
+derive from	VERB	ab|leiten			prep=von+D
+emerge from	VERB	hervor|gehen			prep=aus+D;aux=sein
+benefit from	VERB	profitieren			prep=von+D
+suffer from	VERB	leiden			prep=unter+D
+protect from	VERB	schützen			prep=vor+D
+protect against	VERB	schützen			prep=vor+D
+translate into	VERB	übersetzen			prep=in+A
+convert into	VERB	um|wandeln			prep=in+A
+convert to	VERB	um|wandeln			prep=in+A
+divide into	VERB	auf|teilen			prep=in+A
+split into	VERB	auf|teilen			prep=in+A
+interfere with	VERB	stören			prep=+A
+cope with	VERB	bewältigen			prep=+A
+comply with	VERB	ein|halten			prep=+A
+agree with	VERB	überein|stimmen			prep=mit+D
+communicate with	VERB	kommunizieren			prep=mit+D
+interact with	VERB	interagieren			prep=mit+D
+compete with	VERB	konkurrieren			prep=mit+D
+associate with	VERB	verbinden			prep=mit+D
+compare with	VERB	vergleichen			prep=mit+D
+compare to	VERB	vergleichen			prep=mit+D
+replace with	VERB	ersetzen			prep=durch+A
+allude to	VERB	an|spielen			prep=auf+A
+listen to	VERB	zu|hören			prep=+D
+respond to	VERB	reagieren			prep=auf+A
+react to	VERB	reagieren			prep=auf+A
+contribute to	VERB	bei|tragen			prep=zu+D
+correspond to	VERB	entsprechen			prep=+D
+attach to	VERB	an|hängen			prep=an+A
+nail to	VERB	an|schlagen			prep=an+A
+come from	VERB	stammen			prep=aus+D
+go through	VERB	durchlaufen			prep=+A
+pass through	VERB	durchlaufen			prep=+A
+lie in	VERB	liegen			prep=in+D
+believe in	VERB	glauben			prep=an+A
+look like	VERB	aus|sehen			prep=wie+N
+shorten to	VERB	ab|kürzen			prep=zu+D
+refer to as	VERB	bezeichnen			prep=als+N
+known as	VERB	bekannt sein			prep=als+N
+speak of	VERB	sprechen			prep=von+D
+dream of	VERB	träumen			prep=von+D
+fall in love	VERB	sich verlieben			prep=in+A
+take place	VERB	statt|finden
+take care	VERB	sich kümmern			prep=um+A
+take part	VERB	teil|nehmen			prep=an+D
+take into account	VERB	berücksichtigen
+make sense	VERB	Sinn ergeben
+make use	VERB	nutzen			prep=+A
+play a role	VERB	eine Rolle spielen
+pay attention	VERB	achten			prep=auf+A
+exact revenge	VERB	sich rächen			prep=an+D
+seek revenge	VERB	sich rächen			prep=an+D
+get rid	VERB	los|werden			prep=+A;aux=sein
+give rise	VERB	führen			prep=zu+D
+come to terms	VERB	sich ab|finden			prep=mit+D
+draw attention	VERB	aufmerksam machen			prep=auf+A
+pose a threat	VERB	eine Bedrohung dar|stellen			prep=für+A
+raise awareness	VERB	das Bewusstsein schärfen			prep=für+A
+# --- прилагательные-обороты ---
+based on	ADJ	basierend auf			case=D
+rule-based	ADJ	regelbasiert
+example-based	ADJ	beispielbasiert
+transfer-based	ADJ	transferbasiert
+dictionary-based	ADJ	wörterbuchbasiert
+paper-based	ADJ	papierbasiert
+html-based	ADJ	HTML-basiert
+security-focused	ADJ	sicherheitsorientiert
+compute-intensive	ADJ	rechenintensiv
+well known	ADJ	bekannt
+best-loved	ADJ	beliebtest
+most-loved	ADJ	beliebtest
+ever-growing	ADJ	stetig wachsend
+cobbled-together	ADJ	zusammengeschustert
+syntax-directed	ADJ	syntaxgesteuert
+end-to-end	ADJ	durchgängig
+source-to-source	ADJ	Source-to-Source-
+special-purpose	ADJ	spezialisiert
+general-purpose	ADJ	universell
+real-world	ADJ	realitätsnah
+large-scale	ADJ	groß angelegt
+work around	VERB	umgehen
+miss from	VERB	fehlen			prep=in+D
+set in	VERB	spielen			prep=in+D
+point to	VERB	hin|weisen			prep=auf+A
+drawing room	NOUN	Salon	m	Salons
+small talk	NOUN	Smalltalk	m	-
+pen name	NOUN	Pseudonym	n	Pseudonyme
+provide for	VERB	sorgen			prep=für+A;noobj
+submit to	VERB	ein|reichen			prep=bei+D

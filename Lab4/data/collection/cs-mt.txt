@@ -1,0 +1,25 @@
+Machine translation is the use of computational techniques to translate text or speech from one language to another, including the contextual, idiomatic, and pragmatic nuances of both languages.
+
+While some language models are capable of generating comprehensible results, machine translation tools remain limited by the complexity of language and emotion, often lacking depth and semantic precision. Its quality is influenced by linguistic, grammatical, tonal, and cultural differences, making it inadequate to replace real translators fully. Effective improvement in translation quality requires understanding of target society's customs and historical context, and human intervention and visual cues remain necessary in simultaneous interpretation. On the other hand, domain-specific customization, such as for technical documentation or official texts, can yield more stable results, and is commonly employed in multilingual websites and professional databases.
+
+Initial approaches were mostly rule-based or statistical in nature. However, these methods have since been superseded by neural machine translation and large language models.
+
+# Rule-based
+
+The rule-based machine translation approach was used mostly in the creation of dictionaries and grammar programs. Its biggest downfall was that everything had to be made explicit: orthographical variation and erroneous input must be made part of the source language analyser in order to cope with it, and lexical selection rules must be written for all instances of ambiguity.
+
+# Transfer-based machine translation
+
+Transfer-based machine translation was similar to interlingual machine translation in that it created a translation from an intermediate representation that simulated the meaning of the original sentence. Unlike interlingual MT, it depended partially on the language pair involved in the translation.
+
+# Interlingual
+
+Interlingual machine translation was one instance of rule-based machine-translation approaches. In this approach, the source language, i.e. the text to be translated, was transformed into an interlingual language, i.e. a "language neutral" representation that is independent of any language. The target language was then generated out of the interlingua. The only interlingual machine translation system that was made operational at the commercial level was the KANT system (Nyberg and Mitamura, 1992), which was designed to translate Caterpillar Technical English (CTE) into other languages.
+
+# Statistical
+
+Statistical machine translation tried to generate translations using statistical methods based on bilingual text corpora, such as the Canadian Hansard corpus, the English-French record of the Canadian parliament and EUROPARL, the record of the European Parliament. Where such corpora were available, good results were achieved translating similar texts, but such corpora were rare for many language pairs. The first statistical machine translation software was CANDIDE from IBM. In 2005, Google improved its internal translation capabilities by using approximately 200 billion words from United Nations materials to train their system; translation accuracy improved.
+
+SMT's biggest downfall included it being dependent upon huge amounts of parallel texts, its problems with morphology-rich languages (especially with translating into such languages), and its inability to correct singleton errors.
+
+Some work has been done in the utilization of multiparallel corpora, that is a body of text that has been translated into 3 or more languages. Using these methods, a text that has been translated into 2 or more languages may be utilized in combination to provide a more accurate translation into a third language compared with if just one of those source languages were used alone.

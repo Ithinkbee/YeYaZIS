@@ -1,0 +1,229 @@
+{
+ "documents": [
+  {
+   "id": "cs-compiler",
+   "file": "cs-compiler.txt",
+   "title": "Compiler",
+   "domain": "cs",
+   "chars": 3034,
+   "words": 432,
+   "sections": [
+    "Compiler construction"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Compiler",
+    "revision": 1373605841,
+    "timestamp": "2026-09-06T21:38:00Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "cs-os",
+   "file": "cs-os.txt",
+   "title": "Operating system",
+   "domain": "cs",
+   "chars": 4419,
+   "words": 669,
+   "sections": [
+    "Kernel",
+    "Memory management"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Operating_system",
+    "revision": 1378031792,
+    "timestamp": "2026-10-02T15:15:18Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "cs-nn",
+   "file": "cs-nn.txt",
+   "title": "Neural network (machine learning)",
+   "domain": "cs",
+   "chars": 3687,
+   "words": 561,
+   "sections": [
+    "Learning"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Neural_network_(machine_learning)",
+    "revision": 1378632368,
+    "timestamp": "2026-10-05T10:03:12Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "cs-security",
+   "file": "cs-security.txt",
+   "title": "Information security",
+   "domain": "cs",
+   "chars": 3806,
+   "words": 525,
+   "sections": [
+    "Security Goals"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Information_security",
+    "revision": 1378440196,
+    "timestamp": "2026-10-04T14:05:00Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "cs-semweb",
+   "file": "cs-semweb.txt",
+   "title": "Semantic Web",
+   "domain": "cs",
+   "chars": 4099,
+   "words": 620,
+   "sections": [
+    "Background",
+    "Semantic Web solutions"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Semantic_Web",
+    "revision": 1378299272,
+    "timestamp": "2026-10-03T21:47:51Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "cs-mt",
+   "file": "cs-mt.txt",
+   "title": "Machine translation",
+   "domain": "cs",
+   "chars": 3780,
+   "words": 529,
+   "sections": [
+    "Rule-based",
+    "Transfer-based machine translation",
+    "Interlingual",
+    "Statistical"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Machine_translation",
+    "revision": 1377702692,
+    "timestamp": "2026-09-30T17:45:33Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "lit-hamlet",
+   "file": "lit-hamlet.txt",
+   "title": "Hamlet",
+   "domain": "lit",
+   "chars": 3392,
+   "words": 524,
+   "sections": [
+    "Philosophical",
+    "Religious"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Hamlet",
+    "revision": 1373861765,
+    "timestamp": "2026-09-08T11:03:38Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "lit-pride",
+   "file": "lit-pride.txt",
+   "title": "Pride and Prejudice",
+   "domain": "lit",
+   "chars": 4109,
+   "words": 677,
+   "sections": [
+    "Major themes",
+    "Self-knowledge"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Pride_and_Prejudice",
+    "revision": 1377221099,
+    "timestamp": "2026-09-28T10:36:04Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "lit-frankenstein",
+   "file": "lit-frankenstein.txt",
+   "title": "Frankenstein",
+   "domain": "lit",
+   "chars": 3776,
+   "words": 570,
+   "sections": [
+    "The Creature"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Frankenstein",
+    "revision": 1378188568,
+    "timestamp": "2026-10-03T10:52:34Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "lit-1984",
+   "file": "lit-1984.txt",
+   "title": "Nineteen Eighty-Four",
+   "domain": "lit",
+   "chars": 3181,
+   "words": 487,
+   "sections": [
+    "Censorship",
+    "Surveillance"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Nineteen_Eighty-Four",
+    "revision": 1377874831,
+    "timestamp": "2026-10-01T17:54:04Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "lit-gatsby",
+   "file": "lit-gatsby.txt",
+   "title": "The Great Gatsby",
+   "domain": "lit",
+   "chars": 3030,
+   "words": 462,
+   "sections": [
+    "The American Dream"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/The_Great_Gatsby",
+    "revision": 1375261085,
+    "timestamp": "2026-09-16T19:35:45Z",
+    "license": "CC BY-SA 4.0"
+   }
+  },
+  {
+   "id": "lit-janeeyre",
+   "file": "lit-janeeyre.txt",
+   "title": "Jane Eyre",
+   "domain": "lit",
+   "chars": 4318,
+   "words": 685,
+   "sections": [
+    "Feminism",
+    "Bildungsroman"
+   ],
+   "source": {
+    "site": "en.wikipedia.org",
+    "url": "https://en.wikipedia.org/wiki/Jane_Eyre",
+    "revision": 1372986829,
+    "timestamp": "2026-09-03T10:16:32Z",
+    "license": "CC BY-SA 4.0"
+   }
+  }
+ ]
+}

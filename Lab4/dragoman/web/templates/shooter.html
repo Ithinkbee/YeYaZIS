@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Тир {{ companion_genitive }} — «{{ app_name }}»{% endblock %}
+{% block content %}
+<div id="shooter" class="shooter">
+<h1>Тир {{ companion_genitive }}</h1>
+
+<section id="shooter-setup" class="shooter-setup">
+  <div class="block">
+    <h2>Вавилонская башня</h2>
+    <p>{{ companion_name }} стоит на вершине Вавилонской башни. Со всех сторон через ворота парапета на него идут
+      <b>английские слова</b> выбранного текста — волна за волной. Попадание паутиной <b>переводит слово на
+      немецкий</b>, и переведённое слово больше не опасно. Каждое разное слово текста выйдет ровно один раз,
+      поэтому, отбив все волны, вы переведёте весь документ — и получите перевод целиком.</p>
+    <ul class="shooter-legend">
+      <li><span class="kind kind-swarm">the</span> <b>Мелочь</b> — служебные слова: артикли, предлоги, союзы. Маленькие
+        и быстрые, бегут стайками.</li>
+      <li><span class="kind kind-walker">network</span> <b>Слово</b> — существительные, прилагательные, наречия: идут на
+        паука и кусают.</li>
+      <li><span class="kind kind-gunner">translate</span> <b>Слово с пушкой</b> — глаголы, слова действия: держатся
+        поодаль и стреляют буквами.</li>
+      <li><span class="kind kind-boss">implementation</span> <b>Мини-босс</b> — закрывает каждую волну. Это одно из самых
+        длинных слов текста: при N волнах первую закрывает N-е по длине слово, последнюю — самое длинное. С каждым
+        попаданием проступает его немецкий перевод.</li>
+      <li><span class="kind kind-fly">муха</span> Иногда остаётся <b>муха</b> — подберите, и паук подлечится.</li>
+    </ul>
+    <h3>Управление</h3>
+    <ul class="controls">
+      <li><kbd>W</kbd>/<kbd>↑</kbd> — вперёд, <kbd>S</kbd>/<kbd>↓</kbd> — назад, <kbd>A</kbd>/<kbd>←</kbd> — влево,
+        <kbd>D</kbd>/<kbd>→</kbd> — вправо; <kbd>Пробел</kbd> — прыжок, <kbd>Shift</kbd> — рывок</li>
+      <li>мышь — обзор, <b>левая кнопка</b> — выстрел паутиной, <b>правая</b> — ловчая сеть (переводит всех рядом,
+        перезарядка 14 с)</li>
+      <li><kbd>Tab</kbd> — текст документа: переведённые слова уже по-немецки; <kbd>Esc</kbd> — пауза;
+        <kbd>M</kbd> — звук</li>
+    </ul>
+  </div>
+  <div class="block">
+    <h2>Бой</h2>
+    <form id="shooter-form" class="shooter-form">
+      <label>Текст
+        <select id="shooter-text">
+          <optgroup label="Тестовая коллекция">
+            {% for d in documents %}<option value="doc:{{ d.id }}" {% if chosen_doc == d.id or (not chosen_doc and not chosen_uid and loop.first) %}selected{% endif %}>{{ d.title }} ({{ domain_name(d.domain, short=True) }}, {{ d.words }} слов)</option>{% endfor %}
+          </optgroup>
+          {% if recent %}
+          <optgroup label="Переводы этого сеанса">
+            {% for t in recent %}<option value="uid:{{ t.uid }}" {% if chosen_uid == t.uid %}selected{% endif %}>{{ t.title }} ({{ t.stats.words }} слов)</option>{% endfor %}
+          </optgroup>
+          {% endif %}
+        </select>
+      </label>
+      <label>Волн <input type="range" id="shooter-waves" min="{{ waves_range[0] }}" max="{{ waves_range[1] }}" value="{{ waves_default }}">
+        <b id="shooter-waves-value">{{ waves_default }}</b></label>
+      <label>Сложность
+        <select id="shooter-difficulty">
+          <option value="easy">лёгкая</option><option value="normal" selected>обычная</option><option value="hard">трудная</option>
+        </select>
+      </label>
+      <label>Чувствительность мыши <input type="range" id="shooter-sensitivity" min="0.4" max="2.4" step="0.1" value="1"></label>
+      <p class="note" id="shooter-plan-note">Число волн можно менять — слова распределятся заново, а волны будут расти:
+        вторая больше первой и так далее.</p>
+      <div id="shooter-preview" class="shooter-preview"></div>
+      <button type="submit" id="shooter-start" class="big-button">В бой</button>
+      <span class="note" id="shooter-status"></span>
+    </form>
+  </div>
+</section>
+
+<section id="shooter-game" class="shooter-game" hidden>
+  <div class="game-frame" id="game-frame">
+    <canvas id="game-canvas"></canvas>
+    <div class="hud" id="hud">
+      <div class="hud-top">
+        <span class="hud-wave" id="hud-wave">Волна 1</span>
+        <span class="hud-left" id="hud-left"></span>
+        <span class="hud-progress"><i id="hud-progress-bar"></i></span>
+        <span class="hud-progress-text" id="hud-progress-text"></span>
+      </div>
+      <div class="hud-boss" id="hud-boss" hidden>
+        <b id="hud-boss-name"></b>
+        <span class="hud-bar hud-bar-boss"><i id="hud-boss-bar"></i></span>
+      </div>
+      <div class="crosshair" id="crosshair"></div>
+      <div class="hud-message" id="hud-message"></div>
+      <ul class="killfeed" id="killfeed"></ul>
+      <canvas class="radar" id="radar" width="150" height="150"></canvas>
+      <div class="hud-bottom">
+        <div class="hud-stat"><span>Пафнутий</span><span class="hud-bar hud-bar-hp"><i id="hud-hp"></i></span><b id="hud-hp-text">100</b></div>
+        <div class="hud-stat"><span>Паутина</span><span class="hud-bar hud-bar-ammo"><i id="hud-ammo"></i></span></div>
+        <div class="hud-stat"><span>Сеть</span><span class="hud-bar hud-bar-net"><i id="hud-net"></i></span></div>
+      </div>
+      <div class="speech" id="speech"><span class="speech-name">{{ companion_name }}:</span> <span id="speech-text"></span></div>
+      <aside class="doc-panel" id="doc-panel" hidden>
+        <h3 id="doc-title"></h3>
+        <div class="doc-text" id="doc-text"></div>
+      </aside>
+      <div class="overlay" id="overlay-start">
+        <h2 id="start-title">Готов?</h2>
+        <p>Щёлкните по полю, чтобы захватить мышь. <kbd>Esc</kbd> — пауза.</p>
+        <button type="button" id="start-play" class="big-button">Начать</button>
+      </div>
+      <div class="overlay" id="overlay-pause" hidden>
+        <h2>Пауза</h2>
+        <p id="pause-stats"></p>
+        <p><button type="button" id="resume" class="big-button">Продолжить</button>
+          <button type="button" class="ghost" id="quit">Сдаться</button></p>
+      </div>
+      <div class="overlay overlay-end" id="overlay-end" hidden>
+        <h2 id="end-title"></h2>
+        <p id="end-stats"></p>
+        <div class="end-translation" id="end-translation"></div>
+        <p class="end-actions">
+          <a class="button" id="end-export" href="#">Сохранить перевод (TXT)</a>
+          <a class="button ghost" id="end-open" href="#">Открыть перевод</a>
+          <button type="button" class="ghost" id="end-again">Ещё раз</button>
+          <button type="button" class="ghost" id="end-setup">К выбору текста</button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <p class="note game-help">Мышь не захватывается? Щёлкните по полю. Полный экран — <kbd>F</kbd>.</p>
+</section>
+</div>
+<script type="application/json" id="shooter-lines">{{ lines|tojson }}</script>
+{% endblock %}
+{% block scripts %}
+<script src="{{ static_url('shooter_rules.js') }}"></script>
+<script type="module" src="{{ static_url('shooter.js') }}"></script>
+{% endblock %}

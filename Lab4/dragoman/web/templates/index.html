@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block content %}
+<h1>Перевод с английского на немецкий</h1>
+<p class="lead">
+  Вставьте английский текст, загрузите файл или выберите документ тестовой коллекции. Система разберёт каждое
+  предложение — части речи, леммы, синтаксическое дерево, — перестроит его по правилам немецкой грамматики и
+  подставит немецкие слова из словаря. Рядом с переводом — статистика, частотный список слов с грамматической
+  информацией и дерево разбора любого предложения.
+</p>
+
+{% if error %}<div class="banner error">{{ error }}</div>{% endif %}
+
+<form class="text-form block" method="post" action="/translate" enctype="multipart/form-data">
+  <label for="text">Английский текст</label>
+  <textarea id="text" name="text" rows="11" placeholder="Paste an English text here…">{{ form.text }}</textarea>
+  <div class="row">
+    <label>Файл <input type="file" name="upload" accept=".txt,.md,.html,.htm,.docx,.pdf"></label>
+    <label>или документ коллекции
+      <select name="document">
+        <option value="">—</option>
+        {% for d in documents %}<option value="{{ d.id }}">{{ domain_name(d.domain, short=True) }}: {{ d.title }}</option>{% endfor %}
+      </select>
+    </label>
+  </div>
+  <div class="row">
+    <label>Название <input type="text" name="title" value="{{ form.title }}" placeholder="необязательно"></label>
+    <label>Предметная область
+      <select name="domain">
+        <option value="auto" {% if form.domain == 'auto' %}selected{% endif %}>определить автоматически</option>
+        {% for code in config.DOMAIN_CODES %}
+        <option value="{{ code }}" {% if form.domain == code %}selected{% endif %}>{{ domain_name(code) }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Способ
+      <select name="mode">
+        {% for code, name in modes.items() %}
+        <option value="{{ code }}" {% if form.mode == code %}selected{% endif %}>{{ name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <span class="spacer"></span>
+    <button type="button" class="ghost" id="example-button" data-example="{{ example }}">Пример</button>
+    <button type="submit">Перевести</button>
+  </div>
+  {% if not ready %}<p class="note">Модели анализатора загружаются (первый перевод после запуска — около двух секунд).</p>{% endif %}
+</form>
+
+<div class="cards">
+  <div class="card">
+    <h3>Анализ</h3>
+    <p>Теггер частей речи, лемматизатор и синтаксический анализатор зависимостей, обученные на корпусах
+      Universal Dependencies. Написаны с нуля — усреднённый перцептрон.</p>
+  </div>
+  <div class="card">
+    <h3>Трансфер</h3>
+    <p>Рамочная конструкция, глагол на втором месте и в конце придаточного, падежи, род и склонение, сложные
+      слова, «kein» вместо «nicht ein».</p>
+  </div>
+  <div class="card">
+    <h3>Словарь</h3>
+    <p>{{ lexicon_total|num }} записей с родом, множественным числом и управлением в базе SQLite. Неизвестные слова
+      попадают в журнал — из него словарь <a href="/dictionary/replenish">пополняется</a>.</p>
+  </div>
+</div>
+
+{% if recent %}
+<h2>Переводы этого сеанса</h2>
+<ul class="plain">
+  {% for t in recent %}
+  <li>{{ m.domain_tag(t.domain) }} <a href="/t/{{ t.uid }}">{{ t.title }}</a>
+    <span class="muted small">— {{ modes[t.mode] }}, {{ t.stats.words|num }} слов, переведено {{ t.stats.coverage|pct }}, {{ t.created }}</span></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

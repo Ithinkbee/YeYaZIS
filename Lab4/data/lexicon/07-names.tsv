@@ -1,0 +1,86 @@
+# Имена собственные, у которых есть немецкое соответствие, и названия произведений.
+# Столбцы: en	pos	de	gender	plural	extra	domain
+# article — в немецком употребляется с артиклем («die Schweiz», «die Renaissance»).
+# Имена людей и названия, которых здесь нет, остаются как в оригинале.
+america	PROPN	Amerika	n	-
+britain	PROPN	Großbritannien	n	-
+great britain	PROPN	Großbritannien	n	-
+denmark	PROPN	Dänemark	n	-
+england	PROPN	England	n	-
+europe	PROPN	Europa	n	-
+france	PROPN	Frankreich	n	-
+germany	PROPN	Deutschland	n	-
+greece	PROPN	Griechenland	n	-
+italy	PROPN	Italien	n	-
+russia	PROPN	Russland	n	-
+spain	PROPN	Spanien	n	-
+switzerland	PROPN	Schweiz	f	-	article
+austria	PROPN	Österreich	n	-
+ireland	PROPN	Irland	n	-
+scotland	PROPN	Schottland	n	-
+belarus	PROPN	Belarus	n	-
+united states	PROPN	Vereinigte Staaten	pl	-	article
+united kingdom	PROPN	Vereinigtes Königreich	n	-	article
+soviet union	PROPN	Sowjetunion	f	-	article
+geneva	PROPN	Genf	n	-
+vienna	PROPN	Wien	n	-
+munich	PROPN	München	n	-
+cologne	PROPN	Köln	n	-
+moscow	PROPN	Moskau	n	-
+rome	PROPN	Rom	n	-
+athens	PROPN	Athen	n	-
+rhine	PROPN	Rhein	m	-	article
+thames	PROPN	Themse	f	-	article
+arctic	PROPN	Arktis	f	-	article
+god	PROPN	Gott	m	Götter
+english	PROPN	Englisch	n	-
+german	PROPN	Deutsch	n	-
+french	PROPN	Französisch	n	-
+russian	PROPN	Russisch	n	-
+latin	PROPN	Latein	n	-
+greek	PROPN	Griechisch	n	-
+renaissance	PROPN	Renaissance	f	-	article
+reformation	PROPN	Reformation	f	-	article
+enlightenment	PROPN	Aufklärung	f	-	article
+romanticism	PROPN	Romantik	f	-	article
+middle ages	PROPN	Mittelalter	n	-	article
+catholic	PROPN	Katholik	m	Katholiken	weak
+protestant	PROPN	Protestant	m	Protestanten	weak
+sophist	PROPN	Sophist	m	Sophisten	weak
+internet	PROPN	Internet	n	-	article
+web	PROPN	Web	n	-	article
+world wide web	PROPN	World Wide Web	n	-	article
+semantic web	PROPN	Semantisch* Web	n	-	article
+big brother	PROPN	Groß* Bruder	m	-	article
+thought police	PROPN	Gedankenpolizei	f	-	article
+ministry of truth	PROPN	Ministerium für Wahrheit	n	-	article
+party	PROPN	Partei	f	-	article
+oceania	PROPN	Ozeanien	n	-
+creature	PROPN	Kreatur	f	-	article
+monster	PROPN	Monster	n	-	article
+prince	PROPN	Prinz	m	Prinzen	weak
+king	PROPN	König	m	Könige
+queen	PROPN	Königin	f	Königinnen
+pride and prejudice	PROPN	Stolz und Vorurteil	n	-
+the great gatsby	PROPN	Der große Gatsby	m	-
+great gatsby	PROPN	Der große Gatsby	m	-
+nineteen eighty-four	PROPN	1984	n	-
+wuthering heights	PROPN	Sturmhöhe	f	-
+paradise lost	PROPN	Das verlorene Paradies	n	-
+the modern prometheus	PROPN	Der moderne Prometheus	m	-
+modern prometheus	PROPN	moderne Prometheus	m	-
+jazz age	PROPN	Jazz-Zeitalter	n	-	article
+roaring twenties	PROPN	Goldene Zwanziger	pl	-	article
+first folio	PROPN	First Folio	n	-	article
+first quarto	PROPN	First Quarto	n	-	article
+second quarto	PROPN	Second Quarto	n	-	article
+english reformation	PROPN	englisch* Reformation	f	-	article
+ninety-five theses	PROPN	95 Thesen	pl	-
+w3c	PROPN	W3C	n	-	article
+new york	PROPN	New York	n	-
+new england	PROPN	Neuengland	n	-
+new jersey	PROPN	New Jersey	n	-
+long island	PROPN	Long Island	f	-
+east egg	PROPN	East Egg	n	-
+west egg	PROPN	West Egg	n	-
+united nations	PROPN	Vereinte Nationen	pl	-	article

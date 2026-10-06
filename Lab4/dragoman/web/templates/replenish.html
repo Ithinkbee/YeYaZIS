@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Пополнение словаря — «{{ app_name }}»{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/dictionary">Словарь</a></p>
+<h1>Пополнение словаря</h1>
+<p class="lead">
+  Слова, которые встретились в переведённых текстах, но не нашлись в словаре, собираются в журнал. Для каждого
+  система предлагает перевод: по правилам словообразования (optimization → Optimierung, configurable →
+  konfigurierbar) и по свободному словарю Ding, если он загружен. Проверьте подсказку, поправьте и добавьте —
+  или пополните словарь автоматически всеми уверенными подсказками.
+</p>
+{% if message %}<div class="banner">{{ message }}</div>{% endif %}
+
+<div class="toolbar">
+  <form method="post" action="/dictionary/auto" class="inline">
+    <label>Порог уверенности
+      <select name="threshold"><option value="0.85">85 %</option><option value="0.75" selected>75 %</option><option value="0.65">65 %</option></select>
+    </label>
+    <button type="submit">Пополнить автоматически</button>
+  </form>
+  <span class="spacer"></span>
+  {% if ding_ready %}
+  <span class="note">Словарь Ding загружен.</span>
+  {% else %}
+  <form method="post" action="/dictionary/ding" class="inline">
+    <button type="submit" class="ghost">Загрузить словарь Ding (7,8 МБ)</button>
+  </form>
+  {% endif %}
+  {% if ding_status %}<span class="note">{{ ding_status }}</span>{% endif %}
+</div>
+
+{% if suggestions %}
+<table class="grid replenish-table">
+  <thead><tr><th>Слово</th><th class="num">Встречалось</th><th>Пример</th><th>Перевод</th><th></th></tr></thead>
+  <tbody>
+  {% for item in suggestions %}
+  {% set c = item.candidates[0] if item.candidates else none %}
+  <tr>
+    <td><b>{{ item.en }}</b><div class="small muted">{{ pos_names.get(item.pos, item.pos) }}</div></td>
+    <td class="num">{{ item.count }}<div class="small muted">в {{ item.texts }} текст.</div></td>
+    <td class="small muted example">{{ item.example[:160] }}{% if item.example|length > 160 %}…{% endif %}</td>
+    <td>
+      <form class="suggestion" method="post" action="/dictionary/add">
+        <input type="hidden" name="en" value="{{ item.en }}">
+        <input type="hidden" name="back" value="/dictionary/replenish">
+        <input type="hidden" name="source" value="{{ c.source if c else 'user' }}">
+        <select name="pos">{% for code, name in pos_names.items() %}<option value="{{ code }}" {% if code == (c.pos if c else item.pos) %}selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+        <input type="text" name="de" value="{{ c.de if c else '' }}" placeholder="перевод" required>
+        <select name="gender"><option value="">—</option>{% for g in ['m', 'f', 'n', 'pl'] %}<option value="{{ g }}" {% if c and c.gender == g %}selected{% endif %}>{{ g }}</option>{% endfor %}</select>
+        <input type="text" name="plural" value="{{ c.plural if c else '' }}" placeholder="мн. ч." class="short">
+        <input type="hidden" name="extra" value="">
+        <select name="domain"><option value="gen">общая</option>{% for code in config.DOMAIN_CODES %}<option value="{{ code }}">{{ domain_name(code, short=True) }}</option>{% endfor %}</select>
+        <button type="submit" class="small-button">Добавить</button>
+      </form>
+      <div class="small muted">{% for cand in item.candidates %}{{ cand.de }}{% if cand.gender %} ({{ cand.gender }}{% if cand.plural %}, {{ cand.plural }}{% endif %}){% endif %} — {{ 'правило: ' ~ cand.note if cand.source == 'rule' else 'Ding' }}, {{ cand.confidence|pct(0) }}{% if not loop.last %}; {% endif %}{% else %}подсказок нет{% endfor %}</div>
+    </td>
+    <td><form method="post" action="/dictionary/forget" class="inline"><input type="hidden" name="en" value="{{ item.en }}"><input type="hidden" name="pos" value="{{ item.pos }}"><button type="submit" class="ghost small-button" title="убрать из журнала: это не слово или перевод не нужен">×</button></form></td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>Журнал пуст: все слова переведённых текстов есть в словаре.</p>
+{% endif %}
+{% endblock %}
