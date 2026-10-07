@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="console">
+<h1>Пульт</h1>
+<p class="lead">Говорите — система сама заметит начало фразы, распознает её и найдёт среди заданных операций
+  подходящую: откроет сочинение, прочитает абзац, найдёт слово. Незнакомую фразу она повторит вслух. Ответ звучит
+  голосом и дублируется текстом{% if companion_enabled %} от лица {{ companion_genitive }}{% endif %}.</p>
+
+<div class="banner warn-banner" id="console-banner" hidden></div>
+
+<div class="toolbar">
+  <button type="button" class="listen-button" id="listen-toggle"><span class="dot"></span><span id="listen-label">Слушать</span></button>
+  <label>Язык речи
+    <span class="switch" id="language-switch">
+      {% for code in config.LANGUAGE_CODES %}
+      <button type="button" data-language="{{ code }}" title="{{ language_name(code) }}">{{ config.LANGUAGES[code][1] }}</button>
+      {% endfor %}
+    </span>
+  </label>
+  <label>Распознаёт
+    <select id="engine">
+      {% for code, title in config.ENGINES.items() %}<option value="{{ code }}">{{ title }}</option>{% endfor %}
+    </select>
+  </label>
+  <span class="spacer"></span>
+  <details class="menu">
+    <summary class="button ghost">Настройки</summary>
+    <div class="menu-list">
+      <label class="check settings-row"><input type="checkbox" id="voice-on"> отвечать голосом</label>
+      {% for code in config.LANGUAGE_CODES %}
+      <div class="settings-row">
+        <span>Голос, {{ language_name(code)[:3] }}.</span>
+        <select id="voice-{{ code }}"></select>
+        <button type="button" class="ghost small-button" id="voice-test-{{ code }}" title="Проверить голос">▶</button>
+      </div>
+      {% endfor %}
+      <div class="settings-row">
+        <span>Скорость речи</span>
+        <input type="range" id="voice-rate" min="0.6" max="1.6" step="0.1" value="1">
+        <output id="voice-rate-value"></output>
+      </div>
+      <label class="check settings-row" title="Включайте только в наушниках: иначе система услышит собственный ответ">
+        <input type="checkbox" id="duplex"> слушать и во время ответа (в наушниках)</label>
+      <div class="settings-row" title="На сколько дБ речь должна быть громче шума комнаты, чтобы система её заметила">
+        <span>Порог речи над шумом</span>
+        <input type="range" id="vad-margin" min="4" max="24" step="1" value="{{ config.VAD_START_MARGIN_DB|int }}">
+        <output id="vad-margin-value"></output>
+      </div>
+      <div class="settings-row" title="Сколько тишины означает, что фраза закончилась">
+        <span>Пауза конца фразы</span>
+        <input type="range" id="vad-pause" min="300" max="2000" step="100" value="{{ config.VAD_END_SILENCE_MS }}">
+        <output id="vad-pause-value"></output>
+      </div>
+    </div>
+  </details>
+</div>
+
+<section class="monitor" id="monitor" data-state="off" aria-live="polite">
+  <div class="monitor-top">
+    <span class="lamp"></span>
+    <b class="monitor-title" id="state-title">Микрофон выключен</b>
+    <span class="monitor-note" id="state-note"></span>
+    <div class="meter" id="meter" title="уровень сигнала с микрофона">
+      <div class="meter-fill" id="meter-fill"></div>
+      <div class="meter-mark" id="meter-mark"></div>
+    </div>
+    <span class="meter-caption" id="meter-caption"></span>
+  </div>
+  <dl class="monitor-lines">
+    <dt>Услышано</dt>
+    <dd><span class="heard-text" id="heard"></span></dd>
+    <dt>Ответ</dt>
+    <dd><span id="answer"></span>
+      <button type="button" class="ghost small-button" id="answer-stop" hidden>■ Замолчать</button></dd>
+  </dl>
+</section>
+
+<div class="console-grid">
+  <section class="block" id="essay-panel"></section>
+
+  <div class="console-side">
+    <section class="block">
+      <div class="block-head">
+        <h2>Журнал</h2>
+        <button type="button" class="ghost small-button" id="journal-clear">Очистить</button>
+      </div>
+      <ul class="journal" id="journal"><li class="journal-empty">Пока тихо. Здесь появится каждая услышанная фраза,
+        найденная операция и ответ.</li></ul>
+    </section>
+
+    <section class="block">
+      <h2>Что можно сказать</h2>
+      <p class="note">Щелчок по фразе выполняет её без микрофона. Список задаётся на странице
+        <a href="/operations">«Операции»</a>.</p>
+      <div class="cheat" id="cheat"></div>
+      <form class="typed" id="typed">
+        <input type="text" id="typed-text" placeholder="или введите фразу с клавиатуры" maxlength="{{ config.MAX_PHRASE_CHARS }}" autocomplete="off">
+        <button type="submit" class="ghost">Отправить</button>
+      </form>
+    </section>
+  </div>
+</div>
+</div>
+
+<script type="application/json" id="console-data">{{ boot|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('mic.js') }}"></script>
+<script src="{{ static_url('voice.js') }}"></script>
+<script src="{{ static_url('console.js') }}"></script>
+{% endblock %}

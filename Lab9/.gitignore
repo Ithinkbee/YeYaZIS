@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+~$*.docx
+
+# модели Vosk — по 90 МБ на язык; скачиваются сценарием tools/get_models.py
+models/
+
+# фразы, озвученные синтезатором для проверки (tools/evaluate.py создаёт их заново)
+data/speech/
