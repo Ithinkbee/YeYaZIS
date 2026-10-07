@@ -1,0 +1,72 @@
+{# Панель настроек чтения: голос, темп, громкость, высота, живость, паузы, правила.
+   Одна и та же на «Чтеце» и на страницах статей; значения хранит браузер,
+   их же сервер использует для текстов из других программ. #}
+{% macro settings_panel(compact=False) %}
+<section class="block settings" id="settings">
+  <div class="block-head">
+    <h2>Настройки чтения</h2>
+    <button type="button" class="ghost small-button" id="settings-reset" title="Вернуть значения по умолчанию">Сбросить</button>
+  </div>
+
+  <div class="setting">
+    <label for="voice">Голос диктора</label>
+    <select id="voice"></select>
+    <span class="voice-note" id="voice-note"></span>
+  </div>
+  <div class="setting" id="browser-voice-row" hidden>
+    <label for="browser-voice">Голос браузера</label>
+    <select id="browser-voice"></select>
+  </div>
+
+  <div class="setting">
+    <label for="rate">Темп</label><output id="rate-value"></output>
+    <input type="range" id="rate" min="0.5" max="2" step="0.05" data-setting="rate">
+  </div>
+  <div class="setting">
+    <label for="volume">Громкость</label><output id="volume-value"></output>
+    <input type="range" id="volume" min="0" max="100" step="1" data-setting="volume">
+  </div>
+  <div class="setting">
+    <label for="pitch">Высота голоса</label><output id="pitch-value"></output>
+    <input type="range" id="pitch" min="-8" max="8" step="0.5" data-setting="pitch">
+  </div>
+  <div class="setting" title="Разброс интонации и ритма: 0 — ровно, как автомат; 1 — живо и выразительно">
+    <label for="liveliness">Живость интонации</label><output id="liveliness-value"></output>
+    <input type="range" id="liveliness" min="0" max="1" step="0.05" data-setting="liveliness">
+  </div>
+  {% if not compact %}
+  <div class="setting">
+    <label for="sentence_pause">Пауза после предложения</label><output id="sentence_pause-value"></output>
+    <input type="range" id="sentence_pause" min="0" max="2000" step="50" data-setting="sentence_pause">
+  </div>
+  <div class="setting">
+    <label for="paragraph_pause">Пауза после абзаца</label><output id="paragraph_pause-value"></output>
+    <input type="range" id="paragraph_pause" min="0" max="3000" step="50" data-setting="paragraph_pause">
+  </div>
+
+  <h3>Правила чтения</h3>
+  <div class="rules">
+    <label><input type="checkbox" data-option="numbers"><span>Числа, даты и единицы — словами
+      <small>1954 — „neunzehnhundertvierundfünfzig“, 12 GB — „zwölf Gigabyte“</small></span></label>
+    <label><input type="checkbox" data-option="abbreviations"><span>Сокращения — полностью
+      <small>z. B. — „zum Beispiel“, vgl. — „vergleiche“</small></span></label>
+    <label><input type="checkbox" data-option="acronyms"><span>Аббревиатуры — по буквам или по словарю
+      <small>CPU — „Ze-Pe-U“, RAM — „Ramm“, JSON — „Dschäison“</small></span></label>
+    <label><input type="checkbox" data-option="english"><span>Английские термины — по-английски
+      <small>Cloud — „Klaud“, Deep Learning — „Diep Lörning“</small></span></label>
+    <label><input type="checkbox" data-option="formulas"><span>Формулы — словами
+      <small>O(n²) — „O von n Quadrat“, ≤ — „kleiner gleich“</small></span></label>
+    <label><input type="checkbox" data-option="citations"><span>Читать ссылки на источники
+      <small>[12] — „Quelle zwölf“; выключено — пропускать</small></span></label>
+    <label><input type="checkbox" data-option="lexicon"><span>Словарь пользователя
+      <small>записи со страницы <a href="/lexicon">«Словарь»</a></small></span></label>
+    <label style="margin-top: 4px"><span>Адреса сайтов</span></label>
+    <select data-option="urls">
+      <option value="short">только имя сайта</option>
+      <option value="full">целиком</option>
+      <option value="skip">пропускать</option>
+    </select>
+  </div>
+  {% endif %}
+</section>
+{% endmacro %}

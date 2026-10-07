@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}«{{ app_name }}» — синтез немецкой речи{% endblock %}</title>
+  <link rel="stylesheet" href="{{ static_url('style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📯</text></svg>">
+</head>
+<body class="{% if companion_enabled %}has-companion{% endif %}">
+
+<header class="top">
+  <a class="brand" href="/">
+    <span class="brand-mark">Г</span>
+    <span>
+      <b>{{ app_name }}</b>
+      <small>синтез немецкой речи · научные статьи по информатике</small>
+    </span>
+  </a>
+  <nav>
+    <a href="/" {% if active == 'reader' %}class="active"{% endif %}>Чтец</a>
+    <a href="/articles" {% if active == 'articles' %}class="active"{% endif %}>Статьи</a>
+    <a href="/elsewhere" {% if active == 'elsewhere' %}class="active"{% endif %}>Из других программ</a>
+    <a href="/lexicon" {% if active == 'lexicon' %}class="active"{% endif %}>Словарь</a>
+    <a href="/evaluation" {% if active == 'evaluation' %}class="active"{% endif %}>Проверка</a>
+    {% if companion_enabled %}
+    <a href="/talking" class="nav-game{% if active == 'talking' %} active{% endif %}">Мой говорящий {{ companion_name }}</a>
+    {% endif %}
+    <a href="/help" {% if active == 'help' %}class="active"{% endif %}>Справка</a>
+  </nav>
+</header>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <span>«{{ app_name }}» {{ version }} · лабораторная работа № {{ lab_number }}, вариант {{ variant }}</span>
+  <span>немецкий язык · система синтеза речи · научные статьи по computer science</span>
+</footer>
+
+{% if companion_enabled and active != 'talking' %}
+{# Пафнутий из прошлых работ. Здесь он показывает, что система читает:
+   шевелит ртом в такт звуку. Фигуру строит pafnuty.js. #}
+<div id="companion" class="companion" title="{{ companion_name }}">
+  <div class="companion-figure" id="companion-figure"></div>
+  <div class="companion-bubble" id="companion-bubble">{{ companion_line }}</div>
+</div>
+{% endif %}
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.GLASHATAI = {{ client_config()|tojson }};</script>
+{% if companion_enabled %}<script src="{{ static_url('pafnuty.js') }}"></script>{% endif %}
+<script src="{{ static_url('app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from "macros.html" import settings_panel %}
+{% block title %}{{ article.title }} — «{{ app_name }}»{% endblock %}
+{% block content %}
+<p class="note"><a href="/articles">← Все статьи</a></p>
+<h1 lang="de">{{ article.title }}</h1>
+<p class="lead">{{ article.title_ru }} · {{ article.words|num }} слов · источник:
+  <a href="{{ article.source.url }}" target="_blank" rel="noopener">{{ article.source.site }}</a>, {{ article.source.license }}</p>
+
+<div class="toolbar sticky-bar">
+  <div class="transport">
+    <button type="button" class="play-button" id="play"><span class="glyph">▶</span> <span id="play-label">Читать статью</span></button>
+    <button type="button" class="ghost icon-button" id="stop" title="Остановить (Esc)">■</button>
+    <button type="button" class="ghost icon-button" id="prev" title="Предыдущее предложение">⏮</button>
+    <button type="button" class="ghost icon-button" id="next" title="Следующее предложение">⏭</button>
+  </div>
+  <div class="status-line state-ready" id="status">
+    <span class="lamp"></span>
+    <span id="status-text">Готов читать</span>
+  </div>
+  <span class="spacer"></span>
+  <label class="check" title="Задержите мышь на предложении — оно прочитается само">
+    <input type="checkbox" id="hover-mode"> читать под указателем</label>
+  <label class="check" title="Щелчок читает только это предложение, а не всё дальше">
+    <input type="checkbox" id="single"> только одно предложение</label>
+</div>
+
+<div class="reader-grid">
+  <section class="block">
+    <div class="reading" id="reading" lang="de" style="max-height: none"><p class="muted">Разбираю статью…</p></div>
+  </section>
+  <div>
+    {{ settings_panel() }}
+  </div>
+</div>
+
+<script type="application/json" id="boot">{{ boot|tojson }}</script>
+<script type="application/json" id="article-text">{{ text|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('player.js') }}"></script>
+<script src="{{ static_url('settings.js') }}"></script>
+<script src="{{ static_url('docview.js') }}"></script>
+<script src="{{ static_url('article.js') }}"></script>
+{% endblock %}

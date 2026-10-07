@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Статьи — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Научные статьи</h1>
+<p class="lead">Пять статей немецкой Википедии по информатике — те же, что в коллекции работы № 3. В них есть всё, что
+  затрудняет синтез речи: годы и числа, сокращения, аббревиатуры, английские термины, формулы. Откройте статью и
+  наведите мышь на предложение: щелчок читает с него, а в режиме «под указателем» предложение читается само, если
+  задержать на нём мышь.</p>
+
+<ul class="article-list">
+  {% for article in articles %}
+  <li>
+    <a class="article-card" href="/articles/{{ article.id }}">
+      <span class="mark">{{ loop.index }}</span>
+      <b lang="de">{{ article.title }}</b>
+      <span>{{ article.title_ru }} · {{ article.sections }} разделов</span>
+      <em>{{ article.words|num }} слов<br>≈ {{ article.minutes|round|int }} мин чтения</em>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+<p class="note">Тексты — Википедия (de.wikipedia.org), лицензия CC BY-SA 4.0; статьи без вводного раздела.</p>
+{% endblock %}

@@ -1,0 +1,217 @@
+# Английские термины немецких текстов по информатике и как их произносит немецкий докладчик.
+# Столбцы: термин | запись немецкими буквами | признаки
+# Запись — как слово звучит, если читать его по немецким правилам; апостроф стоит перед
+# ударным слогом (его видит только собственный синтезатор системы).
+# Признак c — термин бывает частью немецкого сложного слова: «Softwareentwicklung»,
+# «Quellcode», «Compilerbau». Нейросетевые голоса Piper получают вместо записи
+# английскую транскрипцию eSpeak NG — так термин звучит ближе к английскому.
+Software	'Softwär	c
+Hardware	'Hardwär	c
+Middleware	'Middelwär	c
+Malware	'Mälwär	c
+Spyware	'Spaiwär	c
+Ransomware	'Ränsemwär	c
+Firmware	'Förmwär	c
+Computer	Kom'pjuter	c
+Supercomputer	'Supakompjuter	c
+Personal Computer	'Pörsenel Kom'pjuter
+Laptop	'Läptop	c
+Desktop	'Desktop	c
+Server	'Sörver	c
+Client	'Klaient	c
+Browser	'Brauser	c
+Webbrowser	'Wäbbrauser
+Cloud	'Klaud	c
+Computing	Kom'pjuting	c
+Cloud Computing	'Klaud Kom'pjuting
+Machine Learning	Mä'schien 'Lörning
+Deep Learning	'Diep 'Lörning
+Learning	'Lörning	c
+Machine	Mä'schien
+Big Data	'Bigg 'Däita
+Data Mining	'Däita 'Maining
+Linked Data	'Linkt 'Däita
+Linked Open Data	'Linkt 'Ohpen 'Däita
+Open Source	'Ohpen 'Sors
+Framework	'Fräimwörk	c
+Interface	'Interfäis	c
+Update	'Apdäit	c
+Upgrade	'Apgräid	c
+Download	'Daunlohd	c
+Upload	'Aplohd	c
+Login	'Login	c
+Feature	'Fietscher	c
+Features	'Fietschers
+Thread	'Tred	c
+Threads	'Treds
+Multithreading	'Maltitreding
+Multitasking	'Maltitasking
+Timesharing	'Taimschäring	c
+Cache	'Käsch	c
+Bug	'Bagg	c
+Bugs	'Baggs
+Debugger	Di'bagger	c
+Debugging	Di'bagging	c
+Compiler	Kom'peiler	c
+Compilers	Kom'peilers
+Precompiler	'Priekompeiler	c
+Profiler	'Prohfailer	c
+Scanner	'Skänner	c
+Token	'Tohken	c
+Tokens	'Tohkens
+Frontend	'Frantend	c
+Backend	'Bäkend	c
+Web	'Wäbb	c
+Website	'Wäbbsait	c
+Semantic Web	Se'mäntik 'Wäbb
+Web Services	'Wäbb 'Sörvisses
+Service	'Sörvis	c
+Services	'Sörvisses
+Network	'Netwörk	c
+Networks	'Netwörks
+Neural	'Njurel
+Layer	'Läier	c
+Layers	'Läiers
+fully connected	'fulli ko'nekted
+convolutional	konvo'luschenel
+pooling	'Puhling
+Training	'Träning	c
+Feedback	'Fiedbäck	c
+Feedforward	'Fiedforwerd	c
+Backpropagation	'Bäkpropagäischn
+Pipeline	'Paiplain	c
+Pipelining	'Paiplaining
+Workflow	'Wörkflo	c
+Know-how	'Nohhau
+Online	'Onlain	c
+Offline	'Offlain	c
+E-Mail	'Iemäil	c
+Email	'Iemäil	c
+Smartphone	'Smartfohn	c
+App	'Äpp
+Apps	'Äpps
+Startup	'Startapp	c
+Spam	'Spämm	c
+Phishing	'Fisching	c
+Firewall	'Feierwoll	c
+Hacker	'Häcker	c
+Hackers	'Häckers
+Router	'Ruter	c
+Account	Ä'kaunt	c
+Password	'Paswörd	c
+Hash	'Häsch	c
+Stack	'Stäck	c
+Heap	'Hiep	c
+Queue	'Kju	c
+Array	Är'räi	c
+Interrupt	Inter'rapt	c
+Interrupts	Inter'rapts
+Mainframe	'Mainfräim	c
+Mainframes	'Mainfräims
+Batch	'Bätsch	c
+Shell	'Schell	c
+Kernel	'Körnel	c
+Plugin	'Plaggin	c
+Plug-in	'Plaggin
+Tool	'Tuhl	c
+Tools	'Tuhls
+Toolkit	'Tuhlkit	c
+Bytecode	'Baitkohd	c
+Byte	'Bait	c
+Bytes	'Baits
+Code	'Kohd	c
+Sourcecode	'Sorskohd	c
+Just-in-time	'Dschast in 'taim
+Engine	'Endschin	c
+Container	Kon'täiner	c
+Team	'Tiem	c
+Manager	'Mänätscher	c
+Management	'Mänätschment	c
+Design	Di'sain	c
+Designer	Di'sainer	c
+User	'Juser	c
+Users	'Jusers
+Chatbot	'Tschättbott	c
+Chat	'Tschätt	c
+Prompt	'Prommpt	c
+Encoder	En'kohder	c
+Decoder	Di'kohder	c
+Attention	Ä'tenschen
+Benchmark	'Bentschmark	c
+Benchmarks	'Bentschmarks
+Performance	Pör'formens	c
+Overhead	'Ohverhed	c
+Peer-to-Peer	'Pier tu 'Pier
+Peer	'Pier	c
+Mashup	'Mäschapp	c
+Folksonomy	Folk'sonnomi
+Folksonomies	Folk'sonnomies
+Blog	'Blogg	c
+Security	Se'kjuriti	c
+Safety	'Säifti	c
+Privacy	'Praiwessi	c
+Patch	'Pätsch	c
+Patches	'Pätsches
+Backup	'Bäkapp	c
+Backups	'Bäkapps
+Recovery	Ri'kawweri	c
+Denial of Service	Di'naiel of 'Sörvis
+Exploit	Iks'pleut	c
+Social Engineering	'Sohschel Endschi'niering
+Engineering	Endschi'niering	c
+Cyber	'Saiber	c
+Bitcoin	'Bittkeun	c
+Blockchain	'Blocktschäin	c
+Internet of Things	'Internet of 'Sings
+Workstation	'Wörkstäischn	c
+Smart Grid	'Smart 'Gridd
+Wearable	'Wärebel	c
+Embedded	Em'bedded
+Deep	'Diep
+Default	Di'follt	c
+Release	Ri'lies	c
+Feature Map	'Fietscher 'Mäpp
+Dropout	'Dropaut	c
+Overfitting	'Ohverfitting	c
+Underfitting	'Anderfitting
+Batch Size	'Bätsch 'Sais
+Reinforcement Learning	Rien'forsment 'Lörning
+Transfer Learning	'Transfer 'Lörning
+Large Language Model	'Lardsch 'Längwitsch 'Moddel
+Large Language Models	'Lardsch 'Längwitsch 'Moddels
+Natural Language Processing	'Nätscherel 'Längwitsch 'Prohsessing
+Computer Vision	Kom'pjuter 'Wischen
+Speech	'Spietsch	c
+Speech Recognition	'Spietsch Rekog'nischen
+Text-to-Speech	'Text tu 'Spietsch
+Gateway	'Gäitwäi	c
+Hub	'Habb
+Notebook	'Nohtbuk	c
+Touchscreen	'Tatschskrien	c
+Screen	'Skrien	c
+Display	Dis'pläi	c
+Smartwatch	'Smartwotsch
+Tablet	'Täblet	c
+Gadget	'Gädschet	c
+Look and Feel	'Luk änd 'Fiel
+Usability	Jusa'biliti
+Accessibility	Äksessi'biliti
+Developer	Di'welloper	c
+Developers	Di'wellopers
+Deployment	Di'pleument	c
+Repository	Ri'posittori	c
+Commit	Ko'mitt	c
+Merge	'Mördsch	c
+Branch	'Bräntsch	c
+Request	Ri'kwest	c
+Pull Request	'Pull Ri'kwest
+Feed	'Fied	c
+Bot	'Bott
+Cookie	'Kucki	c
+Cookies	'Kuckis
+Hyperlink	'Haiperlink	c
+Hypertext	'Haipertext	c
+Homepage	'Hohmpäitsch	c
+Webpage	'Wäbbpäitsch
+Webserver	'Wäbbsörver
+Webservice	'Wäbbsörvis
