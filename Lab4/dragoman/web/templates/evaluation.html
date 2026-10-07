@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Оценка — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Оценка качества</h1>
+<p class="lead">
+  Перевод с трансфером сравнивается с прямым (пословным) переводом на 120 предложениях тестовой коллекции, для
+  которых есть эталонные переводы, подготовленные независимо от системы. Меры — BLEU (совпадение n-грамм слов) и chrF (совпадение
+  n-грамм символов; мягче к немецким окончаниям). Отдельно — точность анализатора английского языка на тестовых
+  частях корпусов Universal Dependencies.
+</p>
+{% if error %}<div class="banner error">Оценка не выполнена: {{ error }}</div>{% endif %}
+<form method="post" action="/evaluation/run" class="inline no-print">
+  <button type="submit" {% if running %}disabled{% endif %}>{% if running %}Идёт оценка…{% else %}Провести оценку заново{% endif %}</button>
+  {% if data %}<span class="note">последняя — {{ data.generated }}; занимает около полуминуты</span>{% endif %}
+</form>
+{% if running %}<p class="note">Обновите страницу через полминуты.</p>{% endif %}
+
+{% if data %}
+{% set g = data.groups %}
+<h2>Перевод: трансфер против пословного</h2>
+<div class="cards compact">
+  <div class="card"><h3>BLEU, с трансфером</h3><span class="big ok">{{ g.all.transfer.bleu|num(1) }}</span>
+    <p class="note">пословный — {{ g.all.direct.bleu|num(1) }}</p></div>
+  <div class="card"><h3>chrF, с трансфером</h3><span class="big ok">{{ g.all.transfer.chrf|num(1) }}</span>
+    <p class="note">пословный — {{ g.all.direct.chrf|num(1) }}</p></div>
+  <div class="card"><h3>Предложений лучше</h3><span class="big">{{ g.all.wins.transfer }} из {{ data.references }}</span>
+    <p class="note">хуже — {{ g.all.wins.direct }}, поровну — {{ g.all.wins.ties }} (по chrF)</p></div>
+  <div class="card"><h3>Переведено слов</h3><span class="big">{{ data.coverage.transfer|pct }}</span>
+    <p class="note">без правил словообразования — {{ data.coverage.no_rules|pct }}</p></div>
+</div>
+<table class="grid narrow">
+  <thead><tr><th>Группа</th><th>Способ</th><th class="num">BLEU</th><th class="num">1-граммы</th><th class="num">2-граммы</th>
+    <th class="num">3-граммы</th><th class="num">4-граммы</th><th class="num">Штраф BP</th><th class="num">chrF</th></tr></thead>
+  <tbody>
+  {% for code, name in [('all', 'вся коллекция'), ('cs', 'computer science'), ('lit', 'литература')] %}
+  {% for mode in ['transfer', 'direct'] %}
+  {% set s = g[code][mode] %}
+  <tr {% if mode == 'transfer' %}class="row-best"{% endif %}>
+    <td>{% if loop.first %}<b>{{ name }}</b>{% endif %}</td><td>{{ modes[mode] }}</td>
+    <td class="num"><b>{{ s.bleu|num(1) }}</b></td>
+    {% for p in s.precisions %}<td class="num">{{ p|num(1) }}</td>{% endfor %}
+    <td class="num">{{ s.bp|num(2) }}</td><td class="num"><b>{{ s.chrf|num(1) }}</b></td>
+  </tr>
+  {% endfor %}
+  {% endfor %}
+  </tbody>
+</table>
+<p class="note">n-граммы — доля совпавших с эталоном последовательностей из n слов. Главный выигрыш трансфера — в
+  2–4-граммах: при правильном порядке слов и согласовании совпадают уже не отдельные слова, а целые сочетания.</p>
+
+{% for image in images %}
+<div class="figure"><img src="/report/{{ image }}" alt="{{ image }}"></div>
+{% endfor %}
+
+<h2>Документы коллекции</h2>
+<table class="grid">
+  <thead><tr><th>Документ</th><th class="num">Слов</th><th class="num">Переведено (трансфер)</th>
+    <th class="num">без правил</th><th class="num">Без перевода</th><th class="num">Время</th></tr></thead>
+  <tbody>
+  {% for d in data.documents %}
+  <tr><td>{{ m.domain_tag(d.domain) }} <a href="/doc/{{ d.id }}">{{ d.title }}</a></td><td class="num">{{ d.words|num }}</td>
+    <td class="num">{{ d.coverage.transfer|pct }}</td><td class="num">{{ d.coverage.no_rules|pct }}</td>
+    <td class="num">{{ d.unknown.transfer }}</td><td class="num">{{ d.time_ms.transfer.total|ms }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Время на документ (≈ 2 страницы)</h2>
+<table class="grid narrow">
+  <thead><tr><th>Этап</th><th class="num">С трансфером</th><th class="num">Пословный</th></tr></thead>
+  <tbody>
+    <tr><td>разбиение на предложения и слова</td><td class="num">{{ data.timings.transfer.segment|ms }}</td><td class="num">{{ data.timings.direct.segment|ms }}</td></tr>
+    <tr><td>теги и леммы</td><td class="num">{{ data.timings.transfer.tagging|ms }}</td><td class="num">{{ data.timings.direct.tagging|ms }}</td></tr>
+    <tr><td>синтаксический анализ</td><td class="num">{{ data.timings.transfer.parsing|ms }}</td><td class="num">{{ data.timings.direct.parsing|ms }}</td></tr>
+    <tr><td>трансфер и синтез (или пословная замена)</td><td class="num">{{ data.timings.transfer.transfer|ms }}</td><td class="num">{{ data.timings.direct.transfer|ms }}</td></tr>
+    <tr><td><b>всего</b></td><td class="num"><b>{{ data.timings.transfer.total|ms }}</b></td><td class="num"><b>{{ data.timings.direct.total|ms }}</b></td></tr>
+  </tbody>
+</table>
+
+<h2>Предложения с эталоном</h2>
+<details class="explain">
+  <summary><span class="note">Показать все {{ data.references }} предложений с переводами</span></summary>
+  <table class="grid compare-table">
+    <thead><tr><th>Английский</th><th>Эталон</th><th>С трансфером</th><th>Пословный</th></tr></thead>
+    <tbody>
+    {% for s in data.sentences %}
+    <tr><td class="small">{{ s.en }}</td><td>{{ s.ref }}</td>
+      <td>{{ s.transfer }}<div class="small muted">chrF {{ s.chrf_transfer|num(1) }}</div></td>
+      <td>{{ s.direct }}<div class="small muted">chrF {{ s.chrf_direct|num(1) }}</div></td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</details>
+{% else %}
+<p>Оценка ещё не проводилась: нажмите кнопку выше или выполните <code>python tools/evaluate.py</code>.</p>
+{% endif %}
+
+{% if analyzer %}
+<h2>Анализатор английского языка</h2>
+<p class="note">Теггер, лемматизатор и синтаксический анализатор написаны с нуля (усреднённый перцептрон) и обучены
+  на {{ analyzer.train_sentences|num }} предложениях корпусов Universal Dependencies; проверка — на тестовых
+  частях, которых модели не видели. UAS — доля слов с верной вершиной, LAS — с верной вершиной и отношением
+  (знаки препинания не учитываются).</p>
+<table class="grid narrow">
+  <thead><tr><th>Корпус</th><th class="num">Предложений</th><th class="num">Теги</th><th class="num">Леммы</th>
+    <th class="num">UAS</th><th class="num">LAS</th><th class="num">мс / предложение</th></tr></thead>
+  <tbody>
+  {% for name, r in analyzer.treebanks.items() %}
+  <tr><td>{{ name }}</td><td class="num">{{ r.sentences|num }}</td><td class="num">{{ r.tagging|pct }}</td>
+    <td class="num">{{ r.lemmas|pct }}</td><td class="num">{{ r.uas|pct }}</td><td class="num">{{ r.las|pct }}</td>
+    <td class="num">{{ r.ms_per_sentence|num(1) }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

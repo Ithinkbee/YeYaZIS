@@ -1,0 +1,803 @@
+# Глаголы. Столбцы: en	pos	de	gender	plural	extra	domain
+# «vor|stellen» — отделяемая приставка; «sich …» — возвратный глагол.
+# extra: obj=D — прямое дополнение в дательном падеже; obj=auf+A — дополнение передаётся предлогом;
+#        prep=von+D — управление (для предложного дополнения); xcomp=als — «consider X Y» → «X als Y betrachten»;
+#        intr=… — перевод без прямого дополнения; aux=sein — перфект с sein; ccomp=… — перевод перед придаточным.
+abandon	VERB	verlassen
+abhor	VERB	verabscheuen
+abolish	VERB	ab|schaffen
+absorb	VERB	auf|nehmen
+abuse	VERB	missbrauchen
+accelerate	VERB	beschleunigen
+accept	VERB	akzeptieren
+access	VERB	zu|greifen			obj=auf+A	cs
+access	VERB	zu|greifen			obj=auf+A
+accompany	VERB	begleiten
+accomplish	VERB	erreichen
+accord	VERB	gewähren
+account	VERB	erklären
+accumulate	VERB	an|sammeln
+accuse	VERB	beschuldigen
+achieve	VERB	erreichen
+acknowledge	VERB	an|erkennen
+acquire	VERB	erwerben
+act	VERB	handeln
+adapt	VERB	an|passen
+add	VERB	hinzu|fügen
+address	VERB	behandeln
+adjust	VERB	an|passen
+admire	VERB	bewundern
+admit	VERB	zu|geben
+adopt	VERB	übernehmen
+advance	VERB	voran|treiben
+advise	VERB	beraten
+advocate	VERB	befürworten
+affect	VERB	beeinflussen
+afford	VERB	sich leisten
+aggregate	VERB	aggregieren
+agree	VERB	zu|stimmen			obj=D
+aim	VERB	ab|zielen			prep=auf+A
+allege	VERB	behaupten
+allocate	VERB	zu|weisen
+allow	VERB	erlauben			obj=D
+allude	VERB	an|spielen			prep=auf+A
+alter	VERB	verändern
+analyse	VERB	analysieren
+analyze	VERB	analysieren
+announce	VERB	an|kündigen
+answer	VERB	beantworten
+anticipate	VERB	vorher|sehen
+appear	VERB	erscheinen			aux=sein
+apply	VERB	an|wenden			prep=auf+A
+appoint	VERB	ernennen
+appreciate	VERB	schätzen
+approach	VERB	an|gehen
+approve	VERB	genehmigen
+argue	VERB	argumentieren
+arise	VERB	entstehen			aux=sein
+arrange	VERB	an|ordnen
+arrest	VERB	verhaften
+arrive	VERB	an|kommen			aux=sein
+ask	VERB	fragen
+assemble	VERB	zusammen|setzen
+assert	VERB	behaupten
+assess	VERB	bewerten
+assign	VERB	zu|weisen
+assist	VERB	unterstützen
+associate	VERB	verbinden			prep=mit+D
+assume	VERB	an|nehmen
+assure	VERB	zu|sichern
+attach	VERB	an|hängen			prep=an+A
+attack	VERB	an|greifen
+attain	VERB	erreichen
+attempt	VERB	versuchen
+attend	VERB	besuchen
+attract	VERB	an|ziehen
+attribute	VERB	zu|schreiben			prep=+D
+authenticate	VERB	authentifizieren
+authorize	VERB	autorisieren
+automate	VERB	automatisieren
+avoid	VERB	vermeiden
+award	VERB	verleihen
+balance	VERB	aus|gleichen
+ban	VERB	verbieten
+base	VERB	basieren			prep=auf+D;voice=active
+be	VERB	sein
+bear	VERB	tragen
+beat	VERB	schlagen
+become	VERB	werden			aux=sein
+begin	VERB	beginnen
+behave	VERB	sich verhalten
+believe	VERB	glauben
+belong	VERB	gehören			prep=zu+D
+benefit	VERB	profitieren			prep=von+D
+betray	VERB	verraten
+bind	VERB	binden
+blame	VERB	beschuldigen
+block	VERB	blockieren
+boot	VERB	booten
+borrow	VERB	aus|leihen
+break	VERB	brechen
+bring	VERB	bringen
+brood	VERB	grübeln
+build	VERB	bauen
+burn	VERB	verbrennen
+buy	VERB	kaufen
+calculate	VERB	berechnen
+call	VERB	auf|rufen			intr=rufen;xverb=nennen	cs
+call	VERB	nennen
+cancel	VERB	ab|brechen
+capture	VERB	erfassen
+care	VERB	sich kümmern			prep=um+A
+carry	VERB	tragen
+cast	VERB	werfen
+catch	VERB	fangen
+categorize	VERB	kategorisieren
+cause	VERB	verursachen
+celebrate	VERB	feiern
+centralise	VERB	zentralisieren
+centralize	VERB	zentralisieren
+challenge	VERB	heraus|fordern
+change	VERB	ändern			intr=sich ändern
+characterize	VERB	charakterisieren
+characterise	VERB	charakterisieren
+charge	VERB	an|klagen
+chase	VERB	jagen
+check	VERB	prüfen
+choose	VERB	wählen
+cite	VERB	zitieren
+claim	VERB	behaupten
+clarify	VERB	klären
+classify	VERB	klassifizieren
+clean	VERB	reinigen
+clear	VERB	löschen
+click	VERB	klicken
+close	VERB	schließen
+code	VERB	kodieren
+coin	VERB	prägen
+collaborate	VERB	zusammen|arbeiten
+collapse	VERB	zusammen|brechen			aux=sein
+collect	VERB	sammeln
+colour	VERB	färben
+color	VERB	färben
+combine	VERB	kombinieren
+come	VERB	kommen			aux=sein
+comment	VERB	kommentieren
+commit	VERB	begehen
+communicate	VERB	kommunizieren
+compare	VERB	vergleichen			prep=mit+D
+compel	VERB	zwingen
+compete	VERB	konkurrieren
+compile	VERB	kompilieren				cs
+compile	VERB	zusammen|stellen
+complain	VERB	sich beschweren
+complete	VERB	ab|schließen
+compose	VERB	verfassen
+compress	VERB	komprimieren
+compromise	VERB	kompromittieren				cs
+compromise	VERB	gefährden
+compute	VERB	berechnen
+conceal	VERB	verbergen
+conceive	VERB	konzipieren
+concentrate	VERB	sich konzentrieren			prep=auf+A
+concern	VERB	betreffen
+conclude	VERB	schließen
+condemn	VERB	verurteilen
+conduct	VERB	durch|führen
+configure	VERB	konfigurieren
+confirm	VERB	bestätigen
+conflict	VERB	kollidieren
+confront	VERB	konfrontieren
+confuse	VERB	verwechseln
+connect	VERB	verbinden			prep=mit+D
+consider	VERB	betrachten			xcomp=als
+consist	VERB	bestehen			prep=aus+D
+constitute	VERB	dar|stellen
+construct	VERB	konstruieren
+consume	VERB	verbrauchen
+contain	VERB	enthalten
+continue	VERB	fort|setzen			intr=weiter|gehen
+contradict	VERB	widersprechen			obj=D
+contrast	VERB	gegenüber|stellen
+contribute	VERB	bei|tragen			prep=zu+D
+control	VERB	steuern				cs
+control	VERB	kontrollieren
+converse	VERB	sich unterhalten			prep=mit+D
+convert	VERB	um|wandeln			prep=in+A
+convey	VERB	vermitteln
+convince	VERB	überzeugen
+cooperate	VERB	zusammen|arbeiten
+cope	VERB	bewältigen
+copy	VERB	kopieren
+correct	VERB	korrigieren
+correspond	VERB	entsprechen			obj=D
+counteract	VERB	entgegen|wirken			obj=D
+count	VERB	zählen
+court	VERB	umwerben
+cover	VERB	ab|decken
+crash	VERB	ab|stürzen			aux=sein
+create	VERB	erstellen				cs
+create	VERB	erschaffen				lit
+create	VERB	schaffen
+criticize	VERB	kritisieren
+criticise	VERB	kritisieren
+cross	VERB	überqueren
+cry	VERB	aus|rufen				lit
+cultivate	VERB	pflegen
+cut	VERB	schneiden
+damage	VERB	beschädigen
+deal	VERB	sich befassen			prep=mit+D
+debug	VERB	debuggen
+decide	VERB	entscheiden
+declare	VERB	erklären
+decline	VERB	ab|lehnen
+decode	VERB	dekodieren
+decrease	VERB	verringern
+decrypt	VERB	entschlüsseln
+deem	VERB	halten			xcomp=für
+defeat	VERB	besiegen
+defend	VERB	verteidigen
+define	VERB	definieren
+delay	VERB	verzögern
+delete	VERB	löschen
+deliver	VERB	liefern
+demand	VERB	verlangen
+demonstrate	VERB	zeigen
+denounce	VERB	an|prangern
+deny	VERB	leugnen
+depend	VERB	ab|hängen			prep=von+D
+depict	VERB	dar|stellen
+deploy	VERB	ein|setzen
+derive	VERB	ab|leiten			prep=von+D
+describe	VERB	beschreiben
+deserve	VERB	verdienen
+design	VERB	entwerfen				cs
+design	VERB	gestalten
+desire	VERB	begehren
+destroy	VERB	zerstören
+detect	VERB	erkennen
+determine	VERB	bestimmen
+develop	VERB	entwickeln
+devise	VERB	entwickeln
+devote	VERB	widmen
+die	VERB	sterben			aux=sein
+differ	VERB	sich unterscheiden			prep=von+D
+dine	VERB	speisen
+direct	VERB	leiten
+disappear	VERB	verschwinden			aux=sein
+discard	VERB	verwerfen
+disclose	VERB	offen|legen
+discover	VERB	entdecken
+discuss	VERB	erörtern
+disdain	VERB	verachten
+dismiss	VERB	ab|tun
+display	VERB	an|zeigen
+distinguish	VERB	unterscheiden
+distribute	VERB	verteilen
+divide	VERB	auf|teilen			prep=in+A
+do	VERB	tun
+document	VERB	dokumentieren
+dominate	VERB	beherrschen
+doubt	VERB	bezweifeln
+download	VERB	herunter|laden
+draw	VERB	zeichnen
+dream	VERB	träumen
+drink	VERB	trinken
+drive	VERB	treiben
+drop	VERB	fallen|lassen
+earn	VERB	verdienen
+eat	VERB	essen
+echo	VERB	wider|spiegeln
+edit	VERB	bearbeiten
+eliminate	VERB	beseitigen
+embed	VERB	ein|betten
+embody	VERB	verkörpern
+embrace	VERB	an|nehmen
+emerge	VERB	entstehen			aux=sein
+emphasise	VERB	betonen
+emphasize	VERB	betonen
+employ	VERB	verwenden
+emulate	VERB	emulieren
+enable	VERB	ermöglichen
+encode	VERB	kodieren
+encompass	VERB	umfassen
+encounter	VERB	begegnen			obj=D;aux=sein
+encourage	VERB	fördern
+encrypt	VERB	verschlüsseln
+end	VERB	enden
+endure	VERB	ertragen
+enforce	VERB	durch|setzen
+engage	VERB	sich beschäftigen			prep=mit+D
+enhance	VERB	verbessern
+enjoy	VERB	genießen
+ensure	VERB	sicher|stellen
+enter	VERB	betreten
+entertain	VERB	unterhalten
+equip	VERB	aus|statten
+erase	VERB	löschen
+escape	VERB	entkommen			obj=D;aux=sein
+establish	VERB	etablieren
+estimate	VERB	schätzen
+evaluate	VERB	bewerten
+evoke	VERB	hervor|rufen
+evolve	VERB	sich entwickeln
+exaggerate	VERB	übertreiben
+examine	VERB	untersuchen
+exceed	VERB	überschreiten
+exchange	VERB	aus|tauschen
+exclude	VERB	aus|schließen
+execute	VERB	aus|führen
+exercise	VERB	aus|üben
+exhibit	VERB	auf|weisen
+exist	VERB	existieren
+expand	VERB	erweitern
+expect	VERB	erwarten
+experience	VERB	erleben
+experiment	VERB	experimentieren
+explain	VERB	erklären
+exploit	VERB	aus|nutzen
+explore	VERB	untersuchen
+expose	VERB	auf|decken
+expound	VERB	dar|legen
+express	VERB	aus|drücken
+extend	VERB	erweitern
+extract	VERB	extrahieren
+fabricate	VERB	her|stellen
+face	VERB	gegenüber|stehen			obj=D
+facilitate	VERB	erleichtern
+fail	VERB	scheitern			xverb=versäumen
+fall	VERB	fallen			aux=sein
+fear	VERB	fürchten
+feature	VERB	auf|weisen
+feed	VERB	füttern
+feel	VERB	fühlen
+fetch	VERB	ab|rufen
+fight	VERB	kämpfen
+fill	VERB	füllen
+filter	VERB	filtern
+find	VERB	finden
+finish	VERB	beenden
+fit	VERB	passen			obj=D
+fix	VERB	beheben
+flee	VERB	fliehen			aux=sein
+flow	VERB	fließen			aux=sein
+focus	VERB	sich konzentrieren			prep=auf+A
+follow	VERB	folgen			obj=D;aux=sein
+forbid	VERB	verbieten
+force	VERB	zwingen
+forget	VERB	vergessen
+forgive	VERB	vergeben
+form	VERB	bilden
+formalize	VERB	formalisieren
+formulate	VERB	formulieren
+found	VERB	gründen
+free	VERB	befreien
+function	VERB	funktionieren
+gain	VERB	gewinnen
+gather	VERB	sammeln
+generalize	VERB	verallgemeinern
+generate	VERB	erzeugen
+get	VERB	bekommen
+give	VERB	geben
+go	VERB	gehen			aux=sein
+govern	VERB	regieren
+grant	VERB	gewähren
+grasp	VERB	erfassen
+gratify	VERB	befriedigen
+grow	VERB	wachsen			aux=sein
+guarantee	VERB	garantieren
+guess	VERB	raten
+guide	VERB	leiten
+hamper	VERB	behindern
+handle	VERB	verarbeiten				cs
+handle	VERB	behandeln
+happen	VERB	geschehen			aux=sein
+harm	VERB	schaden			obj=D
+hate	VERB	hassen
+have	VERB	haben
+hear	VERB	hören
+help	VERB	helfen			obj=D
+hide	VERB	verbergen
+highlight	VERB	hervor|heben
+hinder	VERB	behindern
+hire	VERB	ein|stellen
+hold	VERB	halten
+hope	VERB	hoffen
+host	VERB	hosten
+humiliate	VERB	demütigen
+hurt	VERB	verletzen
+identify	VERB	identifizieren
+ignore	VERB	ignorieren
+illustrate	VERB	veranschaulichen
+imagine	VERB	sich vor|stellen
+imbue	VERB	erfüllen			prep=mit+D
+imitate	VERB	nach|ahmen
+impact	VERB	beeinflussen
+implement	VERB	implementieren
+imply	VERB	implizieren
+impose	VERB	auf|erlegen
+improve	VERB	verbessern
+include	VERB	umfassen
+incorporate	VERB	integrieren
+increase	VERB	erhöhen			intr=zu|nehmen
+indicate	VERB	an|zeigen
+infect	VERB	infizieren
+infer	VERB	ab|leiten
+influence	VERB	beeinflussen
+inform	VERB	informieren
+inherit	VERB	erben
+initialize	VERB	initialisieren
+initiate	VERB	ein|leiten
+insert	VERB	ein|fügen
+insist	VERB	bestehen			prep=auf+D
+inspect	VERB	prüfen
+inspire	VERB	inspirieren
+install	VERB	installieren
+integrate	VERB	integrieren
+intend	VERB	beabsichtigen
+interact	VERB	interagieren			prep=mit+D
+intercept	VERB	ab|fangen
+interfere	VERB	stören
+interpret	VERB	interpretieren
+interrupt	VERB	unterbrechen
+intersperse	VERB	durchsetzen
+introduce	VERB	ein|führen
+invent	VERB	erfinden
+invest	VERB	investieren
+investigate	VERB	untersuchen
+invite	VERB	ein|laden
+invoke	VERB	auf|rufen
+involve	VERB	beinhalten
+isolate	VERB	isolieren
+join	VERB	bei|treten			obj=D;aux=sein
+judge	VERB	beurteilen
+justify	VERB	rechtfertigen
+keep	VERB	behalten
+kill	VERB	töten
+know	VERB	kennen			ccomp=wissen
+label	VERB	bezeichnen			xcomp=als
+lack	VERB	nicht haben
+last	VERB	dauern
+launch	VERB	starten
+lead	VERB	führen			prep=zu+D
+learn	VERB	lernen
+leave	VERB	verlassen
+lend	VERB	leihen
+let	VERB	lassen
+lie	VERB	liegen
+like	VERB	mögen
+limit	VERB	ein|schränken
+link	VERB	verknüpfen
+listen	VERB	zu|hören			obj=D
+live	VERB	leben
+load	VERB	laden
+locate	VERB	finden
+lock	VERB	sperren
+long	VERB	sich sehnen			prep=nach+D
+look	VERB	aus|sehen
+lose	VERB	verlieren
+love	VERB	lieben
+maintain	VERB	pflegen				cs
+maintain	VERB	aufrecht|erhalten
+make	VERB	machen
+manage	VERB	verwalten				cs
+manage	VERB	bewältigen
+manifest	VERB	zeigen
+manipulate	VERB	manipulieren
+manufacture	VERB	her|stellen
+map	VERB	ab|bilden			prep=auf+A
+mark	VERB	markieren
+marry	VERB	heiraten
+match	VERB	entsprechen			obj=D
+matter	VERB	zählen
+mean	VERB	bedeuten
+measure	VERB	messen
+meet	VERB	treffen
+mention	VERB	erwähnen
+merge	VERB	zusammen|führen
+migrate	VERB	migrieren
+mimic	VERB	nach|ahmen
+minimize	VERB	minimieren
+minimise	VERB	minimieren
+misbehave	VERB	sich falsch verhalten
+miss	VERB	verpassen
+mistake	VERB	verwechseln
+misuse	VERB	missbrauchen
+mitigate	VERB	mindern
+model	VERB	modellieren
+modify	VERB	ändern
+monitor	VERB	überwachen
+monopolize	VERB	monopolisieren
+motivate	VERB	motivieren
+mourn	VERB	trauern			prep=um+A
+move	VERB	bewegen
+murder	VERB	ermorden
+nail	VERB	an|schlagen			prep=an+A
+name	VERB	benennen
+narrate	VERB	erzählen
+navigate	VERB	navigieren
+need	VERB	benötigen
+neglect	VERB	vernachlässigen
+negotiate	VERB	verhandeln
+note	VERB	fest|stellen
+notice	VERB	bemerken
+obey	VERB	gehorchen			obj=D
+object	VERB	widersprechen			obj=D
+observe	VERB	beobachten
+obsess	VERB	besessen sein
+obtain	VERB	erhalten
+occupy	VERB	besetzen
+occur	VERB	auf|treten			aux=sein
+offend	VERB	beleidigen
+offer	VERB	bieten
+omit	VERB	aus|lassen
+open	VERB	öffnen
+operate	VERB	arbeiten
+oppose	VERB	ab|lehnen
+optimize	VERB	optimieren
+optimise	VERB	optimieren
+order	VERB	ordnen
+organize	VERB	organisieren
+organise	VERB	organisieren
+outline	VERB	skizzieren
+outperform	VERB	übertreffen
+output	VERB	aus|geben
+overcome	VERB	überwinden
+overlook	VERB	übersehen
+oversee	VERB	überwachen
+overwrite	VERB	überschreiben
+owe	VERB	verdanken			prep=+D
+own	VERB	besitzen
+pack	VERB	packen
+paint	VERB	malen
+parse	VERB	parsen
+participate	VERB	teil|nehmen			prep=an+D
+pass	VERB	übergeben
+pay	VERB	bezahlen
+perceive	VERB	wahr|nehmen
+perform	VERB	durch|führen				cs
+perform	VERB	auf|führen				lit
+perform	VERB	aus|führen
+permit	VERB	erlauben			obj=D
+persecute	VERB	verfolgen
+persist	VERB	fort|bestehen
+persuade	VERB	überzeugen
+place	VERB	platzieren
+plan	VERB	planen
+play	VERB	spielen
+please	VERB	gefallen			obj=D
+point	VERB	hin|weisen			prep=auf+A
+portray	VERB	dar|stellen
+pose	VERB	dar|stellen
+posit	VERB	postulieren
+possess	VERB	besitzen
+post	VERB	veröffentlichen
+precede	VERB	voraus|gehen			obj=D;aux=sein
+predict	VERB	vorher|sagen
+prefer	VERB	bevorzugen
+prepare	VERB	vor|bereiten
+preprocess	VERB	vor|verarbeiten
+present	VERB	vor|stellen
+preserve	VERB	bewahren
+pretend	VERB	vor|geben
+prevent	VERB	verhindern
+proceed	VERB	fort|fahren			aux=sein
+process	VERB	verarbeiten
+produce	VERB	erzeugen				cs
+produce	VERB	hervor|bringen
+program	VERB	programmieren
+progress	VERB	voran|schreiten			aux=sein
+prohibit	VERB	verbieten
+promise	VERB	versprechen
+promote	VERB	fördern
+pronounce	VERB	aus|sprechen
+propose	VERB	vor|schlagen
+protect	VERB	schützen			prep=vor+D
+prove	VERB	beweisen
+provide	VERB	bereit|stellen				cs
+provide	VERB	bieten
+publish	VERB	veröffentlichen
+punish	VERB	bestrafen
+purchase	VERB	erwerben
+pursue	VERB	verfolgen
+push	VERB	drücken
+put	VERB	setzen
+question	VERB	in Frage stellen
+raise	VERB	auf|werfen
+rank	VERB	ein|stufen
+reach	VERB	erreichen
+react	VERB	reagieren			prep=auf+A
+read	VERB	lesen
+realize	VERB	erkennen
+realise	VERB	erkennen
+reanimate	VERB	wieder|beleben
+reason	VERB	schlussfolgern
+rebel	VERB	rebellieren
+recall	VERB	sich erinnern			prep=an+A
+receive	VERB	erhalten
+recognize	VERB	erkennen
+recognise	VERB	erkennen
+recommend	VERB	empfehlen
+reconstruct	VERB	rekonstruieren
+record	VERB	auf|zeichnen
+recover	VERB	wiederher|stellen
+reduce	VERB	reduzieren
+refer	VERB	sich beziehen			prep=auf+A
+refine	VERB	verfeinern
+reflect	VERB	wider|spiegeln
+reform	VERB	reformieren
+refuse	VERB	verweigern
+regard	VERB	betrachten			xcomp=als
+register	VERB	registrieren
+regulate	VERB	regeln
+reinforce	VERB	verstärken
+reject	VERB	ab|lehnen
+relate	VERB	beziehen			prep=auf+A
+release	VERB	veröffentlichen
+rely	VERB	sich verlassen			prep=auf+A
+remain	VERB	bleiben			aux=sein
+remember	VERB	sich erinnern			prep=an+A
+remind	VERB	erinnern			prep=an+A
+remove	VERB	entfernen
+render	VERB	machen
+repair	VERB	reparieren
+repeat	VERB	wiederholen
+replace	VERB	ersetzen			prep=durch+A
+reply	VERB	antworten			obj=D
+report	VERB	berichten			prep=über+A
+represent	VERB	dar|stellen
+reproduce	VERB	reproduzieren
+request	VERB	an|fordern
+require	VERB	erfordern
+rescue	VERB	retten
+research	VERB	erforschen
+resemble	VERB	ähneln			obj=D
+reserve	VERB	reservieren
+resist	VERB	widerstehen			obj=D
+resolve	VERB	auf|lösen
+resort	VERB	zurück|greifen			prep=auf+A
+respect	VERB	respektieren
+respond	VERB	reagieren			prep=auf+A
+rest	VERB	ruhen
+restore	VERB	wiederher|stellen
+restrict	VERB	ein|schränken
+result	VERB	führen			prep=zu+D
+retain	VERB	behalten
+retrain	VERB	neu trainieren
+retrieve	VERB	ab|rufen
+return	VERB	zurück|geben			intr=zurück|kehren
+reunite	VERB	wieder|vereinigen
+reuse	VERB	wieder|verwenden
+reveal	VERB	enthüllen
+reverse	VERB	um|kehren
+review	VERB	überprüfen
+revise	VERB	überarbeiten
+revolutionise	VERB	revolutionieren
+revolutionize	VERB	revolutionieren
+reward	VERB	belohnen
+rewrite	VERB	um|schreiben
+rid	VERB	befreien			prep=von+D
+rise	VERB	steigen			aux=sein
+rule	VERB	herrschen			prep=über+A
+run	VERB	aus|führen			intr=laufen	cs
+run	VERB	laufen			aux=sein
+sacrifice	VERB	opfern
+satisfy	VERB	erfüllen
+save	VERB	speichern				cs
+save	VERB	retten
+say	VERB	sagen
+scan	VERB	scannen
+schedule	VERB	planen
+search	VERB	suchen			prep=nach+D
+secure	VERB	sichern
+see	VERB	sehen
+seek	VERB	suchen
+seem	VERB	scheinen
+seize	VERB	ergreifen
+select	VERB	aus|wählen
+sell	VERB	verkaufen
+send	VERB	senden
+separate	VERB	trennen
+serve	VERB	dienen			obj=D
+set	VERB	fest|legen
+settle	VERB	sich nieder|lassen
+shape	VERB	prägen
+share	VERB	teilen
+shift	VERB	verschieben
+shoot	VERB	schießen
+shorten	VERB	ab|kürzen
+show	VERB	zeigen
+shut	VERB	schließen
+sign	VERB	unterschreiben
+signal	VERB	signalisieren
+simplify	VERB	vereinfachen
+simulate	VERB	simulieren
+sing	VERB	singen
+sit	VERB	sitzen
+solve	VERB	lösen
+sort	VERB	sortieren
+sound	VERB	klingen
+speak	VERB	sprechen
+specialize	VERB	sich spezialisieren			prep=auf+A
+specify	VERB	an|geben
+speed	VERB	beschleunigen
+spend	VERB	verbringen
+split	VERB	auf|teilen			prep=in+A
+spread	VERB	verbreiten
+stand	VERB	stehen
+standardize	VERB	standardisieren
+start	VERB	beginnen
+state	VERB	an|geben
+stay	VERB	bleiben			aux=sein
+steal	VERB	stehlen
+stop	VERB	stoppen			intr=auf|hören
+store	VERB	speichern
+strengthen	VERB	stärken
+stress	VERB	betonen
+strike	VERB	schlagen
+strive	VERB	streben			prep=nach+D
+structure	VERB	strukturieren
+struggle	VERB	kämpfen
+study	VERB	untersuchen
+submit	VERB	ein|reichen
+subvert	VERB	untergraben
+succeed	VERB	Erfolg haben
+suffer	VERB	leiden			prep=unter+D
+suggest	VERB	vor|schlagen			ccomp=nahe|legen
+summarize	VERB	zusammen|fassen
+supersede	VERB	ersetzen
+supply	VERB	liefern
+support	VERB	unterstützen
+suppose	VERB	an|nehmen
+suppress	VERB	unterdrücken
+surround	VERB	umgeben
+survive	VERB	überleben
+suspect	VERB	vermuten
+switch	VERB	wechseln
+symbolize	VERB	symbolisieren
+symbolise	VERB	symbolisieren
+synchronize	VERB	synchronisieren
+tackle	VERB	an|gehen
+take	VERB	nehmen
+talk	VERB	sprechen			prep=über+A
+target	VERB	ab|zielen			obj=auf+A
+teach	VERB	lehren
+tell	VERB	erzählen
+tend	VERB	neigen			prep=zu+D
+terminate	VERB	beenden
+test	VERB	testen
+think	VERB	denken
+threaten	VERB	bedrohen
+throw	VERB	werfen
+touch	VERB	berühren
+trace	VERB	zurück|verfolgen
+track	VERB	verfolgen
+train	VERB	trainieren
+transfer	VERB	übertragen
+transform	VERB	um|wandeln				cs
+transform	VERB	verwandeln
+translate	VERB	übersetzen			prep=in+A
+transmit	VERB	übertragen
+travel	VERB	reisen			aux=sein
+treat	VERB	behandeln
+trigger	VERB	aus|lösen
+trust	VERB	vertrauen			obj=D
+try	VERB	versuchen
+turn	VERB	drehen
+type	VERB	tippen
+undergo	VERB	durchlaufen
+underlie	VERB	zugrunde|liegen			obj=D
+understand	VERB	verstehen
+undertake	VERB	unternehmen
+unite	VERB	vereinigen
+update	VERB	aktualisieren
+upload	VERB	hoch|laden
+use	VERB	verwenden
+utilize	VERB	nutzen
+utilise	VERB	nutzen
+validate	VERB	validieren
+value	VERB	schätzen
+vary	VERB	variieren
+verify	VERB	überprüfen
+view	VERB	betrachten			xcomp=als
+violate	VERB	verletzen
+visit	VERB	besuchen
+wait	VERB	warten			prep=auf+A
+walk	VERB	gehen			aux=sein
+want	VERB	wollen
+warn	VERB	warnen			prep=vor+D
+watch	VERB	beobachten
+wear	VERB	tragen
+win	VERB	gewinnen
+wish	VERB	wünschen
+withdraw	VERB	zurück|ziehen
+witness	VERB	bezeugen
+wonder	VERB	sich fragen
+work	VERB	arbeiten				cs
+work	VERB	arbeiten
+worry	VERB	sich sorgen			prep=um+A
+write	VERB	schreiben
+yield	VERB	liefern
+cry	VERB	weinen
+praise	VERB	loben
+report	VERB	melden				cs

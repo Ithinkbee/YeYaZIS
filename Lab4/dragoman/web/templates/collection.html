@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Коллекция — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Тестовая коллекция</h1>
+<p class="lead">
+  {{ total }} английских текстов по двум предметным областям варианта 4: научные статьи по computer science и
+  литературоведческие тексты — «сочинения по литературе» о пьесах и романах. Источник — английская Википедия
+  (CC BY-SA 4.0): вводная часть статьи и разделы о принципах работы или о темах и героях произведения. Каждый
+  текст — около двух страниц.
+</p>
+{% for code, entries in groups %}
+<h2>{{ m.domain_tag(code) }} {{ domain_name(code) }}</h2>
+<table class="grid">
+  <thead><tr><th>№</th><th>Документ</th><th>Разделы</th><th class="num">Знаков</th><th class="num">Слов</th>
+    <th>Источник</th><th class="no-print">Действия</th></tr></thead>
+  <tbody>
+  {% for e in entries %}
+  <tr>
+    <td class="muted">{{ loop.index }}</td>
+    <td><a href="/doc/{{ e.id }}"><b>{{ e.title }}</b></a></td>
+    <td class="small muted">{{ e.sections|join(', ') or 'вводная часть' }}</td>
+    <td class="num">{{ e.chars|num }}</td>
+    <td class="num">{{ e.words|num }}</td>
+    <td class="small"><a href="{{ e.source_url }}" target="_blank" rel="noopener">{{ e.source.site }}</a>
+      <div class="muted">ревизия {{ e.source.revision }}, {{ e.source.license }}</div></td>
+    <td class="actions no-print">
+      <a class="button small-button" href="/doc/{{ e.id }}">Перевести</a>
+      <a href="/doc/{{ e.id }}?mode=direct">пословно</a>
+      <a href="/raw/{{ e.id }}" target="_blank">текст</a>
+      {% if companion_enabled %}<a href="/shooter?doc={{ e.id }}">в тир</a>{% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+<p class="note">Для оценки качества у 120 предложений коллекции есть эталонные переводы, подготовленные независимо от системы, —
+  см. раздел <a href="/evaluation">«Оценка»</a>.</p>
+{% endblock %}

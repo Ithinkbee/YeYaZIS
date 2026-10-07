@@ -1,0 +1,41 @@
+{# Общие фрагменты страниц. #}
+
+{% macro domain_tag(code) -%}
+<span class="tag tag-{{ code }}">{{ domain_name(code, short=True) }}</span>
+{%- endmacro %}
+
+{% macro status_tag(status) -%}
+<span class="status status-{{ status }}">{{ status_names.get(status, status) }}</span>
+{%- endmacro %}
+
+{# Немецкое предложение: каждое слово знает английские слова, из которых получено (data-src). #}
+{% macro german(sentence, output, sindex) -%}
+{%- for piece, token in output.spans(sentence.tokens) -%}
+{%- if token is none -%}{{ piece }}
+{%- elif token.kind == 'punct' -%}<span class="p">{{ piece }}</span>
+{%- else -%}<span class="w k-{{ token.kind }}" data-s="{{ sindex }}" data-src="{{ token.src|join(',') }}">{{ piece }}</span>
+{%- endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{# Английское предложение: слова с номерами, статус перевода — цветом подчёркивания. #}
+{% macro english(sentence, status, sindex) -%}
+{%- for w in sentence.words -%}
+{%- if w.is_word -%}<span class="w st-{{ status.get(w.index, 'unknown') }}" data-s="{{ sindex }}" data-i="{{ w.index }}" title="{{ w.lemma }} · {{ w.tag }} — {{ describe_tag(w.tag) }}">{{ w.text }}</span>
+{%- else -%}<span class="p" data-s="{{ sindex }}" data-i="{{ w.index }}">{{ w.text }}</span>
+{%- endif -%}{% if w.space_after and not loop.last %} {% endif %}
+{%- endfor -%}
+{%- endmacro %}
+
+{% macro export_menu(t) -%}
+<details class="menu no-print">
+  <summary class="button">Сохранить в TXT</summary>
+  <div class="menu-list">
+    {% for code, (name, codec) in encodings.items() %}
+    <a href="/export/{{ t.uid }}.txt?enc={{ code }}&parts=all">Перевод и список слов — {{ name }}</a>
+    {% endfor %}
+    <a href="/export/{{ t.uid }}.txt?enc=utf-16&parts=translation">Только перевод — Unicode</a>
+    <a href="/export/{{ t.uid }}.txt?enc=utf-16&parts=words">Только список слов — Unicode</a>
+  </div>
+</details>
+{%- endmacro %}

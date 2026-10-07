@@ -1,0 +1,23 @@
+In machine learning, a neural network (NN) or artificial neural network (ANN) is a computational model inspired by the structure and functions of biological neural networks.
+
+A neural network consists of connected units or nodes called artificial neurons, which loosely model the neurons in the brain. These are connected by edges, which model the synapses in the brain. Each artificial neuron receives signals from connected neurons, then processes them and sends a signal to other connected neurons. The "signal" is a real number, and the output of each neuron is computed by some non-linear function of the totality of its inputs, called the activation function. The strength of the signal at each connection is determined by a weight, which adjusts as part of the training process.
+
+Groups of neurons are aggregated into layers. Each layer performs a transformation on its inputs. Signals travel from the first layer (the input layer) to the last layer (the output layer), typically passing through multiple intermediate layers (hidden layers). A network is typically called a deep neural network if it has at least two hidden layers. Deep neural networks are capable of learning sophisticated hierarchical representations.
+
+Training neural networks is a compute-intensive process, accelerated by the use of graphics processing units (GPUs), and large datasets.
+
+In reality, such textures and outlines would not be represented by single nodes, but rather by associated weight patterns of multiple nodes.
+
+Architectural innovations such as convolutional neural networks (CNNs) significantly improved performance in computer vision tasks, while recurrent neural networks (RNNs) enabled modeling of sequential data such as speech and time-series information. Transformer architectures introduced attention mechanisms that allow neural networks to model long-range dependencies in data and have been the basis of large language models.
+
+Artificial neural networks are used for myriad tasks including chatbots, large-scale text, image, and video generation, and robotics.
+
+# Learning
+
+Training/learning involves adjusting the weights of the network to improve the accuracy of the result. NNs typically require vast numbers of sample inputs (far more than biological brains) to achieve a given level of function. This is done by minimizing the observed errors among sample observations. Training takes place before a network is deployed, and (unlike brains) does not continue thereafter. Instead, the network may be retrained from scratch as more sample data becomes available.
+
+Empirical risk minimization adjusts node and link weights to minimize the difference (empirical risk), between the predicted output and the known values in the training samples. A defined loss function measures the degree of error. Backpropagation spreads the error (adjusts the weights) from the output nodes across the network to the input nodes. The intent is to allow the network to process data that is not included in the training samples.
+
+As long as the value of the loss function (its cost) continues to decline, the network is continuing to improve. The function typically produces a statistic whose value is only approximate. When the cost is low, the difference between the output (e.g. almost certainly a cat) and the correct answer (a cat) is small. Most learning models can be viewed as a straightforward application of optimization theory and statistical estimation.
+
+Learning typically ends when additional observations do not usefully reduce the cost. The cost typically approaches, but does not reach, 0. If no feasible amount of sample data yields a low cost, training is labeled a failure.

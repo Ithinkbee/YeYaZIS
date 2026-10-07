@@ -1,0 +1,49 @@
+{
+ "treebanks": {
+  "en_ewt": {
+   "sentences": 2077,
+   "words": 24908,
+   "tagging": 0.9414244419463627,
+   "lemmas": 0.968230111427831,
+   "uas": 0.8468809936980546,
+   "las": 0.8007580600968125,
+   "ms_per_sentence": 2.061624843564439
+  },
+  "en_gum": {
+   "sentences": 1464,
+   "words": 28183,
+   "tagging": 0.9596565305325906,
+   "lemmas": 0.9848653460939238,
+   "uas": 0.8447453516572353,
+   "las": 0.8032336297493937,
+   "ms_per_sentence": 3.3907924182051437
+  },
+  "en_lines": {
+   "sentences": 1121,
+   "words": 19984,
+   "tagging": null,
+   "lemmas": null,
+   "uas": 0.843155135073521,
+   "las": 0.7857631368972985,
+   "ms_per_sentence": 3.1425469221811437
+  },
+  "en_partut": {
+   "sentences": 153,
+   "words": 3375,
+   "tagging": null,
+   "lemmas": null,
+   "uas": 0.8639790232710587,
+   "las": 0.8118649623074402,
+   "ms_per_sentence": 3.9098803927890615
+  }
+ },
+ "train_sentences": 29096,
+ "train_words": 509204,
+ "models": {
+  "lemmatizer.json": 36186,
+  "parser.json.gz": 6988936,
+  "tagger.json.gz": 2099081
+ },
+ "seconds": 1820.5,
+ "check_seconds": 19.2
+}

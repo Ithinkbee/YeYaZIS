@@ -1,0 +1,253 @@
+# Наречия. Столбцы: en	pos	de	gender	plural	extra	domain
+# Наречия на -ly, которых здесь нет, переводятся по прилагательному: efficiently → effizient.
+# extra: sent — наречие-связка, которое в немецком естественно стоит в начале или середине предложения.
+about	ADV	etwa
+above	ADV	oben
+absolutely	ADV	absolut
+accordingly	ADV	entsprechend
+actually	ADV	tatsächlich
+additionally	ADV	zusätzlich			sent
+afterwards	ADV	danach			sent
+again	ADV	wieder
+ago	ADV	vor
+ahead	ADV	voraus
+allegedly	ADV	angeblich
+almost	ADV	fast
+alone	ADV	allein
+already	ADV	bereits
+also	ADV	auch
+alternately	ADV	abwechselnd
+alternatively	ADV	alternativ			sent
+although	ADV	obwohl
+altogether	ADV	insgesamt
+always	ADV	immer
+anonymously	ADV	anonym
+anyway	ADV	ohnehin
+anymore	ADV	mehr
+apart	ADV	auseinander
+apparently	ADV	offenbar
+approximately	ADV	ungefähr
+as	ADV	so
+away	ADV	weg
+back	ADV	zurück
+badly	ADV	schlecht
+barely	ADV	kaum
+basically	ADV	grundsätzlich
+beforehand	ADV	vorher
+below	ADV	unten
+besides	ADV	außerdem			sent
+better	ADV	besser
+broadly	ADV	weitgehend
+certainly	ADV	sicherlich
+characteristically	ADV	typischerweise
+clearly	ADV	eindeutig
+closely	ADV	eng
+commonly	ADV	gemeinhin
+completely	ADV	vollständig
+conceptually	ADV	konzeptionell
+consciously	ADV	bewusst
+consequently	ADV	folglich			sent
+considerably	ADV	erheblich
+consistently	ADV	konsequent
+constantly	ADV	ständig
+correctly	ADV	korrekt
+currently	ADV	derzeit
+deeply	ADV	tief
+definitely	ADV	definitiv
+deliberately	ADV	absichtlich
+despicably	ADV	verachtenswert
+differently	ADV	anders
+directly	ADV	direkt
+dramatically	ADV	dramatisch
+early	ADV	früh
+easily	ADV	leicht
+effectively	ADV	effektiv
+efficiently	ADV	effizient
+else	ADV	sonst
+elsewhere	ADV	anderswo
+enough	ADV	genug
+entirely	ADV	völlig
+equally	ADV	gleichermaßen
+erroneously	ADV	fälschlicherweise
+especially	ADV	besonders
+essentially	ADV	im Wesentlichen
+even	ADV	sogar
+eventually	ADV	schließlich
+ever	ADV	jemals
+everywhere	ADV	überall
+exactly	ADV	genau
+explicitly	ADV	ausdrücklich
+extensively	ADV	ausführlich
+externally	ADV	extern
+extremely	ADV	äußerst
+fairly	ADV	ziemlich
+far	ADV	weit
+fast	ADV	schnell
+finally	ADV	schließlich			sent
+first	ADV	zuerst
+firstly	ADV	erstens			sent
+formally	ADV	formal
+forth	ADV	fort
+fortunately	ADV	glücklicherweise
+frequently	ADV	häufig
+fully	ADV	vollständig
+fundamentally	ADV	grundlegend
+further	ADV	weiter
+furthermore	ADV	außerdem			sent
+generally	ADV	im Allgemeinen
+gradually	ADV	allmählich
+greatly	ADV	stark
+grossly	ADV	grob
+hardly	ADV	kaum
+hence	ADV	daher			sent
+here	ADV	hier
+highly	ADV	hoch
+historically	ADV	historisch
+however	ADV	jedoch			sent
+immediately	ADV	sofort
+inadvertently	ADV	versehentlich
+increasingly	ADV	zunehmend
+indeed	ADV	tatsächlich
+independently	ADV	unabhängig
+indirectly	ADV	indirekt
+inevitably	ADV	unweigerlich
+initially	ADV	zunächst
+instead	ADV	stattdessen
+intelligently	ADV	intelligent
+internally	ADV	intern
+just	ADV	nur
+largely	ADV	weitgehend
+late	ADV	spät
+later	ADV	später
+lately	ADV	in letzter Zeit
+least	ADV	am wenigsten
+less	ADV	weniger
+likewise	ADV	ebenso
+literally	ADV	buchstäblich
+little	ADV	wenig
+long	ADV	lange
+loosely	ADV	lose
+mainly	ADV	hauptsächlich
+manually	ADV	manuell
+meanwhile	ADV	inzwischen			sent
+merely	ADV	lediglich
+mistakenly	ADV	fälschlicherweise
+moreover	ADV	außerdem			sent
+more	ADV	mehr
+most	ADV	am meisten
+mostly	ADV	meist
+much	ADV	viel
+naturally	ADV	natürlich
+nearly	ADV	fast
+necessarily	ADV	notwendigerweise
+never	ADV	nie
+nevertheless	ADV	dennoch			sent
+newly	ADV	neu
+nonetheless	ADV	dennoch			sent
+normally	ADV	normalerweise
+not	ADV	nicht
+notably	ADV	insbesondere
+now	ADV	nun
+nowadays	ADV	heutzutage
+obviously	ADV	offensichtlich
+occasionally	ADV	gelegentlich
+often	ADV	oft
+once	ADV	einmal
+only	ADV	nur
+openly	ADV	offen
+originally	ADV	ursprünglich
+otherwise	ADV	sonst
+overall	ADV	insgesamt
+painstakingly	ADV	akribisch
+partially	ADV	teilweise
+partly	ADV	teilweise
+particularly	ADV	besonders
+perhaps	ADV	vielleicht
+piously	ADV	fromm
+possibly	ADV	möglicherweise
+potentially	ADV	potenziell
+precisely	ADV	genau
+predominantly	ADV	überwiegend
+presumably	ADV	vermutlich
+previously	ADV	zuvor
+primarily	ADV	hauptsächlich
+probably	ADV	wahrscheinlich
+properly	ADV	richtig
+purely	ADV	rein
+quickly	ADV	schnell
+quite	ADV	ziemlich
+randomly	ADV	zufällig
+rapidly	ADV	schnell
+rarely	ADV	selten
+rather	ADV	eher
+really	ADV	wirklich
+recently	ADV	kürzlich
+regardless	ADV	unabhängig davon
+regularly	ADV	regelmäßig
+relatively	ADV	relativ
+repeatedly	ADV	wiederholt
+respectively	ADV	beziehungsweise
+rigorously	ADV	streng
+roughly	ADV	ungefähr
+routinely	ADV	routinemäßig
+scrupulously	ADV	gewissenhaft
+secondly	ADV	zweitens			sent
+seemingly	ADV	scheinbar
+seldom	ADV	selten
+semantically	ADV	semantisch
+separately	ADV	getrennt
+seriously	ADV	ernsthaft
+severely	ADV	schwer
+significantly	ADV	erheblich
+similarly	ADV	ebenso
+simply	ADV	einfach
+simultaneously	ADV	gleichzeitig
+since	ADV	seitdem
+slightly	ADV	leicht
+slowly	ADV	langsam
+so	ADV	so
+solely	ADV	ausschließlich
+somehow	ADV	irgendwie
+sometime	ADV	irgendwann
+sometimes	ADV	manchmal
+somewhat	ADV	etwas
+soon	ADV	bald
+specifically	ADV	speziell
+still	ADV	noch
+strictly	ADV	streng
+strongly	ADV	stark
+subsequently	ADV	später
+successfully	ADV	erfolgreich
+suddenly	ADV	plötzlich
+sufficiently	ADV	ausreichend
+surely	ADV	sicherlich
+temporally	ADV	zeitlich
+thematically	ADV	thematisch
+then	ADV	dann
+theoretically	ADV	theoretisch
+thereafter	ADV	danach
+thereby	ADV	dadurch
+therefore	ADV	daher			sent
+thus	ADV	somit			sent
+today	ADV	heute
+together	ADV	zusammen
+too	ADV	zu
+totally	ADV	völlig
+traditionally	ADV	traditionell
+truly	ADV	wirklich
+typically	ADV	typischerweise
+ultimately	ADV	letztendlich
+undoubtedly	ADV	zweifellos
+unfortunately	ADV	leider
+universally	ADV	allgemein
+usefully	ADV	sinnvoll
+usually	ADV	normalerweise
+very	ADV	sehr
+virtually	ADV	praktisch
+well	ADV	gut
+whatsoever	ADV	überhaupt
+widely	ADV	weithin
+wretchedly	ADV	elend
+yet	ADV	noch
+yesterday	ADV	gestern
+tomorrow	ADV	morgen

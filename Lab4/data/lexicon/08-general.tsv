@@ -1,0 +1,1032 @@
+# Общая лексика: частые слова корпусов Universal Dependencies (EWT, GUM, LinES, ParTUT), которых не было
+# в словаре коллекции. Добавлены после опыта с незнакомыми текстами (tools/evaluate.py): словарь,
+# составленный под коллекцию, на новых текстах находил ≈ 85 % слов.
+# Столбцы: en	pos	de	gender	plural	extra	domain
+lot	NOUN	Menge	f	Mengen
+car	NOUN	Auto	n	Autos
+guy	NOUN	Typ	m	Typen	weak
+commission	NOUN	Kommission	f	Kommissionen
+morning	NOUN	Morgen	m	Morgen
+horse	NOUN	Pferd	n	Pferde
+president	NOUN	Präsident	m	Präsidenten	weak
+staff	NOUN	Personal	n	-
+dog	NOUN	Hund	m	Hunde
+hair	NOUN	Haar	n	Haare
+oil	NOUN	Öl	n	Öle
+site	NOUN	Website	f	Websites	cf=Website-	cs
+site	NOUN	Ort	m	Orte
+street	NOUN	Straße	f	Straßen
+kid	NOUN	Kind	n	Kinder
+deal	NOUN	Geschäft	n	Geschäfte
+license	NOUN	Lizenz	f	Lizenzen
+licence	NOUN	Lizenz	f	Lizenzen
+restaurant	NOUN	Restaurant	n	Restaurants
+hotel	NOUN	Hotel	n	Hotels
+gas	NOUN	Gas	n	Gase
+stuff	NOUN	Zeug	n	-
+picture	NOUN	Bild	n	Bilder
+dollar	NOUN	Dollar	m	Dollar
+help	NOUN	Hilfe	f	Hilfen
+election	NOUN	Wahl	f	Wahlen
+bird	NOUN	Vogel	m	Vögel
+summer	NOUN	Sommer	m	Sommer
+chicken	NOUN	Huhn	n	Hühner
+arm	NOUN	Arm	m	Arme
+rest	NOUN	Rest	m	Reste
+percent	NOUN	Prozent	n	Prozent
+credit	NOUN	Kredit	m	Kredite
+wine	NOUN	Wein	m	Weine
+tax	NOUN	Steuer	f	Steuern
+fund	NOUN	Fonds	m	Fonds
+college	NOUN	College	n	Colleges
+shop	NOUN	Laden	m	Läden
+cage	NOUN	Käfig	m	Käfige
+floor	NOUN	Boden	m	Böden
+baby	NOUN	Baby	n	Babys
+dinner	NOUN	Abendessen	n	Abendessen
+official	NOUN	Beamte	m	Beamten	weak
+committee	NOUN	Ausschuss	m	Ausschüsse
+mom	NOUN	Mama	f	Mamas
+evening	NOUN	Abend	m	Abende
+bus	NOUN	Bus	m	Busse
+bar	NOUN	Bar	f	Bars
+leg	NOUN	Bein	n	Beine
+interview	NOUN	Interview	n	Interviews
+lunch	NOUN	Mittagessen	n	Mittagessen
+afternoon	NOUN	Nachmittag	m	Nachmittage
+trouble	NOUN	Ärger	m	-
+conference	NOUN	Konferenz	f	Konferenzen
+chair	NOUN	Stuhl	m	Stühle
+meal	NOUN	Mahlzeit	f	Mahlzeiten
+trip	NOUN	Reise	f	Reisen
+return	NOUN	Rückkehr	f	-
+plant	NOUN	Pflanze	f	Pflanzen
+administration	NOUN	Verwaltung	f	Verwaltungen
+show	NOUN	Sendung	f	Sendungen
+station	NOUN	Bahnhof	m	Bahnhöfe
+weekend	NOUN	Wochenende	n	Wochenenden
+grandmother	NOUN	Großmutter	f	Großmütter
+grandfather	NOUN	Großvater	m	Großväter
+judge	NOUN	Richter	m	Richter
+bottle	NOUN	Flasche	f	Flaschen
+glass	NOUN	Glas	n	Gläser
+mister	NOUN	Herr	m	Herren	weak;gen=Herrn
+heat	NOUN	Hitze	f	-
+amendment	NOUN	Änderung	f	Änderungen
+color	NOUN	Farbe	f	Farben
+colour	NOUN	Farbe	f	Farben
+mile	NOUN	Meile	f	Meilen
+climate	NOUN	Klima	n	Klimata
+bear	NOUN	Bär	m	Bären	weak
+sun	NOUN	Sonne	f	Sonnen
+coffee	NOUN	Kaffee	m	Kaffees
+ant	NOUN	Ameise	f	Ameisen
+tourist	NOUN	Tourist	m	Touristen	weak
+flight	NOUN	Flug	m	Flüge
+fan	NOUN	Fan	m	Fans
+movie	NOUN	Film	m	Filme
+fax	NOUN	Fax	n	Faxe
+cruise	NOUN	Kreuzfahrt	f	Kreuzfahrten
+species	NOUN	Art	f	Arten
+vote	NOUN	Stimme	f	Stimmen
+snake	NOUN	Schlange	f	Schlangen
+basil	NOUN	Basilikum	n	-
+settlement	NOUN	Siedlung	f	Siedlungen
+meat	NOUN	Fleisch	n	-
+egg	NOUN	Ei	n	Eier
+bag	NOUN	Tasche	f	Taschen
+transport	NOUN	Transport	m	Transporte
+seat	NOUN	Sitz	m	Sitze
+player	NOUN	Spieler	m	Spieler
+dad	NOUN	Papa	m	Papas
+budget	NOUN	Budget	n	Budgets
+pet	NOUN	Haustier	n	Haustiere
+visa	NOUN	Visum	n	Visa
+plastic	NOUN	Kunststoff	m	Kunststoffe
+disaster	NOUN	Katastrophe	f	Katastrophen
+corner	NOUN	Ecke	f	Ecken
+facility	NOUN	Einrichtung	f	Einrichtungen
+vet	NOUN	Tierarzt	m	Tierärzte
+anthrax	NOUN	Milzbrand	m	-
+press	NOUN	Presse	f	-
+adult	NOUN	Erwachsene	m	Erwachsenen	weak
+visit	NOUN	Besuch	m	Besuche
+desk	NOUN	Schreibtisch	m	Schreibtische
+fish	NOUN	Fisch	m	Fische
+metal	NOUN	Metall	n	Metalle
+temperature	NOUN	Temperatur	f	Temperaturen
+wolf	NOUN	Wolf	m	Wölfe
+kitchen	NOUN	Küche	f	Küchen
+camp	NOUN	Lager	n	Lager
+sheet	NOUN	Blatt	n	Blätter
+mouth	NOUN	Mund	m	Münder
+bottom	NOUN	Boden	m	Böden
+sale	NOUN	Verkauf	m	Verkäufe
+band	NOUN	Band	f	Bands
+competition	NOUN	Wettbewerb	m	Wettbewerbe
+park	NOUN	Park	m	Parks
+photo	NOUN	Foto	n	Fotos
+drink	NOUN	Getränk	n	Getränke
+hole	NOUN	Loch	n	Löcher
+firm	NOUN	Firma	f	Firmen
+jury	NOUN	Jury	f	Jurys
+boat	NOUN	Boot	n	Boote
+apartment	NOUN	Wohnung	f	Wohnungen
+nose	NOUN	Nase	f	Nasen
+legislation	NOUN	Gesetzgebung	f	-
+shoe	NOUN	Schuh	m	Schuhe
+majority	NOUN	Mehrheit	f	Mehrheiten
+plane	NOUN	Flugzeug	n	Flugzeuge
+camera	NOUN	Kamera	f	Kameras
+payment	NOUN	Zahlung	f	Zahlungen
+guest	NOUN	Gast	m	Gäste
+fun	NOUN	Spaß	m	-
+commissioner	NOUN	Kommissar	m	Kommissare
+waste	NOUN	Abfall	m	Abfälle
+finger	NOUN	Finger	m	Finger
+post	NOUN	Beitrag	m	Beiträge
+military	NOUN	Militär	n	-
+joke	NOUN	Witz	m	Witze
+drug	NOUN	Medikament	n	Medikamente
+coast	NOUN	Küste	f	Küsten
+clothes	NOUN	Kleidung	f	-
+clothing	NOUN	Kleidung	f	-
+tour	NOUN	Tour	f	Touren
+route	NOUN	Route	f	Routen
+exhibit	NOUN	Exponat	n	Exponate
+birthday	NOUN	Geburtstag	m	Geburtstage
+provision	NOUN	Bestimmung	f	Bestimmungen
+admission	NOUN	Eintritt	m	-
+sky	NOUN	Himmel	m	Himmel
+beach	NOUN	Strand	m	Strände
+painting	NOUN	Gemälde	n	Gemälde
+rental	NOUN	Miete	f	Mieten
+replication	NOUN	Replikation	f	Replikationen
+euro	NOUN	Euro	m	Euro
+appointment	NOUN	Termin	m	Termine
+repair	NOUN	Reparatur	f	Reparaturen
+delivery	NOUN	Lieferung	f	Lieferungen
+moon	NOUN	Mond	m	Monde
+shirt	NOUN	Hemd	n	Hemden
+pizza	NOUN	Pizza	f	Pizzas
+dress	NOUN	Kleid	n	Kleider
+quinoa	NOUN	Quinoa	f	-
+candidate	NOUN	Kandidat	m	Kandidaten	weak
+airport	NOUN	Flughafen	m	Flughäfen
+hospital	NOUN	Krankenhaus	n	Krankenhäuser
+flower	NOUN	Blume	f	Blumen
+rock	NOUN	Fels	m	Felsen	weak
+madam	NOUN	Dame	f	Damen
+menu	NOUN	Menü	n	Menüs
+enjambment	NOUN	Enjambement	n	Enjambements
+investment	NOUN	Investition	f	Investitionen
+fall	NOUN	Herbst	m	Herbste
+turn	NOUN	Wendung	f	Wendungen
+cash	NOUN	Bargeld	n	-
+weather	NOUN	Wetter	n	-
+notice	NOUN	Mitteilung	f	Mitteilungen
+stock	NOUN	Bestand	m	Bestände
+employment	NOUN	Beschäftigung	f	Beschäftigungen
+row	NOUN	Reihe	f	Reihen
+insurance	NOUN	Versicherung	f	Versicherungen
+copyright	NOUN	Urheberrecht	n	Urheberrechte
+button	NOUN	Knopf	m	Knöpfe
+second	NOUN	Sekunde	f	Sekunden
+cup	NOUN	Tasse	f	Tassen
+cupcake	NOUN	Cupcake	m	Cupcakes
+folk	NOUN	Leute	pl	Leute
+spot	NOUN	Stelle	f	Stellen
+transportation	NOUN	Beförderung	f	Beförderungen
+hearing	NOUN	Anhörung	f	Anhörungen
+currency	NOUN	Währung	f	Währungen
+vehicle	NOUN	Fahrzeug	n	Fahrzeuge
+muscle	NOUN	Muskel	m	Muskeln
+pollution	NOUN	Verschmutzung	f	Verschmutzungen
+union	NOUN	Union	f	Unionen
+dish	NOUN	Gericht	n	Gerichte
+rabbit	NOUN	Kaninchen	n	Kaninchen
+wind	NOUN	Wind	m	Winde
+walking	NOUN	Gehen	n	-
+luck	NOUN	Glück	n	-
+portion	NOUN	Portion	f	Portionen
+sex	NOUN	Geschlecht	n	Geschlechter
+million	NOUN	Million	f	Millionen
+crowd	NOUN	Menge	f	Mengen
+occasion	NOUN	Anlass	m	Anlässe
+living	NOUN	Lebensunterhalt	m	-
+match	NOUN	Spiel	n	Spiele
+elevator	NOUN	Aufzug	m	Aufzüge
+bathroom	NOUN	Badezimmer	n	Badezimmer
+visitor	NOUN	Besucher	m	Besucher
+guideline	NOUN	Richtlinie	f	Richtlinien
+parking	NOUN	Parken	n	-
+flavor	NOUN	Geschmack	m	Geschmäcker
+flavour	NOUN	Geschmack	m	Geschmäcker
+terrorist	NOUN	Terrorist	m	Terroristen	weak
+neck	NOUN	Hals	m	Hälse
+cooperation	NOUN	Zusammenarbeit	f	-
+score	NOUN	Punktzahl	f	Punktzahlen
+pilot	NOUN	Pilot	m	Piloten	weak
+spring	NOUN	Frühling	m	Frühlinge
+stone	NOUN	Stein	m	Steine
+crop	NOUN	Ernte	f	Ernten
+inch	NOUN	Zoll	m	Zoll
+break	NOUN	Pause	f	Pausen
+bulb	NOUN	Glühbirne	f	Glühbirnen
+terror	NOUN	Terror	m	-
+reserve	NOUN	Reserve	f	Reserven
+injury	NOUN	Verletzung	f	Verletzungen
+ice	NOUN	Eis	n	-
+expertise	NOUN	Fachwissen	n	-
+bowl	NOUN	Schüssel	f	Schüsseln
+fee	NOUN	Gebühr	f	Gebühren
+sport	NOUN	Sport	m	Sportarten
+emergency	NOUN	Notfall	m	Notfälle
+opening	NOUN	Öffnung	f	Öffnungen
+recommendation	NOUN	Empfehlung	f	Empfehlungen
+supply	NOUN	Versorgung	f	Versorgungen
+pocket	NOUN	Tasche	f	Taschen
+revenue	NOUN	Einnahme	f	Einnahmen
+skin	NOUN	Haut	f	Häute
+rat	NOUN	Ratte	f	Ratten
+tail	NOUN	Schwanz	m	Schwänze
+nail	NOUN	Nagel	m	Nägel
+constituency	NOUN	Wahlkreis	m	Wahlkreise
+quartile	NOUN	Quartil	n	Quartile
+regime	NOUN	Regime	n	Regime
+analyst	NOUN	Analyst	m	Analysten	weak
+gift	NOUN	Geschenk	n	Geschenke
+flag	NOUN	Flagge	f	Flaggen
+info	NOUN	Info	f	Infos
+touch	NOUN	Berührung	f	Berührungen
+wheel	NOUN	Rad	n	Räder
+train	NOUN	Zug	m	Züge
+producer	NOUN	Produzent	m	Produzenten	weak
+division	NOUN	Abteilung	f	Abteilungen
+colleague	NOUN	Kollege	m	Kollegen	weak
+participation	NOUN	Teilnahme	f	-
+surgery	NOUN	Operation	f	Operationen
+wedding	NOUN	Hochzeit	f	Hochzeiten
+consumption	NOUN	Verbrauch	m	-
+mountain	NOUN	Berg	m	Berge
+achievement	NOUN	Leistung	f	Leistungen
+magic	NOUN	Magie	f	-
+addiction	NOUN	Sucht	f	Süchte
+lighting	NOUN	Beleuchtung	f	Beleuchtungen
+tire	NOUN	Reifen	m	Reifen
+tyre	NOUN	Reifen	m	Reifen
+mosque	NOUN	Moschee	f	Moscheen
+bomb	NOUN	Bombe	f	Bomben
+south	NOUN	Süden	m	-
+north	NOUN	Norden	m	-
+east	NOUN	Osten	m	-
+west	NOUN	Westen	m	-
+episode	NOUN	Folge	f	Folgen
+remark	NOUN	Bemerkung	f	Bemerkungen
+travel	NOUN	Reise	f	Reisen
+enforcement	NOUN	Durchsetzung	f	-
+lawyer	NOUN	Anwalt	m	Anwälte
+fellow	NOUN	Gefährte	m	Gefährten	weak
+attorney	NOUN	Anwalt	m	Anwälte
+approval	NOUN	Zustimmung	f	Zustimmungen
+breakfast	NOUN	Frühstück	n	Frühstücke
+rain	NOUN	Regen	m	-
+holiday	NOUN	Urlaub	m	Urlaube
+fruit	NOUN	Obst	n	-
+sight	NOUN	Anblick	m	Anblicke
+magazine	NOUN	Zeitschrift	f	Zeitschriften
+artwork	NOUN	Kunstwerk	n	Kunstwerke
+leaf	NOUN	Blatt	n	Blätter
+ballet	NOUN	Ballett	n	Ballette
+district	NOUN	Bezirk	m	Bezirke
+shot	NOUN	Schuss	m	Schüsse
+destination	NOUN	Ziel	n	Ziele
+missile	NOUN	Rakete	f	Raketen
+tip	NOUN	Tipp	m	Tipps
+trading	NOUN	Handel	m	-
+reaction	NOUN	Reaktion	f	Reaktionen
+neighborhood	NOUN	Nachbarschaft	f	Nachbarschaften
+neighbourhood	NOUN	Nachbarschaft	f	Nachbarschaften
+ingredient	NOUN	Zutat	f	Zutaten
+run	NOUN	Lauf	m	Läufe
+cocktail	NOUN	Cocktail	m	Cocktails
+presentation	NOUN	Präsentation	f	Präsentationen
+expense	NOUN	Ausgabe	f	Ausgaben
+vacation	NOUN	Urlaub	m	Urlaube
+recipient	NOUN	Empfänger	m	Empfänger
+ride	NOUN	Fahrt	f	Fahrten
+breath	NOUN	Atem	m	-
+tea	NOUN	Tee	m	Tees
+shoulder	NOUN	Schulter	f	Schultern
+walk	NOUN	Spaziergang	m	Spaziergänge
+cheese	NOUN	Käse	m	Käse
+agriculture	NOUN	Landwirtschaft	f	-
+potential	NOUN	Potenzial	n	Potenziale
+round	NOUN	Runde	f	Runden
+negotiation	NOUN	Verhandlung	f	Verhandlungen
+governor	NOUN	Gouverneur	m	Gouverneure
+gun	NOUN	Waffe	f	Waffen
+county	NOUN	Bezirk	m	Bezirke
+trader	NOUN	Händler	m	Händler
+defendant	NOUN	Angeklagte	m	Angeklagten	weak
+wave	NOUN	Welle	f	Wellen
+seed	NOUN	Samen	m	Samen
+pool	NOUN	Becken	n	Becken
+representative	NOUN	Vertreter	m	Vertreter
+ticket	NOUN	Fahrkarte	f	Fahrkarten
+agenda	NOUN	Tagesordnung	f	Tagesordnungen
+motion	NOUN	Antrag	m	Anträge
+cut	NOUN	Kürzung	f	Kürzungen
+sandwich	NOUN	Sandwich	n	Sandwiches
+diversity	NOUN	Vielfalt	f	-
+furniture	NOUN	Möbel	pl	Möbel
+square	NOUN	Platz	m	Plätze
+leadership	NOUN	Führung	f	-
+terrorism	NOUN	Terrorismus	m	-
+track	NOUN	Spur	f	Spuren
+trail	NOUN	Pfad	m	Pfade
+blog	NOUN	Blog	m	Blogs
+silver	NOUN	Silber	n	-
+dance	NOUN	Tanz	m	Tänze
+bunch	NOUN	Haufen	m	Haufen
+yoga	NOUN	Yoga	n	-
+arrival	NOUN	Ankunft	f	Ankünfte
+fight	NOUN	Kampf	m	Kämpfe
+surprise	NOUN	Überraschung	f	Überraschungen
+certificate	NOUN	Zertifikat	n	Zertifikate	cs
+certificate	NOUN	Bescheinigung	f	Bescheinigungen
+club	NOUN	Verein	m	Vereine
+farm	NOUN	Bauernhof	m	Bauernhöfe
+kitten	NOUN	Kätzchen	n	Kätzchen
+hamster	NOUN	Hamster	m	Hamster
+smell	NOUN	Geruch	m	Gerüche
+salon	NOUN	Salon	m	Salons
+chocolate	NOUN	Schokolade	f	Schokoladen
+roll	NOUN	Rolle	f	Rollen
+bone	NOUN	Knochen	m	Knochen
+drop	NOUN	Tropfen	m	Tropfen
+consideration	NOUN	Überlegung	f	Überlegungen
+minimum	NOUN	Minimum	n	Minima
+mark	NOUN	Zeichen	n	Zeichen
+confidence	NOUN	Vertrauen	n	-
+crew	NOUN	Besatzung	f	Besatzungen
+soil	NOUN	Boden	m	Böden
+hell	NOUN	Hölle	f	Höllen
+founder	NOUN	Gründer	m	Gründer
+load	NOUN	Last	f	Lasten
+inquiry	NOUN	Anfrage	f	Anfragen
+complaint	NOUN	Beschwerde	f	Beschwerden
+mail	NOUN	Post	f	-
+finance	NOUN	Finanzen	pl	Finanzen
+limb	NOUN	Glied	n	Glieder
+rise	NOUN	Anstieg	m	Anstiege
+present	NOUN	Gegenwart	f	-
+tag	NOUN	Etikett	n	Etiketten
+taste	NOUN	Geschmack	m	Geschmäcker
+wood	NOUN	Holz	n	Hölzer
+cake	NOUN	Kuchen	m	Kuchen
+shore	NOUN	Ufer	n	Ufer
+particle	NOUN	Teilchen	n	Teilchen
+counterfeiting	NOUN	Fälschung	f	Fälschungen
+general	NOUN	General	m	Generäle
+secretary	NOUN	Sekretär	m	Sekretäre
+establishment	NOUN	Gründung	f	Gründungen
+headline	NOUN	Schlagzeile	f	Schlagzeilen
+purchase	NOUN	Kauf	m	Käufe
+invitation	NOUN	Einladung	f	Einladungen
+festival	NOUN	Festival	n	Festivals
+farmer	NOUN	Bauer	m	Bauern	weak
+decline	NOUN	Rückgang	m	Rückgänge
+counter	NOUN	Theke	f	Theken
+hall	NOUN	Halle	f	Hallen
+continent	NOUN	Kontinent	m	Kontinente
+gallery	NOUN	Galerie	f	Galerien
+fuel	NOUN	Kraftstoff	m	Kraftstoffe
+beer	NOUN	Bier	n	Biere
+milk	NOUN	Milch	f	-
+downtown	NOUN	Innenstadt	f	Innenstädte
+audit	NOUN	Prüfung	f	Prüfungen
+default	NOUN	Voreinstellung	f	Voreinstellungen	cf=Standard-	cs
+default	NOUN	Zahlungsausfall	m	Zahlungsausfälle
+exam	NOUN	Prüfung	f	Prüfungen
+quarter	NOUN	Viertel	n	Viertel
+award	NOUN	Preis	m	Preise
+meter	NOUN	Meter	m	Meter
+metre	NOUN	Meter	m	Meter
+cap	NOUN	Mütze	f	Mützen
+mayor	NOUN	Bürgermeister	m	Bürgermeister
+bridge	NOUN	Brücke	f	Brücken
+constitution	NOUN	Verfassung	f	Verfassungen
+dividend	NOUN	Dividende	f	Dividenden
+warming	NOUN	Erwärmung	f	-
+traveler	NOUN	Reisende	m	Reisenden	weak
+traveller	NOUN	Reisende	m	Reisenden	weak
+pan	NOUN	Pfanne	f	Pfannen
+instructor	NOUN	Lehrer	m	Lehrer
+gold	NOUN	Gold	n	-
+rent	NOUN	Miete	f	Mieten
+spacetime	NOUN	Raumzeit	f	-
+rapporteur	NOUN	Berichterstatter	m	Berichterstatter
+supporter	NOUN	Anhänger	m	Anhänger
+occupation	NOUN	Beruf	m	Berufe
+declaration	NOUN	Erklärung	f	Erklärungen
+scenario	NOUN	Szenario	n	Szenarien
+vegetable	NOUN	Gemüse	n	Gemüse
+lip	NOUN	Lippe	f	Lippen
+expansion	NOUN	Erweiterung	f	Erweiterungen
+donation	NOUN	Spende	f	Spenden
+chess	NOUN	Schach	n	-
+panel	NOUN	Gremium	n	Gremien
+warning	NOUN	Warnung	f	Warnungen
+planning	NOUN	Planung	f	Planungen
+sleep	NOUN	Schlaf	m	-
+adjustment	NOUN	Anpassung	f	Anpassungen
+confusion	NOUN	Verwirrung	f	Verwirrungen
+generator	NOUN	Generator	m	Generatoren
+coordination	NOUN	Koordination	f	-
+average	NOUN	Durchschnitt	m	Durchschnitte
+ocean	NOUN	Ozean	m	Ozeane
+partnership	NOUN	Partnerschaft	f	Partnerschaften
+ear	NOUN	Ohr	n	Ohren
+darkness	NOUN	Dunkelheit	f	-
+shelf	NOUN	Regal	n	Regale
+emission	NOUN	Emission	f	Emissionen
+toy	NOUN	Spielzeug	n	Spielzeuge
+vaccine	NOUN	Impfstoff	m	Impfstoffe
+museum	NOUN	Museum	n	Museen
+stay	NOUN	Aufenthalt	m	Aufenthalte
+rice	NOUN	Reis	m	-
+smile	NOUN	Lächeln	n	-
+sonnet	NOUN	Sonett	n	Sonette
+monk	NOUN	Mönch	m	Mönche
+asylum	NOUN	Asyl	n	-
+median	NOUN	Median	m	Mediane
+lipstick	NOUN	Lippenstift	m	Lippenstifte
+licensor	NOUN	Lizenzgeber	m	Lizenzgeber
+troops	NOUN	Truppen	pl	Truppen
+throat	NOUN	Kehle	f	Kehlen
+roof	NOUN	Dach	n	Dächer
+truck	NOUN	Lastwagen	m	Lastwagen
+valley	NOUN	Tal	n	Täler
+realist	NOUN	Realist	m	Realisten	weak
+sake	NOUN	Wille	m	Willen	weak;gen=Willens
+estimate	NOUN	Schätzung	f	Schätzungen
+noon	NOUN	Mittag	m	Mittage
+height	NOUN	Höhe	f	Höhen
+strain	NOUN	Belastung	f	Belastungen
+transfer	NOUN	Übertragung	f	Übertragungen
+lab	NOUN	Labor	n	Labore
+workforce	NOUN	Belegschaft	f	Belegschaften
+campus	NOUN	Campus	m	Campus
+net	NOUN	Netz	n	Netze
+captain	NOUN	Kapitän	m	Kapitäne
+advertising	NOUN	Werbung	f	-
+crash	NOUN	Absturz	m	Abstürze
+leash	NOUN	Leine	f	Leinen
+mosquito	NOUN	Mücke	f	Mücken
+teaching	NOUN	Lehre	f	Lehren
+seeker	NOUN	Suchende	m	Suchenden	weak
+covenant	NOUN	Bund	m	Bünde
+ozone	NOUN	Ozon	n	-
+tie	NOUN	Krawatte	f	Krawatten
+disability	NOUN	Behinderung	f	Behinderungen
+foreigner	NOUN	Ausländer	m	Ausländer
+favor	NOUN	Gefallen	m	Gefallen
+favour	NOUN	Gefallen	m	Gefallen
+stability	NOUN	Stabilität	f	-
+assessment	NOUN	Bewertung	f	Bewertungen
+aid	NOUN	Hilfe	f	Hilfen
+involvement	NOUN	Beteiligung	f	Beteiligungen
+offer	NOUN	Angebot	n	Angebote
+slice	NOUN	Scheibe	f	Scheiben
+wing	NOUN	Flügel	m	Flügel
+lie	NOUN	Lüge	f	Lügen
+knee	NOUN	Knie	n	Knie
+politician	NOUN	Politiker	m	Politiker
+dealer	NOUN	Händler	m	Händler
+passenger	NOUN	Fahrgast	m	Fahrgäste
+associate	NOUN	Mitarbeiter	m	Mitarbeiter
+concentration	NOUN	Konzentration	f	Konzentrationen
+assistant	NOUN	Assistent	m	Assistenten	weak
+salary	NOUN	Gehalt	n	Gehälter
+counsel	NOUN	Rat	m	Ratschläge
+hold	NOUN	Griff	m	Griffe
+cent	NOUN	Cent	m	Cent
+fashion	NOUN	Mode	f	Moden
+barrel	NOUN	Fass	n	Fässer
+gel	NOUN	Gel	n	Gele
+knife	NOUN	Messer	n	Messer
+unemployment	NOUN	Arbeitslosigkeit	f	-
+reduction	NOUN	Verringerung	f	Verringerungen
+carbon	NOUN	Kohlenstoff	m	-
+studio	NOUN	Studio	n	Studios
+cabin	NOUN	Hütte	f	Hütten
+parakeet	NOUN	Sittich	m	Sittiche
+can	NOUN	Dose	f	Dosen
+laser	NOUN	Laser	m	Laser
+rail	NOUN	Schiene	f	Schienen
+lifetime	NOUN	Lebenszeit	f	-
+feather	NOUN	Feder	f	Federn
+onion	NOUN	Zwiebel	f	Zwiebeln
+tooth	NOUN	Zahn	m	Zähne
+dining	NOUN	Essen	n	-
+salt	NOUN	Salz	n	Salze
+bike	NOUN	Fahrrad	n	Fahrräder
+grain	NOUN	Getreide	n	-
+chef	NOUN	Koch	m	Köche
+patient	NOUN	Patient	m	Patienten	weak
+baking	NOUN	Backen	n	-
+cigarette	NOUN	Zigarette	f	Zigaretten
+mixture	NOUN	Mischung	f	Mischungen
+census	NOUN	Volkszählung	f	Volkszählungen
+mutation	NOUN	Mutation	f	Mutationen
+balloon	NOUN	Ballon	m	Ballons
+settler	NOUN	Siedler	m	Siedler
+grit	NOUN	Mut	m	-
+percentile	NOUN	Perzentil	n	Perzentile
+wizard	NOUN	Zauberer	m	Zauberer
+dolphin	NOUN	Delfin	m	Delfine
+bombing	NOUN	Bombenanschlag	m	Bombenanschläge
+reporter	NOUN	Reporter	m	Reporter
+exposure	NOUN	Belastung	f	Belastungen
+funding	NOUN	Finanzierung	f	Finanzierungen
+temple	NOUN	Tempel	m	Tempel
+alliance	NOUN	Bündnis	n	Bündnisse
+thank	VERB	danken			obj=D
+pick	VERB	aus|wählen
+pull	VERB	ziehen
+hit	VERB	treffen
+fly	VERB	fliegen			aux=sein
+hang	VERB	hängen
+laugh	VERB	lachen
+figure	VERB	heraus|finden
+elect	VERB	wählen
+contact	VERB	kontaktieren
+lay	VERB	legen
+list	VERB	auf|listen
+head	VERB	leiten
+book	VERB	buchen
+freeze	VERB	frieren
+blow	VERB	blasen
+print	VERB	drucken
+step	VERB	treten			aux=sein
+cook	VERB	kochen
+sleep	VERB	schlafen
+quote	VERB	zitieren
+jump	VERB	springen			aux=sein
+grab	VERB	greifen
+wake	VERB	auf|wachen			aux=sein
+taste	VERB	schmecken
+export	VERB	exportieren
+surprise	VERB	überraschen
+vote	VERB	stimmen
+sink	VERB	sinken			aux=sein
+wash	VERB	waschen
+issue	VERB	heraus|geben
+stretch	VERB	dehnen
+cost	VERB	kosten
+forward	VERB	weiter|leiten
+mix	VERB	mischen
+bother	VERB	stören
+license	VERB	lizenzieren
+stick	VERB	kleben
+smell	VERB	riechen
+waste	VERB	verschwenden
+float	VERB	schwimmen			aux=sein
+amend	VERB	ändern
+roll	VERB	rollen			aux=sein
+file	VERB	ein|reichen
+bite	VERB	beißen
+score	VERB	erzielen
+climb	VERB	klettern			aux=sein
+ride	VERB	reiten			aux=sein
+date	VERB	datieren
+pour	VERB	gießen
+smile	VERB	lächeln
+urge	VERB	drängen
+rate	VERB	bewerten
+dance	VERB	tanzen
+wander	VERB	wandern			aux=sein
+breathe	VERB	atmen
+entitle	VERB	berechtigen
+swing	VERB	schwingen
+welcome	VERB	begrüßen
+dry	VERB	trocknen
+wrap	VERB	wickeln
+shake	VERB	schütteln
+plant	VERB	pflanzen
+practice	VERB	üben
+practise	VERB	üben
+stare	VERB	starren
+transport	VERB	transportieren
+blink	VERB	blinzeln
+mind	VERB	stören
+fund	VERB	finanzieren
+interview	VERB	befragen
+graduate	VERB	ab|schließen
+press	VERB	drücken
+regret	VERB	bereuen
+rush	VERB	eilen			aux=sein
+kick	VERB	treten			aux=haben
+tie	VERB	binden
+dress	VERB	sich an|ziehen
+tear	VERB	reißen
+light	VERB	an|zünden
+shine	VERB	scheinen
+fire	VERB	feuern
+hand	VERB	reichen
+rent	VERB	mieten
+email	VERB	mailen
+land	VERB	landen			aux=sein
+drag	VERB	schleppen
+trade	VERB	handeln
+stir	VERB	rühren
+skip	VERB	überspringen
+draft	VERB	entwerfen
+suck	VERB	saugen
+rebuild	VERB	wieder|auf|bauen
+shop	VERB	ein|kaufen
+slip	VERB	rutschen			aux=sein
+congratulate	VERB	gratulieren			obj=D
+donate	VERB	spenden
+risk	VERB	riskieren
+retire	VERB	in Rente gehen			aux=sein
+debate	VERB	debattieren
+knock	VERB	klopfen
+ship	VERB	versenden
+lower	VERB	senken
+project	VERB	projizieren
+bend	VERB	biegen
+lean	VERB	lehnen
+warm	VERB	wärmen
+relax	VERB	sich entspannen
+ring	VERB	klingeln
+protest	VERB	protestieren
+lift	VERB	heben
+renew	VERB	erneuern
+educate	VERB	erziehen
+wave	VERB	winken
+undermine	VERB	untergraben
+impress	VERB	beeindrucken
+board	VERB	ein|steigen			aux=sein
+finance	VERB	finanzieren
+prevail	VERB	sich durch|setzen
+notify	VERB	benachrichtigen
+rip	VERB	reißen
+melt	VERB	schmelzen			aux=sein
+accommodate	VERB	unter|bringen
+bake	VERB	backen
+vomit	VERB	sich übergeben
+pause	VERB	pausieren
+await	VERB	erwarten
+vanish	VERB	verschwinden			aux=sein
+shout	VERB	schreien
+tolerate	VERB	tolerieren
+recreate	VERB	nach|bilden
+spot	VERB	entdecken
+multiply	VERB	multiplizieren
+coordinate	VERB	koordinieren
+dial	VERB	wählen
+mount	VERB	montieren
+smoke	VERB	rauchen
+fold	VERB	falten
+greet	VERB	grüßen
+boost	VERB	steigern
+sustain	VERB	aufrecht|erhalten
+sail	VERB	segeln			aux=sein
+lick	VERB	lecken
+park	VERB	parken
+flirt	VERB	flirten
+appeal	VERB	appellieren
+circle	VERB	kreisen
+pray	VERB	beten
+cease	VERB	auf|hören
+wind	VERB	winden
+fulfil	VERB	erfüllen
+fulfill	VERB	erfüllen
+originate	VERB	stammen
+haul	VERB	schleppen
+subscribe	VERB	abonnieren
+distort	VERB	verzerren
+sponsor	VERB	sponsern
+contemplate	VERB	erwägen
+disagree	VERB	widersprechen			obj=D
+stem	VERB	stammen
+intervene	VERB	ein|greifen
+expire	VERB	ab|laufen			aux=sein
+gaze	VERB	blicken
+scare	VERB	erschrecken
+dig	VERB	graben
+scream	VERB	schreien
+toss	VERB	werfen
+seal	VERB	versiegeln
+film	VERB	filmen
+burst	VERB	platzen			aux=sein
+slide	VERB	gleiten			aux=sein
+dislike	VERB	nicht mögen
+yell	VERB	brüllen
+hike	VERB	wandern			aux=sein
+swear	VERB	schwören
+pump	VERB	pumpen
+inquire	VERB	sich erkundigen
+discourage	VERB	entmutigen
+spawn	VERB	erzeugen
+loom	VERB	drohen
+scatter	VERB	verstreuen
+recruit	VERB	an|werben
+circulate	VERB	zirkulieren
+deteriorate	VERB	sich verschlechtern
+populate	VERB	bevölkern
+salute	VERB	salutieren
+hiss	VERB	zischen
+blend	VERB	mischen
+apologize	VERB	sich entschuldigen
+apologise	VERB	sich entschuldigen
+adhere	VERB	ein|halten
+starve	VERB	verhungern			aux=sein
+enclose	VERB	bei|fügen
+imprison	VERB	inhaftieren
+friendly	ADJ	freundlich
+past	ADJ	vergangen
+sorry	ADJ	leid
+regional	ADJ	regional
+amazing	ADJ	erstaunlich
+square	ADJ	quadratisch
+environmental	ADJ	ökologisch
+worth	ADJ	wert
+willing	ADJ	bereit
+top	ADJ	oberst
+ok	ADJ	okay
+okay	ADJ	okay
+federal	ADJ	föderal
+glad	ADJ	froh
+rude	ADJ	unhöflich
+comfortable	ADJ	bequem
+concerned	ADJ	besorgt
+alone	ADJ	allein
+horrible	ADJ	schrecklich
+executive	ADJ	geschäftsführend
+cool	ADJ	cool
+awesome	ADJ	großartig
+western	ADJ	westlich
+nuclear	ADJ	nuklear
+sick	ADJ	krank
+fat	ADJ	dick
+yellow	ADJ	gelb
+flat	ADJ	flach
+dry	ADJ	trocken
+sweet	ADJ	süß
+evolutionary	ADJ	evolutionär
+northern	ADJ	nördlich
+southern	ADJ	südlich
+eastern	ADJ	östlich
+done	ADJ	fertig
+front	ADJ	vorder
+pleasant	ADJ	angenehm
+agricultural	ADJ	landwirtschaftlich
+peaceful	ADJ	friedlich
+senior	ADJ	leitend
+weekly	ADJ	wöchentlich
+monthly	ADJ	monatlich
+yearly	ADJ	jährlich
+straight	ADJ	gerade
+near	ADJ	nah
+legislative	ADJ	gesetzgebend
+blank	ADJ	leer
+tall	ADJ	groß
+involved	ADJ	beteiligt
+pretty	ADJ	hübsch
+arrogant	ADJ	arrogant
+wet	ADJ	nass
+alternative	ADJ	alternativ
+ongoing	ADJ	laufend
+tired	ADJ	müde
+slight	ADJ	leicht
+confident	ADJ	zuversichtlich
+crazy	ADJ	verrückt
+vegan	ADJ	vegan
+delicious	ADJ	köstlich
+dirty	ADJ	schmutzig
+lucky	ADJ	glücklich
+weird	ADJ	seltsam
+outstanding	ADJ	hervorragend
+affordable	ADJ	erschwinglich
+increased	ADJ	erhöht
+tough	ADJ	hart
+excited	ADJ	aufgeregt
+lovely	ADJ	reizend
+residential	ADJ	Wohn-
+loud	ADJ	laut
+expired	ADJ	abgelaufen
+scared	ADJ	verängstigt
+known	ADJ	bekannt
+militant	ADJ	militant
+toxic	ADJ	giftig
+determined	ADJ	entschlossen
+racial	ADJ	rassisch
+magnificent	ADJ	prächtig
+constitutional	ADJ	verfassungsmäßig
+smooth	ADJ	glatt
+brown	ADJ	braun
+awful	ADJ	furchtbar
+graphic	ADJ	grafisch
+living	ADJ	lebend
+chemical	ADJ	chemisch
+hungry	ADJ	hungrig
+elite	ADJ	elitär
+electric	ADJ	elektrisch
+gross	ADJ	brutto
+instant	ADJ	sofortig
+gone	ADJ	weg
+geographical	ADJ	geografisch
+geographic	ADJ	geografisch
+pale	ADJ	blass
+armed	ADJ	bewaffnet
+bloody	ADJ	blutig
+criminal	ADJ	kriminell
+grateful	ADJ	dankbar
+keen	ADJ	eifrig
+spectacular	ADJ	spektakulär
+civilized	ADJ	zivilisiert
+convenient	ADJ	bequem
+prosperous	ADJ	wohlhabend
+presidential	ADJ	Präsidentschafts-
+unprecedented	ADJ	beispiellos
+drunk	ADJ	betrunken
+ridiculous	ADJ	lächerlich
+mass	ADJ	Massen-
+incredible	ADJ	unglaublich
+extraordinary	ADJ	außergewöhnlich
+cute	ADJ	niedlich
+qualified	ADJ	qualifiziert
+worried	ADJ	besorgt
+fiscal	ADJ	fiskalisch
+gray	ADJ	grau
+grey	ADJ	grau
+halal	ADJ	halal
+enjoyable	ADJ	angenehm
+inclusive	ADJ	inklusiv
+maternal	ADJ	mütterlich
+wooden	ADJ	hölzern
+sustainable	ADJ	nachhaltig
+mere	ADJ	bloß
+brave	ADJ	tapfer
+relaxed	ADJ	entspannt
+regulatory	ADJ	regulatorisch
+tremendous	ADJ	enorm
+satisfied	ADJ	zufrieden
+distant	ADJ	fern
+revolutionary	ADJ	revolutionär
+dumb	ADJ	dumm
+pink	ADJ	rosa
+knowledgeable	ADJ	sachkundig
+overpriced	ADJ	überteuert
+institutional	ADJ	institutionell
+sore	ADJ	wund
+interstellar	ADJ	interstellar
+competent	ADJ	kompetent
+entrepreneurial	ADJ	unternehmerisch
+persistent	ADJ	hartnäckig
+overwhelming	ADJ	überwältigend
+ethnic	ADJ	ethnisch
+viable	ADJ	tragfähig
+missing	ADJ	fehlend
+fake	ADJ	gefälscht
+harsh	ADJ	hart
+scary	ADJ	beängstigend
+privileged	ADJ	privilegiert
+orange	ADJ	orange
+round	ADJ	rund
+satisfactory	ADJ	zufriedenstellend
+colorful	ADJ	bunt
+colourful	ADJ	bunt
+patient	ADJ	geduldig
+loving	ADJ	liebevoll
+derivative	ADJ	abgeleitet
+nutritional	ADJ	Ernährungs-
+polar	ADJ	polar
+distinguished	ADJ	angesehen
+impressive	ADJ	beeindruckend
+motionless	ADJ	regungslos
+fabulous	ADJ	fabelhaft
+magical	ADJ	magisch
+adult	ADJ	erwachsen
+sunny	ADJ	sonnig
+everyday	ADJ	alltäglich
+mild	ADJ	mild
+oily	ADJ	ölig
+colonial	ADJ	kolonial
+mandatory	ADJ	verpflichtend
+intact	ADJ	intakt
+addicted	ADJ	süchtig
+stuck	ADJ	festgefahren
+thorough	ADJ	gründlich
+surprised	ADJ	überrascht
+unlimited	ADJ	unbegrenzt
+quick	ADV	schnell
+bad	ADV	schlecht
+african	ADJ	afrikanisch
+asian	ADJ	asiatisch
+indian	ADJ	indisch
+discriminatory	ADJ	diskriminierend
+exploratory	ADJ	explorativ
+bivariate	ADJ	bivariat
+built-in	ADJ	eingebaut
+follow-up	ADJ	Folge-
+out	ADV	hinaus
+up	ADV	hinauf
+in	ADV	hinein
+down	ADV	hinunter
+over	ADV	vorbei
+around	ADV	herum
+off	ADV	weg
+maybe	ADV	vielleicht
+pretty	ADV	ziemlich
+home	ADV	nach Hause
+twice	ADV	zweimal
+outside	ADV	draußen
+inside	ADV	drinnen
+somewhere	ADV	irgendwo
+anywhere	ADV	irgendwo
+nowhere	ADV	nirgendwo
+hard	ADV	hart
+along	ADV	entlang
+personally	ADV	persönlich
+publicly	ADV	öffentlich
+likely	ADV	wahrscheinlich
+next	ADV	als Nächstes
+kinda	ADV	irgendwie
+super	ADV	super
+whenever	ADV	wann immer
+hopefully	ADV	hoffentlich
+online	ADV	online
+forever	ADV	für immer
+perfectly	ADV	vollkommen
+abroad	ADV	im Ausland
+sincerely	ADV	aufrichtig
+shortly	ADV	kurz
+reportedly	ADV	angeblich
+surprisingly	ADV	überraschenderweise
+daily	ADV	täglich
+incredibly	ADV	unglaublich
+wherever	ADV	wo immer
+legally	ADV	rechtlich
+sure	ADV	sicher
+straight	ADV	direkt
+heavily	ADV	stark
+substantially	ADV	wesentlich
+halfway	ADV	auf halbem Weg
+automatically	ADV	automatisch
+gently	ADV	sanft
+behind	ADV	hinten
+aside	ADV	beiseite
+anyways	ADV	jedenfalls
+namely	ADV	nämlich
+firmly	ADV	fest
+continually	ADV	ständig
+freely	ADV	frei
+remarkably	ADV	bemerkenswert
+worldwide	ADV	weltweit
+importantly	ADV	vor allem
+presently	ADV	derzeit
+privately	ADV	privat
+steadily	ADV	stetig
+honestly	ADV	ehrlich
+upstairs	ADV	oben
+alike	ADV	gleichermaßen
+reasonably	ADV	einigermaßen
+professionally	ADV	beruflich
+nicely	ADV	schön
+journey	VERB	reisen			aux=sein
+flesh	NOUN	Fleisch	n	-
+spending	NOUN	Ausgaben	pl	Ausgaben
+longing	NOUN	Sehnsucht	f	Sehnsüchte
+vile	ADJ	abscheulich
+desktop	NOUN	Desktop	m	Desktops		cs
+hyperlink	NOUN	Hyperlink	m	Hyperlinks
+markup	NOUN	Auszeichnung	f	Auszeichnungen		cs
+graft	VERB	verpflanzen
+jolt	NOUN	Stoß	m	Stöße
+isolated	ADJ	isoliert
+offending	ADJ	fehlerhaft
+made-up	ADJ	erfunden
+two-way	ADJ	wechselseitig
+undercover	ADJ	verdeckt
+well-nigh	ADV	nahezu
+misbehave	VERB	sich fehlerhaft verhalten
+supercomputing	NOUN	Höchstleistungsrechnen	n	-
+multiprogramming	NOUN	Mehrprogrammbetrieb	m	-		cs
+special-purpose	ADJ	Spezial-
+higher-level	ADJ	höher
+morphology-rich	ADJ	morphologisch reich
+time-share	VERB	im Zeitmultiplex nutzen
+re-enter	VERB	wieder ein|geben
+pre-install	VERB	vor|installieren
+unrestricted	ADJ	uneingeschränkt
+interface	VERB	zusammen|wirken			prep=mit+D
+person(s)	NOUN	Person(en)	f	Person(en)
+please	INTJ	bitte
+yes	INTJ	ja
+oh	INTJ	oh
+hello	INTJ	hallo
+thanks	INTJ	danke

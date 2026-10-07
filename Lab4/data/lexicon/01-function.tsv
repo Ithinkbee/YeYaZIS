@@ -1,0 +1,317 @@
+# Служебные слова: определители, местоимения, предлоги, союзы, вспомогательные и модальные глаголы, числительные.
+# Столбцы: en	pos	de	gender	plural	extra	domain
+# Формы артиклей и местоимений выбирает трансфер (род, число, падеж); здесь — перевод для списка слов
+# и для прямого (пословного) перевода.
+# --- определители ---
+the	DET	der/die/das			kind=def
+a	DET	ein/eine			kind=indef
+an	DET	ein/eine			kind=indef
+this	DET	dieser/diese/dieses			kind=der;stem=dies
+that	DET	dieser/diese/dieses			kind=der;stem=dies
+these	DET	diese			kind=der;stem=dies
+those	DET	jene			kind=der;stem=jen
+each	DET	jeder/jede/jedes			kind=der;stem=jed
+every	DET	jeder/jede/jedes			kind=der;stem=jed
+all	DET	alle			kind=der;stem=all
+some	DET	einige			kind=adj;stem=einig
+any	DET	jeder/jede/jedes			kind=der;stem=jed
+no	DET	kein/keine			kind=ein;stem=kein
+both	DET	beide			kind=der;stem=beid
+another	DET	ein anderer/eine andere/ein anderes			kind=indef;adj=ander
+either	DET	jeder der beiden			kind=der;stem=jed
+neither	DET	keiner der beiden			kind=ein;stem=kein
+what	DET	welcher/welche/welches			kind=der;stem=welch
+which	DET	welcher/welche/welches			kind=der;stem=welch
+whatever	DET	welcher auch immer			kind=der;stem=welch
+such	DET	solcher/solche/solches			kind=der;stem=solch
+half	DET	halb			kind=adj;stem=halb
+# --- личные и прочие местоимения ---
+I	PRON	ich			person=1;number=sg
+me	PRON	mich/mir			person=1;number=sg
+my	PRON	mein			person=1;number=sg;poss
+mine	PRON	meiner			person=1;number=sg;poss
+myself	PRON	mich (selbst)			person=1;number=sg;refl
+you	PRON	Sie			person=2;number=pl
+your	PRON	Ihr			person=2;number=pl;poss
+yours	PRON	Ihrer			person=2;number=pl;poss
+yourself	PRON	sich (selbst)			person=2;number=pl;refl
+yourselves	PRON	sich (selbst)			person=2;number=pl;refl
+he	PRON	er			person=3;number=sg;gender=m
+him	PRON	ihn/ihm			person=3;number=sg;gender=m
+his	PRON	sein			person=3;number=sg;gender=m;poss
+himself	PRON	sich (selbst)			person=3;number=sg;gender=m;refl
+she	PRON	sie			person=3;number=sg;gender=f
+her	PRON	sie/ihr			person=3;number=sg;gender=f
+hers	PRON	ihrer			person=3;number=sg;gender=f;poss
+herself	PRON	sich (selbst)			person=3;number=sg;gender=f;refl
+it	PRON	es/er/sie			person=3;number=sg
+its	PRON	sein/ihr			person=3;number=sg;poss
+itself	PRON	sich (selbst)			person=3;number=sg;refl
+we	PRON	wir			person=1;number=pl
+us	PRON	uns			person=1;number=pl
+our	PRON	unser			person=1;number=pl;poss
+ours	PRON	unserer			person=1;number=pl;poss
+ourselves	PRON	uns (selbst)			person=1;number=pl;refl
+they	PRON	sie			person=3;number=pl
+them	PRON	sie/ihnen			person=3;number=pl
+their	PRON	ihr			person=3;number=pl;poss
+theirs	PRON	ihrer			person=3;number=pl;poss
+themselves	PRON	sich (selbst)			person=3;number=pl;refl
+one	PRON	man			person=3;number=sg
+oneself	PRON	sich			person=3;number=sg;refl
+who	PRON	wer			wh
+whom	PRON	wen			wh
+whose	PRON	wessen			wh
+what	PRON	was			wh
+which	PRON	welcher			wh
+whoever	PRON	wer auch immer			wh
+whatever	PRON	was auch immer			wh
+that	PRON	das
+this	PRON	dies
+these	PRON	diese
+those	PRON	jene
+there	PRON	es
+everything	PRON	alles
+something	PRON	etwas
+nothing	PRON	nichts
+anything	PRON	etwas
+everyone	PRON	jeder
+everybody	PRON	jeder
+someone	PRON	jemand
+somebody	PRON	jemand
+anyone	PRON	jeder
+anybody	PRON	jeder
+no one	PRON	niemand
+nobody	PRON	niemand
+none	PRON	keiner
+each other	PRON	einander
+one another	PRON	einander
+others	PRON	andere
+other	PRON	andere
+all	PRON	alle
+both	PRON	beide
+many	PRON	viele
+much	PRON	viel
+some	PRON	einige
+most	PRON	die meisten
+several	PRON	mehrere
+few	PRON	wenige
+either	PRON	einer von beiden
+neither	PRON	keiner von beiden
+each	PRON	jeder
+# --- предлоги (case — падеж после немецкого предлога) ---
+of	ADP	von			case=D
+in	ADP	in			case=D
+into	ADP	in			case=A
+on	ADP	auf			case=D
+onto	ADP	auf			case=A
+upon	ADP	auf			case=D
+at	ADP	an			case=D
+to	ADP	zu			case=D
+for	ADP	für			case=A
+with	ADP	mit			case=D
+without	ADP	ohne			case=A
+by	ADP	von			case=D
+from	ADP	von			case=D
+about	ADP	über			case=A
+through	ADP	durch			case=A
+throughout	ADP	während			case=G
+between	ADP	zwischen			case=D
+among	ADP	unter			case=D
+amongst	ADP	unter			case=D
+under	ADP	unter			case=D
+over	ADP	über			case=A
+above	ADP	über			case=D
+below	ADP	unter			case=D
+beneath	ADP	unter			case=D
+underneath	ADP	unter			case=D
+across	ADP	über			case=A
+after	ADP	nach			case=D
+before	ADP	vor			case=D
+during	ADP	während			case=G
+since	ADP	seit			case=D
+until	ADP	bis			case=A
+till	ADP	bis			case=A
+within	ADP	innerhalb			case=G
+against	ADP	gegen			case=A
+around	ADP	um			case=A
+behind	ADP	hinter			case=D
+near	ADP	nahe			case=D
+beyond	ADP	jenseits			case=G
+along	ADP	entlang			case=G
+toward	ADP	zu			case=D
+towards	ADP	zu			case=D
+via	ADP	über			case=A
+per	ADP	pro			case=A
+despite	ADP	trotz			case=G
+except	ADP	außer			case=D
+besides	ADP	außer			case=D
+beside	ADP	neben			case=D
+unlike	ADP	im Gegensatz zu			case=D
+like	ADP	wie			case=N
+as	ADP	als			case=N
+than	ADP	als			case=N
+regarding	ADP	bezüglich			case=G
+concerning	ADP	bezüglich			case=G
+including	ADP	einschließlich			case=G
+following	ADP	nach			case=D
+outside	ADP	außerhalb			case=G
+inside	ADP	innerhalb			case=G
+plus	ADP	plus			case=A
+versus	ADP	gegen			case=A
+vs.	ADP	gegen			case=A
+off	ADP	von			case=D
+out	ADP	aus			case=D
+up	ADP	auf			case=A
+down	ADP	hinunter			case=A
+past	ADP	an			case=D
+worth	ADP	wert			case=A
+# --- сочинительные союзы ---
+and	CCONJ	und
+or	CCONJ	oder
+but	CCONJ	aber
+nor	CCONJ	noch
+yet	CCONJ	doch
+so	CCONJ	also
+either	CCONJ	entweder
+neither	CCONJ	weder
+both	CCONJ	sowohl
+plus	CCONJ	und
+# --- подчинительные союзы (sub — глагол в конец придаточного) ---
+that	SCONJ	dass			sub
+because	SCONJ	weil			sub
+since	SCONJ	da			sub
+as	SCONJ	da			sub
+although	SCONJ	obwohl			sub
+though	SCONJ	obwohl			sub
+while	SCONJ	während			sub
+whilst	SCONJ	während			sub
+whereas	SCONJ	während			sub
+if	SCONJ	wenn			sub
+whether	SCONJ	ob			sub
+unless	SCONJ	sofern nicht			sub
+when	SCONJ	wenn			sub;past=als
+whenever	SCONJ	immer wenn			sub
+once	SCONJ	sobald			sub
+until	SCONJ	bis			sub
+till	SCONJ	bis			sub
+before	SCONJ	bevor			sub
+after	SCONJ	nachdem			sub
+where	SCONJ	wo			sub
+wherever	SCONJ	wo immer			sub
+how	SCONJ	wie			sub
+why	SCONJ	warum			sub
+what	SCONJ	was			sub
+than	SCONJ	als			sub
+like	SCONJ	wie			sub
+lest	SCONJ	damit nicht			sub
+for	SCONJ	um			inf
+to	PART	zu			inf
+# --- частицы ---
+not	PART	nicht
+n't	PART	nicht
+'s	PART	(Genitiv -s)
+'	PART	(Genitiv -s)
+# --- вспомогательные и модальные глаголы ---
+be	VERB	sein
+have	VERB	haben
+do	VERB	tun
+get	VERB	bekommen
+can	VERB	können			modal=können;tense=pres
+could	VERB	können			modal=können;tense=subj
+may	VERB	können			modal=können;tense=pres
+might	VERB	können			modal=können;tense=subj
+must	VERB	müssen			modal=müssen;tense=pres
+shall	VERB	sollen			modal=werden;tense=pres
+should	VERB	sollen			modal=sollen;tense=subj
+will	VERB	werden			modal=werden;tense=pres
+would	VERB	werden			modal=werden;tense=subj
+ought	VERB	sollen			modal=sollen;tense=subj
+need	VERB	müssen			modal=müssen;tense=pres
+ca	VERB	können			modal=können;tense=pres
+wo	VERB	werden			modal=werden;tense=pres
+'ll	VERB	werden			modal=werden;tense=pres
+'d	VERB	werden			modal=werden;tense=subj
+# --- числительные ---
+zero	NUM	null
+one	NUM	eins
+two	NUM	zwei
+three	NUM	drei
+four	NUM	vier
+five	NUM	fünf
+six	NUM	sechs
+seven	NUM	sieben
+eight	NUM	acht
+nine	NUM	neun
+ten	NUM	zehn
+eleven	NUM	elf
+twelve	NUM	zwölf
+thirteen	NUM	dreizehn
+fourteen	NUM	vierzehn
+fifteen	NUM	fünfzehn
+sixteen	NUM	sechzehn
+seventeen	NUM	siebzehn
+eighteen	NUM	achtzehn
+nineteen	NUM	neunzehn
+twenty	NUM	zwanzig
+thirty	NUM	dreißig
+forty	NUM	vierzig
+fifty	NUM	fünfzig
+sixty	NUM	sechzig
+seventy	NUM	siebzig
+eighty	NUM	achtzig
+ninety	NUM	neunzig
+hundred	NUM	hundert
+thousand	NUM	tausend
+million	NUM	Million	f	Millionen
+billion	NUM	Milliarde	f	Milliarden
+dozen	NUM	Dutzend	n	Dutzende
+hundreds	NUM	Hunderte
+thousands	NUM	Tausende
+millions	NUM	Millionen
+first	ADJ	erst
+second	ADJ	zweit
+third	ADJ	dritt
+fourth	ADJ	viert
+fifth	ADJ	fünft
+sixth	ADJ	sechst
+seventh	ADJ	siebt
+eighth	ADJ	acht
+ninth	ADJ	neunt
+tenth	ADJ	zehnt
+eleventh	ADJ	elft
+twelfth	ADJ	zwölft
+twentieth	ADJ	zwanzigst
+hundredth	ADJ	hundertst
+last	ADJ	letzt
+next	ADJ	nächst
+# --- вопросительные и относительные наречия ---
+where	ADV	wo
+when	ADV	wann
+how	ADV	wie
+why	ADV	warum
+whereby	ADV	wodurch
+wherein	ADV	worin
+whereupon	ADV	woraufhin
+there	ADV	dort
+here	ADV	hier
+# --- сокращения ---
+e.g.	ADV	z. B.
+i.e.	ADV	d. h.
+etc.	ADV	usw.
+etc	ADV	usw.
+viz.	ADV	nämlich
+cf.	ADV	vgl.
+et al.	ADV	et al.
+many	ADJ	viel
+much	ADJ	viel
+few	ADJ	wenig
+other	ADJ	ander
+another	ADJ	ander
+various	ADJ	verschieden
+such	ADJ	solch
+certain	ADJ	gewiss
+own	ADJ	eigen
+more	ADJ	mehr
+less	ADJ	weniger
+most	ADJ	meist

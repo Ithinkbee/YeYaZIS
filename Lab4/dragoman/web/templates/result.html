@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}{{ t.title }} — «{{ app_name }}»{% endblock %}
+{% block content %}
+<div class="doc-head">
+  <div>
+    <p class="crumbs"><a href="/">Перевод</a>{% if doc %} · <a href="/collection">Коллекция</a>{% endif %}</p>
+    <h1>{{ t.title }}</h1>
+    <div class="meta">
+      {{ m.domain_tag(t.domain) }}
+      <span>{{ domain_name(t.domain) }}{% if t.domain_auto %} — определена автоматически{% endif %}</span>
+      <span>·</span><span>{{ modes[t.mode] }}</span>
+      {% if t.source %}<span>·</span>
+        {% if t.source.startswith('http') %}<a href="{{ t.source }}" target="_blank" rel="noopener">источник</a>
+        {% else %}<span>{{ t.source }}</span>{% endif %}
+      {% endif %}
+      {% if doc %}<span>·</span><a href="/raw/{{ doc.id }}" target="_blank">текст файлом</a>{% endif %}
+    </div>
+  </div>
+  <div class="head-actions no-print">
+    {{ m.export_menu(t) }}
+    <a class="button ghost" href="/print/{{ t.uid }}" target="_blank">Печать</a>
+    {% if companion_enabled %}<a class="button ghost" href="/shooter?uid={{ t.uid }}">Сразиться с текстом</a>{% endif %}
+  </div>
+</div>
+
+<div class="cards compact stats">
+  <div class="card"><h3>Слов во входном тексте</h3><span class="big">{{ t.stats.words|num }}</span>
+    <p class="note">разных: {{ t.stats.unique|num }}, предложений: {{ t.stats.sentences|num }}</p></div>
+  <div class="card"><h3>Переведено слов</h3><span class="big ok">{{ t.stats.translated|num }}</span>
+    <p class="note">по словарю {{ t.stats.dictionary|num }}, по правилам {{ t.stats.rule|num }}</p></div>
+  <div class="card"><h3>Имена и числа</h3><span class="big">{{ (t.stats.names + t.stats.numbers)|num }}</span>
+    <p class="note">остаются как в оригинале</p></div>
+  <div class="card"><h3>Без перевода</h3><span class="big {% if t.stats.unknown %}bad{% endif %}">{{ t.stats.unknown|num }}</span>
+    <p class="note">{% if t.stats.unknown %}<a href="?tab=unknown#tabs">пополнить словарь</a>{% else %}всё нашлось{% endif %}</p></div>
+  <div class="card"><h3>Доля переведённых</h3><span class="big">{{ t.stats.coverage|pct }}</span>
+    <p class="note">время: {{ t.timings.total|ms }}</p></div>
+</div>
+
+<section class="block translation-block">
+  <div class="block-head">
+    <h2>Перевод</h2>
+    <div class="switch no-print" id="layout-switch">
+      <a href="#" data-layout="parallel" class="on">параллельно</a><a href="#" data-layout="german">только перевод</a>
+    </div>
+  </div>
+  <p class="note no-print">Наведите на слово — подсветится, из какого английского слова оно получено.
+    <span class="legend"><span class="w st-rule">по правилу</span> <span class="w st-unknown">нет в словаре</span>
+    <span class="w st-name">имя</span></span></p>
+  <div class="parallel" id="parallel">
+    {% for heading, sentences in t.paragraphs %}
+    {% set english_paragraph = t.english_paragraphs[loop.index0][1] %}
+    <div class="para {% if heading %}para-heading{% endif %}">
+      <div class="en">{% for s in english_paragraph %}<span class="sent" data-s="{{ s.index }}">{{ m.english(s, t.statuses[s.index], s.index) }}</span> {% endfor %}</div>
+      <div class="de">{% for s in sentences %}<span class="sent" data-s="{{ s.index }}">{{ m.german(s, output, s.index) }}</span> {% endfor %}</div>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="no-print copy-row"><button type="button" class="ghost small-button" id="copy-german">Скопировать перевод</button>
+    <span class="note" id="copy-note"></span></p>
+  <textarea id="german-text" hidden>{{ t.german_text }}</textarea>
+</section>
+
+<nav class="tabs no-print" id="tabs">
+  <a href="?tab=words#tabs" data-tab="words" {% if tab == 'words' %}class="on"{% endif %}>1. Частотный список слов</a>
+  <a href="?tab=tree&s={{ view.index }}#tabs" data-tab="tree" {% if tab == 'tree' %}class="on"{% endif %}>2. Дерево разбора</a>
+  <a href="?tab=compare#tabs" data-tab="compare" {% if tab == 'compare' %}class="on"{% endif %}>3. {{ 'Пословный перевод' if t.mode == 'transfer' else 'Перевод с трансфером' }}</a>
+  <a href="?tab=unknown#tabs" data-tab="unknown" {% if tab == 'unknown' %}class="on"{% endif %}>Пополнение словаря{% if t.stats.unknown_words %} <b class="count">{{ t.stats.unknown_words|length }}</b>{% endif %}</a>
+</nav>
+
+<section class="tab-panel block" data-panel="words" {% if tab != 'words' %}hidden{% endif %}>
+  <div class="block-head">
+    <h2>Слова текста по частоте</h2>
+    <div class="switch no-print">
+      <a href="?tab=words&sort=freq#tabs" {% if sort == 'freq' %}class="on"{% endif %}>по частоте</a><a href="?tab=words&sort=alpha#tabs" {% if sort == 'alpha' %}class="on"{% endif %}>по алфавиту</a><a href="?tab=words&sort=pos#tabs" {% if sort == 'pos' %}class="on"{% endif %}>по частям речи</a>
+    </div>
+  </div>
+  <p class="note">Слово — начальная форма (лемма). Тег — часть речи по Penn Treebank, наведите, чтобы увидеть
+    расшифровку; полный список тегов — в <a href="/help#tags">справке</a>. «В переводе» — как слово выглядит в
+    немецком тексте (с падежом, числом, отделённой приставкой).</p>
+  <div class="table-wrap">
+  <table class="grid words-table">
+    <thead><tr><th class="num">№</th><th>Слово</th><th>Формы в тексте</th><th class="num">Частота</th>
+      <th>Тег — часть речи</th><th>Перевод</th><th>Грамматика (нем.)</th><th>В переводе</th></tr></thead>
+    <tbody>
+    {% for item in words %}
+    <tr class="row-{{ item.status }}">
+      <td class="num muted">{{ loop.index }}</td>
+      <td><b>{{ item.lemma }}</b></td>
+      <td class="small">{% for form, n in item.forms.most_common(5) %}{{ form }}{% if n > 1 %} <span class="muted">×{{ n }}</span>{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+      <td class="num">{{ item.count }}</td>
+      <td class="small tags-cell">{% for tag, n in item.tags.most_common() %}<div><span class="tagcode">{{ tag }}</span> {{ describe_tag(tag) }}</div>{% endfor %}</td>
+      <td>{{ item.translation or '—' }}<div class="status-line">{{ m.status_tag(item.status) }}</div></td>
+      <td class="small">{{ item.german_grammar }}</td>
+      <td class="small">{% for g, n in item.german.most_common(3) %}{{ g }}{% if not loop.last %}; {% endif %}{% endfor %}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="tab-panel block" data-panel="tree" {% if tab != 'tree' %}hidden{% endif %}>
+  <div class="block-head">
+    <h2>Синтаксический разбор предложения</h2>
+    <form class="inline no-print" method="get" id="tree-form">
+      <input type="hidden" name="tab" value="tree">
+      <select name="s" id="tree-select" data-uid="{{ t.uid }}">
+        {% for s in t.analysis.sentences %}
+        <option value="{{ loop.index0 }}" {% if loop.index0 == view.index %}selected{% endif %}>{{ loop.index }}. {{ s.text[:90] }}{% if s.text|length > 90 %}…{% endif %}</option>
+        {% endfor %}
+      </select>
+      <noscript><button type="submit" class="small-button">Показать</button></noscript>
+    </form>
+  </div>
+  <div id="tree-view">{% include "tree.html" %}</div>
+</section>
+
+<section class="tab-panel block" data-panel="compare" {% if tab != 'compare' %}hidden{% endif %}>
+  <h2>{{ modes[t.mode]|capitalize }} и {{ modes[comparison.mode] }} перевод</h2>
+  <p class="note">
+    Прямой перевод заменяет каждое слово словарным соответствием и учитывает только соседние слова (род артикля,
+    обороты). Перевод с трансфером сначала разбирает предложение и перестраивает его: глагол — на второе место
+    и в конец придаточного, отделяемая приставка — в конец, падежи — по роли слова. Доля переведённых слов у
+    пословного перевода — {{ comparison.stats.coverage|pct }}, у этого — {{ t.stats.coverage|pct }}.
+  </p>
+  <table class="grid compare-table">
+    <thead><tr><th class="num">№</th><th>{{ modes[t.mode]|capitalize }}</th><th>{{ modes[comparison.mode]|capitalize }}</th></tr></thead>
+    <tbody>
+    {% for s in t.sentences %}
+    <tr><td class="num muted">{{ loop.index }}</td><td>{{ s.text }}</td><td>{{ comparison.sentences[loop.index0].text }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="tab-panel block" data-panel="unknown" {% if tab != 'unknown' %}hidden{% endif %}>
+  <h2>Пополнение словаря</h2>
+  {% if suggestions %}
+  <p class="note">Слова этого текста, которых нет в словаре. Система предлагает перевод — по правилам
+    словообразования и, если загружен, по словарю Ding. Проверьте, поправьте и добавьте: следующий перевод
+    уже будет их знать. Все неизвестные слова всех текстов — в <a href="/dictionary/replenish">журнале</a>.</p>
+  <div class="suggestions">
+    {% for item in suggestions %}
+    {% set c = item.candidates[0] if item.candidates else none %}
+    <form class="suggestion" method="post" action="/dictionary/add">
+      <input type="hidden" name="back" value="/t/{{ t.uid }}?tab=unknown#tabs">
+      <input type="hidden" name="source" value="{{ c.source if c else 'user' }}">
+      <b class="sug-word">{{ item.en }}</b>
+      <select name="pos">{% for code, name in pos_names.items() %}<option value="{{ code }}" {% if code == (c.pos if c else item.pos) %}selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+      <input type="hidden" name="en" value="{{ item.en }}">
+      <input type="text" name="de" value="{{ c.de if c else '' }}" placeholder="перевод" required>
+      <select name="gender" title="род немецкого существительного">
+        <option value="">—</option>{% for g in ['m', 'f', 'n', 'pl'] %}<option value="{{ g }}" {% if c and c.gender == g %}selected{% endif %}>{{ g }}</option>{% endfor %}
+      </select>
+      <input type="text" name="plural" value="{{ c.plural if c else '' }}" placeholder="мн. ч." class="short">
+      <input type="hidden" name="extra" value="">
+      <input type="hidden" name="domain" value="{{ t.domain }}">
+      <button type="submit" class="small-button">Добавить</button>
+      <span class="note">{% for cand in item.candidates %}{{ cand.de }}{% if cand.gender %} ({{ cand.gender }}){% endif %} — {{ 'правило' if cand.source == 'rule' else 'Ding' }}, {{ cand.confidence|pct(0) }}{% if not loop.last %}; {% endif %}{% else %}подсказок нет{% endfor %}</span>
+    </form>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>В этом тексте все слова нашлись в словаре.</p>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ static_url('result.js') }}"></script>{% endblock %}

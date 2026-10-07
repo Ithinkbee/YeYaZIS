@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Перевод: {{ t.title }}</title>
+  <link rel="stylesheet" href="{{ static_url('style.css') }}">
+</head>
+<body class="print-page">
+<div class="print-actions no-print">
+  <button onclick="window.print()">Печать</button>
+  <a href="/t/{{ t.uid }}">← к переводу</a>
+  <a href="/print/{{ t.uid }}?parts=all" {% if parts == 'all' %}class="on"{% endif %}>всё</a>
+  <a href="/print/{{ t.uid }}?parts=translation">только перевод</a>
+  <a href="/print/{{ t.uid }}?parts=words">только список слов</a>
+  <span class="note">В диалоге печати можно выбрать «Сохранить как PDF».</span>
+</div>
+<article class="paper">
+  <header class="paper-head">
+    <p class="paper-kicker">«{{ app_name }}» · машинный перевод английский → немецкий</p>
+    <h1>{{ t.title }}</h1>
+    <p>Предметная область: {{ domain_name(t.domain) }}. Способ: {{ modes[t.mode] }}. {{ t.created }}.</p>
+    <p>Слов во входном тексте: {{ t.stats.words|num }}; переведено: {{ t.stats.translated|num }}
+      (по словарю {{ t.stats.dictionary|num }}, по правилам {{ t.stats.rule|num }}); имена и числа:
+      {{ (t.stats.names + t.stats.numbers)|num }}; без перевода: {{ t.stats.unknown|num }}
+      ({{ t.stats.coverage|pct }} переведено).</p>
+  </header>
+  {% if parts in ('all', 'translation') %}
+  <h2>Перевод</h2>
+  {% for heading, sentences in t.paragraphs %}
+  {% if heading %}<h3>{{ sentences|map(attribute='text')|join(' ') }}</h3>{% else %}<p class="paper-text">{{ sentences|map(attribute='text')|join(' ') }}</p>{% endif %}
+  {% endfor %}
+  <h2>Исходный текст</h2>
+  {% for heading, sentences in t.english_paragraphs %}
+  {% if heading %}<h3>{{ sentences|map(attribute='text')|join(' ') }}</h3>{% else %}<p class="paper-text">{{ sentences|map(attribute='text')|join(' ') }}</p>{% endif %}
+  {% endfor %}
+  {% endif %}
+  {% if parts in ('all', 'words') %}
+  <h2>Частотный список слов</h2>
+  <table class="grid paper-table">
+    <thead><tr><th>№</th><th>Слово</th><th>Част.</th><th>Тег</th><th>Перевод</th><th>Грамматика (нем.)</th></tr></thead>
+    <tbody>
+    {% for item in t.words %}
+    <tr><td>{{ loop.index }}</td><td>{{ item.lemma }}</td><td>{{ item.count }}</td>
+      <td>{{ item.tags.most_common(1)[0][0] }} — {{ describe_tag(item.tags.most_common(1)[0][0]) }}</td>
+      <td>{{ item.translation or '—' }}</td><td>{{ item.german_grammar }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  <p class="paper-foot note">Сохранено системой «{{ app_name }}» {{ version }}, лабораторная работа № {{ lab_number }}, вариант {{ variant }}.</p>
+</article>
+</body>
+</html>

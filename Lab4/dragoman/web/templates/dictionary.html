@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block title %}Словарь — «{{ app_name }}»{% endblock %}
+{% macro entry_form(e, action, button) -%}
+<form class="entry-form" method="post" action="{{ action }}">
+  <label>Английское слово или оборот <input type="text" name="en" value="{{ e.en if e else '' }}" required></label>
+  <label>Часть речи
+    <select name="pos">{% for code, name in pos_names.items() %}<option value="{{ code }}" {% if e and e.pos == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select>
+  </label>
+  <label>Немецкий перевод <input type="text" name="de" value="{{ e.de if e else '' }}" required
+    placeholder="Netz, vor|stellen, sich befassen, neuronal* Netz"></label>
+  <label>Род <select name="gender"><option value="">—</option>{% for g, name in gender_names.items() %}<option value="{{ g }}" {% if e and e.gender == g %}selected{% endif %}>{{ g }} — {{ name }}</option>{% endfor %}</select></label>
+  <label>Мн. ч. <input type="text" name="plural" value="{{ e.plural if e else '' }}" placeholder="Netze или -" class="short"></label>
+  <label>Сведения <input type="text" name="extra" value="{{ e.extra if e else '' }}" placeholder="prep=von+D; obj=D; weak"></label>
+  <label>Область <select name="domain">
+    <option value="gen" {% if not e or e.domain == 'gen' %}selected{% endif %}>общая</option>
+    {% for code in config.DOMAIN_CODES %}<option value="{{ code }}" {% if e and e.domain == code %}selected{% endif %}>{{ domain_name(code, short=True) }}</option>{% endfor %}
+  </select></label>
+  <button type="submit">{{ button }}</button>
+</form>
+{%- endmacro %}
+{% block content %}
+<h1>Англо-немецкий словарь</h1>
+<p class="lead">
+  Словарь хранится в таблице базы данных SQLite ({{ stats.path }}): {{ stats.total|num }} записей, из них
+  {{ stats.phrases|num }} оборотов. Записи можно искать, исправлять и добавлять; исправленная запись исходного
+  словаря при обновлении программы не затирается. Неизвестные слова переведённых текстов собираются в
+  <a href="/dictionary/replenish">журнал пополнения</a>.
+</p>
+{% if message %}<div class="banner">{{ message }}</div>{% endif %}
+
+<div class="cards compact">
+  {% for pos_code, count in stats.by_pos.items() %}
+  <div class="card"><h3>{{ pos_names.get(pos_code, pos_code) }}</h3><span class="big">{{ count|num }}</span></div>
+  {% endfor %}
+</div>
+<p class="note">По происхождению: {% for code, count in stats.by_source.items() %}{{ sources.get(code, code) }} — {{ count|num }}{% if not loop.last %}, {% endif %}{% endfor %}.
+  По областям: {% for code, count in stats.by_domain.items() %}{{ domain_name(code, short=True) }} — {{ count|num }}{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+
+<form class="toolbar" method="get" action="/dictionary">
+  <label>Поиск <input type="text" name="q" value="{{ q }}" placeholder="слово или перевод" autofocus></label>
+  <label>Часть речи <select name="pos"><option value="">все</option>{% for code, name in pos_names.items() %}<option value="{{ code }}" {% if pos == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select></label>
+  <label>Откуда <select name="source"><option value="">все</option>{% for code, name in sources.items() %}<option value="{{ code }}" {% if source == code %}selected{% endif %}>{{ name }}</option>{% endfor %}</select></label>
+  <label>Область <select name="domain"><option value="">все</option><option value="gen" {% if domain == 'gen' %}selected{% endif %}>общая</option>{% for code in config.DOMAIN_CODES %}<option value="{{ code }}" {% if domain == code %}selected{% endif %}>{{ domain_name(code, short=True) }}</option>{% endfor %}</select></label>
+  <button type="submit">Найти</button>
+  <span class="spacer"></span>
+  <span class="note">найдено: {{ total|num }}</span>
+</form>
+
+{% if editing %}
+<section class="block">
+  <h2>Исправить запись «{{ editing.en }}»</h2>
+  {{ entry_form(editing, '/dictionary/' ~ editing.id ~ '/edit', 'Сохранить') }}
+  <form method="post" action="/dictionary/{{ editing.id }}/delete" class="inline">
+    <input type="hidden" name="q" value="{{ q }}">
+    <button type="submit" class="ghost small-button danger">Удалить запись</button>
+  </form>
+  <a href="/dictionary?q={{ q }}">отмена</a>
+</section>
+{% endif %}
+
+<div class="table-wrap">
+<table class="grid dict-table">
+  <thead><tr><th>Английское</th><th>Часть речи</th><th>Немецкое</th><th>Грамматика</th><th>Сведения</th><th>Область</th>
+    <th>Откуда</th><th class="no-print"></th></tr></thead>
+  <tbody>
+  {% for e in entries %}
+  <tr class="src-{{ e.source }}">
+    <td><b>{{ e.en }}</b></td>
+    <td class="small">{{ pos_names.get(e.pos, e.pos) }}</td>
+    <td>{{ e.display }}{% if '|' in e.de or '*' in e.de or '~' in e.de %}<div class="muted small"><code>{{ e.de }}</code></div>{% endif %}</td>
+    <td class="small">{{ grammar(e) }}</td>
+    <td class="small">{% if e.extra %}<code>{{ e.extra }}</code>{% endif %}</td>
+    <td class="small">{{ domain_name(e.domain, short=True) }}</td>
+    <td class="small">{{ sources.get(e.source, e.source) }}</td>
+    <td class="no-print"><a href="/dictionary?q={{ q }}&pos={{ pos }}&source={{ source }}&domain={{ domain }}&page={{ page }}&edit={{ e.id }}">исправить</a></td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% if pages > 1 %}
+<p class="pager">{% for p in range(1, pages + 1) %}{% if p == page %}<b>{{ p }}</b>{% elif p <= 3 or p > pages - 2 or (p - page)|abs <= 2 %}<a href="/dictionary?q={{ q }}&pos={{ pos }}&source={{ source }}&domain={{ domain }}&page={{ p }}">{{ p }}</a>{% elif p == 4 or p == pages - 2 %} … {% endif %}{% endfor %}</p>
+{% endif %}
+
+<section class="block">
+  <h2>Добавить запись</h2>
+  <p class="note">Отделяемая приставка — через «|» (<code>vor|stellen</code>), возвратный глагол — с «sich»,
+    склоняемое прилагательное в сочетании — со звёздочкой (<code>neuronal* Netz</code>). В поле «Сведения»:
+    <code>prep=von+D</code> — управление, <code>obj=D</code> — дополнение в дательном, <code>case=A</code> — падеж
+    после предлога, <code>weak</code> — слабое склонение, <code>aux=sein</code> — перфект с sein.</p>
+  {{ entry_form(none, '/dictionary/add', 'Добавить') }}
+</section>
+
+<section class="block">
+  <h2>Выгрузка и загрузка</h2>
+  <p>
+    <a class="button ghost" href="/dictionary/export.tsv">Выгрузить весь словарь (TSV)</a>
+    <a class="button ghost" href="/dictionary/export.tsv?source=user">Только правки пользователя</a>
+  </p>
+  <form method="post" action="/dictionary/import" enctype="multipart/form-data" class="inline">
+    <label>Загрузить записи из TSV <input type="file" name="upload" accept=".tsv,.txt" required></label>
+    <button type="submit" class="small-button">Загрузить</button>
+  </form>
+  <form method="post" action="/dictionary/reset" class="inline" onsubmit="return confirm('Удалить все правки и вернуть исходный словарь?')">
+    <button type="submit" class="ghost small-button danger">Вернуть исходный словарь</button>
+  </form>
+</section>
+{% endblock %}

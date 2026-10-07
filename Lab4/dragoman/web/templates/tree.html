@@ -1,0 +1,39 @@
+{% import "macros.html" as m %}
+{% set s = view.english %}
+<div class="tree-sentence">
+  <p class="tree-en"><span class="label">EN</span> {{ s.text }}</p>
+  <p class="tree-de"><span class="label">DE</span> {{ m.german(view.german, output, view.index) }}</p>
+</div>
+<h3>Дерево зависимостей</h3>
+<p class="note">Стрелка ведёт от главного слова к зависимому, подпись — синтаксическое отношение (наведите на дугу —
+  расшифровка). Под словом — тег части речи.</p>
+<div class="tree-wrap">{{ view.dependency|safe }}</div>
+<h3>Дерево составляющих</h3>
+<p class="note">Выведено из дерева зависимостей: главное слово со своими зависимыми образует группу —
+  {% for code, name in phrase_names.items() %}{{ code }} — {{ name }}{% if not loop.last %}, {% endif %}{% endfor %}.</p>
+<div class="tree-wrap">{{ view.constituency|safe }}</div>
+<h3>Слова предложения</h3>
+<div class="table-wrap">
+<table class="grid tree-table">
+  <thead><tr><th class="num">№</th><th>Слово</th><th>Лемма</th><th>Тег</th><th>Часть речи</th><th>Главное слово</th>
+    <th>Отношение</th><th>Перевод в предложении</th></tr></thead>
+  <tbody>
+  {% for w in s.words %}
+  <tr>
+    <td class="num muted">{{ w.index + 1 }}</td>
+    <td><b>{{ w.text }}</b></td>
+    <td>{{ w.lemma }}</td>
+    <td><span class="tagcode">{{ w.tag }}</span></td>
+    <td class="small">{{ describe_tag(w.tag) }}</td>
+    <td class="small">{% if w.head >= 0 %}{{ w.head + 1 }}. {{ s.words[w.head].text }}{% else %}—{% endif %}</td>
+    <td class="small"><span class="tagcode">{{ w.deprel }}</span> {{ describe_deprel(w.deprel) }}</td>
+    <td class="small">{{ t.german_for(view.index, w.index)|join(' ') }}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% if view.german.notes %}
+<h3>Что сделал трансфер</h3>
+<ul class="notes">{% for note in view.german.notes %}<li>{{ note }}</li>{% endfor %}</ul>
+{% endif %}
