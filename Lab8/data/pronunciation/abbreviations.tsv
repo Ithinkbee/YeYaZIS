@@ -1,0 +1,89 @@
+# Сокращения немецкого научного текста и как они читаются.
+# Столбцы: сокращение (как пишется, с пробелами) | полная форма | когда раскрывать
+# Третий столбец: any — всегда; number — только перед числом («S. 12», но не инициал «S.»);
+# after — только после числа («S. 12 f.»);
+# end — сокращение может закончить предложение («… usw. Die …»).
+# Внутренние пробелы необязательны: «z. B.» узнаётся и как «z.B.».
+z. B.	zum Beispiel	any
+d. h.	das heißt	any
+u. a.	unter anderem	end
+u. Ä.	und Ähnliches	end
+o. Ä.	oder Ähnliches	end
+u. U.	unter Umständen	any
+u. v. m.	und vieles mehr	end
+i. A.	im Allgemeinen	any
+i. d. R.	in der Regel	any
+i. e. S.	im engeren Sinne	any
+i. w. S.	im weiteren Sinne	any
+s. o.	siehe oben	end
+s. u.	siehe unten	end
+v. a.	vor allem	any
+z. T.	zum Teil	any
+z. Zt.	zur Zeit	any
+o. g.	oben genannte	any
+a. a. O.	am angegebenen Ort	end
+v. Chr.	vor Christus	end
+n. Chr.	nach Christus	end
+bzw.	beziehungsweise	any
+usw.	und so weiter	end
+etc.	et cetera	end
+vgl.	vergleiche	any
+ca.	circa	any
+ggf.	gegebenenfalls	any
+evtl.	eventuell	any
+sog.	sogenannte	any
+inkl.	inklusive	any
+exkl.	exklusive	any
+bspw.	beispielsweise	any
+insb.	insbesondere	any
+bzgl.	bezüglich	any
+ebd.	ebenda	end
+gem.	gemäß	any
+lt.	laut	any
+zzgl.	zuzüglich	any
+urspr.	ursprünglich	any
+allg.	allgemein	any
+bes.	besonders	any
+ugs.	umgangssprachlich	any
+dt.	deutsch	any
+engl.	englisch	any
+lat.	lateinisch	any
+frz.	französisch	any
+griech.	griechisch	any
+Abk.	Abkürzung	any
+Abb.	Abbildung	any
+Tab.	Tabelle	any
+Kap.	Kapitel	any
+Abschn.	Abschnitt	any
+Abs.	Absatz	any
+Art.	Artikel	any
+Nr.	Nummer	any
+Bd.	Band	any
+Hrsg.	Herausgeber	any
+Aufl.	Auflage	any
+Jh.	Jahrhundert	end
+Jhd.	Jahrhundert	end
+Jhdt.	Jahrhundert	end
+et al.	und andere	end
+Mio.	Millionen	end
+Mrd.	Milliarden	end
+Tsd.	Tausend	end
+max.	maximal	any
+min.	minimal	any
+Min.	Minuten	end
+Std.	Stunden	end
+Sek.	Sekunden	end
+Dr.	Doktor	any
+Prof.	Professor	any
+Dipl.	Diplom	any
+Ing.	Ingenieur	any
+Univ.	Universität	any
+Bsp.	Beispiel	any
+Def.	Definition	any
+Gl.	Gleichung	any
+Fa.	Firma	any
+geb.	geboren	any
+gest.	gestorben	any
+S.	Seite	number
+f.	folgende	after
+ff.	fortfolgende	after

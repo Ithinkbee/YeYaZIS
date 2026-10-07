@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} – InfoWiki</title>
+  {# Страница нарочно оформлена как чужой сайт: на ней проверяется закладка
+     «Глашатай, читай». Своих сценариев «Глашатая» здесь нет — их добавляет
+     закладка или кнопка внизу. #}
+  <style>
+    body { margin: 0; font: 17px/1.65 Georgia, "Times New Roman", serif; color: #202122; background: #f8f9fa; }
+    .bar { background: #fff; border-bottom: 1px solid #a2a9b1; padding: 10px 24px; font: 15px Arial, sans-serif; display: flex; gap: 18px; align-items: center; }
+    .bar b { font: 700 20px "Linux Libertine", Georgia, serif; }
+    .bar a { color: #3366cc; text-decoration: none; }
+    main { max-width: 860px; margin: 0 auto; padding: 24px 28px 60px; background: #fff; border: 1px solid #eaecf0; }
+    h1 { font: 400 30px "Linux Libertine", Georgia, serif; border-bottom: 1px solid #a2a9b1; margin: 0 0 6px; }
+    h2 { font: 400 23px "Linux Libertine", Georgia, serif; border-bottom: 1px solid #a2a9b1; margin: 26px 0 8px; }
+    .from { color: #54595d; font-size: 13px; font-family: Arial, sans-serif; margin-bottom: 16px; }
+    .demo-note { font: 14px Arial, sans-serif; background: #eaf3ff; border: 1px solid #a3c2ef; border-radius: 4px; padding: 10px 14px; margin: 0 0 18px; }
+    .demo-note button { font: inherit; padding: 4px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="bar"><b>InfoWiki</b><a href="#">Hauptseite</a><a href="#">Themenportale</a><a href="#">Zufälliger Artikel</a></div>
+  <main>
+    <h1>{{ title }}</h1>
+    <div class="from">aus InfoWiki, der freien Enzyklopädie (Beispielseite für die Lesezeichen-Funktion)</div>
+    <p class="demo-note">Это пример «чужой» страницы. Нажмите закладку «📯 Глашатай, читай» на панели закладок — или
+      эту кнопку, она делает то же самое: <button type="button" id="inject">Позвать Глашатая</button></p>
+    {% for paragraph in paragraphs %}
+      {% if paragraph.startswith('# ') %}<h2>{{ paragraph[2:] }}</h2>{% else %}<p>{{ paragraph }}</p>{% endif %}
+    {% endfor %}
+  </main>
+  <script>
+    document.getElementById('inject').addEventListener('click', function (event) {
+      event.stopPropagation();
+      var s = document.createElement('script');
+      s.src = '/static/pointer.js?' + Date.now();
+      document.documentElement.appendChild(s);
+    });
+  </script>
+</body>
+</html>

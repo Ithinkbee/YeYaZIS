@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% from "macros.html" import settings_panel %}
+{% block content %}
+<h1>Чтец</h1>
+<p class="lead">Наберите или вставьте немецкий научный текст — система разберёт числа, сокращения, аббревиатуры,
+  формулы и английские термины, решит, как их произносить, и прочитает вслух выбранным голосом. Текст можно
+  взять из буфера обмена, из файла (TXT, HTML, PDF, DOCX) или по адресу страницы, а из других программ — на
+  странице <a href="/elsewhere">«Из других программ»</a>.</p>
+
+<div class="banner warn-banner" id="voices-banner" hidden></div>
+<div class="banner" id="desk-banner" hidden></div>
+
+<div class="toolbar">
+  <div class="transport">
+    <button type="button" class="play-button" id="play" title="Читать (Ctrl+Enter)"><span class="glyph">▶</span> <span id="play-label">Читать</span></button>
+    <button type="button" class="ghost icon-button" id="stop" title="Остановить (Esc)">■</button>
+    <button type="button" class="ghost icon-button" id="prev" title="Предыдущее предложение">⏮</button>
+    <button type="button" class="ghost icon-button" id="next" title="Следующее предложение">⏭</button>
+  </div>
+  <div class="status-line state-ready" id="status">
+    <span class="lamp"></span>
+    <span id="status-text">Готов читать</span>
+  </div>
+  <div class="progress" title="прочитано предложений"><i id="progress"></i></div>
+  <span class="note" id="progress-text"></span>
+  <button type="button" class="ghost" id="save" title="Весь текст одной записью">Сохранить WAV</button>
+</div>
+
+<div class="reader-grid">
+  <section class="block">
+    <div class="tabs" role="tablist">
+      <button type="button" class="on" data-tab="text">Текст</button>
+      <button type="button" data-tab="reading">Чтение</button>
+      <button type="button" data-tab="spoken">Как прочтёт</button>
+      <button type="button" data-tab="phonetics">Транскрипция</button>
+    </div>
+
+    <div data-pane="text">
+      <div class="source-tools">
+        <button type="button" class="ghost small-button" id="paste" title="Вставить текст из буфера обмена">Из буфера обмена</button>
+        <button type="button" class="ghost small-button" id="open-file">Открыть файл…</button>
+        <button type="button" class="ghost small-button" id="open-url">Открыть по адресу…</button>
+        <input type="file" id="file" accept=".txt,.md,.html,.htm,.pdf,.docx,text/*" hidden>
+        <span class="spacer"></span>
+        <button type="button" class="link-button small" id="sample">пример</button>
+        <button type="button" class="link-button small" id="clear">очистить</button>
+      </div>
+      <textarea class="text-input" id="text" spellcheck="false" lang="de"
+                placeholder="Text auf Deutsch eingeben, einfügen oder eine Datei hierher ziehen …">{{ sample }}</textarea>
+      <div class="input-foot">
+        <span id="counter"></span>
+        <span>Ctrl+Enter — читать · Esc — стоп · файл можно перетащить в поле</span>
+      </div>
+    </div>
+
+    <div data-pane="reading" hidden>
+      <p class="note">Щелчок по предложению — читать с него. Подчёркнутое читается не так, как написано: наведите,
+        чтобы узнать как.</p>
+      <div class="reading" id="reading"></div>
+    </div>
+
+    <div data-pane="spoken" hidden>
+      <p class="note">Так текст получит синтезатор: отмеченные места система переписала словами. Голубым — английские
+        термины, их произношение записано немецкими буквами.</p>
+      <div class="kinds" id="kinds"></div>
+      <div class="spoken-view" id="spoken"></div>
+    </div>
+
+    <div data-pane="phonetics" hidden>
+      <p class="note">Транскрипция по собственным правилам системы (МФА) и для сравнения — по eSpeak NG, которым
+        пользуются голоса Piper. Ниже — «партитура» первого предложения для собственного синтезатора: звуки,
+        их длительность и мелодия.</p>
+      <div id="phonetics"><p class="muted">Откройте вкладку — транскрипция появится.</p></div>
+    </div>
+  </section>
+
+  {{ settings_panel() }}
+</div>
+
+<script type="application/json" id="boot">{{ boot|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('player.js') }}"></script>
+<script src="{{ static_url('settings.js') }}"></script>
+<script src="{{ static_url('docview.js') }}"></script>
+<script src="{{ static_url('reader.js') }}"></script>
+{% endblock %}

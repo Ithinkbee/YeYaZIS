@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Мой говорящий {{ companion_name }} — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Мой говорящий {{ companion_name }}</h1>
+<p class="lead">Паук из прошлых работ заговорил. Скажите ему что-нибудь — он повторит смешным голосом. Ткните в голову,
+  в брюшко, в любую из восьми ног, погладьте, раскачайте на нити, покормите мухой, выключите свет — он отзовётся
+  по-немецки (перевод — в облачке). Не забывайте о нём: он голодает, устаёт и скучает и в ваше отсутствие.</p>
+
+<div class="talk-layout">
+  <div>
+    <div class="room" id="room">
+      <div class="room-wall">
+        <div class="room-window"></div>
+        <div class="room-books"><i style="height:38px;background:#9b2f2f"></i><i style="height:44px;background:#3a6383"></i><i style="height:34px;background:#b88a22"></i><i style="height:42px;background:#3f7a44"></i><i style="height:30px;background:#5b3d8a"></i></div>
+        <div class="room-shelf"></div>
+        <div class="room-floor-shadow" id="shadow"></div>
+      </div>
+      <svg class="room-web" id="web" viewBox="0 0 1000 690" preserveAspectRatio="xMidYMin slice"></svg>
+      <div class="hang" id="hang">
+        <div class="hang-thread" id="thread"></div>
+        <div class="hang-body" id="body"></div>
+      </div>
+      <div class="room-dark"></div>
+      <div class="speech" id="speech"><b id="speech-de" lang="de"></b><small id="speech-ru"></small></div>
+      <button type="button" class="mic-ring" id="mic"><span class="mic-dot"></span><span id="mic-label">Говори — повторю</span></button>
+    </div>
+
+    <div class="actions" id="actions">
+      <button type="button" class="action" data-action="fly"><span class="ico">🦟</span>Муха</button>
+      <button type="button" class="action" data-action="cymbal"><span class="ico">🥁</span>Тарелки</button>
+      <button type="button" class="action" data-action="pie"><span class="ico">🎂</span>Торт</button>
+      <button type="button" class="action" data-action="web"><span class="ico">🕸️</span>Паутина</button>
+      <button type="button" class="action" data-action="light" id="light"><span class="ico">💡</span>Свет</button>
+      <button type="button" class="action" data-action="read"><span class="ico">📖</span>Почитай</button>
+    </div>
+    <form class="say-row" id="say-form">
+      <input type="text" id="say-text" lang="de" maxlength="{{ config.MAX_TALK_CHARS }}" autocomplete="off"
+             placeholder="Скажи, {{ companion_name }}: Ich bin die schönste Spinne der Welt!">
+      <button type="submit">Скажи</button>
+    </form>
+    <p class="note">Тыкайте мышью или пальцем: в голову, глаза, брюшко, ноги, нить. Проведите по брюшку — погладить.
+      Схватите и потяните — раскачать. Без микрофона — пишите ему: скажет вслух его же голосом.</p>
+  </div>
+
+  <aside>
+    <section class="block">
+      <div class="level-row">
+        <span class="level-badge" id="level">1</span>
+        <span style="flex:1"><b>Уровень <span id="level-text">1</span></b>
+          <span class="xp" style="display:block;margin-top:4px"><i id="xp"></i></span></span>
+      </div>
+      <p class="note" id="next-unlock"></p>
+      <div class="needs">
+        <div class="need" id="need-food"><span>🦟</span><span><span class="small">Сытость</span><span class="bar"><i></i></span></span><output></output></div>
+        <div class="need" id="need-energy"><span>⚡</span><span><span class="small">Бодрость</span><span class="bar"><i></i></span></span><output></output></div>
+        <div class="need" id="need-mood"><span>💜</span><span><span class="small">Настроение</span><span class="bar"><i></i></span></span><output></output></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 style="font-size:16px">Гардероб</h2>
+      <div class="wardrobe" id="wardrobe"></div>
+    </section>
+
+    <section class="block">
+      <h2 style="font-size:16px">Голос</h2>
+      <label class="small muted" for="effect">Как он передразнивает</label>
+      <select id="effect" style="width:100%;margin:4px 0 10px">
+        {% for key, title in game.effects.items() %}<option value="{{ key }}">{{ title }}</option>{% endfor %}
+      </select>
+      <label class="small muted" for="voice-mode">Чем он говорит сам</label>
+      <select id="voice-mode" style="width:100%;margin-top:4px">
+        {% for key, title in game.modes.items() %}<option value="{{ key }}"{% if key == 'neural' and game.mode != 'neural' %} disabled{% endif %}>{{ title }}</option>{% endfor %}
+      </select>
+      <p class="note" style="margin-bottom:0">Свой голос паука — формантный синтезатор системы; нейросетевой —
+        Thorsten с восемью манерами (весело, сердито, сонно…), поднятый на полоктавы.</p>
+    </section>
+
+    <section class="block">
+      <h2 style="font-size:16px">Счёт</h2>
+      <ul class="stats-list" id="stats"></ul>
+      <button type="button" class="link-button small" id="reset">начать заново</button>
+    </section>
+  </aside>
+</div>
+
+<script type="application/json" id="game">{{ game|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('talking.js') }}"></script>
+{% endblock %}

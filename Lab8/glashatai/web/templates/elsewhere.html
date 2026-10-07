@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Из других программ — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Чтение из других программ</h1>
+<p class="lead">Текст не обязательно вставлять в «Чтеца». Система читает то, что скопировано или выделено в любой
+  программе Windows — в Word, в просмотрщике PDF, в браузере, — и то, на что указывает мышь на любой веб-странице.
+  Голос, темп и громкость — те, что выбраны на «Чтеце».</p>
+
+{% if not config.DESKTOP_ENABLED %}
+<div class="banner warn-banner">Чтение из других программ выключено при запуске (ключ <code>--no-desktop</code> или
+  <code>GLASHATAI_DESKTOP=0</code>). Закладка для веб-страниц работает и так.</div>
+{% elif not desktop.supported %}
+<div class="banner warn-banner">Буфер обмена и горячие клавиши работают только в Windows. Закладка для веб-страниц
+  работает в любой системе.</div>
+{% endif %}
+
+<div class="two">
+  <section class="block">
+    <h2>Любая программа Windows</h2>
+    <div class="toggle-row">
+      <span><b>Читать всё, что скопировано</b>
+        <small>Скопируйте текст (Ctrl+C) в любой программе — он сразу прозвучит.</small></span>
+      <button type="button" class="ghost" id="clipboard-toggle" data-on="0">Включить</button>
+    </div>
+    <div class="toggle-row">
+      <span><b>Горячие клавиши</b>
+        <small>Выделите текст мышью и нажмите <kbd>{{ desktop.hotkey_read }}</kbd> — система сама скопирует и прочитает
+          выделенное, а буфер обмена оставит прежним. <kbd>{{ desktop.hotkey_stop }}</kbd> — замолчать.</small></span>
+      <button type="button" class="ghost" id="hotkeys-toggle" data-on="0">Включить</button>
+    </div>
+    <p class="bad small" id="desktop-problem"></p>
+    <p class="note">Где звучит: если открыта страница <a href="/" target="_blank">«Чтец»</a>, текст появится в ней и
+      прочитается с подсветкой; если нет — прямо из колонок компьютера.</p>
+    <div class="desk-note"><button type="button" class="ghost small-button" id="desk-stop">■ Замолчать</button>
+      <span class="note">или <kbd>{{ desktop.hotkey_stop }}</kbd> в любой программе</span></div>
+    <h3>Что прочитано</h3>
+    <ul class="events" id="events"><li class="muted">Пока ничего.</li></ul>
+  </section>
+
+  <section class="block">
+    <h2>Любая веб-страница: закладка</h2>
+    <p>Перетащите кнопку на панель закладок браузера (Ctrl+Shift+B — показать панель):</p>
+    <p><a class="bookmarklet" id="bookmarklet" title="Перетащите на панель закладок"
+          href="javascript:(function(){var s=document.createElement('script');s.src='{{ origin }}/static/pointer.js?'+Date.now();s.onerror=function(){alert('«Глашатай» не отвечает: запустите python run.py');};document.documentElement.appendChild(s);})();">📯 Глашатай, читай</a></p>
+    <ol class="prose small">
+      <li>Откройте любую страницу — например, статью Википедии — и нажмите закладку. Внизу появится панель
+        Пафнутия.</li>
+      <li>Наведите мышь на абзац — он подсветится; щелчок читает его. Выделенный мышью фрагмент читается вместо
+        абзаца.</li>
+      <li><kbd>Esc</kbd> — замолчать, второй <kbd>Esc</kbd> или ✕ — убрать панель.</li>
+    </ol>
+    <p class="note">Попробовать сразу: <a href="/demo" target="_blank">страница-пример</a> — «чужой сайт» со статьёй
+      о семантической паутине.</p>
+    <p class="note">Браузер может спросить, разрешить ли странице обращаться к устройствам локальной сети, — разрешите:
+      звук идёт с вашего компьютера (адрес 127.0.0.1). Сайты со строгой политикой безопасности (CSP) закладки не
+      пускают — на них выделите текст и нажмите <kbd>{{ desktop.hotkey_read }}</kbd>.</p>
+  </section>
+</div>
+
+<section class="block">
+  <h2>Чем читается</h2>
+  <p class="note" id="reading-with">Настройки «Чтеца»: <span id="reading-voice"></span></p>
+</section>
+
+<script type="application/json" id="boot">{{ boot|tojson }}</script>
+<script type="application/json" id="desktop-state">{{ desktop|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('elsewhere.js') }}"></script>
+{% endblock %}

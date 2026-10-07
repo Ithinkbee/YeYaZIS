@@ -1,0 +1,129 @@
+# Эталон нормализации: как немецкий диктор читает трудные места научного текста.
+# Столбцы: вид | текст | как читается
+# Чтение записано словами; сравниваются слова без учёта регистра и знаков препинания.
+# Аббревиатуры — названиями букв (Zeh Peh Uh), как их произносят; английские слова
+# и единицы — как пишутся: их произношение — отдельный слой, его проверяет не этот набор.
+# Вид «satz» — проверка деления на предложения: в третьем столбце число предложений.
+zahl	Das Netz besteht aus 3 Schichten.	Das Netz besteht aus drei Schichten.
+zahl	Der Speicher fasst 256 Einträge.	Der Speicher fasst zweihundertsechsundfünfzig Einträge.
+zahl	Es gibt 1024 mögliche Zustände.	Es gibt tausendvierundzwanzig mögliche Zustände.
+zahl	Die Tabelle hat 1.000.000 Zeilen.	Die Tabelle hat eine Million Zeilen.
+zahl	Insgesamt wurden 12 345 Dokumente geprüft.	Insgesamt wurden zwölftausenddreihundertfünfundvierzig Dokumente geprüft.
+zahl	Der Wert liegt bei -5.	Der Wert liegt bei minus fünf.
+zahl	Nach 1 Durchlauf ist das Ergebnis fertig.	Nach einem Durchlauf ist das Ergebnis fertig.
+zahl	Es wurden 21 Versuche gemacht.	Es wurden einundzwanzig Versuche gemacht.
+zahl	Das Programm hat 2500000 Zeilen Quelltext.	Das Programm hat zwei Millionen fünfhunderttausend Zeilen Quelltext.
+zahl	Der Fehler trat in 17 von 100 Fällen auf.	Der Fehler trat in siebzehn von hundert Fällen auf.
+jahr	Im Jahr 1954 entstand die Sprache.	Im Jahr neunzehnhundertvierundfünfzig entstand die Sprache.
+jahr	Seit 1969 gibt es das Netz.	Seit neunzehnhundertneunundsechzig gibt es das Netz.
+jahr	Das Gesetz trat 2018 in Kraft.	Das Gesetz trat zweitausendachtzehn in Kraft.
+jahr	Bereits 1843 beschrieb sie den Algorithmus.	Bereits achtzehnhundertdreiundvierzig beschrieb sie den Algorithmus.
+jahr	Zwischen 2001 und 2009 wuchs das Netz stark.	Zwischen zweitausendeins und zweitausendneun wuchs das Netz stark.
+jahr	In den 1950er-Jahren war der Begriff neu.	In den neunzehnhundertfünfziger Jahren war der Begriff neu.
+jahr	Die 1980er brachten den Personalrechner.	Die neunzehnhundertachtziger brachten den Personalrechner.
+jahr	In den 80er Jahren entstanden Expertensysteme.	In den achtziger Jahren entstanden Expertensysteme.
+jahr	Ende der 1960er-Jahre entstand das Netz.	Ende der neunzehnhundertsechziger Jahre entstand das Netz.
+jahr	Zuse lebte von 1910 bis 1995.	Zuse lebte von neunzehnhundertzehn bis neunzehnhundertfünfundneunzig.
+ordinal	Im 19. Jahrhundert entstanden die ersten Rechenmaschinen.	Im neunzehnten Jahrhundert entstanden die ersten Rechenmaschinen.
+ordinal	Die 2. Auflage erschien später.	Die zweite Auflage erschien später.
+ordinal	Am 3. Mai wurde das System freigegeben.	Am dritten Mai wurde das System freigegeben.
+ordinal	Das ist der 1. Schritt der Analyse.	Das ist der erste Schritt der Analyse.
+ordinal	Er belegte den 7. Platz.	Er belegte den siebten Platz.
+ordinal	Im 21. Jahrhundert dominieren neuronale Netze.	Im einundzwanzigsten Jahrhundert dominieren neuronale Netze.
+ordinal	Seit dem 20. Jahrhundert wird gerechnet.	Seit dem zwanzigsten Jahrhundert wird gerechnet.
+ordinal	Die Ergebnisse stehen in der 4. Spalte.	Die Ergebnisse stehen in der vierten Spalte.
+ordinal	Ein 2. Versuch war erfolgreich.	Ein zweiter Versuch war erfolgreich.
+ordinal	Die Konferenz fand vom 12. bis 14. Juni statt.	Die Konferenz fand vom zwölften bis vierzehnten Juni statt.
+dezimal	Der Anteil beträgt 3,5 %.	Der Anteil beträgt drei Komma fünf Prozent.
+dezimal	Die Genauigkeit liegt bei 97,3 Prozent.	Die Genauigkeit liegt bei siebenundneunzig Komma drei Prozent.
+dezimal	Die Fehlerrate sank um 12 %.	Die Fehlerrate sank um zwölf Prozent.
+dezimal	Der Faktor ist 0,25.	Der Faktor ist null Komma zwei fünf.
+dezimal	Die Ausgabe 3.11 ist schneller.	Die Ausgabe drei Punkt elf ist schneller.
+dezimal	Die Version 2.0 des Webs.	Die Version zwei Punkt null des Webs.
+dezimal	Etwa 1/2 der Daten fehlt.	Etwa ein halb der Daten fehlt.
+dezimal	Rund 3/4 der Nutzer stimmten zu.	Rund drei Viertel der Nutzer stimmten zu.
+dezimal	Das Verhältnis beträgt 3:1.	Das Verhältnis beträgt drei zu eins.
+dezimal	Die Kosten stiegen um 2,5 Prozentpunkte.	Die Kosten stiegen um zwei Komma fünf Prozentpunkte.
+einheit	Der Rechner hat 16 GB Arbeitsspeicher.	Der Rechner hat sechzehn Gigabyte Arbeitsspeicher.
+einheit	Die Antwortzeit beträgt 100 ms.	Die Antwortzeit beträgt hundert Millisekunden.
+einheit	Der Prozessor läuft mit 3,2 GHz.	Der Prozessor läuft mit drei Komma zwei Gigahertz.
+einheit	Die Datei ist 1 MB groß.	Die Datei ist ein Megabyte groß.
+einheit	Die Übertragung dauert 1 s.	Die Übertragung dauert eine Sekunde.
+einheit	Die Leitung schafft 100 Mbit/s.	Die Leitung schafft hundert Megabit pro Sekunde.
+einheit	Ein Wort hat 64 Bit.	Ein Wort hat vierundsechzig Bit.
+einheit	Der Chip verbraucht 15 W.	Der Chip verbraucht fünfzehn Watt.
+einheit	Die Temperatur stieg auf 85 °C.	Die Temperatur stieg auf fünfundachtzig Grad Celsius.
+einheit	Die Strukturbreite beträgt 7 nm.	Die Strukturbreite beträgt sieben Nanometer.
+einheit	Das Bild hat 1920 px Breite.	Das Bild hat tausendneunhundertzwanzig Pixel Breite.
+einheit	Der Rechner kostet 500 €.	Der Rechner kostet fünfhundert Euro.
+einheit	Ein Zugriff dauert 1 ms.	Ein Zugriff dauert eine Millisekunde.
+datum	Am 12.03.2021 wurde die Studie veröffentlicht.	Am zwölften März zweitausendeinundzwanzig wurde die Studie veröffentlicht.
+datum	Die Frist endet am 1.10.2025.	Die Frist endet am ersten Oktober zweitausendfünfundzwanzig.
+datum	Das Treffen beginnt um 14:30 Uhr.	Das Treffen beginnt um vierzehn Uhr dreißig.
+datum	Der Dienst startet um 9:00 Uhr.	Der Dienst startet um neun Uhr.
+bereich	Das dauert 5–10 Minuten.	Das dauert fünf bis zehn Minuten.
+bereich	Siehe die Seiten 12–15.	Siehe die Seiten zwölf bis fünfzehn.
+bereich	Gauß lebte 1777–1855.	Gauß lebte siebzehnhundertsiebenundsiebzig bis achtzehnhundertfünfundfünfzig.
+bereich	Es braucht 2-3 Durchläufe.	Es braucht zwei bis drei Durchläufe.
+abk	Das gilt z. B. für Übersetzerbau.	Das gilt zum Beispiel für Übersetzerbau.
+abk	Das gilt z.B. für Datenbanken.	Das gilt zum Beispiel für Datenbanken.
+abk	Der Quelltext wird geprüft, d. h. übersetzt.	Der Quelltext wird geprüft, das heißt übersetzt.
+abk	Es gibt u. a. Listen und Bäume.	Es gibt unter anderem Listen und Bäume.
+abk	Listen, Bäume, Graphen usw. sind Datenstrukturen.	Listen, Bäume, Graphen und so weiter sind Datenstrukturen.
+abk	Das Verfahren ist schnell bzw. sparsam.	Das Verfahren ist schnell beziehungsweise sparsam.
+abk	Siehe vgl. Abb. 3 auf S. 12.	Siehe vergleiche Abbildung drei auf Seite zwölf.
+abk	Die Laufzeit beträgt ca. 5 Sekunden.	Die Laufzeit beträgt circa fünf Sekunden.
+abk	Das ist i. d. R. ausreichend.	Das ist in der Regel ausreichend.
+abk	Der Wert ist ggf. anzupassen.	Der Wert ist gegebenenfalls anzupassen.
+abk	Die sog. Streuwertfunktion bildet Werte ab.	Die sogenannte Streuwertfunktion bildet Werte ab.
+abk	Das wird in Kap. 4 erklärt.	Das wird in Kapitel vier erklärt.
+abk	Prof. Dr. Weber leitet das Projekt.	Professor Doktor Weber leitet das Projekt.
+abk	Die Daten stammen aus Tab. 2.	Die Daten stammen aus Tabelle zwei.
+abk	Das System kostet 3 Mio. Euro.	Das System kostet drei Millionen Euro.
+abk	Das zeigen Müller et al. in ihrer Arbeit.	Das zeigen Müller und andere in ihrer Arbeit.
+abk	Das Verfahren ist evtl. zu langsam.	Das Verfahren ist eventuell zu langsam.
+abk	Man spricht i. A. von Übersetzern.	Man spricht im Allgemeinen von Übersetzern.
+akronym	Die CPU führt Befehle aus.	Die Zeh Peh Uh führt Befehle aus.
+akronym	Die Seite wird per HTTP geladen.	Die Seite wird per Hah Teh Teh Peh geladen.
+akronym	Im RAM liegen die Daten.	Im Ramm liegen die Daten.
+akronym	Die KI lernt aus Beispielen.	Die Kah Ih lernt aus Beispielen.
+akronym	Das Format JSON ist verbreitet.	Das Format Dschäison ist verbreitet.
+akronym	Mehrere GPUs rechnen parallel.	Mehrere Geh Peh Uhs rechnen parallel.
+akronym	Die NASA nutzt eigene Rechner.	Die Nasa nutzt eigene Rechner.
+akronym	Die Abfrage ist in SQL formuliert.	Die Abfrage ist in Ess Kuh Ell formuliert.
+akronym	Die URIs bezeichnen Ressourcen.	Die Uh Err Ihs bezeichnen Ressourcen.
+akronym	Das Projekt wurde von der DARPA gefördert.	Das Projekt wurde von der Darpa gefördert.
+akronym	Der Standard stammt vom W3C.	Der Standard stammt vom Weh drei Zeh.
+akronym	Das Protokoll IPv6 ersetzt IPv4.	Das Protokoll Ih Peh Fau sechs ersetzt Ih Peh Fau vier.
+akronym	Die DSGVO regelt den Datenschutz.	Die Deh Ess Geh Fau Oh regelt den Datenschutz.
+akronym	Das Modell RDF beschreibt Aussagen.	Das Modell Err Deh Eff beschreibt Aussagen.
+akronym	Die Sprache Fortran II war verbreitet.	Die Sprache Fortran zwei war verbreitet.
+akronym	Das Format MP3 komprimiert Audio.	Das Format Emm Peh drei komprimiert Audio.
+akronym	Die Architektur x86 dominiert.	Die Architektur Iks sechsundachtzig dominiert.
+akronym	Die Sprache C++ ist schnell.	Die Sprache Zeh plus plus ist schnell.
+formel	Die Laufzeit ist O(n log n).	Die Laufzeit ist Oh von Enn log Enn.
+formel	Im schlechtesten Fall gilt O(n²).	Im schlechtesten Fall gilt Oh von Enn Quadrat.
+formel	Es gilt a + b = c.	Es gilt Ah plus Beh gleich Zeh.
+formel	Es gibt 2^10 Möglichkeiten.	Es gibt zwei hoch zehn Möglichkeiten.
+formel	Für alle x gilt x ≥ 0.	Für alle Iks gilt Iks größer gleich null.
+formel	Der Wert ist α = 0,5.	Der Wert ist Alpha gleich null Komma fünf.
+formel	Wir setzen n = 1000.	Wir setzen Enn gleich tausend.
+adresse	Mehr unter https://de.wikipedia.org/wiki/Compiler.	Mehr unter Deh Eh Punkt wikipedia Punkt org.
+adresse	Schreiben Sie an info@example.de.	Schreiben Sie an info at example Punkt Deh Eh.
+adresse	Siehe www.w3.org für Details.	Siehe Weh drei Punkt org für Details.
+quelle	Das zeigte eine Studie [12].	Das zeigte eine Studie.
+quelle	Mehrere Arbeiten [3, 4] bestätigen das.	Mehrere Arbeiten bestätigen das.
+zeichen	Kosten & Nutzen werden verglichen.	Kosten und Nutzen werden verglichen.
+zeichen	Laut § 9a ist das erlaubt.	Laut Paragraf neun Ah ist das erlaubt.
+satz	Ab 1954 kam der Begriff auf. Danach verbreitete er sich.	2
+satz	Das gilt z. B. für Compiler. Es gilt auch für Linker.	2
+satz	Im 19. Jahrhundert begann alles. Die Rechner kamen später.	2
+satz	J. von Neumann entwarf die Architektur. Sie ist bis heute üblich.	2
+satz	Listen, Bäume usw. Die Wahl hängt vom Problem ab.	2
+satz	Siehe Abb. 3 und Tab. 2 für Details. Danach folgt der Beweis.	2
+satz	Python 3.11 ist schnell. Version 3.12 ist schneller.	2
+satz	Die Studie erschien 2021. Sie wurde oft zitiert.	2
+satz	Es gilt vgl. S. 12 f. die Regel. Das ist bekannt.	2
+satz	Wie funktioniert das? Das zeigt der nächste Abschnitt!	2
+satz	Das kostet ca. 3 Mio. Euro. Das ist viel.	2
+satz	Am 3. Mai beginnt es. Am 4. Mai endet es.	2

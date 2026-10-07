@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Проверка — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Проверка</h1>
+<p class="lead">Как система читает трудные места научного текста, насколько её правила произношения согласны с eSpeak
+  NG, насколько разборчивы голоса и действительно ли работают настройки. Разборчивость измеряет распознаватель
+  Vosk: синтезированное предложение распознаётся, и считается доля ошибок в словах (WER). Запуск:
+  <code>python tools/evaluate.py</code>.</p>
+
+{% if not data %}
+<div class="banner warn-banner">Проверка ещё не запускалась. Скачайте голоса и модель распознавания
+  (<code>python tools/get_voices.py --vosk</code>) и выполните <code>python tools/evaluate.py</code> — результаты
+  появятся здесь.</div>
+{% else %}
+{% set n = data.normalization.summary %}
+<div class="cards">
+  <div class="card"><h3>Нормализация: эталонный набор</h3><span class="big">{{ n.accuracy|pct }}</span>
+    <p class="note">{{ n.cases }} трудных мест прочитано слово в слово{% if n.raw_exact is defined %}; eSpeak NG сам — {{ n.raw_exact|pct }}{% endif %}</p></div>
+  {% if data.leftovers %}
+  <div class="card"><h3>Статьи: не словами</h3><span class="big">{{ data.leftovers.left }}</span>
+    <p class="note">токенов из {{ data.leftovers.tokens|num }} остались с цифрами или знаками; переписано {{ data.leftovers.changed|num }}</p></div>
+  {% endif %}
+  {% if data.g2p %}
+  <div class="card"><h3>Произношение против eSpeak NG</h3><span class="big">{{ data.g2p.per_plain|pct }}</span>
+    <p class="note">фонем расходятся (без учёта долготы) на {{ data.g2p.words|num }} словах; ударение совпало у {{ data.g2p.stress|pct }}</p></div>
+  {% endif %}
+  {% if data.by_ear %}
+  <div class="card"><h3>Нормализация на слух</h3><span class="big">{{ data.by_ear.ours|pct }}</span>
+    <p class="note">WER трудных фраз голосом Thorsten; без нормализации — {{ data.by_ear.raw|pct }}</p></div>
+  {% endif %}
+</div>
+
+<h2>Разборчивость голосов</h2>
+<p class="note">{{ data.sentences }} предложений из пяти статей без аббревиатур и английских терминов (их распознаватель не
+  знает), обычный темп. RTF — время синтеза, делённое на длительность звука: 0,1 — в десять раз быстрее речи.</p>
+<table class="grid narrow-table">
+  <thead><tr><th>Голос</th><th class="num">WER</th><th class="num">RTF</th><th class="num">на предложение</th></tr></thead>
+  <tbody>
+  {% for voice, row in data.intelligibility.items()|sort(attribute='1.wer') %}
+    <tr><td>{{ data.voices[voice] }}</td><td class="num">{{ row.wer|pct }}</td><td class="num">{{ row.rtf|num(3) }}</td>
+      <td class="num">{{ row.ms|ms }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% if 'eval_intelligibility.png' in images %}<div class="figure"><img src="/report/eval_intelligibility.png" alt="Разборчивость и скорость"></div>{% endif %}
+{% if 'eval_tempo.png' in images %}<div class="figure"><img src="/report/eval_tempo.png" alt="Разборчивость и темп"></div>{% endif %}
+
+<h3>Примеры: что услышал распознаватель</h3>
+<table class="grid">
+  <thead><tr><th>Голос</th><th>Сказано</th><th>Услышано</th></tr></thead>
+  <tbody>
+  {% for voice, row in data.intelligibility.items() %}
+    {% set example = row.examples[0] %}
+    <tr><td>{{ data.voices[voice] }}</td><td lang="de">{{ example.text }}</td><td lang="de" class="muted">{{ example.heard }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Нормализация</h2>
+<table class="grid narrow-table">
+  <thead><tr><th>Что</th><th class="num">случаев</th><th class="num">верно</th><th class="num">eSpeak NG сам</th></tr></thead>
+  <tbody>
+  {% for key, row in data.normalization.categories.items() %}
+    <tr><td>{{ row.name }}</td><td class="num">{{ row.cases }}</td><td class="num">{{ row.accuracy|pct(0) }}</td>
+      <td class="num">{% if row.raw_exact is defined %}{{ row.raw_exact|pct(0) }}{% else %}—{% endif %}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% if 'eval_normalization.png' in images %}<div class="figure"><img src="/report/eval_normalization.png" alt="Нормализация"></div>{% endif %}
+{% if data.normalization.failures %}
+<h3>Ошибки</h3>
+<table class="grid"><thead><tr><th>Текст</th><th>Ожидалось</th><th>Прочитано</th></tr></thead><tbody>
+{% for f in data.normalization.failures %}<tr><td lang="de">{{ f.text }}</td><td lang="de">{{ f.expected }}</td><td lang="de" class="bad">{{ f.got }}</td></tr>{% endfor %}
+</tbody></table>
+{% endif %}
+
+{% if data.g2p %}
+<h2>Правила произношения против eSpeak NG</h2>
+<p class="note">{{ data.g2p.words|num }} немецких слов из статей (встречаются хотя бы дважды, не из словарей произношения).
+  Совпали целиком: {{ data.g2p.exact|pct }} (без учёта долготы — {{ data.g2p.exact_plain|pct }}).</p>
+<table class="grid"><thead><tr><th>Слово</th><th>Собственные правила</th><th>eSpeak NG</th></tr></thead><tbody>
+{% for e in data.g2p.examples[:12] %}<tr><td lang="de">{{ e.word }}</td><td class="ipa">{{ e.ours }}</td><td class="ipa">{{ e.espeak }}</td></tr>{% endfor %}
+</tbody></table>
+{% endif %}
+
+{% if data.settings %}
+<h2>Настройки</h2>
+{% if 'eval_settings.png' in images %}<div class="figure"><img src="/report/eval_settings.png" alt="Точность настроек"></div>{% endif %}
+<p class="note">Громкость: 75 % — {{ data.settings.volume['75']|num(1) }} дБ, 50 % — {{ data.settings.volume['50']|num(1) }} дБ,
+  25 % — {{ data.settings.volume['25']|num(1) }} дБ относительно 100 %.</p>
+{% endif %}
+
+{% if data.effects %}
+<h2>Голоса Пафнутия</h2>
+{% if 'eval_effects.png' in images %}<div class="figure"><img src="/report/eval_effects.png" alt="Эффекты"></div>{% endif %}
+{% endif %}
+<p class="note">Проверка от {{ data.date }}, заняла {{ data.seconds }} с.</p>
+{% endif %}
+{% endblock %}

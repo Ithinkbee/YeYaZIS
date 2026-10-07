@@ -1,0 +1,99 @@
+# Аббревиатуры и имена, которые читаются не по буквам или не по общим правилам.
+# Столбцы: как пишется | как читается (немецкими буквами, апостроф — перед ударным слогом)
+# Остальные аббревиатуры система читает сама: короткие и непроизносимые — по буквам
+# с немецкими названиями букв («CPU» — Ze-Pe-U), длинные произносимые — как слово
+# («DARPA», «ADALINE»). Множественное «-s» прибавляется к последней букве: «URIs».
+RAM	'Ramm
+ROM	'Romm
+NASA	'Nasa
+NATO	'Nato
+ISO	'Iso
+UNO	'Uno
+UNIX	'Juniks
+Unix	'Juniks
+Linux	'Linuks
+ASCII	'Aski
+JSON	'Dschäison
+JPEG	'Dschäipeg
+GIF	'Giff
+PNG	'Ping
+OWL	'Aul
+SPARQL	'Sparkel
+WLAN	'Weh Lahn
+LAN	'Lahn
+GUI	'Guhi
+BIOS	'Baios
+DOS	'Doss
+MS-DOS	'Emm Ess 'Doss
+POSIX	'Posiks
+COBOL	'Kobol
+FORTRAN	'Fortran
+Fortran	'Fortran
+LISP	'Lisp
+ALGOL	'Algol
+GNU	'Gnu
+XOR	'Iks 'Or
+JIT	'Dschitt
+IEEE	'Ih 'Tripel 'Eh
+DAML	'Dammel
+OIL	'Eul
+SHARE	'Schär
+TeX	'Tech
+LaTeX	'Latech
+C++	'Zeh plus 'plus
+C#	'Zeh 'Scharp
+F#	'Eff 'Scharp
+.NET	'Dott 'Nett
+Java	'Dschawa
+JavaScript	'Dschawaskript
+TypeScript	'Taipskript
+Python	'Paißen
+GitHub	'Gitt 'Habb
+macOS	'Mäck Oh 'Ess
+iOS	'Ei Oh 'Ess
+iPhone	'Eifohn
+Windows	'Windohs
+Android	'Ändreud
+Google	'Gugel
+Microsoft	'Maikrosoft
+Apple	'Äppel
+Amazon	'Ämmasonn
+Facebook	'Fäisbuk
+YouTube	'Jutjub
+Wikipedia	Wiki'pedia
+AlexNet	'Äleks 'Nett
+ImageNet	'Immitsch 'Nett
+TensorFlow	'Tensor 'Flo
+PyTorch	'Pai 'Tortsch
+McCulloch	Mä'kallok
+McCarthy	Mä'karsi
+McCarthys	Mä'karsis
+McGuinness	Mä'ginnes
+LeCun	Lö'kön
+LeCuns	Lö'köns
+Turing	'Tjuring
+Neumann	'Noimann
+Chomsky	'Tschomski
+Dijkstra	'Deikstra
+Knuth	'Knuhs
+Hinton	'Hinten
+Berners-Lee	'Börners 'Lie
+Bluetooth	'Bluhtuhs
+WWW	'Weh 'Weh 'Weh
+NoSQL	'Noh Ess Kuh 'Ell
+MySQL	'Mai Ess Kuh 'Ell
+PostgreSQL	'Pohstgres
+vCard	'Fau 'Kard
+vCalendar	'Fau 'Kälender
+sameAs	'Säim 'Äs
+birthPlace	'Börs 'Pläis
+GoPubMed	'Goh 'Pab 'Mäd
+NTriples	'Enn 'Tripels
+GB	'Gigabait
+MB	'Megabait
+KB	'Kilobait
+kB	'Kilobait
+TB	'Terabait
+GHz	'Gigahertz
+MHz	'Megahertz
+kHz	'Kilohertz

@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+~$*.docx
+
+# голоса Piper — по 20–80 МБ; скачиваются сценарием tools/get_voices.py
+voices/
+# модель Vosk — для проверки разборчивости (tools/evaluate.py скачивает сам)
+models/
+
+# синтезированные реплики Пафнутия и записи проверки — создаются заново
+data/cache/
+# словарь пользователя и сохранённые настройки — у каждого свои
+data/lexicon.json
+data/settings.json

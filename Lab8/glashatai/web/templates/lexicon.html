@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Словарь произношения — «{{ app_name }}»{% endblock %}
+{% block content %}
+<h1>Словарь произношения</h1>
+<p class="lead">Как читать слова, которые правила немецкого чтения произносят неверно: английские термины, имена,
+  аббревиатуры, названия программ. Запись — немецкими буквами, как слово звучит; апостроф ставится перед ударным
+  слогом: <code>Gitt 'Läbb</code>, <code>Kuber'netis</code>. Слово из словаря пользователя важнее любого правила и
+  действует сразу — на «Чтеце», в статьях и в других программах.</p>
+
+<section class="block">
+  <div class="block-head">
+    <h2>Словарь пользователя</h2>
+    <span class="note" id="lex-count"></span>
+  </div>
+  <form class="lex-add" id="lex-add">
+    <input type="text" id="lex-written" placeholder="Как пишется: GitLab" maxlength="60" lang="de" autocomplete="off">
+    <input type="text" id="lex-reading" placeholder="Как читается: Gitt 'Läbb" maxlength="120" lang="de" autocomplete="off">
+    <button type="button" class="ghost" id="lex-listen" title="Послушать запись">▶</button>
+    <button type="submit">Добавить</button>
+  </form>
+  <p class="lex-error" id="lex-error"></p>
+  <p class="note" id="lex-empty">Пока пусто. Добавьте слово — например, <code>GitLab</code> → <code>Gitt 'Läbb</code>.</p>
+  <table class="grid" id="lex-table" hidden>
+    <thead><tr><th>Как пишется</th><th>Как читается</th><th></th></tr></thead>
+    <tbody id="lex-rows"></tbody>
+  </table>
+</section>
+
+<section class="block">
+  <h2>Проверить</h2>
+  <p class="note">Как система прочтёт фразу: что перепишет словами и каким голосом это прозвучит (голос — с «Чтеца»).</p>
+  <form class="lex-add" id="probe-form">
+    <input type="text" id="probe" lang="de" value="Mit GitLab und Kubernetes läuft die CI/CD-Pipeline 3,5-mal schneller." autocomplete="off">
+    <button type="submit" class="ghost">Разобрать</button>
+    <button type="button" id="probe-listen">▶ Послушать</button>
+  </form>
+  <p class="spoken-view" id="probe-result"></p>
+</section>
+
+<h2>Встроенные словари</h2>
+<p class="note">Их пополняют файлы <code>data/pronunciation/*.tsv</code>. Поиск:
+  <input type="text" id="filter" placeholder="слово или чтение" autocomplete="off"></p>
+
+<div class="two">
+  <section>
+    <h3>Английские термины — {{ english|length }}</h3>
+    <div class="scroll-table"><table class="grid filterable">
+      <thead><tr><th>Термин</th><th>Читается</th><th></th></tr></thead>
+      <tbody>{% for entry in english %}<tr><td lang="en">{{ entry.written }}</td><td lang="de">{{ entry.reading }}</td>
+        <td class="muted small">{% if entry.compound %}и в сложных словах{% endif %}</td></tr>{% endfor %}</tbody>
+    </table></div>
+  </section>
+  <section>
+    <h3>Аббревиатуры и имена — {{ acronyms|length }}</h3>
+    <div class="scroll-table"><table class="grid filterable">
+      <thead><tr><th>Пишется</th><th>Читается</th></tr></thead>
+      <tbody>{% for entry in acronyms %}<tr><td>{{ entry.written }}</td><td lang="de">{{ entry.reading }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+    <p class="note">Остальные аббревиатуры система читает сама: короткие и непроизносимые — по буквам («CPU» —
+      Zeh Peh Uh), длинные произносимые — как слово («DARPA»).</p>
+    <h3>Сокращения — {{ abbreviations|length }}</h3>
+    <div class="scroll-table" style="max-height: 300px"><table class="grid filterable">
+      <thead><tr><th>Пишется</th><th>Полностью</th><th>Когда</th></tr></thead>
+      <tbody>{% for item in abbreviations %}<tr><td>{{ item.written }}</td><td lang="de">{{ item.expansion }}</td>
+        <td class="muted small">{{ {'any': 'всегда', 'number': 'перед числом', 'after': 'после числа', 'end': 'может кончать предложение'}[item.when] }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+  </section>
+</div>
+
+<script type="application/json" id="boot">{{ boot|tojson }}</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static_url('player.js') }}"></script>
+<script src="{{ static_url('docview.js') }}"></script>
+<script src="{{ static_url('lexicon.js') }}"></script>
+{% endblock %}
