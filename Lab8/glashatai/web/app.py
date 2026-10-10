@@ -30,7 +30,7 @@ import logging
 import random
 import threading
 from contextlib import asynccontextmanager
-from queue import Empty, Queue
+from queue import Empty, Full, Queue
 from urllib.parse import quote
 
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
@@ -113,10 +113,20 @@ class DesktopReader:
         document = self.state.speaker.prepare(text, options)
         ready: Queue = Queue(maxsize=2)
 
+        def put(item) -> bool:
+            """В очередь — пока чтение не остановили (иначе поток ждал бы вечно)."""
+            while generation == self._generation:
+                try:
+                    ready.put(item, timeout=0.5)
+                    return True
+                except Full:
+                    continue
+            return False
+
         def produce() -> None:
             for sentence in document.sentences:
                 if generation != self._generation:
-                    break
+                    return
                 try:
                     spoken = self.state.speaker.synthesize(sentence, settings)
                 except EngineError as problem:
@@ -125,11 +135,12 @@ class DesktopReader:
                 samples = dsp.apply_volume(spoken.audio.samples, settings.volume)
                 pause = settings.sentence_pause if not sentence.continued else 0
                 samples = dsp.concatenate([samples, dsp.silence(pause, spoken.audio.rate)])
-                ready.put(dsp.to_wav(samples, spoken.audio.rate))
-            ready.put(None)
+                if not put(dsp.to_wav(samples, spoken.audio.rate)):
+                    return
+            put(None)
 
         threading.Thread(target=produce, daemon=True).start()
-        folder = self.player._folder
+        folder = self.player.folder
         index = 0
         while generation == self._generation:
             try:

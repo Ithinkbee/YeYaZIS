@@ -1,0 +1,702 @@
+{
+ "date": "2026-10-10 23:03",
+ "quick": false,
+ "normalization": {
+  "summary": {
+   "cases": 123,
+   "accuracy": 1.0,
+   "per_raw": 0.14036136105010036,
+   "per_ours": 0.0,
+   "raw_exact": 0.23423423423423423,
+   "ours_exact": 1.0
+  },
+  "categories": {
+   "zahl": {
+    "name": "числа",
+    "cases": 10,
+    "accuracy": 1.0,
+    "per_raw": 0.03220291791959015,
+    "per_ours": 0.0,
+    "raw_exact": 0.5
+   },
+   "jahr": {
+    "name": "годы и десятилетия",
+    "cases": 10,
+    "accuracy": 1.0,
+    "per_raw": 0.1676268644643993,
+    "per_ours": 0.0,
+    "raw_exact": 0.1
+   },
+   "ordinal": {
+    "name": "порядковые",
+    "cases": 10,
+    "accuracy": 1.0,
+    "per_raw": 0.08727721964790931,
+    "per_ours": 0.0,
+    "raw_exact": 0.0
+   },
+   "dezimal": {
+    "name": "дроби и проценты",
+    "cases": 10,
+    "accuracy": 1.0,
+    "per_raw": 0.0457165798641372,
+    "per_ours": 0.0,
+    "raw_exact": 0.6
+   },
+   "einheit": {
+    "name": "единицы",
+    "cases": 13,
+    "accuracy": 1.0,
+    "per_raw": 0.21657241860371795,
+    "per_ours": 0.0,
+    "raw_exact": 0.07692307692307693
+   },
+   "datum": {
+    "name": "даты и время",
+    "cases": 4,
+    "accuracy": 1.0,
+    "per_raw": 0.25527882393494106,
+    "per_ours": 0.0,
+    "raw_exact": 0.0
+   },
+   "bereich": {
+    "name": "диапазоны",
+    "cases": 4,
+    "accuracy": 1.0,
+    "per_raw": 0.17838895068594735,
+    "per_ours": 0.0,
+    "raw_exact": 0.0
+   },
+   "abk": {
+    "name": "сокращения",
+    "cases": 18,
+    "accuracy": 1.0,
+    "per_raw": 0.22422620384194206,
+    "per_ours": 0.0,
+    "raw_exact": 0.0
+   },
+   "akronym": {
+    "name": "аббревиатуры",
+    "cases": 18,
+    "accuracy": 1.0,
+    "per_raw": 0.060604496700158536,
+    "per_ours": 0.0,
+    "raw_exact": 0.5555555555555556
+   },
+   "formel": {
+    "name": "формулы",
+    "cases": 7,
+    "accuracy": 1.0,
+    "per_raw": 0.11633980865073301,
+    "per_ours": 0.0,
+    "raw_exact": 0.14285714285714285
+   },
+   "adresse": {
+    "name": "адреса",
+    "cases": 3,
+    "accuracy": 1.0,
+    "per_raw": 0.4039473684210526,
+    "per_ours": 0.0,
+    "raw_exact": 0.0
+   },
+   "quelle": {
+    "name": "ссылки на источники",
+    "cases": 2,
+    "accuracy": 1.0,
+    "per_raw": 0.274294670846395,
+    "per_ours": 0.0,
+    "raw_exact": 0.0
+   },
+   "zeichen": {
+    "name": "знаки",
+    "cases": 2,
+    "accuracy": 1.0,
+    "per_raw": 0.0,
+    "per_ours": 0.0,
+    "raw_exact": 1.0
+   },
+   "satz": {
+    "name": "границы предложений",
+    "cases": 12,
+    "accuracy": 1.0
+   }
+  },
+  "failures": []
+ },
+ "leftovers": {
+  "tokens": 11808,
+  "changed": 803,
+  "left": 0,
+  "examples": [],
+  "dropped": 1,
+  "dropped_examples": [
+   "|"
+  ]
+ },
+ "g2p": {
+  "words": 1164,
+  "per": 0.10823186595899677,
+  "per_plain": 0.07317350301102148,
+  "exact": 0.5481099656357389,
+  "exact_plain": 0.6958762886597938,
+  "stress": 0.820446735395189,
+  "examples": [
+   {
+    "word": "soziotechnischen",
+    "ours": "zˈoːtsiotəçnɪsçən",
+    "espeak": "zˌoːtsɪʲoːtˈɛçnɪʃən",
+    "distance": 8,
+    "length": 18,
+    "distance_plain": 7,
+    "length_plain": 16,
+    "stress": false
+   },
+   {
+    "word": "Nichtlinearität",
+    "ours": "nɪçtlinearitˈɛːt",
+    "espeak": "nˌɪçtliːnˌeːɑːriːtˈɛːt",
+    "distance": 6,
+    "length": 20,
+    "distance_plain": 2,
+    "length_plain": 15,
+    "stress": true
+   },
+   {
+    "word": "Digitalrechner",
+    "ours": "diɡitˈɑːlrˌɛçnɜ",
+    "espeak": "dˈiːɡiːtˌalrɛçnɜ",
+    "distance": 5,
+    "length": 15,
+    "distance_plain": 2,
+    "length_plain": 13,
+    "stress": false
+   },
+   {
+    "word": "Informationssicherheit",
+    "ours": "ɪnfɔɾmatsjˈɔnszˌɪçɜhaɪt",
+    "espeak": "ˈɪnfɔɾmatsjˌoːnsɪçɜhˌaɪt",
+    "distance": 5,
+    "length": 22,
+    "distance_plain": 4,
+    "length_plain": 21,
+    "stress": false
+   },
+   {
+    "word": "Initialisierung",
+    "ours": "initsializˈiːrʊŋ",
+    "espeak": "ˌiːniːtˌiːaliːzˈiːrʊŋ",
+    "distance": 5,
+    "length": 18,
+    "distance_plain": 1,
+    "length_plain": 13,
+    "stress": true
+   },
+   {
+    "word": "Netzwerksicherheit",
+    "ours": "nˈɛtsvˌɛɾkzˌɪçɜhaɪt",
+    "espeak": "nˈɛtsvɜksˌɪçɜhˌaɪt",
+    "distance": 5,
+    "length": 16,
+    "distance_plain": 5,
+    "length_plain": 16,
+    "stress": true
+   },
+   {
+    "word": "Sicherheitsmanagements",
+    "ours": "zˈɪçɜhaɪtsmˌɑːnaɡemənts",
+    "espeak": "zˌɪçɜhˌaɪtsmanˌɑɡeːmˈɛnts",
+    "distance": 5,
+    "length": 22,
+    "distance_plain": 3,
+    "length_plain": 21,
+    "stress": false
+   },
+   {
+    "word": "Speicherverwaltung",
+    "ours": "ʃpˈaɪçɜfɛɾvˌaltʊŋ",
+    "espeak": "ʃpˈaɪçɛɾfɜvˌaltʊŋ",
+    "distance": 5,
+    "length": 16,
+    "distance_plain": 5,
+    "length_plain": 16,
+    "stress": true
+   },
+   {
+    "word": "gleichmäßig",
+    "ours": "ɡlˈaɪçmɛsɪç",
+    "espeak": "ɡlˈaɪçmɛːsˌɪç",
+    "distance": 5,
+    "length": 13,
+    "distance_plain": 4,
+    "length_plain": 12,
+    "stress": true
+   },
+   {
+    "word": "hauptsächlich",
+    "ours": "hˈaʊptsɛçlɪç",
+    "espeak": "hˈaʊptzɛçlˌɪç",
+    "distance": 5,
+    "length": 13,
+    "distance_plain": 5,
+    "length_plain": 13,
+    "stress": true
+   },
+   {
+    "word": "initialisiert",
+    "ours": "initsializˈiːɾt",
+    "espeak": "ˌiːniːtˌiːaliːzˈiːɾt",
+    "distance": 5,
+    "length": 17,
+    "distance_plain": 1,
+    "length_plain": 12,
+    "stress": true
+   },
+   {
+    "word": "personenbezogener",
+    "ours": "pˈɛɾzonɛnbetsoɡenɜ",
+    "espeak": "pɛɾzˈoːnənbətsˌoːɡənɜ",
+    "distance": 5,
+    "length": 19,
+    "distance_plain": 3,
+    "length_plain": 17,
+    "stress": false
+   },
+   {
+    "word": "Üblicherweise",
+    "ours": "ˈyːblɪçɛɾvaɪzə",
+    "espeak": "ˈʏblɪçɜvˌaɪzə",
+    "distance": 5,
+    "length": 12,
+    "distance_plain": 4,
+    "length_plain": 12,
+    "stress": true
+   },
+   {
+    "word": "Außerdem",
+    "ours": "ˈaʊsɛɾdəm",
+    "espeak": "ˈaʊsɜdˌeːm",
+    "distance": 4,
+    "length": 8,
+    "distance_plain": 3,
+    "length_plain": 7,
+    "stress": true
+   },
+   {
+    "word": "Datensicherung",
+    "ours": "dˈɑːtənsˌɪçerʊŋ",
+    "espeak": "dˈɑːtənzˌɪçərˌʊŋ",
+    "distance": 4,
+    "length": 14,
+    "distance_plain": 4,
+    "length_plain": 13,
+    "stress": true
+   },
+   {
+    "word": "Dublin",
+    "ours": "dˈuːblɪn",
+    "espeak": "dʊblˈiːn",
+    "distance": 4,
+    "length": 7,
+    "distance_plain": 2,
+    "length_plain": 6,
+    "stress": false
+   },
+   {
+    "word": "Hintertür",
+    "ours": "hˈɪntˌɛɾtʏɾ",
+    "espeak": "hˌɪntɜtˈyːɾ",
+    "distance": 4,
+    "length": 9,
+    "distance_plain": 3,
+    "length_plain": 8,
+    "stress": false
+   },
+   {
+    "word": "Informationstechnik",
+    "ours": "ɪnfɔɾmatsjˈɔnstˌɛçnɪk",
+    "espeak": "ˈɪnfɔɾmatsjˌoːnstɛçnˌɪk",
+    "distance": 4,
+    "length": 21,
+    "distance_plain": 3,
+    "length_plain": 20,
+    "stress": false
+   },
+   {
+    "word": "Konvolutionsnetz",
+    "ours": "kɔnvolutsjˈɔnsnˌɛts",
+    "espeak": "kɔnvˈoːluːtsjˌoːnsnɛts",
+    "distance": 4,
+    "length": 20,
+    "distance_plain": 1,
+    "length_plain": 17,
+    "stress": false
+   },
+   {
+    "word": "Möglichkeit",
+    "ours": "mˈœklɪçkaɪt",
+    "espeak": "mˈøːklɪçkˌaɪt",
+    "distance": 4,
+    "length": 12,
+    "distance_plain": 3,
+    "length_plain": 11,
+    "stress": true
+   }
+  ]
+ },
+ "intelligibility": {
+  "piper:de_DE-thorsten-medium": {
+   "wer": 0.18292682926829268,
+   "words": 656,
+   "sentences": 49,
+   "rtf": 0.07452664520847344,
+   "ms": 425.3864612582387,
+   "examples": [
+    {
+     "text": "Da Programmiersprachen meist unterschiedlichen Programmierparadigmen folgen, ist der neu generierte Quelltext oft nur schwer für Entwickler lesbar.",
+     "heard": "da programmiersprachen meist unterschiedlichen programmier paradigmen folgen ist der neu generierte quelltext oft nur schwer für entwickler lesbar",
+     "wer": 0.11764705882352941
+    },
+    {
+     "text": "Dabei werden die Knoten des vom Parser generierten Syntaxbaums mit Attributen versehen, die Informationen enthalten.",
+     "heard": "dabei werden die knoten des von pasa generierten syntax baums mit attributen versehen die informationen enthalten",
+     "wer": 0.26666666666666666
+    },
+    {
+     "text": "Außerdem gibt es in vielen modernen Programmiersprachen umfangreiche Unterprogrammbibliotheken.",
+     "heard": "außerdem gibt es in vielen modernen programmiersprachen umfangreiche unterprogramm die beauty icon",
+     "wer": 0.4444444444444444
+    },
+    {
+     "text": "Ergebnis ist eine Zwischendarstellung des Quellcodes.",
+     "heard": "ergebnis ist eine zwischen darstellung des quellcodes",
+     "wer": 0.3333333333333333
+    }
+   ]
+  },
+  "piper:de_DE-kerstin-low": {
+   "wer": 0.2225609756097561,
+   "words": 656,
+   "sentences": 49,
+   "rtf": 0.06930800385894494,
+   "ms": 435.7408347102452,
+   "examples": [
+    {
+     "text": "Da Programmiersprachen meist unterschiedlichen Programmierparadigmen folgen, ist der neu generierte Quelltext oft nur schwer für Entwickler lesbar.",
+     "heard": "da programmiersprachen meist unterschiedlichen programm mehr paradigmen folgen ist der neu generierte quelltext oft nur schwer für entwickler lesbar",
+     "wer": 0.17647058823529413
+    },
+    {
+     "text": "Dabei werden die Knoten des vom Parser generierten Syntaxbaums mit Attributen versehen, die Informationen enthalten.",
+     "heard": "dabei werden die knoten des vom passah generierten syntax baums mit attributen versehen die informationen enthalten",
+     "wer": 0.2
+    },
+    {
+     "text": "Außerdem gibt es in vielen modernen Programmiersprachen umfangreiche Unterprogrammbibliotheken.",
+     "heard": "außerdem gibt es in vielen modernen programmiersprachen umfangreiche unter programmbibliotheken",
+     "wer": 0.2222222222222222
+    },
+    {
+     "text": "Ergebnis ist eine Zwischendarstellung des Quellcodes.",
+     "heard": "ergebnis ist eine zwischen darstellung des quellcode es",
+     "wer": 0.6666666666666666
+    }
+   ]
+  },
+  "piper:de_DE-eva_k-x_low": {
+   "wer": 0.21646341463414634,
+   "words": 656,
+   "sentences": 49,
+   "rtf": 0.06309579213798852,
+   "ms": 424.1067367054674,
+   "examples": [
+    {
+     "text": "Da Programmiersprachen meist unterschiedlichen Programmierparadigmen folgen, ist der neu generierte Quelltext oft nur schwer für Entwickler lesbar.",
+     "heard": "da programmiersprachen meist unterschiedlichen programmier paradigmen folgen ist der neu generierte quelltext oft nur schwer für entwickler lesbar",
+     "wer": 0.11764705882352941
+    },
+    {
+     "text": "Dabei werden die Knoten des vom Parser generierten Syntaxbaums mit Attributen versehen, die Informationen enthalten.",
+     "heard": "dabei werden die knoten des vom parser generierten syntax baums mit attributen versehen die informationen enthalten",
+     "wer": 0.13333333333333333
+    },
+    {
+     "text": "Außerdem gibt es in vielen modernen Programmiersprachen umfangreiche Unterprogrammbibliotheken.",
+     "heard": "außerdem gibt es in vielen modernen programmiersprachen umfang reihe unterprogramm bibliotheken",
+     "wer": 0.4444444444444444
+    },
+    {
+     "text": "Ergebnis ist eine Zwischendarstellung des Quellcodes.",
+     "heard": "herr geben es ist eine zwischen erstellung des quellcode des",
+     "wer": 1.1666666666666667
+    }
+   ]
+  },
+  "piper:de_DE-thorsten_emotional-medium#neutral": {
+   "wer": 0.20426829268292682,
+   "words": 656,
+   "sentences": 49,
+   "rtf": 0.09617275738303183,
+   "ms": 572.8654531685978,
+   "examples": [
+    {
+     "text": "Da Programmiersprachen meist unterschiedlichen Programmierparadigmen folgen, ist der neu generierte Quelltext oft nur schwer für Entwickler lesbar.",
+     "heard": "da programmiersprachen meist unterschiedlichen programmiert paradigmen folgen ist der neu generierte quelltext oft nur schwer für entwickler lesbar",
+     "wer": 0.11764705882352941
+    },
+    {
+     "text": "Dabei werden die Knoten des vom Parser generierten Syntaxbaums mit Attributen versehen, die Informationen enthalten.",
+     "heard": "dabei werden die knoten des vom paar ver generierten syntax baums mit attributen versehen die informationen enthalten",
+     "wer": 0.26666666666666666
+    },
+    {
+     "text": "Außerdem gibt es in vielen modernen Programmiersprachen umfangreiche Unterprogrammbibliotheken.",
+     "heard": "außerdem gibt es in vielen modernen programmiersprachen umfangreiche unter programmbibliotheken",
+     "wer": 0.2222222222222222
+    },
+    {
+     "text": "Ergebnis ist eine Zwischendarstellung des Quellcodes.",
+     "heard": "ergebnis ist eine zwischen darstellung des quellcode ist",
+     "wer": 0.6666666666666666
+    }
+   ]
+  },
+  "formant:karl": {
+   "wer": 0.7820121951219512,
+   "words": 656,
+   "sentences": 49,
+   "rtf": 0.090669716261877,
+   "ms": 643.9291162948523,
+   "examples": [
+    {
+     "text": "Da Programmiersprachen meist unterschiedlichen Programmierparadigmen folgen, ist der neu generierte Quelltext oft nur schwer für Entwickler lesbar.",
+     "heard": "oder die straße beißt unterschiedlich und oder paradigmen von wenn es neue in der quelltext oft entwickler messbar",
+     "wer": 1.0
+    },
+    {
+     "text": "Dabei werden die Knoten des vom Parser generierten Syntaxbaums mit Attributen versehen, die Informationen enthalten.",
+     "heard": "aber the rest vom patzer der syntax uns mit attributen versehen informationen enthalten",
+     "wer": 0.6666666666666666
+    },
+    {
+     "text": "Außerdem gibt es in vielen modernen Programmiersprachen umfangreiche Unterprogrammbibliotheken.",
+     "heard": "aus m e s t u v a die straßen umfangreicher und about am bibliotheken",
+     "wer": 1.6666666666666667
+    },
+    {
+     "text": "Ergebnis ist eine Zwischendarstellung des Quellcodes.",
+     "heard": "ergebnis ist eine zwischen west und co des",
+     "wer": 0.8333333333333334
+    }
+   ]
+  },
+  "formant:klara": {
+   "wer": 0.7789634146341463,
+   "words": 656,
+   "sentences": 49,
+   "rtf": 0.08972074365756455,
+   "ms": 622.6841327069061,
+   "examples": [
+    {
+     "text": "Da Programmiersprachen meist unterschiedlichen Programmierparadigmen folgen, ist der neu generierte Quelltext oft nur schwer für Entwickler lesbar.",
+     "heard": "tipp wie straße beißt unterschiedlichen oder wie paradigmen wenn ist bei baby quelltext oft kleeblatt lässt",
+     "wer": 0.9411764705882353
+    },
+    {
+     "text": "Dabei werden die Knoten des vom Parser generierten Syntaxbaums mit Attributen versehen, die Informationen enthalten.",
+     "heard": "dabei bodensees vom pappsatt a d e n syntax baums spät attributen versehen informationen enthalten",
+     "wer": 0.7333333333333333
+    },
+    {
+     "text": "Außerdem gibt es in vielen modernen Programmiersprachen umfangreiche Unterprogrammbibliotheken.",
+     "heard": "außerdem gibt es den zielen oder programm die straße umfangreicher und hat oder bibliothek",
+     "wer": 1.2222222222222223
+    },
+    {
+     "text": "Ergebnis ist eine Zwischendarstellung des Quellcodes.",
+     "heard": "ergebnis ist eine zwischen satzteil und es quellcode ist",
+     "wer": 1.0
+    }
+   ]
+  },
+  "formant:pafnuty": {
+   "wer": 0.739329268292683,
+   "words": 656,
+   "sentences": 49,
+   "rtf": 0.0928145669066745,
+   "ms": 610.7618571164048,
+   "examples": [
+    {
+     "text": "Da Programmiersprachen meist unterschiedlichen Programmierparadigmen folgen, ist der neu generierte Quelltext oft nur schwer für Entwickler lesbar.",
+     "heard": "aber oder beach sind unterschiedlichen rabbi paradigmen voll wenn es neue energie quelltext oft stets entwickler lesbar",
+     "wer": 0.8235294117647058
+    },
+    {
+     "text": "Dabei werden die Knoten des vom Parser generierten Syntaxbaums mit Attributen versehen, die Informationen enthalten.",
+     "heard": "dabei sind die indes vom absage der wie syntax baums bett attributen versehen informationen enthalten",
+     "wer": 0.6666666666666666
+    },
+    {
+     "text": "Außerdem gibt es in vielen modernen Programmiersprachen umfangreiche Unterprogrammbibliotheken.",
+     "heard": "außerdem gibt es den zielen mordenden programmiert straße umfangreicher und programmbibliotheken",
+     "wer": 0.8888888888888888
+    },
+    {
+     "text": "Ergebnis ist eine Zwischendarstellung des Quellcodes.",
+     "heard": "ergebnis ist eine zwischen satzteil und west quellcode ist",
+     "wer": 1.0
+    }
+   ]
+  }
+ },
+ "sentences": 49,
+ "tempo": {
+  "piper:de_DE-thorsten-medium": {
+   "0.75": 0.18181818181818182,
+   "1.0": 0.19393939393939394,
+   "1.5": 0.3484848484848485,
+   "2.0": 0.7181818181818181
+  },
+  "piper:de_DE-kerstin-low": {
+   "0.75": 0.2606060606060606,
+   "1.0": 0.23333333333333334,
+   "1.5": 0.23636363636363636,
+   "2.0": 0.41818181818181815
+  },
+  "formant:karl": {
+   "0.75": 0.8757575757575757,
+   "1.0": 0.7696969696969697,
+   "1.5": 0.7151515151515152,
+   "2.0": 0.8242424242424242
+  }
+ },
+ "by_ear": {
+  "voice": "piper:de_DE-thorsten-medium",
+  "categories": {
+   "zahl": {
+    "name": "числа",
+    "raw": 0.22580645161290322,
+    "ours": 0.14516129032258066
+   },
+   "jahr": {
+    "name": "годы и десятилетия",
+    "raw": 0.515625,
+    "ours": 0.3125
+   },
+   "ordinal": {
+    "name": "порядковые",
+    "raw": 0.25,
+    "ours": 0.09375
+   },
+   "dezimal": {
+    "name": "дроби и проценты",
+    "raw": 0.14492753623188406,
+    "ours": 0.14492753623188406
+   },
+   "einheit": {
+    "name": "единицы",
+    "raw": 0.4266666666666667,
+    "ours": 0.16
+   },
+   "datum": {
+    "name": "даты и время",
+    "raw": 0.6428571428571429,
+    "ours": 0.21428571428571427
+   },
+   "bereich": {
+    "name": "диапазоны",
+    "raw": 0.4782608695652174,
+    "ours": 0.2608695652173913
+   },
+   "abk": {
+    "name": "сокращения",
+    "raw": 0.35964912280701755,
+    "ours": 0.06140350877192982
+   }
+  },
+  "raw": 0.35070140280561124,
+  "ours": 0.1523046092184369
+ },
+ "settings": {
+  "voices": {
+   "piper:de_DE-thorsten-medium": {
+    "tempo": {
+     "0.5": 0.48949878062097335,
+     "0.75": 0.7500069713616464,
+     "1.25": 1.2379637300929762,
+     "1.5": 1.5139029607114713,
+     "2.0": 2.012269938650307
+    },
+    "pitch": {
+     "-6": -6.052372238559599,
+     "-3": -3.172495135924899,
+     "3": 2.514040434604589,
+     "6": 5.209827311666195
+    },
+    "f0": 120.30891631475008
+   },
+   "formant:karl": {
+    "tempo": {
+     "0.5": 0.5035814343066748,
+     "0.75": 0.7547672128308911,
+     "1.25": 1.2455707958279754,
+     "1.5": 1.4778665423491768,
+     "2.0": 1.9568462401795734
+    },
+    "pitch": {
+     "-6": -5.940244435996939,
+     "-3": -3.0622684564070455,
+     "3": 2.9501234801512313,
+     "6": 5.876521591016205
+    },
+    "f0": 119.28339025077628
+   }
+  },
+  "volume": {
+   "25": -11.992567034531849,
+   "50": -6.020599913279625,
+   "75": -2.4987747317351605
+  }
+ },
+ "effects": {
+  "none": {
+   "wer": 0.20967741935483872,
+   "shift": 0.0,
+   "name": "без эффекта"
+  },
+  "squeak": {
+   "wer": 0.26881720430107525,
+   "shift": 6.887927103338339,
+   "name": "писк"
+  },
+  "bass": {
+   "wer": 0.7419354838709677,
+   "shift": -4.753897648473324,
+   "name": "бас"
+  },
+  "robot": {
+   "wer": 0.24731182795698925,
+   "shift": -0.158214156568244,
+   "name": "робот"
+  },
+  "whisper": {
+   "wer": 0.3602150537634409,
+   "shift": null,
+   "name": "шёпот"
+  },
+  "echo": {
+   "wer": 0.6344086021505376,
+   "shift": 2.986212478018146,
+   "name": "эхо"
+  }
+ },
+ "voices": {
+  "piper:de_DE-thorsten-medium": "Thorsten (Piper)",
+  "piper:de_DE-kerstin-low": "Kerstin (Piper)",
+  "piper:de_DE-eva_k-x_low": "Eva K (Piper)",
+  "piper:de_DE-thorsten_emotional-medium#neutral": "Thorsten (эмоции) — спокойно (Piper)",
+  "formant:karl": "Карл (свой)",
+  "formant:klara": "Клара (свой)",
+  "formant:pafnuty": "Пафнутий (свой)"
+ },
+ "seconds": 1424
+}

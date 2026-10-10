@@ -197,7 +197,7 @@ class LocalPlayer:
     """Звук прямо из колонок: winsound проигрывает WAV-файл асинхронно."""
 
     def __init__(self) -> None:
-        self._folder = Path(tempfile.mkdtemp(prefix="glashatai-play-"))
+        self.folder = Path(tempfile.mkdtemp(prefix="glashatai-play-"))
         self._counter = 0
 
     def play(self, wav: bytes) -> None:
@@ -206,7 +206,7 @@ class LocalPlayer:
         import winsound
 
         self._counter += 1
-        path = self._folder / f"say-{self._counter % 4}.wav"
+        path = self.folder / f"say-{self._counter % 4}.wav"
         winsound.PlaySound(None, 0)
         path.write_bytes(wav)
         winsound.PlaySound(str(path), winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_NODEFAULT)

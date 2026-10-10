@@ -377,6 +377,8 @@
       }
     };
 
+    var finishCurrent = null;   /* выполнить обещание прерванной реплики */
+
     function stopTalking() {
       talkToken++;
       if (current) {
@@ -384,6 +386,12 @@
         current = null;
       }
       speaking = false;
+      if (finishCurrent) {
+        /* прерванная реплика тоже «договорена»: кто ждал её конца, не должен ждать вечно */
+        var done = finishCurrent;
+        finishCurrent = null;
+        done();
+      }
     }
 
     /** Проиграть WAV голосом Пафнутия; обещание выполняется, когда он договорил. */
@@ -398,10 +406,11 @@
           source.buffer = decoded;
           source.connect(output);
           source.onended = function () {
-            if (mine === talkToken) { speaking = false; current = null; }
+            if (mine === talkToken) { speaking = false; current = null; finishCurrent = null; }
             resolve();
           };
           current = source;
+          finishCurrent = resolve;
           speaking = true;
           source.start();
         }, function () { resolve(); });
@@ -787,7 +796,9 @@
       model.angry(true);
       express('angry', 2500);
       reward('angry');
-      talk('angry').then(function () {
+      talk('angry');
+      /* уходит, не дожидаясь конца фразы: её может перебить реплика на прежний тычок */
+      setTimeout(function () {
         motion.hidden = true;
         setTimeout(function () {
           motion.hidden = false;
@@ -795,7 +806,7 @@
           leaving = false;
           setTimeout(function () { talk('back'); }, 900);
         }, 5200);
-      });
+      }, 1500);
     }
 
     /* --- кнопки -------------------------------------------------------------------------------- */

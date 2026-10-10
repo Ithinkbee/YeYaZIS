@@ -25,6 +25,7 @@
 from __future__ import annotations
 
 import re
+import threading
 from dataclasses import asdict, dataclass, field, fields
 
 from glashatai.text import acronyms, numbers
@@ -227,6 +228,9 @@ class Normalizer:
         self._users: dict[str, Entry] = {}
         self._specials = {e.written: e for e in lexicon.acronyms if re.search(rf"[^{_W}0-9]", e.written)}
         self._abbr = {re.sub(r"\s", "", a.written): a for a in lexicon.abbreviations}
+        #: открытые скобки записи функции «O(…)» — свои у каждого потока: сервер разбирает
+        #: несколько предложений одновременно
+        self._local = threading.local()
 
     # --- регулярное выражение ---------------------------------------------------------
 
@@ -298,7 +302,7 @@ class Normalizer:
         end = len(text) if end is None else end
         pattern = self._ensure(options.lexicon)
         result: list[Token] = []
-        self._calls = 0
+        self._local.calls = 0
         for match in pattern.finditer(text, start, end):
             result.extend(self._token(match, text, options, result))
         self._context(result, options)
@@ -453,10 +457,10 @@ class Normalizer:
             previous = before[-1] if before else None
             if value == "(" and previous is not None and previous.kind in {"letter", "word", "acronym"} and                     previous.end == match.start() and len(previous.text) <= 3:
                 # запись функции: «O(n log n)» — „O von n log n“
-                self._calls = getattr(self, "_calls", 0) + 1
+                self._local.calls = getattr(self._local, "calls", 0) + 1
                 return [self._make(match, " von ", "formula")]
-            if value == ")" and getattr(self, "_calls", 0) > 0:
-                self._calls -= 1
+            if value == ")" and getattr(self._local, "calls", 0) > 0:
+                self._local.calls -= 1
                 return [self._make(match, " ", "formula")]
 
         if kind in {"paren", "dash"}:

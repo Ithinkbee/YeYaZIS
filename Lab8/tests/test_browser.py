@@ -187,6 +187,9 @@ def test_talking_pokes_and_actions(page):
         p.evaluate("Glashatai.talking.poke('belly')")
     assert p.wait_for("Glashatai.talking.motion.hidden", 8)                      # обиделся и ушёл
     p.evaluate("Glashatai.talking.actions.light()")
+    assert not p.evaluate("Glashatai.talking.state().asleep")                   # пока его нет — не уложить
+    assert p.wait_for("!Glashatai.talking.motion.hidden", 12)                    # вернулся
+    p.evaluate("Glashatai.talking.actions.light()")
     assert p.evaluate("Glashatai.talking.state().asleep") and p.evaluate("document.getElementById('room').classList.contains('is-dark')")
     p.evaluate("Glashatai.talking.actions.light()")
     xp = p.evaluate("Glashatai.talking.state().xp")

@@ -3,6 +3,7 @@
     python tools/evaluate.py              полная проверка (≈ 10 минут)
     python tools/evaluate.py --quick      по 3 предложения из статьи, без темпов (≈ 2 минуты)
     python tools/evaluate.py --no-plots   без графиков
+    python tools/evaluate.py --plots-only только перерисовать графики из report/evaluation.json
 
 Нужны голоса Piper и модель Vosk: python tools/get_voices.py --vosk.
 Результаты — report/evaluation.json, таблица report/evaluation.csv и графики
@@ -85,7 +86,7 @@ def plot_intelligibility(data: dict, speaker: Speaker, path: Path) -> None:
 def plot_tempo(data: dict, speaker: Speaker, path: Path) -> None:
     import matplotlib.pyplot as plt
 
-    fig, ax = plt.subplots(figsize=(7.2, 4.0), dpi=150)
+    fig, ax = plt.subplots(figsize=(7.2, 4.4), dpi=150)
     palette = ["#2a78d6", "#86b6ef", "#9b2f2f", "#d98a8a", "#3f7a44"]
     for index, (voice, rows) in enumerate(data["tempo"].items()):
         rates = sorted(rows, key=float)
@@ -101,7 +102,8 @@ def plot_tempo(data: dict, speaker: Speaker, path: Path) -> None:
     ax.set_ylim(0, 1.05)
     ax.set_title("Разборчивость при разном темпе (WER, меньше — лучше)", fontsize=10.5, loc="left", color=INK, pad=10)
     ax.set_xlabel("темп", fontsize=9, color=MUTED)
-    ax.legend(frameon=False, fontsize=8.5, labelcolor=SECONDARY, loc="upper left")
+    ax.legend(frameon=False, fontsize=8.5, labelcolor=SECONDARY, loc="upper center", bbox_to_anchor=(0.5, -0.16),
+              ncol=3)
     _style(ax)
     fig.tight_layout()
     fig.savefig(path, facecolor="white")
@@ -114,7 +116,7 @@ def plot_normalization(data: dict, path: Path) -> None:
     categories = [(k, v) for k, v in data["normalization"]["categories"].items() if "raw_exact" in v]
     ear = data.get("by_ear", {}).get("categories", {})
     panels = 2 if ear else 1
-    fig, axes = plt.subplots(1, panels, figsize=(6.2 * panels, 4.4), dpi=150)
+    fig, axes = plt.subplots(1, panels, figsize=(6.2 * panels, 4.8), dpi=150)
     axes = axes if panels > 1 else [axes]
     ax = axes[0]
     names = [v["name"] for _, v in categories]
@@ -128,7 +130,8 @@ def plot_normalization(data: dict, path: Path) -> None:
     ax.xaxis.set_major_formatter(lambda v, _: percent(v))
     ax.set_xlim(0, 1.05)
     ax.set_title("Трудные места, прочитанные верно", fontsize=10.5, loc="left", color=INK, pad=10)
-    ax.legend(frameon=False, fontsize=8.5, labelcolor=SECONDARY, loc="lower right")
+    ax.legend(frameon=False, fontsize=8.5, labelcolor=SECONDARY, loc="upper center", bbox_to_anchor=(0.45, -0.07),
+              ncol=2)
     _style(ax, "x")
     if ear:
         ax = axes[1]
@@ -140,7 +143,8 @@ def plot_normalization(data: dict, path: Path) -> None:
         ax.invert_yaxis()
         ax.xaxis.set_major_formatter(lambda v, _: percent(v))
         ax.set_title("Thorsten (Piper) на слух: WER распознавания", fontsize=10.5, loc="left", color=INK, pad=10)
-        ax.legend(frameon=False, fontsize=8.5, labelcolor=SECONDARY, loc="lower right")
+        ax.legend(frameon=False, fontsize=8.5, labelcolor=SECONDARY, loc="upper center", bbox_to_anchor=(0.45, -0.07),
+                  ncol=2)
         _style(ax, "x")
     fig.tight_layout(w_pad=2.5)
     fig.savefig(path, facecolor="white")
@@ -219,13 +223,29 @@ def write_csv(data: dict, speaker: Speaker, path: Path) -> None:
                 writer.writerow(["произношение", key, round(data["g2p"][key], 4)])
 
 
+def plots(data: dict, speaker: Speaker) -> None:
+    plot_intelligibility(data, speaker, config.REPORT_DIR / "eval_intelligibility.png")
+    plot_normalization(data, config.REPORT_DIR / "eval_normalization.png")
+    plot_settings(data, speaker, config.REPORT_DIR / "eval_settings.png")
+    if data.get("tempo"):
+        plot_tempo(data, speaker, config.REPORT_DIR / "eval_tempo.png")
+    if data.get("effects"):
+        plot_effects(data, config.REPORT_DIR / "eval_effects.png")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Проверка «Глашатая»")
     parser.add_argument("--quick", action="store_true")
     parser.add_argument("--no-plots", action="store_true")
+    parser.add_argument("--plots-only", action="store_true")
     arguments = parser.parse_args()
 
     speaker = Speaker()
+    if arguments.plots_only:
+        data = json.loads((config.REPORT_DIR / "evaluation.json").read_text(encoding="utf-8"))
+        plots(data, speaker)
+        print("Графики перерисованы: report/eval_*.png")
+        return
     reader = speaker.reader
     collection = Collection()
     recognizer = Recognizer()
@@ -298,13 +318,7 @@ def main() -> None:
     (config.REPORT_DIR / "evaluation.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     write_csv(data, speaker, config.REPORT_DIR / "evaluation.csv")
     if not arguments.no_plots:
-        plot_intelligibility(data, speaker, config.REPORT_DIR / "eval_intelligibility.png")
-        plot_normalization(data, config.REPORT_DIR / "eval_normalization.png")
-        plot_settings(data, speaker, config.REPORT_DIR / "eval_settings.png")
-        if data.get("tempo"):
-            plot_tempo(data, speaker, config.REPORT_DIR / "eval_tempo.png")
-        if data.get("effects"):
-            plot_effects(data, config.REPORT_DIR / "eval_effects.png")
+        plots(data, speaker)
     print(f"Готово за {data['seconds']} с: report/evaluation.json, report/evaluation.csv, report/eval_*.png")
     speaker.sapi.close()
 

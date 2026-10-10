@@ -393,7 +393,8 @@ def effects(speaker, recognizer, voice: str, sentences: list[Sentence]) -> dict:
             errors += e
             total += n
             before, after = dsp.estimate_f0(samples, 16000), dsp.estimate_f0(processed, 16000)
-            if before and after:
+            # у шёпота основного тона нет — сдвиг не измеряется
+            if before and after and effect != "whisper":
                 shifts.append(12 * np.log2(after / before))
         result[effect] = {"wer": errors / max(1, total), "shift": float(np.median(shifts)) if shifts else None,
                           "name": voicefx.EFFECTS.get(effect, "без эффекта")}

@@ -14,13 +14,16 @@ Piper — открытый синтезатор речи проекта Rhasspy:
 «Клут», как прочёл бы eSpeak сам.
 
 Темп и «живость» Piper меняет сам (length_scale, noise_scale, noise_w);
-высоту — нет, её меняет dsp.py.
+высоту — нет, её меняет dsp.py. Темп Piper нелинеен и упирается примерно в
+×1,4 — поэтому длина берётся по таблице калибровки, а остаток досчитывает
+растяжение WSOLA.
 """
 
 from __future__ import annotations
 
 import ctypes
 import json
+import math
 import logging
 import re
 import shutil
@@ -31,7 +34,7 @@ from pathlib import Path
 
 import numpy as np
 
-from glashatai import config
+from glashatai import config, dsp
 from glashatai.engines import Audio, EngineError, Settings, Voice
 from glashatai.phonetics.g2p import to_espeak, transcribe
 from glashatai.text.normalize import Sentence, tidy
@@ -40,6 +43,29 @@ log = logging.getLogger("glashatai.piper")
 
 #: токены, которые уходят Piper фонемами
 PHONETIC_KINDS = {"english", "user", "acronym"}
+
+#: темп Piper нелинеен: length_scale 0,5 ускоряет речь не вдвое, а в 1,5 раза, и быстрее
+#: ×1,4 модель почти не говорит. Измерено на голосе Thorsten (средняя длительность
+#: трёх предложений без пауз по краям): (length_scale, во сколько раз быстрее)
+SPEED_TABLE = [(0.6, 1.40), (0.8, 1.146), (1.0, 1.0), (1.25, 0.877), (1.6, 0.702), (2.0, 0.605), (2.6, 0.462)]
+
+
+def length_scale(rate: float) -> tuple[float, float]:
+    """Темп -> (length_scale для Piper, что досчитать растяжением WSOLA).
+
+    В пределах таблицы — интерполяция по ней; быстрее ×1,4 и медленнее ×0,46
+    Piper говорит на краю таблицы, а остаток темпа делает dsp.stretch.
+    """
+    fastest, slowest = SPEED_TABLE[0], SPEED_TABLE[-1]
+    if rate >= fastest[1]:
+        return fastest[0], rate / fastest[1]
+    if rate <= slowest[1]:
+        return slowest[0], rate / slowest[1]
+    for (scale_a, speed_a), (scale_b, speed_b) in zip(SPEED_TABLE, SPEED_TABLE[1:]):
+        if speed_b <= rate <= speed_a:
+            share = (math.log(rate) - math.log(speed_a)) / (math.log(speed_b) - math.log(speed_a))
+            return math.exp(math.log(scale_a) + share * (math.log(scale_b) - math.log(scale_a))), 1.0
+    return 1.0, 1.0
 
 
 def installed() -> bool:
@@ -200,9 +226,10 @@ class PiperEngine:
             if speaker_id is None:
                 raise EngineError(f"у голоса {name} нет манеры «{speaker}»")
         liveliness = settings.liveliness
+        scale, residual = length_scale(settings.rate)
         synthesis = SynthesisConfig(
             speaker_id=speaker_id,
-            length_scale=1.0 / max(0.3, settings.rate),
+            length_scale=scale,
             noise_scale=0.2 + 0.95 * liveliness,          # 0,5 -> 0,675: как по умолчанию у Piper
             noise_w_scale=0.3 + 1.0 * liveliness,         # 0,5 -> 0,8
             normalize_audio=True,
@@ -225,6 +252,8 @@ class PiperEngine:
             except Exception as problem:                # noqa: BLE001
                 raise EngineError(f"Piper не произнёс текст: {problem}") from problem
         samples = np.concatenate(parts) if parts else np.zeros(0, dtype=np.float32)
+        if abs(residual - 1.0) > 0.01:
+            samples = dsp.stretch(samples, voice.config.sample_rate, residual)
         return Audio(samples, voice.config.sample_rate)
 
     def phonemes(self, text: str, name: str | None = None) -> str:
