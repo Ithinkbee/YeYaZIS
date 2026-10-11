@@ -1,6 +1,6 @@
 """Проверка системы синтеза: нормализация, произношение, разборчивость, настройки, скорость.
 
-    python tools/evaluate.py              полная проверка (≈ 10 минут)
+    python tools/evaluate.py              полная проверка (≈ 25 минут)
     python tools/evaluate.py --quick      по 3 предложения из статьи, без темпов (≈ 2 минуты)
     python tools/evaluate.py --no-plots   без графиков
     python tools/evaluate.py --plots-only только перерисовать графики из report/evaluation.json

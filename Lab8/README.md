@@ -718,13 +718,16 @@ Lab8/
 │   └── lexicon.json, settings.json       создаются при работе
 ├── voices/                       голоса Piper (не в репозитории)
 ├── models/                       модель Vosk для проверки (не в репозитории)
-├── report/                       результаты проверки, графики, снимки экрана
+├── report/                       результаты проверки, графики, схемы, снимки экрана
 ├── tools/
 │   ├── get_voices.py             загрузка голосов и модели Vosk
 │   ├── evaluate.py               проверка и графики
 │   ├── browser.py                браузер без окна (DevTools)
-│   └── screenshots.py            снимки экрана
-└── tests/                        457 проверок pytest, из них 9 — в браузере
+│   ├── screenshots.py            снимки экрана
+│   ├── make_diagrams.py          схемы
+│   └── make_report.py            отчёт ОтчётЕЯзИИС87.docx
+├── tests/                        457 проверок pytest, из них 9 — в браузере
+└── ОтчётЕЯзИИС87.docx            отчёт по работе
 ```
 
 ### Структуры данных
@@ -751,6 +754,8 @@ python tools/get_voices.py --vosk     # голоса Piper и модель Vosk
 python tools/evaluate.py              # проверка (≈ 25 минут) и графики
 python tools/evaluate.py --quick      # по 3 предложения из статьи, без темпов
 python tools/screenshots.py           # снимки экрана (система должна работать)
+python tools/make_diagrams.py         # схемы: структура и блок-схемы алгоритмов
+python tools/make_report.py           # отчёт в DOCX (с прогоном тестов; --no-tests — без)
 python -m pytest tests -q             # тесты
 ```
 
@@ -796,6 +801,7 @@ WAV, тон, WSOLA, сдвиг тона, громкость, LPC, эффекты
 | Microsoft Speech API (System.Speech через PowerShell) | голоса Windows |
 | Web Speech API, Web Audio API (AudioWorklet), CSS Custom Highlight API | голос браузера, воспроизведение, микрофон, подсветка слова |
 | **Vosk** (Kaldi, `vosk-model-small-de-0.15`), **matplotlib**, **pytest**, **httpx**, **websockets** | проверка, графики, тесты |
+| **python-docx** | отчёт в DOCX |
 
 Нейросеть синтеза и eSpeak NG — готовые; всё остальное написано с нуля:
 деление на предложения, нормализация, словари, правила произношения,
