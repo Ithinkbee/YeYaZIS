@@ -1,0 +1,176 @@
+/* «Поклон»: оформление страницы ролика.
+ *
+ * Сцена держит пропорции 16 : 9 и вписывается в окно; по краям — чёрные поля,
+ * как в кино. Размер шрифта сцены — сотая часть её ширины (его выставляет
+ * show.js), поэтому все надписи заданы в em и растут вместе со сценой.
+ *
+ * Страница благодарности — в цветах лабораторных: кремовый фон, бордовый
+ * знак с золотой чертой, белые карточки.
+ */
+
+:root {
+  --bg: #f7f4ef;
+  --panel: #ffffff;
+  --ink: #241d1a;
+  --muted: #776c64;
+  --line: #e2d9cf;
+  --accent: #9b2f2f;
+  --accent-dark: #772222;
+  --accent-soft: #f6e7e3;
+  --gold: #b88a22;
+  --lamp: #ffb347;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; background: #000; overflow: hidden; }
+body { font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; color: #f3ecdd; }
+body.idle, body.idle * { cursor: none !important; }
+
+#frame { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#stage {
+  position: relative; overflow: hidden; background: #0b0a12;
+  width: min(100vw, calc(100vh * 16 / 9)); aspect-ratio: 16 / 9; font-size: 16px;
+}
+#scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.layer { position: absolute; inset: 0; }
+[hidden] { display: none !important; }
+
+/* --- вызов лифта ----------------------------------------------------------- */
+
+#call {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  background: radial-gradient(ellipse at 50% 46%, rgba(12, 10, 22, .68), rgba(6, 5, 12, .92));
+  transition: opacity 1.1s ease;
+}
+#call.gone { opacity: 0; pointer-events: none; }
+.call-box { max-width: 62em; }
+.call-course { margin: 0 0 1.4em; font-size: 1.05em; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+#call h1 {
+  margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 7.4em; font-weight: 700; line-height: 1;
+  color: #f7efdc; text-shadow: 0 0 .6em rgba(255, 190, 110, .28);
+}
+.call-sub { margin: .7em 0 2em; font-size: 1.6em; color: #cfc4b0; }
+
+#call-button {
+  width: 8.6em; height: 8.6em; padding: 0; border-radius: 50%; border: none; cursor: pointer; font-size: 1em;
+  background: radial-gradient(circle at 34% 28%, #f1d58c, #b88a22 46%, #6b4d10 100%);
+  box-shadow: 0 .5em 1.6em rgba(0, 0, 0, .6), inset 0 -.3em .6em rgba(0, 0, 0, .35);
+  transition: transform .15s ease, filter .3s ease;
+}
+#call-button span {
+  display: flex; align-items: center; justify-content: center; width: 77%; height: 77%; margin: 11.5%;
+  border-radius: 50%; background: radial-gradient(circle at 50% 38%, #3a3040, #14111c);
+  color: var(--lamp); font-size: 3.2em; padding-bottom: .12em;
+  text-shadow: 0 0 .35em rgba(255, 179, 71, .9);
+  box-shadow: inset 0 .08em .3em rgba(0, 0, 0, .8);
+}
+#call-button:not(:disabled) span { animation: call-glow 1.8s ease-in-out infinite; }
+#call-button:not(:disabled):hover { transform: scale(1.05); }
+#call-button:not(:disabled):active { transform: scale(.96); }
+#call-button:disabled { cursor: progress; filter: saturate(.35) brightness(.6); }
+#call-button:focus-visible { outline: .2em solid #fff; outline-offset: .3em; }
+@keyframes call-glow {
+  0%, 100% { text-shadow: 0 0 .3em rgba(255, 179, 71, .7); }
+  50% { text-shadow: 0 0 .7em rgba(255, 200, 110, 1), 0 0 1.4em rgba(255, 160, 60, .6); }
+}
+
+.call-status { margin: 2em auto 0; min-height: 2.9em; max-width: 46em; font-size: 1.1em; line-height: 1.45; color: #cfc4b0; }
+.call-status b { color: #f3ecdd; font-weight: 600; }
+.call-status.bad { color: #ffb1a3; }
+.call-keys { margin: 1.2em 0 0; font-size: .92em; color: #8f8674; }
+kbd {
+  display: inline-block; padding: .05em .5em; border: 1px solid #5a5244; border-bottom-width: 2px; border-radius: .35em;
+  font: inherit; color: #cfc4b0; background: rgba(255, 255, 255, .05);
+}
+
+/* --- пауза, приём записи ---------------------------------------------------- */
+
+#pause, #drop { display: flex; align-items: center; justify-content: center; pointer-events: none; }
+#pause span {
+  padding: .4em 1.2em; border-radius: 99em; background: rgba(8, 6, 16, .72); font-size: 1.4em; letter-spacing: .3em;
+  text-transform: uppercase; color: #f3ecdd;
+}
+#drop { background: rgba(8, 6, 16, .8); outline: .35em dashed var(--gold); outline-offset: -1.6em; }
+#drop span { font-size: 2em; color: #f7efdc; }
+
+/* --- страница благодарности --------------------------------------------------- */
+
+#thanks { color: var(--ink); pointer-events: none; }
+#thanks [data-at] { opacity: 0; transform: translateY(.9em); transition: opacity .9s ease, transform .9s ease; }
+#thanks [data-at].on { opacity: 1; transform: none; }
+body.still #thanks [data-at] { transition: none; }
+
+.card {
+  position: absolute; left: 6%; top: 8%; width: 57%;
+  padding: 1.9em 2.8em 2em; background: var(--panel); border: 1px solid var(--line); border-radius: .75em;
+  box-shadow: 0 1.2em 3.2em rgba(70, 45, 30, .14);
+}
+.card-head { display: flex; align-items: center; gap: .9em; padding-bottom: 1.1em; border-bottom: 1px solid var(--line); }
+.brand-mark {
+  display: flex; align-items: center; justify-content: center; width: 2.1em; height: 2.1em; flex: none;
+  font-size: 1.5em; font-weight: 700; color: #fff; border-radius: .34em;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark)); box-shadow: inset 0 -.14em 0 var(--gold);
+}
+.card-head b { display: block; font-size: 1.35em; }
+.card-head small { display: block; font-size: .98em; color: var(--muted); }
+.card h2 {
+  margin: .42em 0 .1em; font-family: Georgia, "Times New Roman", serif; font-size: 5.4em; line-height: 1.05;
+  color: var(--accent);
+}
+.card-to { margin: 0 0 .5em; font-size: 2em; font-weight: 600; }
+.card-to:empty { display: none; }
+#thanks-lines p { margin: .55em 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.62em; line-height: 1.42; }
+.card-sign { margin: 1.3em 0 0; font-size: 1.2em; color: var(--muted); text-align: right; }
+.card-sign b { color: var(--ink); font-weight: 600; }
+
+.credits { position: absolute; left: 66.5%; top: 47%; width: 29.5%; font-size: .98em; color: var(--muted); }
+.credits h3 {
+  margin: 1.1em 0 .35em; font-size: .82em; letter-spacing: .14em; text-transform: uppercase; color: var(--gold);
+  font-weight: 600;
+}
+.credits h3:first-child { margin-top: 0; }
+.credits p { margin: .16em 0; line-height: 1.35; }
+.credits b { color: var(--ink); font-weight: 600; }
+
+.bubble {
+  position: absolute; right: 20.2%; top: 12.5%; max-width: 15.5%; padding: .6em .95em;
+  background: var(--panel); border: 1px solid var(--line); border-radius: .8em; font-size: 1.18em; line-height: 1.3;
+  box-shadow: 0 .4em 1.2em rgba(70, 45, 30, .12); opacity: 0; transform: translateX(.6em);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.bubble::after {
+  content: ""; position: absolute; right: -.42em; top: 1em; width: .75em; height: .75em; background: var(--panel);
+  border-right: 1px solid var(--line); border-top: 1px solid var(--line); transform: rotate(45deg);
+}
+.bubble.on { opacity: 1; transform: none; }
+body.still .bubble { transition: none; }
+
+#again {
+  position: absolute; left: 6%; top: 1.6%; pointer-events: auto; cursor: pointer;
+  padding: .32em 1em; border-radius: 99em; border: 1px solid var(--line); background: var(--panel);
+  font: inherit; font-size: 1em; color: var(--accent);
+}
+#again:hover { background: var(--accent-soft); }
+
+/* --- репетиция ------------------------------------------------------------------ */
+
+#rehearsal {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: .7em 1.1em .6em; font-size: max(12px, .86em);
+  background: rgba(12, 10, 20, .93); border-top: 1px solid #3c3550; color: #e9e2d2;
+}
+.reh-top { display: flex; align-items: center; gap: .6em; flex-wrap: wrap; }
+.reh-gap { flex: 1; }
+#rehearsal button {
+  padding: .3em .85em; border-radius: .45em; border: 1px solid #564d6e; background: #241f33; color: #e9e2d2;
+  font: inherit; cursor: pointer;
+}
+#rehearsal button:hover { background: #33294a; }
+#reh-play { min-width: 2.6em; }
+#reh-save { border-color: var(--gold); color: #f1d58c; }
+#reh-time { font-variant-numeric: tabular-nums; min-width: 9em; }
+#reh-act { color: #a99fc0; }
+.reh-wave { position: relative; margin-top: .55em; height: 6.4em; border-radius: .4em; overflow: hidden; background: #17131f; cursor: pointer; touch-action: none; }
+#reh-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+#reh-cursor { position: absolute; top: 0; bottom: 0; left: 0; width: 2px; margin-left: -1px; background: #fff; pointer-events: none; }
+#reh-note { margin: .45em 0 0; min-height: 1.3em; color: #a99fc0; }

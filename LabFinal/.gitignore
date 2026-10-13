@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# музыка чужая: запись каждый кладёт свою
+music/*
+!music/ПОЛОЖИТЕ_СЮДА_ЗАПИСЬ.txt
+
+# проверочная дорожка (tools/make_test_track.py) и кадры (tools/frames.py) создаются заново
+data/test_track.wav
+frames/

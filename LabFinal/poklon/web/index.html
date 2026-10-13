@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>«Поклон» — прощальный ролик</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕷</text></svg>">
+</head>
+<body>
+
+<div id="frame">
+  <div id="stage">
+    <canvas id="scene"></canvas>
+
+    <!-- Вызов лифта: без нажатия браузер не разрешит включить музыку. -->
+    <section id="call" class="layer">
+      <div class="call-box">
+        <p class="call-course" id="call-course"></p>
+        <h1 id="call-title">Поклон</h1>
+        <p class="call-sub" id="call-sub"></p>
+        <button id="call-button" type="button" disabled aria-label="Вызвать лифт"><span>▲</span></button>
+        <p class="call-status" id="call-status">Пафнутий собирает хор…</p>
+        <p class="call-keys"><kbd>F</kbd> во весь экран · <kbd>пробел</kbd> пауза · <kbd>R</kbd> репетиция</p>
+      </div>
+    </section>
+
+    <!-- Поверхность: страница благодарности. Строки появляются по секундам
+         после выхода лифта (data-at). Паука и провожающих рисует сцена. -->
+    <section id="thanks" class="layer" hidden>
+      <article class="card" data-at="1.3">
+        <header class="card-head" data-at="1.3">
+          <span class="brand-mark">П</span>
+          <span>
+            <b id="thanks-app">Поклон</b>
+            <small id="thanks-course"></small>
+          </span>
+        </header>
+        <h2 data-at="2.2" id="thanks-title"></h2>
+        <p class="card-to" data-at="3.1" id="thanks-to"></p>
+        <div id="thanks-lines"></div>
+        <p class="card-sign" id="thanks-sign"></p>
+      </article>
+      <aside class="credits" id="credits" data-at="13"></aside>
+      <div class="bubble" id="bubble"></div>
+      <button id="again" type="button" data-at="16">↺ Ещё раз</button>
+    </section>
+
+    <div id="pause" class="layer" hidden><span>пауза</span></div>
+    <div id="drop" class="layer" hidden><span>Отпустите запись — Пафнутий её послушает</span></div>
+
+    <!-- Репетиция: запись на ленте времени и две метки хора. -->
+    <section id="rehearsal" hidden>
+      <div class="reh-top">
+        <button id="reh-play" type="button" title="пробел">⏸</button>
+        <span id="reh-time">0:00</span>
+        <span id="reh-act"></span>
+        <span class="reh-gap"></span>
+        <button id="reh-choir" type="button" title="клавиша 1">Хор вступает здесь</button>
+        <button id="reh-leave" type="button" title="клавиша 2">Хор смолкает здесь</button>
+        <button id="reh-auto" type="button">Найти заново</button>
+        <button id="reh-save" type="button">Сохранить метки</button>
+        <button id="reh-close" type="button" title="клавиша R" aria-label="Закрыть репетицию">✕</button>
+      </div>
+      <div class="reh-wave">
+        <canvas id="reh-canvas"></canvas>
+        <i id="reh-cursor"></i>
+      </div>
+      <p id="reh-note"></p>
+    </section>
+  </div>
+</div>
+
+<script src="/static/score.js"></script>
+<script src="/static/spider.js"></script>
+<script src="/static/troupe.js"></script>
+<script src="/static/stage.js"></script>
+<script src="/static/show.js"></script>
+</body>
+</html>
